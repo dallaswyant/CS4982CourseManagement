@@ -72,6 +72,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Course.cs" />
     <Compile Include="CourseManagement.Master.cs">
       <DependentUpon>CourseManagement.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -95,7 +96,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
