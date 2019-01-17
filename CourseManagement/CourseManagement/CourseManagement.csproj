@@ -70,20 +70,20 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Images\EmptyFile.png" />
-    <Content Include="StudentGradeItemPage.aspx" />
+    <Content Include="TeacherGradeGradeItemPage.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TeacherGradeGradeItemPage.aspx.cs">
+      <DependentUpon>TeacherGradeGradeItemPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TeacherGradeGradeItemPage.aspx.designer.cs">
+      <DependentUpon>TeacherGradeGradeItemPage.aspx</DependentUpon>
+    </Compile>
     <Content Include="App_Code\CourseInfo.cs" />
     <Content Include="App_Code\Course.cs" />
     <Content Include="App_Code\CourseCollection.cs" />
-    <Compile Include="StudentGradeItemPage.aspx.cs">
-      <DependentUpon>StudentGradeItemPage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="StudentGradeItemPage.aspx.designer.cs">
-      <DependentUpon>StudentGradeItemPage.aspx</DependentUpon>
-    </Compile>
     <Content Include="App_Code\Teacher.cs" />
     <Content Include="App_Code\Department.cs" />
     <Content Include="App_Code\DegreeProgram.cs" />

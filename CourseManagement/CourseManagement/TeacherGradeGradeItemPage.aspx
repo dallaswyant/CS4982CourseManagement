@@ -126,7 +126,7 @@
                 <asp:Label ID="lblTimeRemaining" runat="server" Text="12 Hours"></asp:Label>
             </td>
             <td class="auto-style10">
-                <asp:Button ID="Button1" runat="server" Text="Choose File" />
+                <asp:Button ID="Button1" runat="server" Text="View File" />
             </td>
         </tr>
         <tr>
@@ -135,7 +135,8 @@
                 <asp:Label ID="Label2" runat="server" Text="Monday, January 1, 2019 11:59 AM"></asp:Label>
                 </td>
             <td class="auto-style10" >
-                <asp:Label ID="grade" runat="server" Text="___/100" ></asp:Label>
+                <asp:TextBox ID="TextBox2" runat="server" Height="16px" Width="45px"></asp:TextBox>
+                <asp:Label ID="grade" runat="server" Text="/100" Font-Size="Large" ></asp:Label>
             </td>
         </tr>
     </table>
