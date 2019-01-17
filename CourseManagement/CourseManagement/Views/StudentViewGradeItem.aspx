@@ -1,6 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CourseManagement.Master" AutoEventWireup="true" CodeBehind="TeacherGradeGradeItemPage.aspx.cs" Inherits="CourseManagement.StudentGradeItemPage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CourseManagement.Master" AutoEventWireup="true" CodeBehind="StudentViewGradeItem.aspx.cs" Inherits="CourseManagement.StudentViewGradeItem" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
     <style type="text/css">
         .auto-style1 {
             width: 1263px;
@@ -33,6 +32,7 @@
         }
         .auto-style18 {
             width: 866px;
+            height: 26px;
         }
         .feedback {
             text-align: center;
@@ -42,14 +42,21 @@
         }
         .auto-style21 {
             width: 638px;
+            height: 26px;
         }
         .auto-style22 {
             width: 792px;
+            height: 26px;
+        }
+        .auto-style23 {
+            text-align: center;
+            height: 159px;
         }
     </style>
+    
 
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
 
@@ -65,10 +72,6 @@
                 <asp:Label ID="Label3" runat="server" Text="Student Name"></asp:Label>
             </td>
             <td rowspan="2" class="auto-style9">&nbsp;</td>
-            <td>&nbsp;<asp:DropDownList ID="ddlStudentNames" runat="server">
-                <asp:ListItem>Student Name</asp:ListItem>
-                </asp:DropDownList>
-            </td>
             <td>
                 <asp:DropDownList ID="ddlAssignmentNames" runat="server">
                     <asp:ListItem>Assignment Name</asp:ListItem>
@@ -79,14 +82,10 @@
             <td class="auto-style4">
                 <asp:Label ID="Label4" runat="server" Font-Italic="True" Text="Email"></asp:Label>
             </td>
-            <td colspan="2">
+            <td>
                 &nbsp;</td>
         </tr>
     </table>
-    <br />
-    <br />
-
-    <br />
     <br />
     <table class="auto-style1">
         <tr>
@@ -126,7 +125,7 @@
                 <asp:Label ID="lblTimeRemaining" runat="server" Text="12 Hours"></asp:Label>
             </td>
             <td class="auto-style10">
-                <asp:Button ID="Button1" runat="server" Text="View File" />
+                <asp:Button ID="btnChooseFile" runat="server" Text="Choose File" />
             </td>
         </tr>
         <tr>
@@ -135,7 +134,7 @@
                 <asp:Label ID="Label2" runat="server" Text="Monday, January 1, 2019 11:59 AM"></asp:Label>
                 </td>
             <td class="auto-style10" >
-                <asp:TextBox ID="TextBox2" runat="server" Height="16px" Width="45px"></asp:TextBox>
+                <asp:Label ID="Label7" runat="server" Text="___"></asp:Label>
                 <asp:Label ID="grade" runat="server" Text="/100" Font-Size="Large" ></asp:Label>
             </td>
         </tr>
@@ -143,27 +142,25 @@
     <br/>
     <table class="auto-style1">
         <tr>
-            <td colspan="3" class="feedback">Feedback Comments</td>
+            <td colspan="3" class="feedback">Feedback Comments:</td>
         </tr>
         <tr>
-            <td colspan="3" class="feedback">
-                <asp:TextBox ID="TextBox1" runat="server" Height="149px" Width="702px"></asp:TextBox>
+            <td colspan="3" class="auto-style23">
+                <asp:TextBox ID="TextBox1" runat="server" Height="149px" Width="702px" Enabled="False" BackColor="#CCCCCC"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td class="auto-style22">&nbsp;</td>
+            <td class="auto-style22"></td>
             <td class="auto-style21">
-                <asp:Button ID="Button2" runat="server" Text="Save" />
-            </td>
+                </td>
             <td class="auto-style18">
-                <asp:Button ID="Button3" runat="server" Text="Grade" />
-            </td>
+                </td>
         </tr>
     </table>
-    <br />
     <br />
 
 
 
 
 </asp:Content>
+
