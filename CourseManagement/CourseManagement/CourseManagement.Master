@@ -4,11 +4,14 @@
 
 <html>
 <head runat="server">
-    <title></title>
+    <title>CourseHub.edu</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
+    <header>
+        <h1>CourseHub</h1>
+    </header>
     <form id="form1" runat="server">
 
         <nav>
