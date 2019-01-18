@@ -5,6 +5,7 @@
     <siteMapNode url="Views/StudentViewGradeItem.aspx" title="Student View Grade Item"  description="Allow students to view grade item" />
     <siteMapNode url="Views/TeacherGradeGradeItemPage.aspx" title="Teacher Grade Item"  description="Allow teacher to view and grade Grade Item" />
     <siteMapNode url="Views/StudentViewAllGrades.aspx" title="Student View All Grades"  description="Allow student to view all grades" />
+    <siteMapNode url="Views/TeacherViewAllGrades.aspx" title="Teacher View All Grades"  description="Allow teacher to view all grades" />
 
   </siteMapNode>
 </siteMap>

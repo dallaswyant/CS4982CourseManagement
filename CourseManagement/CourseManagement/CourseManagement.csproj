@@ -73,9 +73,11 @@
     <Content Include="Images\No image.jpg" />
     <Content Include="Views\Homepage.aspx" />
     <Content Include="Views\ManageCreateGradeItem.aspx" />
+    <Content Include="Views\RubricPage.aspx" />
     <Content Include="Views\StudentViewAllGrades.aspx" />
     <Content Include="Views\StudentViewGradeItem.aspx" />
     <Content Include="Views\TeacherGradeGradeItemPage.aspx" />
+    <Content Include="Views\TeacherViewAllGrades.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +94,13 @@
     </Compile>
     <Compile Include="Views\ManageCreateGradeItem.aspx.designer.cs">
       <DependentUpon>ManageCreateGradeItem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RubricPage.aspx.cs">
+      <DependentUpon>RubricPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\RubricPage.aspx.designer.cs">
+      <DependentUpon>RubricPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\StudentViewAllGrades.aspx.cs">
       <DependentUpon>StudentViewAllGrades.aspx</DependentUpon>
@@ -113,6 +122,13 @@
     </Compile>
     <Compile Include="Views\TeacherGradeGradeItemPage.aspx.designer.cs">
       <DependentUpon>TeacherGradeGradeItemPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TeacherViewAllGrades.aspx.cs">
+      <DependentUpon>TeacherViewAllGrades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\TeacherViewAllGrades.aspx.designer.cs">
+      <DependentUpon>TeacherViewAllGrades.aspx</DependentUpon>
     </Compile>
     <Content Include="App_Code\GradeItem.cs" />
     <Content Include="App_Code\CourseInfo.cs" />
