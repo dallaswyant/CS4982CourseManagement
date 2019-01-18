@@ -131,6 +131,8 @@
       <DependentUpon>TeacherViewAllGrades.aspx</DependentUpon>
     </Compile>
     <Content Include="App_Code\GradeItem.cs" />
+    <Content Include="App_Code\GradeItem.cs" />
+    <Content Include="App_Code\User.cs" />
     <Content Include="App_Code\CourseInfo.cs" />
     <Content Include="App_Code\Course.cs" />
     <Content Include="App_Code\CourseCollection.cs" />
