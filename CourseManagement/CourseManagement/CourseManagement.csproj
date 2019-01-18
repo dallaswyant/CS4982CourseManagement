@@ -70,34 +70,51 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Images\EmptyFile.png" />
-    <Content Include="ManageCreateGradeItem.aspx" />
-    <Content Include="StudentViewGradeItem.aspx" />
-    <Content Include="TeacherGradeGradeItemPage.aspx" />
+    <Content Include="Images\No image.jpg" />
+    <Content Include="Views\Homepage.aspx" />
+    <Content Include="Views\ManageCreateGradeItem.aspx" />
+    <Content Include="Views\StudentViewAllGrades.aspx" />
+    <Content Include="Views\StudentViewGradeItem.aspx" />
+    <Content Include="Views\TeacherGradeGradeItemPage.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\Homepage.aspx.cs">
+      <DependentUpon>Homepage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Homepage.aspx.designer.cs">
+      <DependentUpon>Homepage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageCreateGradeItem.aspx.cs">
+      <DependentUpon>ManageCreateGradeItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ManageCreateGradeItem.aspx.designer.cs">
+      <DependentUpon>ManageCreateGradeItem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StudentViewAllGrades.aspx.cs">
+      <DependentUpon>StudentViewAllGrades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\StudentViewAllGrades.aspx.designer.cs">
+      <DependentUpon>StudentViewAllGrades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StudentViewGradeItem.aspx.cs">
+      <DependentUpon>StudentViewGradeItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\StudentViewGradeItem.aspx.designer.cs">
+      <DependentUpon>StudentViewGradeItem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TeacherGradeGradeItemPage.aspx.cs">
+      <DependentUpon>TeacherGradeGradeItemPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\TeacherGradeGradeItemPage.aspx.designer.cs">
+      <DependentUpon>TeacherGradeGradeItemPage.aspx</DependentUpon>
+    </Compile>
     <Content Include="App_Code\GradeItem.cs" />
-    <Compile Include="ManageCreateGradeItem.aspx.cs">
-      <DependentUpon>ManageCreateGradeItem.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ManageCreateGradeItem.aspx.designer.cs">
-      <DependentUpon>ManageCreateGradeItem.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="StudentViewGradeItem.aspx.cs">
-      <DependentUpon>StudentViewGradeItem.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="StudentViewGradeItem.aspx.designer.cs">
-      <DependentUpon>StudentViewGradeItem.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TeacherGradeGradeItemPage.aspx.cs">
-      <DependentUpon>TeacherGradeGradeItemPage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TeacherGradeGradeItemPage.aspx.designer.cs">
-      <DependentUpon>TeacherGradeGradeItemPage.aspx</DependentUpon>
-    </Compile>
     <Content Include="App_Code\CourseInfo.cs" />
     <Content Include="App_Code\Course.cs" />
     <Content Include="App_Code\CourseCollection.cs" />
@@ -126,6 +143,7 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="Web.sitemap" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -60,7 +60,7 @@
 
 
 
-&nbsp;<br />
+    &nbsp;<br />
     <table class="auto-style1">
         <tr>
             <td class="auto-style3" rowspan="2">
@@ -88,6 +88,15 @@
     </table>
     <br />
     <table class="auto-style1">
+        <tr>
+            <td colspan="3">
+                Description:</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <asp:Label ID="lblDescription" runat="server" Font-Italic="True" Text="Assignment Description"></asp:Label>
+            </td>
+        </tr>
         <tr>
             <td colspan="2">
     <asp:Label runat="server" Font-Names="Californian FB" Font-Size="Larger" Text="Submission" Font-Bold="True"></asp:Label>
