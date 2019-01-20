@@ -21,13 +21,10 @@ namespace CourseManagement.App_Code
 
         #region Constructors
 
-        public Course(List<GradedItem> gradeItems, List<string> lectureNotes, CourseInfo courseInfo,
-            Department department, DateTime dropDeadline, int maxSeats, List<Student> enrolledStudents)
+        public Course(List<GradedItem> gradeItems, CourseInfo courseInfo, DateTime dropDeadline, int maxSeats, List<Student> enrolledStudents)
         {
             this.GradeItems = gradeItems;
-            this.LectureNotes = lectureNotes;
             this.CourseInfo = courseInfo;
-            this.Department = department;
             this.DropDeadline = dropDeadline;
             this.MaxSeats = maxSeats;
             this.EnrolledStudents = enrolledStudents;

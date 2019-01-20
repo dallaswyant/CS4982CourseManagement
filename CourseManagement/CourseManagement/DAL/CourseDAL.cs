@@ -22,7 +22,8 @@ namespace CourseManagement.DAL
             {
 
                 conn.Open();
-                GradedItemDAL
+                GradedItemDAL gradedStuff = new GradedItemDAL();
+                
                 var selectQuery = "select courses.* from courses, teacher_teaches_courses WHERE teacher_teaches_courses.courses_CRN = courses.CRN AND teacher_teaches_courses.teacher_id = @teacherID";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
@@ -64,6 +65,7 @@ namespace CourseManagement.DAL
                             string phoneNumber = reader[phoneOrdinal] == DBNull.Value ? default(string) : reader.GetString(phoneOrdinal);
                             Address currAddress = new Address(addr1, addr2, city, state, zipcode, country);
                             Person currPerson = new Person(personID, fname, minit, lname, ssn, gender, phoneNumber, bdate, currAddress);
+                            List<GradedItem> listOfGrades gradedStuff.GetGradedItemsByCRN();
                             return currPerson;
 
                         }
