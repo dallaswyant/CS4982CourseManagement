@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\DbConnection.cs" />
+    <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="Views\Homepage.aspx.cs">
       <DependentUpon>Homepage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -144,7 +145,7 @@
     </Compile>
     <Content Include="App_Code\GradeItem.cs" />
     <Content Include="App_Code\GradeItem.cs" />
-    <Content Include="App_Code\User.cs" />
+    <Compile Include="App_Code\User.cs" />
     <Content Include="App_Code\CourseInfo.cs" />
     <Content Include="App_Code\Course.cs" />
     <Content Include="App_Code\CourseCollection.cs" />
@@ -177,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
