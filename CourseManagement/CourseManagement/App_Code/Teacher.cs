@@ -15,14 +15,13 @@ namespace CourseManagement.App_Code
         public Department PrimaryDepartment { get; private set; }
         public CourseCollection CoursesTaught { get; private set; }
 
-        public Teacher(string location, string name, string email, bool isEmailPublic, string phoneNumber, Department primaryDepartment, CourseCollection coursesTaught)
+        public Teacher(string location, string name, string email, bool isEmailPublic, string phoneNumber, CourseCollection coursesTaught)
         {
             Location = location;
             Name = name;
             Email = email;
             IsEmailPublic = isEmailPublic;
             PhoneNumber = phoneNumber;
-            PrimaryDepartment = primaryDepartment;
             CoursesTaught = coursesTaught;
         }
     }

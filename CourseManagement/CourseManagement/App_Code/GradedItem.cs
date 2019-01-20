@@ -10,12 +10,17 @@ namespace CourseManagement.App_Code
         public string Name { get; private set; }
         public Dictionary<Student, double> StudentGrades { get; private set; }
         public Dictionary<Student, string> StudentFeedBack { get; private set; }
+        public int PossiblePoints { get; private set; }
+        public string GradeType { get; private set; }
 
-        public GradedItem(string name, Dictionary<Student, double> studentGrades, Dictionary<Student, string> studentFeedBack)
+
+        public GradedItem(string name, Dictionary<Student, double> studentGrades, Dictionary<Student, string> studentFeedBack, int possiblePoints, string gradeType)
         {
             Name = name;
             StudentGrades = studentGrades;
             StudentFeedBack = studentFeedBack;
+            PossiblePoints = possiblePoints;
+            GradeType = gradeType;
         }
 
         public void addGrade(Student student, double grade)

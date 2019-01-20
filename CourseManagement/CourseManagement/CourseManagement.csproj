@@ -93,7 +93,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\GradedItem.cs" />
+    <Compile Include="DAL\CourseDAL.cs" />
     <Compile Include="DAL\DbConnection.cs" />
+    <Compile Include="DAL\GradedItemDAL.cs" />
+    <Compile Include="DAL\StudentDAL.cs" />
+    <Compile Include="DAL\TeacherDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="Views\Homepage.aspx.cs">
       <DependentUpon>Homepage.aspx</DependentUpon>

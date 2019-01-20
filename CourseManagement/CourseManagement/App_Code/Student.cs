@@ -11,5 +11,11 @@ namespace CourseManagement.App_Code
         public string Email { get; private set; }
         public CourseCollection activeCourses { get; private set; }
         public DegreeProgram Program { get; private set; }
+
+        public Student(String name, String email)
+        {
+            this.name = name;
+            this.Email = email;
+        }
     }
 }
