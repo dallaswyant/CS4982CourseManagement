@@ -98,18 +98,38 @@ namespace CourseManagement.DAL
             {
                 conn.Open();
                 var selectQuery =
-                    "INSERT INTO grade_items(student_id, grade_total_points, grade_earned_points, grade_type, grade_name, grade_feedback) VALUES (@studentID,@grade_total,@grade_points,@grade_type,@grade_feedback)";
+                    "INSERT INTO grade_items(student_id, grade_total_points, grade_earned_points, grade_type, grade_name, grade_feedback) VALUES (@studentID,@grade_total,@grade_points,@grade_type,@grade_name,@grade_feedback)";
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@studentID", newItem.Student.StudentID);
                     cmd.Parameters.AddWithValue("@grade_total",newItem.Grade);
                     cmd.Parameters.AddWithValue("@grade_points",newItem.PossiblePoints);
                     cmd.Parameters.AddWithValue("@grade_type", newItem.GradeType);
+                    cmd.Parameters.AddWithValue("@grade_name", newItem.Name);
                     cmd.Parameters.AddWithValue("@grade_feedback", newItem.Feedback);
                     cmd.ExecuteNonQuery();
                 }
                 conn.Close();
             }
+        }
+
+        public void UpdateGradeItem(GradedItem newItem)
+        {
+
+            MySqlConnection conn = DbConnection.GetConnection();
+            string sql = "UPDATE grade_items SET student_id = @studentID, grade_total_points=@grade_total, grade_earned_points=@grade_points, grade_type=@grade_type, grade_name=@grade_name, grade_feedback=@grade_feedback WHERE grade_item_id=@grade_item_id";
+            conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@studentID", newItem.Student.StudentID);
+            cmd.Parameters.AddWithValue("@grade_total", newItem.Grade);
+            cmd.Parameters.AddWithValue("@grade_points", newItem.PossiblePoints);
+            cmd.Parameters.AddWithValue("@grade_type", newItem.GradeType);
+            cmd.Parameters.AddWithValue("@grade_name", newItem.Name);
+            cmd.Parameters.AddWithValue("@grade_feedback", newItem.Feedback);
+            cmd.Parameters.AddWithValue("@grade_item_id", newItem.GradeId);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+
         }
 
         #endregion
