@@ -7,12 +7,29 @@
     <title>CourseHub.edu</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+    </style>
 </head>
+
 <body>
-    <header>
-        <h1>CourseHub</h1>
-    </header>
+
     <form id="form1" runat="server">
+
+    <header>
+        
+        
+            <table class="auto-style1">
+                <tr>
+                    <td><h1>CourseHub</h1></td>
+                    <td><asp:linkbutton runat="server" PostBackUrl="Views/Homepage.aspx">Login</asp:linkbutton>
+                    </td>
+                </tr>
+            </table>
+        
+    </header>
 
         <nav>
             <asp:SiteMapPath ID="SiteMapPath1" runat="server">
@@ -20,8 +37,6 @@
         </nav>
 
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-
-
             </asp:ContentPlaceHolder>
         
     </form>
