@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace CourseManagement.App_Code
 {
+    //commment
     public class Course
     {
         #region Properties
@@ -30,6 +31,12 @@ namespace CourseManagement.App_Code
             this.MaxSeats = maxSeats;
             this.EnrolledStudents = enrolledStudents;
             this.CourseRubric = rubric;
+        }
+
+        public int CountRemainingSeats()
+        {
+            return this.MaxSeats - this.EnrolledStudents.Count;
+
         }
 
         #endregion
