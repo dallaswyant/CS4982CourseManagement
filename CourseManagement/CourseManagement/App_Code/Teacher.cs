@@ -1,29 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace CourseManagement.App_Code
+﻿namespace CourseManagement.App_Code
 {
     public class Teacher
     {
-        public string Location { get; private set; }
-        public string Name { get; private set; }
-        public string Email { get; private set; }
-        public bool IsEmailPublic { get; private set; }
-        public string PhoneNumber { get; private set; }
-        public Department PrimaryDepartment { get; private set; }
-        public CourseCollection CoursesTaught { get; private set; }
+        #region Properties
 
-        public Teacher(string location, string name, string email, bool isEmailPublic, string phoneNumber, Department primaryDepartment, CourseCollection coursesTaught)
+        public string Location { get; }
+        public string Name { get; }
+        public string Email { get; }
+        public bool IsEmailPublic { get; }
+        public string PhoneNumber { get; }
+        public Department PrimaryDepartment { get; private set; }
+        public CourseCollection CoursesTaught { get; }
+
+        #endregion
+
+        #region Constructors
+
+        public Teacher(string location, string name, string email, bool isEmailPublic, string phoneNumber,
+            CourseCollection coursesTaught)
         {
-            Location = location;
-            Name = name;
-            Email = email;
-            IsEmailPublic = isEmailPublic;
-            PhoneNumber = phoneNumber;
-            PrimaryDepartment = primaryDepartment;
-            CoursesTaught = coursesTaught;
+            this.Location = location;
+            this.Name = name;
+            this.Email = email;
+            this.IsEmailPublic = isEmailPublic;
+            this.PhoneNumber = phoneNumber;
+            this.CoursesTaught = coursesTaught;
         }
+
+        #endregion
     }
 }

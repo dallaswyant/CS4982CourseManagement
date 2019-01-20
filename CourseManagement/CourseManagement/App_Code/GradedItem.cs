@@ -1,22 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace CourseManagement.App_Code
 {
     public class GradedItem
     {
-        public string Name { get; private set; }
-        public Dictionary<Student, double> StudentGrades { get; private set; }
-        public Dictionary<Student, string> StudentFeedBack { get; private set; }
+        #region Properties
 
-        public GradedItem(string name, Dictionary<Student, double> studentGrades, Dictionary<Student, string> studentFeedBack)
+        public string Name { get; }
+        public Dictionary<Student, double> StudentGrades { get; }
+        public Dictionary<Student, string> StudentFeedBack { get; }
+        public int PossiblePoints { get; }
+        public string GradeType { get; }
+
+        #endregion
+
+        #region Constructors
+
+        public GradedItem(string name, Dictionary<Student, double> studentGrades,
+            Dictionary<Student, string> studentFeedBack, int possiblePoints, string gradeType)
         {
-            Name = name;
-            StudentGrades = studentGrades;
-            StudentFeedBack = studentFeedBack;
+            this.Name = name;
+            this.StudentGrades = studentGrades;
+            this.StudentFeedBack = studentFeedBack;
+            this.PossiblePoints = possiblePoints;
+            this.GradeType = gradeType;
         }
+
+        #endregion
+
+        #region Methods
 
         public void addGrade(Student student, double grade)
         {
@@ -29,5 +41,7 @@ namespace CourseManagement.App_Code
             //TODO error handling
             this.StudentFeedBack.Add(student, feedback);
         }
+
+        #endregion
     }
 }

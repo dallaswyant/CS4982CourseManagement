@@ -1,20 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace CourseManagement.App_Code
+﻿namespace CourseManagement.App_Code
 {
     public class DegreeProgram
     {
+        #region Properties
 
-        public string name { get; private set; }
-        public CourseCollection RequiredCourses { get; private set; }
+        public string name { get; }
+        public CourseCollection RequiredCourses { get; }
+
+        #endregion
+
+        #region Constructors
 
         public DegreeProgram(string name, CourseCollection requiredCourses)
         {
             this.name = name;
-            RequiredCourses = requiredCourses;
+            this.RequiredCourses = requiredCourses;
         }
+
+        #endregion
     }
 }

@@ -1,15 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace CourseManagement.App_Code
+﻿namespace CourseManagement.App_Code
 {
     public class Student
     {
-        public string name { get; private set; }
-        public string Email { get; private set; }
-        public CourseCollection activeCourses { get; private set; }
+        #region Properties
+
+        public string name { get; }
+        public string Email { get; }
+        public CourseCollection ActiveCourses { get; private set; }
         public DegreeProgram Program { get; private set; }
+
+        #endregion
+
+        #region Constructors
+
+        public Student(string name, string email)
+        {
+            this.name = name;
+            this.Email = email;
+        }
+
+        #endregion
     }
 }

@@ -1,33 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Web;
 
 namespace CourseManagement.App_Code
 {
     public class Course
     {
-        public List<GradedItem> GradeItems { get; private set; }
+        #region Properties
 
-        public List<string> LectureNotes { get; private set; }//TODO discuss being file paths
-        public CourseInfo CourseInfo { get; private set; }
+        public List<GradedItem> GradeItems { get; }
 
-        public Department Department { get; private set; }
-        public DateTime DropDeadline { get; private set; }
-        public int MaxSeats { get; private set; }
-        public List<Student> EnrolledStudents { get; private set; }
+        public List<string> LectureNotes { get; } //TODO discuss being file paths
+        public CourseInfo CourseInfo { get; }
 
-        public Course(List<GradedItem> gradeItems, List<string> lectureNotes, CourseInfo courseInfo, Department department, DateTime dropDeadline, int maxSeats, List<Student> enrolledStudents)
+        public Department Department { get; }
+        public DateTime DropDeadline { get; }
+        public int MaxSeats { get; }
+        public List<Student> EnrolledStudents { get; }
+
+        #endregion
+
+        #region Constructors
+
+        public Course(List<GradedItem> gradeItems, CourseInfo courseInfo, DateTime dropDeadline, int maxSeats, List<Student> enrolledStudents)
         {
-            GradeItems = gradeItems;
-            LectureNotes = lectureNotes;
-            CourseInfo = courseInfo;
-            Department = department;
-            DropDeadline = dropDeadline;
-            MaxSeats = maxSeats;
-            EnrolledStudents = enrolledStudents;
+            this.GradeItems = gradeItems;
+            this.CourseInfo = courseInfo;
+            this.DropDeadline = dropDeadline;
+            this.MaxSeats = maxSeats;
+            this.EnrolledStudents = enrolledStudents;
         }
+
+        #endregion
     }
 }
