@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CourseManagement.App_Code;
 
-namespace CourseManagement.Models
+namespace CourseManagement.App_Code
 {
     public class CourseInfo
     {

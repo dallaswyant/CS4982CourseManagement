@@ -143,16 +143,14 @@
     <Compile Include="Views\TeacherViewAllGrades.aspx.designer.cs">
       <DependentUpon>TeacherViewAllGrades.aspx</DependentUpon>
     </Compile>
-    <Content Include="App_Code\GradeItem.cs" />
-    <Content Include="App_Code\GradeItem.cs" />
     <Compile Include="App_Code\User.cs" />
-    <Content Include="App_Code\CourseInfo.cs" />
-    <Content Include="App_Code\Course.cs" />
-    <Content Include="App_Code\CourseCollection.cs" />
-    <Content Include="App_Code\Teacher.cs" />
-    <Content Include="App_Code\Department.cs" />
-    <Content Include="App_Code\DegreeProgram.cs" />
-    <Content Include="App_Code\Student.cs" />
+    <Compile Include="App_Code\CourseInfo.cs" />
+    <Compile Include="App_Code\Course.cs" />
+    <Compile Include="App_Code\CourseCollection.cs" />
+    <Compile Include="App_Code\Teacher.cs" />
+    <Compile Include="App_Code\Department.cs" />
+    <Compile Include="App_Code\DegreeProgram.cs" />
+    <Compile Include="App_Code\Student.cs" />
     <Compile Include="CourseManagement.Master.cs">
       <DependentUpon>CourseManagement.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
