@@ -17,17 +17,19 @@ namespace CourseManagement.App_Code
         public int MaxSeats { get; }
         public List<Student> EnrolledStudents { get; }
 
+        public CourseRubric CourseRubric { get; }
         #endregion
 
         #region Constructors
 
-        public Course(List<GradedItem> gradeItems, CourseInfo courseInfo, DateTime dropDeadline, int maxSeats, List<Student> enrolledStudents)
+        public Course(List<GradedItem> gradeItems, CourseInfo courseInfo, DateTime dropDeadline, int maxSeats, List<Student> enrolledStudents, CourseRubric rubric)
         {
             this.GradeItems = gradeItems;
             this.CourseInfo = courseInfo;
             this.DropDeadline = dropDeadline;
             this.MaxSeats = maxSeats;
             this.EnrolledStudents = enrolledStudents;
+            this.CourseRubric = rubric;
         }
 
         #endregion
