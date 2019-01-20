@@ -14,6 +14,5 @@ namespace CourseManagement.App_Code
             GradeTypeWithWeights = gradeTypeWithWeights;
         }
 
-
     }
 }
