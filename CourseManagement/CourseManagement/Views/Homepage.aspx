@@ -18,8 +18,9 @@
 </asp:TreeView>
         </td>
         <td>
-            <asp:Login ID="Login1" runat="server">
+            <asp:Login ID="lgnUser" runat="server" OnLoggingIn="lgnUser_OnLoggingIn">
             </asp:Login>
+            <asp:Label ID="loginResults" runat="server"></asp:Label>
         </td>
     </tr>
 </table>

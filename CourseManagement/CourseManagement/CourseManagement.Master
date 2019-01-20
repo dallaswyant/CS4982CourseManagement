@@ -24,7 +24,9 @@
             <table class="auto-style1">
                 <tr>
                     <td><h1>CourseHub</h1></td>
-                    <td><asp:linkbutton runat="server" PostBackUrl="Views/Homepage.aspx">Login</asp:linkbutton>
+                    <td>
+                        <asp:Label ID="lblUsername" runat="server"></asp:Label>
+                        <asp:linkbutton runat="server" PostBackUrl="Views/Homepage.aspx" ID="btnLogging">Login</asp:linkbutton>
                     </td>
                 </tr>
             </table>

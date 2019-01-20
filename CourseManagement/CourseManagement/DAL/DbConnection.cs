@@ -1,4 +1,6 @@
-﻿namespace CourseManagement.DAL
+﻿using MySql.Data.MySqlClient;
+
+namespace CourseManagement.DAL
 {
     public class DbConnection
     {

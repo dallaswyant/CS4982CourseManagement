@@ -31,12 +31,21 @@ namespace CourseManagement.Views {
         protected global::System.Web.UI.WebControls.TreeView TreeView1;
         
         /// <summary>
-        /// Login1 control.
+        /// lgnUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Login Login1;
+        protected global::System.Web.UI.WebControls.Login lgnUser;
+        
+        /// <summary>
+        /// loginResults control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label loginResults;
     }
 }
