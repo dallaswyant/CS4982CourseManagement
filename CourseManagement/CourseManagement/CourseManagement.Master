@@ -9,21 +9,20 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <header>
-        <h1>CourseHub</h1>
-    </header>
-    <form id="form1" runat="server">
+<header>
+    <h1>CourseHub</h1>
+</header>
+<form id="form1" runat="server">
 
-        <nav>
-            <asp:SiteMapPath ID="SiteMapPath1" runat="server">
-            </asp:SiteMapPath>
-        </nav>
+    <nav>
+        <asp:SiteMapPath ID="SiteMapPath1" runat="server">
+        </asp:SiteMapPath>
+    </nav>
 
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
 
+    </asp:ContentPlaceHolder>
 
-            </asp:ContentPlaceHolder>
-        
-    </form>
+</form>
 </body>
 </html>

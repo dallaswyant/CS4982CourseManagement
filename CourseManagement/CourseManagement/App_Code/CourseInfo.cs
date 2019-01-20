@@ -1,31 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CourseManagement.App_Code
+﻿namespace CourseManagement.App_Code
 {
     public class CourseInfo
     {
-        public string Name { get; set; }
-        public string description { get; private set; }
-        public Teacher teacher { get; private set; }
-        public string Location { get; private set; }
-        public CourseCollection preReqClasses { get; private set; }
-        public int  creditHours { get; private set; }
-        public string identifier { get; private set; }
-        public int sectionNumber { get; private set; }
+        #region Properties
 
-        public CourseInfo(string name, string description, Teacher teacher, string location, CourseCollection preReqClasses, int creditHours, string identifier, int sectionNumber)
+        public string Name { get; set; }
+        public string Description { get; }
+        public Teacher Teacher { get; }
+        public string Location { get; }
+        public CourseCollection PreReqClasses { get; }
+        public int CreditHours { get; }
+        public string Identifier { get; }
+        public int SectionNumber { get; }
+
+        #endregion
+
+        #region Constructors
+
+        public CourseInfo(string name, string description, Teacher teacher, string location,
+            CourseCollection preReqClasses, int creditHours, string identifier, int sectionNumber)
         {
-            Name = name;
-            this.description = description;
-            this.teacher = teacher;
-            Location = location;
-            this.preReqClasses = preReqClasses;
-            this.creditHours = creditHours;
-            this.identifier = identifier;
-            this.sectionNumber = sectionNumber;
+            this.Name = name;
+            this.Description = description;
+            this.Teacher = teacher;
+            this.Location = location;
+            this.PreReqClasses = preReqClasses;
+            this.CreditHours = creditHours;
+            this.Identifier = identifier;
+            this.SectionNumber = sectionNumber;
         }
+
+        #endregion
     }
 }
