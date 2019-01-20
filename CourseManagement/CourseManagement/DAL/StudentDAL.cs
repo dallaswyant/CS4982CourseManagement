@@ -27,6 +27,7 @@ namespace CourseManagement.DAL
                     cmd.Parameters.AddWithValue("@studentID", studentIDCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
+                        int studentIDOrdinal = reader.GetOrdinal("student_id");
                         int nameOrdinal = reader.GetOrdinal("name");
                         int emailOrdinal = reader.GetOrdinal("email");
 
@@ -38,8 +39,11 @@ namespace CourseManagement.DAL
                             var email = reader[emailOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(emailOrdinal);
+                            var studentID = reader[studentIDOrdinal] == DBNull.Value
+                                ? default(int)
+                                : reader.GetInt32(emailOrdinal);
 
-                            var newStudent = new Student(name, email);
+                            var newStudent = new Student(studentID, name, email);
                             return newStudent;
                         }
                     }
@@ -67,6 +71,7 @@ namespace CourseManagement.DAL
                     {
                         int nameOrdinal = reader.GetOrdinal("name");
                         int emailOrdinal = reader.GetOrdinal("email");
+                        int studentIDOrdinal = reader.GetOrdinal("student_id");
 
                         while (reader.Read())
                         {
@@ -76,8 +81,11 @@ namespace CourseManagement.DAL
                             var email = reader[emailOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(emailOrdinal);
+                            var studentID = reader[studentIDOrdinal] == DBNull.Value
+                                ? default(int)
+                                : reader.GetInt32(emailOrdinal);
 
-                            var newStudent = new Student(name, email);
+                            var newStudent = new Student(studentID, name, email);
                             studentsInCurrentClasses.Add(newStudent);
                         }
 
