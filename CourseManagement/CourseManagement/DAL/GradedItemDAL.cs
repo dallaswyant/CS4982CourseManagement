@@ -117,10 +117,9 @@ namespace CourseManagement.DAL
         {
 
             MySqlConnection conn = DbConnection.GetConnection();
-            string sql = "UPDATE grade_items SET student_id = @studentID, grade_total_points=@grade_total, grade_earned_points=@grade_points, grade_type=@grade_type, grade_name=@grade_name, grade_feedback=@grade_feedback WHERE grade_item_id=@grade_item_id";
+            string sql = "UPDATE grade_items SET grade_total_points=@grade_total, grade_earned_points=@grade_points, grade_type=@grade_type, grade_name=@grade_name, grade_feedback=@grade_feedback WHERE grade_item_id=@grade_item_id";
             conn.Open();
             MySqlCommand cmd = new MySqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("@studentID", newItem.Student.StudentID);
             cmd.Parameters.AddWithValue("@grade_total", newItem.Grade);
             cmd.Parameters.AddWithValue("@grade_points", newItem.PossiblePoints);
             cmd.Parameters.AddWithValue("@grade_type", newItem.GradeType);
