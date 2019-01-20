@@ -27,64 +27,32 @@ namespace CourseManagement.DAL
                         int emailOrdinal = reader.GetOrdinal("email");
                         int publicEmailOrdinal = reader.GetOrdinal("public_email");
                         int phoneOrdinal = reader.GetOrdinal("phone_number");
-                        int departmentOrdinal = reader.GetOrdinal("gender");
-                        int addr1Ordinal = reader.GetOrdinal("addr1");
-                        int addr2Ordinal = reader.GetOrdinal("addr2");
-                        int cityOrdinal = reader.GetOrdinal("city");
-                        int stateOrdinal = reader.GetOrdinal("state");
-                        int zipcodeOrdinal = reader.GetOrdinal("zipcode");
-                        int countryOrdinal = reader.GetOrdinal("country");
+                        int teacherIDOrdinal = reader.GetOrdinal("teacher_id");
 
                         while (reader.Read())
                         {
-                            /*
-                            var personID = reader[personIdOrdinal] == DBNull.Value
-                                ? default(int)
-                                : reader.GetInt32(personIdOrdinal);
-                            var fname = reader[fnameOrdinal] == DBNull.Value
+                            var officeLocation = reader[officeLocationOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(fnameOrdinal);
-                            var minit = reader[minitOrdinal] == DBNull.Value
-                                ? default(char)
-                                : reader.GetChar(minitOrdinal);
-                            var lname = reader[lnameOrdinal] == DBNull.Value
+                                : reader.GetString(officeLocationOrdinal);
+                            var name = reader[nameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(lnameOrdinal);
-                            var ssn = reader[ssnOrdinal] == DBNull.Value
+                                : reader.GetString(nameOrdinal);
+                            var email = reader[emailOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(ssnOrdinal);
-                            var gender = reader[genderOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(genderOrdinal);
-                            var bdate = reader[bdateOrdinal] == DBNull.Value
-                                ? default(DateTime)
-                                : reader.GetDateTime(bdateOrdinal);
-                            var addr1 = reader[addr1Ordinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(addr1Ordinal);
-                            var addr2 = reader[addr2Ordinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(addr2Ordinal);
-                            var city = reader[cityOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(cityOrdinal);
-                            var state = reader[stateOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(stateOrdinal);
-                            var zipcode = reader[zipcodeOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(zipcodeOrdinal);
-                            var country = reader[countryOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(countryOrdinal);
-                            var phoneNumber = reader[phoneOrdinal] == DBNull.Value
+                                : reader.GetString(emailOrdinal);
+                            var publicEmail = reader[publicEmailOrdinal] != DBNull.Value && reader.GetBoolean(publicEmailOrdinal);
+                            var phone = reader[phoneOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(phoneOrdinal);
-                            Address currAddress = new Address(addr1, addr2, city, state, zipcode, country);
-                            Person currPerson = new Person(personID, fname, minit, lname, ssn, gender, phoneNumber,
-                                bdate, currAddress);
-                            return currPerson;
-                            */
+                            var teacherID = reader[teacherIDOrdinal] == DBNull.Value
+                                ? default(int)
+                                : reader.GetInt32(teacherIDOrdinal);
+                            CourseDAL courseGetter = new CourseDAL();
+                            CourseCollection currTeacherCourses = courseGetter.GetCourseByTeacherID(teacherID);
+                            Teacher currTeacher = new Teacher(officeLocation, name, email, publicEmail, phone, currTeacherCourses);
+
+                            return currTeacher;
+
                         }
                     }
                 }
@@ -95,7 +63,7 @@ namespace CourseManagement.DAL
             return null;
         }
 
-        public Teacher GetTeacherByTeacherID(String teacherIDCheck)
+        public Teacher GetTeacherByTeacherID(int teacherIDCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
 
@@ -114,64 +82,28 @@ namespace CourseManagement.DAL
                         int emailOrdinal = reader.GetOrdinal("email");
                         int publicEmailOrdinal = reader.GetOrdinal("public_email");
                         int phoneOrdinal = reader.GetOrdinal("phone_number");
-                        int departmentOrdinal = reader.GetOrdinal("gender");
-                        int addr1Ordinal = reader.GetOrdinal("addr1");
-                        int addr2Ordinal = reader.GetOrdinal("addr2");
-                        int cityOrdinal = reader.GetOrdinal("city");
-                        int stateOrdinal = reader.GetOrdinal("state");
-                        int zipcodeOrdinal = reader.GetOrdinal("zipcode");
-                        int countryOrdinal = reader.GetOrdinal("country");
 
                         while (reader.Read())
                         {
-                            /*
-                            var personID = reader[personIdOrdinal] == DBNull.Value
-                                ? default(int)
-                                : reader.GetInt32(personIdOrdinal);
-                            var fname = reader[fnameOrdinal] == DBNull.Value
+                            var officeLocation = reader[officeLocationOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(fnameOrdinal);
-                            var minit = reader[minitOrdinal] == DBNull.Value
-                                ? default(char)
-                                : reader.GetChar(minitOrdinal);
-                            var lname = reader[lnameOrdinal] == DBNull.Value
+                                : reader.GetString(officeLocationOrdinal);
+                            var name = reader[nameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(lnameOrdinal);
-                            var ssn = reader[ssnOrdinal] == DBNull.Value
+                                : reader.GetString(nameOrdinal);
+                            var email = reader[emailOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(ssnOrdinal);
-                            var gender = reader[genderOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(genderOrdinal);
-                            var bdate = reader[bdateOrdinal] == DBNull.Value
-                                ? default(DateTime)
-                                : reader.GetDateTime(bdateOrdinal);
-                            var addr1 = reader[addr1Ordinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(addr1Ordinal);
-                            var addr2 = reader[addr2Ordinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(addr2Ordinal);
-                            var city = reader[cityOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(cityOrdinal);
-                            var state = reader[stateOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(stateOrdinal);
-                            var zipcode = reader[zipcodeOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(zipcodeOrdinal);
-                            var country = reader[countryOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(countryOrdinal);
-                            var phoneNumber = reader[phoneOrdinal] == DBNull.Value
+                                : reader.GetString(emailOrdinal);
+                            var publicEmail = reader[publicEmailOrdinal] != DBNull.Value && reader.GetBoolean(publicEmailOrdinal);
+                            var phone = reader[phoneOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(phoneOrdinal);
-                            Address currAddress = new Address(addr1, addr2, city, state, zipcode, country);
-                            Person currPerson = new Person(personID, fname, minit, lname, ssn, gender, phoneNumber,
-                                bdate, currAddress);
-                            return currPerson;
-                            */
+                            CourseDAL courseGetter = new CourseDAL();
+                            CourseCollection currTeacherCourses = courseGetter.GetCourseByTeacherID(teacherIDCheck);
+                            Teacher currTeacher = new Teacher(officeLocation, name, email, publicEmail, phone, currTeacherCourses);
+
+                            return currTeacher;
+                            
                         }
                     }
                 }

@@ -11,6 +11,9 @@
         .auto-style1 {
             width: 100%;
         }
+        .auto-style2 {
+            width: 1102px;
+        }
     </style>
 </head>
 
@@ -23,8 +26,16 @@
         
             <table class="auto-style1">
                 <tr>
-                    <td><h1>CourseHub</h1></td>
-                    <td><asp:linkbutton runat="server" PostBackUrl="Views/Homepage.aspx">Login</asp:linkbutton>
+                    <td class="auto-style2"><h1>CourseHub</h1></td>
+                    <td>
+                        <asp:Label ID="lblUsernameTXT" runat="server" Text="User Name:"></asp:Label>
+                        <asp:TextBox ID="tbxUsername" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="tbxUsername" ErrorMessage="*"></asp:RequiredFieldValidator>
+                        <asp:Label ID="lblPasswordTXT" runat="server" Text="Password:"></asp:Label>
+                        <asp:TextBox ID="tbxPassword" runat="server" TextMode="Password"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="tbxPassword">*</asp:RequiredFieldValidator>
+                        <asp:Label ID="lblUsername" runat="server"></asp:Label>
+                        <asp:Button ID="btnLogging" runat="server" OnClick="logging_OnClick" Text="Login" />
                     </td>
                 </tr>
             </table>
