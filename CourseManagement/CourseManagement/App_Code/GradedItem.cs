@@ -7,8 +7,9 @@ namespace CourseManagement.App_Code
         #region Properties
 
         public string Name { get; }
-        public Dictionary<Student, double> StudentGrades { get; }
-        public Dictionary<Student, string> StudentFeedBack { get; }
+        public Student Student { get; private set; }
+        public double Grade { get; }
+        public string Feedback { get; set; }
         public int PossiblePoints { get; }
         public string GradeType { get; }
         public int GradeId { get; private set; }
@@ -17,12 +18,13 @@ namespace CourseManagement.App_Code
 
         #region Constructors
 
-        public GradedItem(string name, Dictionary<Student, double> studentGrades,
-            Dictionary<Student, string> studentFeedBack, int possiblePoints, string gradeType, int gradeId)
+        public GradedItem(string name, Student student,double grade,
+            string feedBack, int possiblePoints, string gradeType, int gradeId)
         {
             this.Name = name;
-            this.StudentGrades = studentGrades;
-            this.StudentFeedBack = studentFeedBack;
+            this.Student = student;
+            this.Grade = grade;
+            this.Feedback = feedBack;
             this.PossiblePoints = possiblePoints;
             this.GradeType = gradeType;
             this.GradeId = gradeId;
@@ -32,17 +34,9 @@ namespace CourseManagement.App_Code
 
         #region Methods
 
-        public void addGrade(Student student, double grade)
-        {
-            //TODO error handling
-            this.StudentGrades.Add(student, grade);
-        }
+        
 
-        public void addFeedback(Student student, string feedback)
-        {
-            //TODO error handling
-            this.StudentFeedBack.Add(student, feedback);
-        }
+        
 
         #endregion
     }
