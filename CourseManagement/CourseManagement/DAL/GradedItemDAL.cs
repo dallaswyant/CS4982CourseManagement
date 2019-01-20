@@ -31,6 +31,7 @@ namespace CourseManagement.DAL
                         int gradeTypeOrdinal = reader.GetOrdinal("grade_type");
                         int gradeNameOrdinal = reader.GetOrdinal("grade_name");
                         int gradeFeedbackOrdinal = reader.GetOrdinal("grade_feedback");
+                        int gradeItemIdOrdinal = reader.GetOrdinal("grade_item_id");
 
                         while (reader.Read())
                         {
@@ -52,6 +53,9 @@ namespace CourseManagement.DAL
                             var gradeFeedback = reader[gradeFeedbackOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(gradeFeedbackOrdinal);
+                            var gradeItemId = reader[gradeItemIdOrdinal] == DBNull.Value
+                                ? default(int)
+                                : reader.GetInt32(gradeItemIdOrdinal);
 
                             var currStudent = studentGetter.GetStudentByStudentID(studentID);
                             var studentGrade = new Dictionary<Student, double>();
@@ -59,12 +63,33 @@ namespace CourseManagement.DAL
                             var studentFeedback = new Dictionary<Student, string>();
                             studentFeedback.Add(currStudent, gradeFeedback);
                             var currGradedItem = new GradedItem(gradeName, studentGrade, studentFeedback, totalPoints,
-                                gradeType);
+                                gradeType,gradeItemId);
                             grades.Add(currGradedItem);
                         }
 
                         return grades;
                     }
+                }
+            }
+        }
+
+        public void deleteGradedItem(GradedItem gradedItem)
+        {
+            MySqlConnection conn = DbConnection.GetConnection();
+            var coursesTaught = new CourseCollection();
+            var grades = new List<GradedItem>();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery =
+                    "Delete From `grade_items` Where grade_item_id = @gradeId ";
+                var studentGetter = new StudentDAL();
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@gradeId", gradedItem.GradeId);
+
+                    cmd.ExecuteNonQuery();
+
                 }
             }
         }

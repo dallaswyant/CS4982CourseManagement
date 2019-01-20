@@ -11,19 +11,21 @@ namespace CourseManagement.App_Code
         public Dictionary<Student, string> StudentFeedBack { get; }
         public int PossiblePoints { get; }
         public string GradeType { get; }
+        public int GradeId { get; private set; }
 
         #endregion
 
         #region Constructors
 
         public GradedItem(string name, Dictionary<Student, double> studentGrades,
-            Dictionary<Student, string> studentFeedBack, int possiblePoints, string gradeType)
+            Dictionary<Student, string> studentFeedBack, int possiblePoints, string gradeType, int gradeId)
         {
             this.Name = name;
             this.StudentGrades = studentGrades;
             this.StudentFeedBack = studentFeedBack;
             this.PossiblePoints = possiblePoints;
             this.GradeType = gradeType;
+            this.GradeId = gradeId;
         }
 
         #endregion
