@@ -92,6 +92,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\GradedItem.cs" />
     <Compile Include="DAL\DbConnection.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="Views\Homepage.aspx.cs">
