@@ -22,6 +22,7 @@ namespace CourseManagement.DAL
             {
 
                 conn.Open();
+                GradedItemDAL
                 var selectQuery = "select courses.* from courses, teacher_teaches_courses WHERE teacher_teaches_courses.courses_CRN = courses.CRN AND teacher_teaches_courses.teacher_id = @teacherID";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
@@ -29,6 +30,7 @@ namespace CourseManagement.DAL
                     cmd.Parameters.AddWithValue("@teacherID", teacherIDCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
+                        
                         int personIdOrdinal = reader.GetOrdinal("personID");
                         int fnameOrdinal = reader.GetOrdinal("fname");
                         int minitOrdinal = reader.GetOrdinal("minit");
