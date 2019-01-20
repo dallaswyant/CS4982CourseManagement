@@ -109,7 +109,7 @@
         <tr>
             <td class="auto-style7">&nbsp;</td>
             <td colspan="3">
-                <asp:TextBox ID="tbxWeight" runat="server"></asp:TextBox>
+                <asp:Label ID="lblWeight" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>
