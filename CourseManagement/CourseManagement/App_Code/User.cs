@@ -1,25 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace CourseManagement.App_Code
+﻿namespace CourseManagement.App_Code
 {
     public class User
     {
-        public string UserID { get; private set; }
-        public string password { get; private set; }
-        public string role { get; private set; }
+        #region Properties
+
+        public string UserId { get; }
+        public string Password { get; }
+        public string Role { get; }
+
+        #endregion
+
+        #region Constructors
 
         public User(string userID, string password, string role)
         {
-            UserID = userID;
-            this.password = password;
-            this.role = role;
+            this.UserId = userID;
+            this.Password = password;
+            this.Role = role;
         }
 
         public User()
         {
         }
+
+        #endregion
     }
 }
