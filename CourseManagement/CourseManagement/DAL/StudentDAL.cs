@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CourseManagement.App_Code;
 using MySql.Data.MySqlClient;
 
@@ -41,6 +42,46 @@ namespace CourseManagement.DAL
                             var newStudent = new Student(name, email);
                             return newStudent;
                         }
+                    }
+                }
+
+                conn.Close();
+            }
+
+            return null;
+        }
+
+        public List<Student> GetStudentsByCRN(int CRNCheck)
+        {
+            MySqlConnection conn = DbConnection.GetConnection();
+            List<Student> studentsInCurrentClasses = new List<Student>();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery = "SELECT * from students WHERE students.student_id = @studentID";
+
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        int nameOrdinal = reader.GetOrdinal("name");
+                        int emailOrdinal = reader.GetOrdinal("email");
+
+                        while (reader.Read())
+                        {
+                            var name = reader[nameOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(nameOrdinal);
+                            var email = reader[emailOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(emailOrdinal);
+
+                            var newStudent = new Student(name, email);
+                            studentsInCurrentClasses.Add(newStudent);
+                        }
+
+                        return studentsInCurrentClasses;
                     }
                 }
 
