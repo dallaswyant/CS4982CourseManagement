@@ -70,6 +70,70 @@ namespace CourseManagement.DAL
             }
         }
 
+
+        public List<GradedItem> GetGradedItemsByStudentId(int studentId, int CRNCheck)
+        {
+            MySqlConnection conn = DbConnection.GetConnection();
+            var coursesTaught = new CourseCollection();
+            var grades = new List<GradedItem>();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery =
+                    "SELECT grade_items.* from grade_items, grade_belongs_to_courses WHERE grade_items.grade_item_id = grade_belongs_to_courses.grade_item_id AND grade_belongs_to_courses.courses_CRN = @CRN AND student_id = @studentId";
+                var studentGetter = new StudentDAL();
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@CRN", CRNCheck);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        int studentIdOrdinal = reader.GetOrdinal("studentID");
+                        int totalPointsOrdinal = reader.GetOrdinal("grade_total_points");
+                        int gradeEarnedOrdinal = reader.GetOrdinal("grade_earned_points");
+                        int gradeTypeOrdinal = reader.GetOrdinal("grade_type");
+                        int gradeNameOrdinal = reader.GetOrdinal("grade_name");
+                        int gradeFeedbackOrdinal = reader.GetOrdinal("grade_feedback");
+                        int gradeItemIdOrdinal = reader.GetOrdinal("grade_item_id");
+
+                        while (reader.Read())
+                        {
+                            var studentID = reader[studentIdOrdinal] == DBNull.Value
+                                ? default(int)
+                                : reader.GetInt32(studentIdOrdinal);
+                            var totalPoints = reader[totalPointsOrdinal] == DBNull.Value
+                                ? default(int)
+                                : reader.GetInt32(totalPointsOrdinal);
+                            var gradeEarned = reader[gradeEarnedOrdinal] == DBNull.Value
+                                ? default(int)
+                                : reader.GetInt32(gradeEarnedOrdinal);
+                            var gradeType = reader[gradeTypeOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(gradeTypeOrdinal);
+                            var gradeName = reader[gradeNameOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(gradeNameOrdinal);
+                            var gradeFeedback = reader[gradeFeedbackOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(gradeFeedbackOrdinal);
+                            var gradeItemId = reader[gradeItemIdOrdinal] == DBNull.Value
+                                ? default(int)
+                                : reader.GetInt32(gradeItemIdOrdinal);
+
+                            var currStudent = studentGetter.GetStudentByStudentID(studentID);
+                            
+                            var currGradedItem = new GradedItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
+                                gradeType,gradeItemId);
+                            grades.Add(currGradedItem);
+                        }
+
+                        return grades;
+                    }
+                }
+            }
+        }
+
+
+
         public void deleteGradedItem(GradedItem gradedItem)
         {
             MySqlConnection conn = DbConnection.GetConnection();
