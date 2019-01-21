@@ -1,4 +1,5 @@
 ﻿using System;
+using CourseManagement.DAL;
 
 namespace CourseManagement
 {
@@ -8,6 +9,7 @@ namespace CourseManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
         }
 
         #endregion
