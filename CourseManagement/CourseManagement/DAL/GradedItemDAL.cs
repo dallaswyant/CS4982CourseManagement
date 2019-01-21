@@ -25,7 +25,7 @@ namespace CourseManagement.DAL
                     cmd.Parameters.AddWithValue("@CRN", CRNCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        int studentIdOrdinal = reader.GetOrdinal("studentID");
+                        int studentIdOrdinal = reader.GetOrdinal("student_uid");
                         int totalPointsOrdinal = reader.GetOrdinal("grade_total_points");
                         int gradeEarnedOrdinal = reader.GetOrdinal("grade_earned_points");
                         int gradeTypeOrdinal = reader.GetOrdinal("grade_type");
@@ -35,9 +35,9 @@ namespace CourseManagement.DAL
 
                         while (reader.Read())
                         {
-                            var studentID = reader[studentIdOrdinal] == DBNull.Value
-                                ? default(int)
-                                : reader.GetInt32(studentIdOrdinal);
+                            var studentUID = reader[studentIdOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(studentIdOrdinal);
                             var totalPoints = reader[totalPointsOrdinal] == DBNull.Value
                                 ? default(int)
                                 : reader.GetInt32(totalPointsOrdinal);
@@ -57,7 +57,7 @@ namespace CourseManagement.DAL
                                 ? default(int)
                                 : reader.GetInt32(gradeItemIdOrdinal);
 
-                            var currStudent = studentGetter.GetStudentByStudentID(studentID);
+                            var currStudent = studentGetter.GetStudentByStudentID(studentUID);
                             
                             var currGradedItem = new GradedItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
                                 gradeType,gradeItemId);
@@ -87,7 +87,7 @@ namespace CourseManagement.DAL
                     cmd.Parameters.AddWithValue("@CRN", CRNCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        int studentIdOrdinal = reader.GetOrdinal("studentID");
+                        int studentUIDOrdinal = reader.GetOrdinal("studentUID");
                         int totalPointsOrdinal = reader.GetOrdinal("grade_total_points");
                         int gradeEarnedOrdinal = reader.GetOrdinal("grade_earned_points");
                         int gradeTypeOrdinal = reader.GetOrdinal("grade_type");
@@ -97,9 +97,9 @@ namespace CourseManagement.DAL
 
                         while (reader.Read())
                         {
-                            var studentID = reader[studentIdOrdinal] == DBNull.Value
-                                ? default(int)
-                                : reader.GetInt32(studentIdOrdinal);
+                            var studentUID = reader[studentUIDOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(studentUIDOrdinal);
                             var totalPoints = reader[totalPointsOrdinal] == DBNull.Value
                                 ? default(int)
                                 : reader.GetInt32(totalPointsOrdinal);
@@ -119,7 +119,7 @@ namespace CourseManagement.DAL
                                 ? default(int)
                                 : reader.GetInt32(gradeItemIdOrdinal);
 
-                            var currStudent = studentGetter.GetStudentByStudentID(studentID);
+                            var currStudent = studentGetter.GetStudentByStudentID(studentUID);
                             
                             var currGradedItem = new GradedItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
                                 gradeType,gradeItemId);
@@ -162,10 +162,10 @@ namespace CourseManagement.DAL
             {
                 conn.Open();
                 var selectQuery =
-                    "INSERT INTO grade_items(student_id, grade_total_points, grade_earned_points, grade_type, grade_name, grade_feedback) VALUES (@studentID,@grade_total,@grade_points,@grade_type,@grade_name,@grade_feedback)";
+                    "INSERT INTO grade_items(student_id, grade_total_points, grade_earned_points, grade_type, grade_name, grade_feedback) VALUES (@studentUID,@grade_total,@grade_points,@grade_type,@grade_name,@grade_feedback)";
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@studentID", newItem.Student.StudentID);
+                    cmd.Parameters.AddWithValue("@studentUID", newItem.Student.StudentUID);
                     cmd.Parameters.AddWithValue("@grade_total",newItem.Grade);
                     cmd.Parameters.AddWithValue("@grade_points",newItem.PossiblePoints);
                     cmd.Parameters.AddWithValue("@grade_type", newItem.GradeType);

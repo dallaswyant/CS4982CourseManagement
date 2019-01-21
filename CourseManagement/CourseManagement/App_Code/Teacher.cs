@@ -3,7 +3,7 @@
     public class Teacher
     {
         #region Properties
-
+        public string TeacherUID { get; }
         public string Location { get; }
         public string Name { get; }
         public string Email { get; }
@@ -17,7 +17,7 @@
         #region Constructors
 
         public Teacher(string location, string name, string email, bool isEmailPublic, string phoneNumber,
-            CourseCollection coursesTaught)
+            CourseCollection coursesTaught, string teacherUID)
         {
             this.Location = location;
             this.Name = name;
@@ -25,6 +25,7 @@
             this.IsEmailPublic = isEmailPublic;
             this.PhoneNumber = phoneNumber;
             this.CoursesTaught = coursesTaught;
+            this.TeacherUID = teacherUID;
         }
 
         #endregion

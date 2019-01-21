@@ -22,12 +22,12 @@ namespace CourseManagement.DAL
                 {
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
+                        int teacherUIDOrdinal = reader.GetOrdinal("uid");
                         int officeLocationOrdinal = reader.GetOrdinal("office_location");
                         int nameOrdinal = reader.GetOrdinal("name");
                         int emailOrdinal = reader.GetOrdinal("email");
                         int publicEmailOrdinal = reader.GetOrdinal("public_email");
                         int phoneOrdinal = reader.GetOrdinal("phone_number");
-                        int teacherIDOrdinal = reader.GetOrdinal("teacher_id");
 
                         while (reader.Read())
                         {
@@ -44,12 +44,12 @@ namespace CourseManagement.DAL
                             var phone = reader[phoneOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(phoneOrdinal);
-                            var teacherID = reader[teacherIDOrdinal] == DBNull.Value
-                                ? default(int)
-                                : reader.GetInt32(teacherIDOrdinal);
+                            var teacherUID = reader[teacherUIDOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(teacherUIDOrdinal);
                             CourseDAL courseGetter = new CourseDAL();
-                            CourseCollection currTeacherCourses = courseGetter.GetCourseByTeacherID(teacherID);
-                            Teacher currTeacher = new Teacher(officeLocation, name, email, publicEmail, phone, currTeacherCourses);
+                            CourseCollection currTeacherCourses = courseGetter.GetCourseByTeacherID(teacherUID);
+                            Teacher currTeacher = new Teacher(officeLocation, name, email, publicEmail, phone, currTeacherCourses, teacherUID);
 
                             return currTeacher;
 
@@ -77,6 +77,7 @@ namespace CourseManagement.DAL
                 {
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
+                        int teacherUIDOrdinal = reader.GetOrdinal("uid");
                         int officeLocationOrdinal = reader.GetOrdinal("office_location");
                         int nameOrdinal = reader.GetOrdinal("name");
                         int emailOrdinal = reader.GetOrdinal("email");
@@ -98,9 +99,12 @@ namespace CourseManagement.DAL
                             var phone = reader[phoneOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(phoneOrdinal);
+                            var teacherUID = reader[teacherUIDOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(teacherUIDOrdinal);
                             CourseDAL courseGetter = new CourseDAL();
-                            CourseCollection currTeacherCourses = courseGetter.GetCourseByTeacherID(teacherIDCheck);
-                            Teacher currTeacher = new Teacher(officeLocation, name, email, publicEmail, phone, currTeacherCourses);
+                            CourseCollection currTeacherCourses = courseGetter.GetCourseByTeacherID(teacherUID);
+                            Teacher currTeacher = new Teacher(officeLocation, name, email, publicEmail, phone, currTeacherCourses,teacherUID);
 
                             return currTeacher;
                             

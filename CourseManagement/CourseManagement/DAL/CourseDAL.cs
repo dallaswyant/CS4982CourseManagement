@@ -9,12 +9,8 @@ namespace CourseManagement.DAL
 {
     public class CourseDAL
     {
-        /// <summary>
-        /// Gets the person by identifier.
-        /// </summary>
-        /// <param name="personIDCheck">The person identifier check.</param>
-        /// <returns>a person with the matching personID</returns>
-        public CourseCollection GetCourseByTeacherID(int teacherIDCheck)
+
+        public CourseCollection GetCourseByTeacherID(string teacherIDCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             CourseCollection coursesTaught = new CourseCollection();
@@ -24,7 +20,7 @@ namespace CourseManagement.DAL
                 conn.Open();
                 GradedItemDAL gradedStuff = new GradedItemDAL();
                 
-                var selectQuery = "select courses.*, rubrics.assignment_types, rubrics.weight_per_type from courses, teacher_teaches_courses, rubrics WHERE teacher_teaches_courses.courses_CRN = courses.CRN AND courses.rubric_id = rubrics.rubric_id AND teacher_teaches_courses.teacher_id = @teacherID";
+                var selectQuery = "select courses.*, rubrics.assignment_types, rubrics.weight_per_type from courses, teacher_teaches_courses, rubrics WHERE teacher_teaches_courses.courses_CRN = courses.CRN AND teacher_teaches_courses.teacher_uid = @teacherUID";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
@@ -82,7 +78,7 @@ namespace CourseManagement.DAL
                             CourseInfo currCourseInfo = new CourseInfo(courseName, currTeacher, location, creditHours, CRN, sectionNumber);
                             StudentDAL studentGetter = new StudentDAL();
                             List<Student> studentsInCourse = studentGetter.GetStudentsByCRN(CRN);
-                            Course currentCourse = new Course(listOfGrades, currCourseInfo, dropDate, maxSeats, studentsInCourse, rubric);
+                            Course currentCourse = new Course(listOfGrades, currCourseInfo, dropDate, maxSeats, studentsInCourse);
                             coursesTaught.Add(currentCourse);
                             
                         }
@@ -99,7 +95,7 @@ namespace CourseManagement.DAL
         /// </summary>
         /// <param name="personIDCheck">The person identifier check.</param>
         /// <returns>a person with the matching personID</returns>
-        public CourseCollection GetCoursesByStudentID(int studentIDCheck)
+        public CourseCollection GetCoursesByStudentID(string studentIDCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             CourseCollection coursesTaken = new CourseCollection();
@@ -163,7 +159,7 @@ namespace CourseManagement.DAL
                             CourseInfo currCourseInfo = new CourseInfo(courseName, currTeacher, location, creditHours, CRN, sectionNumber);
                             StudentDAL studentGetter = new StudentDAL();
                             List<Student> studentsInCourse = studentGetter.GetStudentsByCRN(CRN);
-                            Course currentCourse = new Course(listOfGrades, currCourseInfo, dropDate, maxSeats, studentsInCourse, rubric);
+                            Course currentCourse = new Course(listOfGrades, currCourseInfo, dropDate, maxSeats, studentsInCourse);
                             coursesTaken.Add(currentCourse);
 
                         }

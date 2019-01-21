@@ -14,20 +14,20 @@ namespace CourseManagement.DAL
         /// </summary>
         /// <param name="personIDCheck">The person identifier check.</param>
         /// <returns>a person with the matching personID</returns>
-        public Student GetStudentByStudentID(int studentIDCheck)
+        public Student GetStudentByStudentID(string studentUIDCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             using (conn)
             {
                 conn.Open();
-                var selectQuery = "SELECT * from students WHERE students.student_id = @studentID";
+                var selectQuery = "SELECT * from students WHERE students.uid = @studentUID";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@studentID", studentIDCheck);
+                    cmd.Parameters.AddWithValue("@studentUID", studentUIDCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        int studentIDOrdinal = reader.GetOrdinal("student_id");
+                        int studentUIDOrdinal = reader.GetOrdinal("uid");
                         int nameOrdinal = reader.GetOrdinal("name");
                         int emailOrdinal = reader.GetOrdinal("email");
 
@@ -39,11 +39,11 @@ namespace CourseManagement.DAL
                             var email = reader[emailOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(emailOrdinal);
-                            var studentID = reader[studentIDOrdinal] == DBNull.Value
-                                ? default(int)
-                                : reader.GetInt32(emailOrdinal);
+                            var studentUID = reader[studentUIDOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(emailOrdinal);
 
-                            var newStudent = new Student(studentID, name, email);
+                            var newStudent = new Student(studentUID, name, email);
                             return newStudent;
                         }
                     }
@@ -62,7 +62,7 @@ namespace CourseManagement.DAL
             using (conn)
             {
                 conn.Open();
-                var selectQuery = "SELECT * from students WHERE students.student_id = @studentID";
+                var selectQuery = "select students.* from students, student_has_courses WHERE students.uid=student_has_courses.student_uid AND student_has_courses.courses_CRN=@CRNCheck";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
@@ -71,7 +71,7 @@ namespace CourseManagement.DAL
                     {
                         int nameOrdinal = reader.GetOrdinal("name");
                         int emailOrdinal = reader.GetOrdinal("email");
-                        int studentIDOrdinal = reader.GetOrdinal("student_id");
+                        int studentUIDOrdinal = reader.GetOrdinal("uid");
 
                         while (reader.Read())
                         {
@@ -81,11 +81,11 @@ namespace CourseManagement.DAL
                             var email = reader[emailOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(emailOrdinal);
-                            var studentID = reader[studentIDOrdinal] == DBNull.Value
-                                ? default(int)
-                                : reader.GetInt32(emailOrdinal);
+                            var studentUID = reader[studentUIDOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(emailOrdinal);
 
-                            var newStudent = new Student(studentID, name, email);
+                            var newStudent = new Student(studentUID, name, email);
                             studentsInCurrentClasses.Add(newStudent);
                         }
 
