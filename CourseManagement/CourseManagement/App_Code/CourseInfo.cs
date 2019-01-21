@@ -17,11 +17,11 @@
 
         #region Constructors
 
-        public CourseInfo(string name, Teacher teacher, string location,
+        public CourseInfo(string name, string location,
              int creditHours, int CRN, string sectionNumber)
         {
             this.Name = name;
-            this.Teacher = teacher;
+          //  this.Teacher = teacher;
             this.Location = location;
             this.CreditHours = creditHours;
             this.CRN = CRN;

@@ -52,12 +52,10 @@ namespace CourseManagement.DAL
                             string location = reader[locationOrdinal] == DBNull.Value ? default(string) : reader.GetString(locationOrdinal);
                             
                             List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
-                            TeacherDAL teacherGetter = new TeacherDAL();
-                            Teacher currTeacher = teacherGetter.GetTeacherByTeacherID(teacherIDCheck);
                             
-                            CourseInfo currCourseInfo = new CourseInfo(courseName, currTeacher, location, creditHours, CRN, sectionNumber);
-                            StudentDAL studentGetter = new StudentDAL();
-                            List<Student> studentsInCourse = studentGetter.GetStudentsByCRN(CRN);
+                           
+                            
+                            CourseInfo currCourseInfo = new CourseInfo(courseName, location, creditHours, CRN, sectionNumber);
                             Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
                             coursesTaught.Add(currentCourse);
                             
@@ -106,8 +104,8 @@ namespace CourseManagement.DAL
 
                             List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
                             TeacherDAL teacherGetter = new TeacherDAL();
-                            Teacher currTeacher = teacherGetter.GetAllTeachers();
-                            CourseInfo currCourseInfo = new CourseInfo(courseName, currTeacher, location, creditHours, CRN, sectionNumber);
+                            
+                            CourseInfo currCourseInfo = new CourseInfo(courseName, location, creditHours, CRN, sectionNumber);
                             Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
                             coursesTaken.Add(currentCourse);
 

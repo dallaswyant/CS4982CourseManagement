@@ -15,7 +15,7 @@
             <td class="auto-style3" rowspan="2">
                 <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1">
                 </asp:GridView>
-                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetCoursesByStudentID" TypeName="CourseManagement.DAL.CourseDAL">
+                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByStudentID" TypeName="CourseManagement.DAL.CourseDAL">
                     <SelectParameters>
                         <asp:SessionParameter Name="studentUIDCheck" SessionField="UserID" Type="String" />
                     </SelectParameters>
