@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CourseManagement.Master" AutoEventWireup="true" CodeBehind="TeacherGradeGradeItemPage.aspx.cs" Inherits="CourseManagement.StudentGradeItemPage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CourseManagement.Master" AutoEventWireup="true" CodeBehind="TeacherGradeGradeItemPage.aspx.cs" Inherits="CourseManagement.TeacherGradeGradeItemPage" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style type="text/css">
@@ -57,7 +57,7 @@
 
             </td>
             <td class="auto-style4">
-                <asp:Label ID="Label3" runat="server" Text="Student Name"></asp:Label>
+                <asp:Label ID="Label3" runat="server" Text="Teacher Name"></asp:Label>
             </td>
             <td rowspan="2" class="auto-style9">&nbsp;</td>
             <td>
