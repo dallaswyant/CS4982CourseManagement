@@ -29,14 +29,17 @@
     <br />
     <asp:GridView ID="gvwStudents" runat="server" OnSelectedIndexChanging="gvwGrade_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsStudents">
         <Columns>
-            <asp:BoundField HeaderText="name" DataField="name" ReadOnly="True" SortExpression="name"/>
-            <asp:BoundField HeaderText="StudentUID" DataField="StudentUID" ReadOnly="True" SortExpression="StudentUID"/>
-            <asp:BoundField HeaderText="Email" DataField="Email" ReadOnly="True" SortExpression="Email"/>
+            <asp:BoundField DataField="Student" HeaderText="Student" SortExpression="Student" />
+            <asp:BoundField HeaderText="Grade" DataField="Grade" ReadOnly="True" SortExpression="Grade"/>
+            <asp:BoundField HeaderText="PossiblePoints" DataField="PossiblePoints" ReadOnly="True" SortExpression="PossiblePoints"/>
+            <asp:BoundField DataField="GradeType" HeaderText="GradeType" ReadOnly="True" SortExpression="GradeType" />
+            <asp:BoundField HeaderText="Feedback" DataField="Feedback" SortExpression="Feedback"/>
         </Columns>
     </asp:GridView>
-    <asp:ObjectDataSource ID="odsStudents" runat="server" SelectMethod="GetStudentsByCRN" TypeName="CourseManagement.DAL.StudentDAL">
+    <asp:ObjectDataSource ID="odsStudents" runat="server" SelectMethod="GetGradedItemsByCRNAndGradeName" TypeName="CourseManagement.DAL.GradedItemDAL">
         <SelectParameters>
             <asp:ControlParameter ControlID="ddlCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
+            <asp:ControlParameter ControlID="ddlAssignments" Name="gradeName" PropertyName="SelectedValue" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
     <br/>

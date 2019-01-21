@@ -57,13 +57,13 @@
 
             </td>
             <td class="auto-style4">
-                <asp:Label ID="Label3" runat="server" Text="Teacher Name"></asp:Label>
+                <asp:Label ID="Label3" runat="server" Text="Teacher name"></asp:Label>
             </td>
             <td rowspan="2" class="auto-style9">&nbsp;</td>
             <td>
                 &nbsp;
                 <asp:DropDownList ID="ddlStudentNames" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlStudentNames_OnSelectedIndexChanged">
-                    <asp:ListItem>Student Name</asp:ListItem>
+                    <asp:ListItem>Student name</asp:ListItem>
                 </asp:DropDownList>
             </td>
             <td>
@@ -72,7 +72,7 @@
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
                     <asp:DropDownList ID="ddlAssignmentNames" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAssignmentNames_SelectedIndexChanged" >
-                        <asp:ListItem >Assignment Name</asp:ListItem>
+                        <asp:ListItem >Assignment name</asp:ListItem>
                     
                     </asp:DropDownList>
                     </ContentTemplate>

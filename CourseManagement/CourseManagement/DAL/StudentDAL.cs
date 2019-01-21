@@ -12,7 +12,7 @@ namespace CourseManagement.DAL
         /// <summary>
         ///     Gets the person by identifier.
         /// </summary>
-        /// <param Name="personIDCheck">The person identifier check.</param>
+        /// <param name="personIDCheck">The person identifier check.</param>
         /// <returns>a person with the matching personID</returns>
         public Student GetStudentByStudentID(string studentUIDCheck)
         {
@@ -28,7 +28,7 @@ namespace CourseManagement.DAL
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         int studentUIDOrdinal = reader.GetOrdinal("uid");
-                        int nameOrdinal = reader.GetOrdinal("Name");
+                        int nameOrdinal = reader.GetOrdinal("name");
                         int emailOrdinal = reader.GetOrdinal("email");
 
                         while (reader.Read())
@@ -69,7 +69,7 @@ namespace CourseManagement.DAL
                     cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        int nameOrdinal = reader.GetOrdinal("Name");
+                        int nameOrdinal = reader.GetOrdinal("name");
                         int emailOrdinal = reader.GetOrdinal("email");
                         int studentUIDOrdinal = reader.GetOrdinal("uid");
 

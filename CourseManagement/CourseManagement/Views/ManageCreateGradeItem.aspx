@@ -46,7 +46,7 @@
                 &nbsp;
             </td>
             <td colspan="3">
-                Assignment Name:
+                Assignment name:
             </td>
         </tr>
         <tr>

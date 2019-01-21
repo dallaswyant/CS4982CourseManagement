@@ -70,12 +70,12 @@
 
             </td>
             <td class="auto-style4">
-                <asp:Label ID="Label3" runat="server" Text="Student Name"></asp:Label>
+                <asp:Label ID="Label3" runat="server" Text="Student name"></asp:Label>
             </td>
             <td rowspan="2" class="auto-style9">&nbsp;</td>
             <td>
                 <asp:DropDownList ID="ddlAssignmentNames" runat="server">
-                    <asp:ListItem>Assignment Name</asp:ListItem>
+                    <asp:ListItem>Assignment name</asp:ListItem>
                 </asp:DropDownList>
             </td>
         </tr>

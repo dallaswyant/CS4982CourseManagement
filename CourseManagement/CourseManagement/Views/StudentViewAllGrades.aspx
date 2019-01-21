@@ -20,7 +20,7 @@
                 </asp:ObjectDataSource>
                 <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1">
                     <Columns>
-                        <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
+                        <asp:BoundField DataField="name" HeaderText="name" SortExpression="name" />
                         <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="True" SortExpression="Description" />
                         <asp:BoundField DataField="Location" HeaderText="Location" ReadOnly="True" SortExpression="Location" />
                         <asp:BoundField DataField="CreditHours" HeaderText="CreditHours" ReadOnly="True" SortExpression="CreditHours" />
@@ -54,7 +54,7 @@
     <br />
     <asp:GridView ID="GridView1" runat="server" OnSelectedIndexChanging="GridView1_SelectedIndexChanging">
         <Columns>
-            <asp:BoundField HeaderText="Assignment Name"/>
+            <asp:BoundField HeaderText="Assignment name"/>
             <asp:BoundField HeaderText="Assignment Type"/>
             <asp:BoundField HeaderText="Weight"/>
             <asp:BoundField HeaderText="Grade"/>
