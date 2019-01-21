@@ -23,12 +23,11 @@ namespace CourseManagement.App_Code
 
         #region Constructors
 
-        public Course(List<GradedItem> gradeItems, CourseInfo courseInfo, int maxSeats, List<Student> enrolledStudents)
+        public Course(List<GradedItem> gradeItems, CourseInfo courseInfo, int maxSeats)
         {
             this.GradeItems = gradeItems;
             this.CourseInfo = courseInfo;
             this.MaxSeats = maxSeats;
-            this.EnrolledStudents = enrolledStudents;
         }
 
         public int CountRemainingSeats()
