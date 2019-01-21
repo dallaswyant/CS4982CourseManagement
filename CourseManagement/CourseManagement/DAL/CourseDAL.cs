@@ -50,9 +50,6 @@ namespace CourseManagement.DAL
                             string location = reader[locationOrdinal] == DBNull.Value ? default(string) : reader.GetString(locationOrdinal);
                             string assignmentTypes = reader[assignmentTypesOrdinal] == DBNull.Value ? default(string) : reader.GetString(assignmentTypesOrdinal);
                             string weightPerType = reader[weightPerTypeOrdinal] == DBNull.Value ? default(string) : reader.GetString(weightPerTypeOrdinal);
-                            DateTime dropDate = reader[dropDateOrdinal] == DBNull.Value
-                                ? default(DateTime)
-                                : reader.GetDateTime(dropDateOrdinal);
                             Dictionary<string, int> rubricStuff = new Dictionary<string, int>();
                             int assingmentCount = assignmentTypes.Split('/').Length - 1;
                             int weightCount = weightPerType.Split('/').Length - 1;
@@ -78,7 +75,7 @@ namespace CourseManagement.DAL
                             CourseInfo currCourseInfo = new CourseInfo(courseName, currTeacher, location, creditHours, CRN, sectionNumber);
                             StudentDAL studentGetter = new StudentDAL();
                             List<Student> studentsInCourse = studentGetter.GetStudentsByCRN(CRN);
-                            Course currentCourse = new Course(listOfGrades, currCourseInfo, dropDate, maxSeats, studentsInCourse);
+                            Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats, studentsInCourse);
                             coursesTaught.Add(currentCourse);
                             
                         }
@@ -111,7 +108,6 @@ namespace CourseManagement.DAL
                         int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
                         int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
                         int locationOrdinal = reader.GetOrdinal("location");
-                        int dropDateOrdinal = reader.GetOrdinal("add_drop_deadline");
                         int rubricIDOrdinal = reader.GetOrdinal("rubric_id");
 
                         while (reader.Read())
@@ -125,9 +121,6 @@ namespace CourseManagement.DAL
                             string location = reader[locationOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(locationOrdinal);
-                            DateTime dropDate = reader[dropDateOrdinal] == DBNull.Value
-                                ? default(DateTime)
-                                : reader.GetDateTime(dropDateOrdinal);
 
                             List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
                             TeacherDAL teacherGetter = new TeacherDAL();
@@ -135,7 +128,7 @@ namespace CourseManagement.DAL
                             CourseInfo currCourseInfo = new CourseInfo(courseName, currTeacher, location, creditHours, CRN, sectionNumber);
                             StudentDAL studentGetter = new StudentDAL();
                             List<Student> studentsInCourse = studentGetter.GetStudentsByCRN(CRN);
-                            Course currentCourse = new Course(listOfGrades, currCourseInfo, dropDate, maxSeats, studentsInCourse);
+                            Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats, studentsInCourse);
                             coursesTaken.Add(currentCourse);
 
                         }
