@@ -10,7 +10,7 @@
 namespace CourseManagement {
     
     
-    public partial class StudentGradeItemPage {
+    public partial class TeacherGradeGradeItemPage {
         
         /// <summary>
         /// profilePicture control.
