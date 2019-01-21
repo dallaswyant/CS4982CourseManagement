@@ -1,7 +1,52 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CourseManagement.Master" AutoEventWireup="true" CodeBehind="StudentViewAllGrades.aspx.cs" Inherits="CourseManagement.Views.StudentViewAllGrades" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        .auto-style3 {
+            width: 819px;
+        }
+        .auto-style5 {
+            height: 26px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <table class="auto-style1">
+        <tr>
+            <td class="auto-style3" rowspan="2">
+                <asp:GridView ID="GridView2" runat="server">
+                    <Columns>
+                        <asp:BoundField HeaderText="Class" />
+                        <asp:BoundField HeaderText="Teacher" />
+                        <asp:BoundField HeaderText="Location" />
+                        <asp:BoundField HeaderText="Credit Hours" />
+                        <asp:BoundField HeaderText="CRN" />
+                        <asp:BoundField HeaderText="Section Number" />
+                        <asp:CommandField ShowSelectButton="True" />
+                    </Columns>
+                </asp:GridView>
+            </td>
+            <td>
+                <asp:Label ID="Label2" runat="server" Text="Prerequisites:"></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:ListView ID="lvwPrerequisites" runat="server">
+                </asp:ListView>
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style5" colspan="2">
+                <asp:Label ID="Label1" runat="server" Text="Description:"></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style5" colspan="2">
+                <asp:Label ID="lblDescription" runat="server"></asp:Label>
+            </td>
+        </tr>
+    </table>
+    <br />
     <asp:GridView ID="GridView1" runat="server" OnSelectedIndexChanging="GridView1_SelectedIndexChanging">
         <Columns>
             <asp:BoundField HeaderText="Assignment Name"/>

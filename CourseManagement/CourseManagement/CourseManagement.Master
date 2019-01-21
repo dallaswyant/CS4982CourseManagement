@@ -35,7 +35,8 @@
                         <asp:TextBox ID="tbxPassword" runat="server" TextMode="Password"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="tbxPassword">*</asp:RequiredFieldValidator>
                         <asp:Label ID="lblUsername" runat="server"></asp:Label>
-                        <asp:Button ID="btnLogging" runat="server" OnClick="logging_OnClick" Text="Login" />
+                        <asp:Button ID="btnLogin" runat="server" OnClick="login_OnClick" Text="Login" />
+                        <asp:Button ID="btnLogout" runat="server" OnClick="logout_OnClick" Text="Logout" />
                     </td>
                 </tr>
             </table>
@@ -48,6 +49,10 @@
         </nav>
 
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                <asp:TreeView ID="TreeView1" runat="server" DataSourceID="XmlDataSource1">
+                </asp:TreeView>
+                <asp:XmlDataSource ID="XmlDataSource1" runat="server"></asp:XmlDataSource>
+                <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
             </asp:ContentPlaceHolder>
         
     </form>

@@ -172,12 +172,14 @@
   <ItemGroup>
     <Content Include="CourseManagement.Master" />
     <None Include="packages.config" />
+    <Content Include="Student.sitemap" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="Teacher.sitemap" />
     <Content Include="Web.sitemap" />
   </ItemGroup>
   <ItemGroup>
