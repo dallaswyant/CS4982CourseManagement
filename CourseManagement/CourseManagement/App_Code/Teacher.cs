@@ -1,4 +1,6 @@
-﻿namespace CourseManagement.App_Code
+﻿using System.Collections.Generic;
+
+namespace CourseManagement.App_Code
 {
     public class Teacher
     {
@@ -10,14 +12,14 @@
         public bool IsEmailPublic { get; }
         public string PhoneNumber { get; }
         public Department PrimaryDepartment { get; private set; }
-        public CourseCollection CoursesTaught { get; }
+        public List<Course> CoursesTaught { get; }
 
         #endregion
 
         #region Constructors
 
         public Teacher(string location, string name, string email, bool isEmailPublic, string phoneNumber,
-            CourseCollection coursesTaught, string teacherUID)
+            List<Course> coursesTaught, string teacherUID)
         {
             this.Location = location;
             this.Name = name;

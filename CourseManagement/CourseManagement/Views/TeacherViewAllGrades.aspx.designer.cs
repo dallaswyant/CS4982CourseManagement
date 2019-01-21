@@ -13,6 +13,51 @@ namespace CourseManagement.Views {
     public partial class TeacherViewAllGrades {
         
         /// <summary>
+        /// ddlCourses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCourses;
+        
+        /// <summary>
+        /// odsCourses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsCourses;
+        
+        /// <summary>
+        /// lblAssignmentSelected control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAssignmentSelected;
+        
+        /// <summary>
+        /// gvwGradeItems control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvwGradeItems;
+        
+        /// <summary>
+        /// odsAssignments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsAssignments;
+        
+        /// <summary>
         /// gvwStudents control.
         /// </summary>
         /// <remarks>
@@ -22,12 +67,12 @@ namespace CourseManagement.Views {
         protected global::System.Web.UI.WebControls.GridView gvwStudents;
         
         /// <summary>
-        /// gvwGrade control.
+        /// odsStudents control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvwGrade;
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsStudents;
     }
 }
