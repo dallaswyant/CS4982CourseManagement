@@ -66,5 +66,93 @@ namespace CourseManagement.DAL
 
             return null;
         }
+
+        public void AddCourseRubric(Course courseToAddTo, CourseRubric rubricToAdd)
+        {
+            string assignment_types = "";
+            string weight_per_types = "";
+            for (int i = 0; i < courseToAddTo.CourseRubric.GradeTypeWithWeights.Count; i++)
+            {
+                if (i == courseToAddTo.CourseRubric.GradeTypeWithWeights.Count - 1)
+                {
+                    assignment_types += courseToAddTo.CourseRubric.GradeTypeWithWeights.ElementAt(i).Key;
+                    weight_per_types += courseToAddTo.CourseRubric.GradeTypeWithWeights.ElementAt(i).Value;
+                }
+                else
+                {
+                    assignment_types += courseToAddTo.CourseRubric.GradeTypeWithWeights.ElementAt(i).Key + "/";
+                    weight_per_types += courseToAddTo.CourseRubric.GradeTypeWithWeights.ElementAt(i).Value + "/";
+                }
+            }
+            MySqlConnection conn = DbConnection.GetConnection();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery =
+                    "INSERT INTO rubrics(assignment_types, weight_per_type) VALUES (@assignment_types,@weight_per_type)";
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@assignment_types", assignment_types);
+                    cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
+
+                    cmd.ExecuteNonQuery();
+                }
+                selectQuery =
+                    "UPDATE courses SET rubric_id = @rubric_id WHERE courses.CRN = @CRNCheck)";
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@rubric_id", rubricToAdd.RubricID);
+                    cmd.Parameters.AddWithValue("@CRNCheck", courseToAddTo.CourseInfo.CRN);
+
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+        }
+
+        public void UpdateCourseRubric(Course courseToAdd, CourseRubric rubricToUpdate)
+        {
+            string assignment_types = "";
+            string weight_per_types = "";
+            for (int i = 0; i < courseToAdd.CourseRubric.GradeTypeWithWeights.Count; i++)
+            {
+                if (i == courseToAdd.CourseRubric.GradeTypeWithWeights.Count - 1)
+                {
+                    assignment_types += courseToAdd.CourseRubric.GradeTypeWithWeights.ElementAt(i).Key;
+                    weight_per_types += courseToAdd.CourseRubric.GradeTypeWithWeights.ElementAt(i).Value;
+                }
+                else
+                {
+                    assignment_types += courseToAdd.CourseRubric.GradeTypeWithWeights.ElementAt(i).Key + "/";
+                    weight_per_types += courseToAdd.CourseRubric.GradeTypeWithWeights.ElementAt(i).Value + "/";
+                }
+            }
+            MySqlConnection conn = DbConnection.GetConnection();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery =
+                    "UPDATE rubrics SET assignment_types=@assignment_types, weight_per_type=@weight_per_type WHERE rubrics.rubric_id = @rubric_id";
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@assignment_types", assignment_types);
+                    cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                selectQuery =
+                    "UPDATE courses SET rubric_id = @rubric_id WHERE courses.CRN = @CRNCheck)";
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@rubric_id", rubricToUpdate.RubricID);
+                    cmd.Parameters.AddWithValue("@CRNCheck", courseToAdd.CourseInfo.CRN);
+
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+                conn.Close();
+            }
+        }
     }
 }

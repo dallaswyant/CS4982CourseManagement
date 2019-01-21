@@ -9,7 +9,6 @@ namespace CourseManagement.App_Code
         #region Properties
 
         public List<GradedItem> GradeItems { get; }
-
         public List<string> LectureNotes { get; } //TODO discuss being file paths
         public CourseInfo CourseInfo { get; }
 

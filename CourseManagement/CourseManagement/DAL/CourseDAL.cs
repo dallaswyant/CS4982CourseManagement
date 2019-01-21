@@ -50,7 +50,7 @@ namespace CourseManagement.DAL
                             
                             List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
                             
-                            CourseInfo currCourseInfo = new CourseInfo(courseName, currTeacher, location, creditHours, CRN, sectionNumber);
+                            CourseInfo currCourseInfo = new CourseInfo(courseName, location, creditHours, CRN, sectionNumber);
                             Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
                             coursesTaught.Add(currentCourse);
                             
@@ -58,6 +58,50 @@ namespace CourseManagement.DAL
                     }
                     return coursesTaught;
                 }
+            }
+
+            return null;
+        }
+
+        public Course GetCourseByCRN(int CRN)
+        {
+            MySqlConnection conn = DbConnection.GetConnection();
+            using (conn)
+            {
+                GradedItemDAL gradedStuff = new GradedItemDAL();
+                conn.Open();
+                var selectQuery = "SELECT * from courses WHERE courses.CRN = @CRNCheck";
+
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@CRNCheck", CRN);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        int courseNameOrdinal = reader.GetOrdinal("course_name");
+                        int sectionNumberOrdinal = reader.GetOrdinal("section_num");
+                        int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
+                        int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
+                        int locationOrdinal = reader.GetOrdinal("location");
+
+                        while (reader.Read())
+                        {
+                            string courseName = reader[courseNameOrdinal] == DBNull.Value ? default(string) : reader.GetString(courseNameOrdinal);
+                            string sectionNumber = reader[sectionNumberOrdinal] == DBNull.Value ? default(string) : reader.GetString(sectionNumberOrdinal);
+                            int creditHours = reader[creditHoursOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(creditHoursOrdinal);
+                            int maxSeats = reader[maxSeatsOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(maxSeatsOrdinal);
+                            string location = reader[locationOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(locationOrdinal);
+
+                            List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
+                            CourseInfo currCourseInfo = new CourseInfo(courseName, location, creditHours, CRN, sectionNumber);
+                            Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
+                            return currentCourse;
+
+                        }
+                    }
+                }
+                conn.Close();
             }
 
             return null;
@@ -114,86 +158,5 @@ namespace CourseManagement.DAL
 
             return null;
         }
-        [DataObjectMethod(DataObjectMethodType.Insert)]
-        public void AddCourseRubric(Course courseToAdd)
-        {
-            string assignment_types = "";
-            string weight_per_types = "";
-            for (int i = 0; i < courseToAdd.CourseRubric.GradeTypeWithWeights.Count; i++)
-            {
-                if (i == courseToAdd.CourseRubric.GradeTypeWithWeights.Count - 1)
-                {
-                    assignment_types += courseToAdd.CourseRubric.GradeTypeWithWeights.ElementAt(i).Key;
-                    weight_per_types += courseToAdd.CourseRubric.GradeTypeWithWeights.ElementAt(i).Value;
-                }
-                else
-                {
-                    assignment_types += courseToAdd.CourseRubric.GradeTypeWithWeights.ElementAt(i).Key + "/";
-                    weight_per_types += courseToAdd.CourseRubric.GradeTypeWithWeights.ElementAt(i).Value + "/";
-                }
-            }
-            MySqlConnection conn = DbConnection.GetConnection();
-            using (conn)
-            {
-                conn.Open();
-                var selectQuery =
-                    "INSERT INTO rubrics(assignment_types, weight_per_type) VALUES (@assignment_types,@weight_per_type)";
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@rubric_id", courseToAdd.CourseRubric.RubricID);
-                    cmd.Parameters.AddWithValue("@assignment_types", assignment_types);
-                    cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
-
-                    cmd.ExecuteNonQuery();
-                }
-                selectQuery =
-                    "UPDATE courses SET rubric_id = @rubric_id)";
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@rubric_id", courseToAdd.CourseRubric.RubricID);
-                    cmd.Parameters.AddWithValue("@assignment_types", assignment_types);
-                    cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
-
-                    cmd.ExecuteNonQuery();
-                }
-                conn.Close();
-            }
-        }
-        [DataObjectMethod(DataObjectMethodType.Update)]
-        public void UpdateCourseRubric(Course courseToAdd)
-        {
-            string assignment_types = "";
-            string weight_per_types = "";
-            for (int i = 0; i < courseToAdd.CourseRubric.GradeTypeWithWeights.Count; i++)
-            {
-                if (i == courseToAdd.CourseRubric.GradeTypeWithWeights.Count - 1)
-                {
-                    assignment_types += courseToAdd.CourseRubric.GradeTypeWithWeights.ElementAt(i).Key;
-                    weight_per_types += courseToAdd.CourseRubric.GradeTypeWithWeights.ElementAt(i).Value;
-                }
-                else
-                {
-                    assignment_types += courseToAdd.CourseRubric.GradeTypeWithWeights.ElementAt(i).Key + "/";
-                    weight_per_types += courseToAdd.CourseRubric.GradeTypeWithWeights.ElementAt(i).Value + "/";
-                }
-            }
-            MySqlConnection conn = DbConnection.GetConnection();
-            using (conn)
-            {
-                conn.Open();
-                var selectQuery =
-                    "UPDATE rubrics SET assignment_types=@assignment_types, weight_per_type=@weight_per_type WHERE rubrics.rubric_id = @rubric_id";
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@assignment_types", assignment_types);
-                    cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
-
-                    cmd.ExecuteNonQuery();
-                }
-                conn.Close();
-            }
-        }
-
-
     }
 }
