@@ -63,9 +63,11 @@ namespace CourseManagement.DAL
             return null;
         }
 
-        public Course GetCourseByCRN(int CRN)
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public CourseCollection GetCoursesByStudentID(string studentUIDCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
+            CourseCollection coursesTaken = new CourseCollection();
             using (conn)
             {
                 GradedItemDAL gradedStuff = new GradedItemDAL();
@@ -94,12 +96,16 @@ namespace CourseManagement.DAL
                                 : reader.GetString(locationOrdinal);
 
                             List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
+                            TeacherDAL teacherGetter = new TeacherDAL();
+                            
                             CourseInfo currCourseInfo = new CourseInfo(courseName, location, creditHours, CRN, sectionNumber);
                             Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
                             return currentCourse;
 
                         }
                     }
+
+                    return coursesTaken;
                 }
                 conn.Close();
             }
