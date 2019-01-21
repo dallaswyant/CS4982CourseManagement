@@ -8,7 +8,7 @@ namespace CourseManagement
 {
     public partial class CourseManagement : System.Web.UI.MasterPage
     {
-        #region Methods
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,7 +21,8 @@ namespace CourseManagement
             User user = (User) HttpContext.Current.Session["User"];
             if (user == null)
             {
-                this.btnLogging.Text = "Login";
+                this.btnLogin.Visible = true;
+                this.btnLogout.Visible = false;
                 this.lblPasswordTXT.Visible = true;
                 this.lblUsernameTXT.Visible = true;
                 this.tbxPassword.Visible = true;
@@ -31,7 +32,8 @@ namespace CourseManagement
             }
             else
             {
-                this.btnLogging.Text = "Logout";
+                this.btnLogin.Visible = false;
+                this.btnLogout.Visible = true;
                 this.lblPasswordTXT.Visible = false;
                 this.lblUsernameTXT.Visible = false;
                 this.tbxPassword.Visible = false;
@@ -41,50 +43,55 @@ namespace CourseManagement
 
         }
 
-        protected void lgnUser_OnLoggingIn(object sender, LoginCancelEventArgs e)
+        private void handleLogin(UserDAL userDAL)
         {
- 
+            User user = userDAL.CheckLogin(this.tbxUsername.Text, this.tbxPassword.Text);
+            if (string.IsNullOrEmpty(user.UserId + user.Password + user.Role))
+            {
+                HttpContext.Current.Session["User"] = null;
+                HttpContext.Current.Session["UserID"] = null;
+            }
+            else
+            {
+                HttpContext.Current.Session["User"] = user;
+                HttpContext.Current.Session["UserID"] = user.UserId;
+            }
 
-            #endregion
+            this.btnLogin.Text = "Logout";
+            this.lblPasswordTXT.Visible = false;
+            this.lblUsernameTXT.Visible = false;
+            this.tbxPassword.Visible = false;
+            this.tbxUsername.Visible = false;
+            this.lblUsername.Text = user.UserId;
         }
 
-        protected void logging_OnClick(object sender, EventArgs e)
+        private void handleLogout()
+        {
+            this.btnLogin.Text = "Login";
+            HttpContext.Current.Session["User"] = null;
+
+            this.lblPasswordTXT.Visible = true;
+            this.tbxPassword.Text = "";
+            this.lblUsernameTXT.Visible = true;
+            this.tbxUsername.Text = "";
+            this.tbxPassword.Visible = true;
+            this.tbxUsername.Visible = true;
+
+            this.lblUsername.Text = "";
+        }
+
+        protected void login_OnClick(object sender, EventArgs e)
         {
             UserDAL userDAL = new UserDAL();
+            handleLogin(userDAL);
+            HttpContext.Current.Response.Redirect("Homepage.aspx");
 
+        }
 
-            if (this.btnLogging.Text.Equals("Logout"))
-            {
-                this.btnLogging.Text = "Login";
-                HttpContext.Current.Session["User"] = null;
-
-                this.lblPasswordTXT.Visible = true;
-                this.tbxPassword.Text = "";
-                this.lblUsernameTXT.Visible = true;
-                this.tbxUsername.Text = "";
-                this.tbxPassword.Visible = true;
-                this.tbxUsername.Visible = true;
-                
-                this.lblUsername.Text = "";
-            }
-            else
-            {
-                User user = userDAL.CheckLogin(this.tbxUsername.Text, this.tbxPassword.Text);
-                if (string.IsNullOrEmpty(user.UserId + user.Password + user.Role))
-                {
-                    HttpContext.Current.Session["User"] = null;
-                }
-                else
-                {
-                    HttpContext.Current.Session["User"] = user;
-                }
-                this.btnLogging.Text = "Logout";
-                this.lblPasswordTXT.Visible = false;
-                this.lblUsernameTXT.Visible = false;
-                this.tbxPassword.Visible = false;
-                this.tbxUsername.Visible = false;
-                this.lblUsername.Text = user.UserId;
-            }
+        protected void logout_OnClick(object sender, EventArgs e)
+        {
+            handleLogout();
+            HttpContext.Current.Response.Redirect("Homepage.aspx");
         }
     }
 }

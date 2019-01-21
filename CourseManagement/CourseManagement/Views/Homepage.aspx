@@ -10,15 +10,13 @@
 </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
-<table class="auto-style1">
+    <table class="auto-style1">
     <tr>
         <td class="auto-style2">
     <asp:TreeView ID="TreeView1" runat="server" DataSourceID="SiteMapDataSource1">
 </asp:TreeView>
+            <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" SiteMapProvider="Student" />
         </td>
-        <td>
-            &nbsp;</td>
     </tr>
 </table>
 </asp:Content>
