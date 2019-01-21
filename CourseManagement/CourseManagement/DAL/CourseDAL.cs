@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using CourseManagement.App_Code;
@@ -7,9 +8,10 @@ using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL
 {
+    [DataObject(true)]
     public class CourseDAL
     {
-
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public CourseCollection GetCourseByTeacherID(string teacherIDCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
@@ -24,7 +26,7 @@ namespace CourseManagement.DAL
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@teacherID", teacherIDCheck);
+                    cmd.Parameters.AddWithValue("@teacherUID", teacherIDCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         
@@ -36,7 +38,7 @@ namespace CourseManagement.DAL
                         int locationOrdinal = reader.GetOrdinal("location");
                         int assignmentTypesOrdinal = reader.GetOrdinal("assignment_types");
                         int weightPerTypeOrdinal = reader.GetOrdinal("weight_per_type");
-                        int dropDateOrdinal = reader.GetOrdinal("add_drop_deadline");
+                        
                         int rubricIDOrdinal = reader.GetOrdinal("rubric_id");
 
                         while (reader.Read())
@@ -70,7 +72,7 @@ namespace CourseManagement.DAL
                             CourseRubric rubric = new CourseRubric(rubricStuff, rubricID);
                             List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
                             TeacherDAL teacherGetter = new TeacherDAL();
-                            Teacher currTeacher = teacherGetter.GetAllTeachers();
+                            Teacher currTeacher = teacherGetter.GetTeacherByTeacherID(teacherIDCheck);
                             
                             CourseInfo currCourseInfo = new CourseInfo(courseName, currTeacher, location, creditHours, CRN, sectionNumber);
                             StudentDAL studentGetter = new StudentDAL();
@@ -87,6 +89,7 @@ namespace CourseManagement.DAL
             return null;
         }
 
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public CourseCollection GetCoursesByStudentID(string studentUIDCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
@@ -141,7 +144,7 @@ namespace CourseManagement.DAL
 
             return null;
         }
-
+        [DataObjectMethod(DataObjectMethodType.Insert)]
         public void AddCourseRubric(Course courseToAdd)
         {
             string assignment_types = "";
@@ -186,7 +189,7 @@ namespace CourseManagement.DAL
                 conn.Close();
             }
         }
-
+        [DataObjectMethod(DataObjectMethodType.Update)]
         public void UpdateCourseRubric(Course courseToAdd)
         {
             string assignment_types = "";

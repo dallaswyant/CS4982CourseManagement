@@ -63,7 +63,7 @@ namespace CourseManagement.DAL
             return null;
         }
 
-        public Teacher GetTeacherByTeacherID(int teacherIDCheck)
+        public Teacher GetTeacherByTeacherID(string teacherIDCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
 
@@ -75,6 +75,7 @@ namespace CourseManagement.DAL
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
+                    cmd.Parameters.AddWithValue("@teacherUID", teacherIDCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         int teacherUIDOrdinal = reader.GetOrdinal("uid");
