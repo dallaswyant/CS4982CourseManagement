@@ -34,8 +34,6 @@ namespace CourseManagement.DAL
                         int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
                         int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
                         int locationOrdinal = reader.GetOrdinal("location");
-                        int assignmentTypesOrdinal = reader.GetOrdinal("assignment_types");
-                        int weightPerTypeOrdinal = reader.GetOrdinal("weight_per_type");
                         int rubricIDOrdinal = reader.GetOrdinal("rubric_id");
 
                         while (reader.Read())
@@ -53,8 +51,6 @@ namespace CourseManagement.DAL
                             Teacher currTeacher = teacherGetter.GetAllTeachers();
                             
                             CourseInfo currCourseInfo = new CourseInfo(courseName, currTeacher, location, creditHours, CRN, sectionNumber);
-                            StudentDAL studentGetter = new StudentDAL();
-                            List<Student> studentsInCourse = studentGetter.GetStudentsByCRN(CRN);
                             Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
                             coursesTaught.Add(currentCourse);
                             
