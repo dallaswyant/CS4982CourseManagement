@@ -13,8 +13,31 @@ namespace CourseManagement.Views
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                DataBind();
+            }
 
+            User currentUser = HttpContext.Current.Session["User"] as User;
 
+            if (currentUser == null)
+            {
+                this.TreeView1.Visible = false;
+            }
+            else if (currentUser.Role.Equals("teachers"))
+            {
+                this.TreeView1.Visible = true;
+                this.SiteMapDataSource1.SiteMapProvider = "Teacher";
+            }
+            else if (currentUser.Role.Equals("students"))
+            {
+                this.TreeView1.Visible = true;
+                this.SiteMapDataSource1.SiteMapProvider = "Student";
+            }
+            else
+            {
+                this.TreeView1.Visible = false;
+            }
 
         }
 
