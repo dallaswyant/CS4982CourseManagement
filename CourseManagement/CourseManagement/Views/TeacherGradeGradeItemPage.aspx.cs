@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.UI.WebControls;
+using CourseManagement.App_Code;
 using CourseManagement.DAL;
 
 namespace CourseManagement
@@ -8,15 +9,17 @@ namespace CourseManagement
     {
         #region Methods
 
+        private GradedItemDAL gradeItemDAL = new GradedItemDAL();
         protected void Page_Load(object sender, EventArgs e)
         {
             var studentDAL = new StudentDAL();
-            var gradeItemDAL = new GradedItemDAL();
+            
             if (!IsPostBack)
             {
                 populateStudentDDL(studentDAL); //TODO right now this just uses psychology course
                 DataBind();
             }
+            
             
         }
 
@@ -33,13 +36,32 @@ namespace CourseManagement
 
         protected void ddlStudentNames_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            var gradeItemDAL = new GradedItemDAL();
+            
             var gradedItems = gradeItemDAL.GetGradedItemsByStudentId(this.ddlStudentNames.SelectedValue, 1);
             foreach (var item in gradedItems)
             {
                 this.ddlAssignmentNames.Items.Add(new ListItem(item.Name, item.GradeId.ToString()));
             }
             this.UpdatePanel1.Update();
+        }
+
+        protected void ddlAssignmentNames_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var gradedItems = gradeItemDAL.GetGradedItemsByStudentId(this.ddlStudentNames.SelectedValue, 1);
+            var itemID = int.Parse(this.ddlAssignmentNames.SelectedValue);
+            var totalPoints = 0;
+            GradedItem currGradedItem = null;
+            foreach (var item in gradedItems)
+            {
+                if (item.GradeId == itemID)
+                {
+                    currGradedItem = item;
+                }
+            }
+
+            totalPoints = currGradedItem.PossiblePoints;
+            this.grade.Text = "/" + totalPoints;
+            this.UpdatePanel2.Update();
         }
     }
 }

@@ -71,7 +71,7 @@
                 
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
-                    <asp:DropDownList ID="ddlAssignmentNames" runat="server" >
+                    <asp:DropDownList ID="ddlAssignmentNames" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAssignmentNames_SelectedIndexChanged" >
                         <asp:ListItem >Assignment Name</asp:ListItem>
                     
                     </asp:DropDownList>
@@ -140,8 +140,11 @@
                 <asp:Label ID="Label2" runat="server" Text="Monday, January 1, 2019 11:59 AM"></asp:Label>
             </td>
             <td class="auto-style10">
+                
                 <asp:TextBox ID="TextBox2" runat="server" Height="16px" Width="45px"></asp:TextBox>
+                <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Conditional" runat="server"><ContentTemplate>
                 <asp:Label ID="grade" runat="server" Text="/100" Font-Size="Large"></asp:Label>
+                </ContentTemplate></asp:UpdatePanel>
             </td>
         </tr>
     </table>
