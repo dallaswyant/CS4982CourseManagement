@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CourseManagement.App_Code;
 using MySql.Data.MySqlClient;
 
@@ -48,7 +49,7 @@ namespace CourseManagement.DAL
                                 ? default(string)
                                 : reader.GetString(teacherUIDOrdinal);
                             CourseDAL courseGetter = new CourseDAL();
-                            CourseCollection currTeacherCourses = courseGetter.GetCourseByTeacherID(teacherUID);
+                            List<Course> currTeacherCourses = courseGetter.GetCoursesByTeacherID(teacherUID);
                             Teacher currTeacher = new Teacher(officeLocation, name, email, publicEmail, phone, currTeacherCourses, teacherUID);
 
                             return currTeacher;
@@ -104,7 +105,7 @@ namespace CourseManagement.DAL
                                 ? default(string)
                                 : reader.GetString(teacherUIDOrdinal);
                             CourseDAL courseGetter = new CourseDAL();
-                            CourseCollection currTeacherCourses = courseGetter.GetCourseByTeacherID(teacherUID);
+                            List<Course> currTeacherCourses = courseGetter.GetCoursesByTeacherID(teacherUID);
                             Teacher currTeacher = new Teacher(officeLocation, name, email, publicEmail, phone, currTeacherCourses,teacherUID);
 
                             return currTeacher;

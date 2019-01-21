@@ -12,10 +12,20 @@ namespace CourseManagement.DAL
     public class CourseDAL
     {
         [DataObjectMethod(DataObjectMethodType.Select)]
-        public CourseCollection GetCourseByTeacherID(string teacherIDCheck)
+        public List<CourseInfo> GetCourseBulletinByTeacherID(string teacherIDCheck)
+        {
+            List<CourseInfo> courseBulletin = new List<CourseInfo>();
+            foreach (var courses in GetCoursesByTeacherID(teacherIDCheck))
+            {
+                courseBulletin.Add(courses.CourseInfo);
+            }
+            return courseBulletin;
+        }
+
+        public List<Course> GetCoursesByTeacherID(string teacherIDCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
-            CourseCollection coursesTaught = new CourseCollection();
+            List<Course> coursesTaught = new List<Course>();
             using (conn)
             {
 
@@ -29,34 +39,44 @@ namespace CourseManagement.DAL
                     cmd.Parameters.AddWithValue("@teacherUID", teacherIDCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        
+
                         int CRNOrdinal = reader.GetOrdinal("CRN");
                         int courseNameOrdinal = reader.GetOrdinal("course_name");
                         int sectionNumberOrdinal = reader.GetOrdinal("section_num");
                         int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
                         int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
                         int locationOrdinal = reader.GetOrdinal("location");
-                        int rubricIDOrdinal = reader.GetOrdinal("rubric_id");
 
                         while (reader.Read())
                         {
                             int CRN = reader[CRNOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(CRNOrdinal);
-                            string courseName = reader[courseNameOrdinal] == DBNull.Value ? default(string) : reader.GetString(courseNameOrdinal);
-                            string sectionNumber = reader[sectionNumberOrdinal] == DBNull.Value ? default(string) : reader.GetString(sectionNumberOrdinal);
-                            int creditHours = reader[creditHoursOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(creditHoursOrdinal);
-                            int maxSeats = reader[maxSeatsOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(maxSeatsOrdinal);
-                            int rubricID = reader[rubricIDOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(rubricIDOrdinal);
-                            string location = reader[locationOrdinal] == DBNull.Value ? default(string) : reader.GetString(locationOrdinal);
-                            
+                            string courseName = reader[courseNameOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(courseNameOrdinal);
+                            string sectionNumber = reader[sectionNumberOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(sectionNumberOrdinal);
+                            int creditHours = reader[creditHoursOrdinal] == DBNull.Value
+                                ? default(int)
+                                : reader.GetInt32(creditHoursOrdinal);
+                            int maxSeats = reader[maxSeatsOrdinal] == DBNull.Value
+                                ? default(int)
+                                : reader.GetInt32(maxSeatsOrdinal);
+                            string location = reader[locationOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(locationOrdinal);
+
                             List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
-                            
-                            CourseInfo currCourseInfo = new CourseInfo(courseName, location, creditHours, CRN, sectionNumber);
+
+                            CourseInfo currCourseInfo =
+                                new CourseInfo(courseName, location, creditHours, CRN, sectionNumber);
                             Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
                             coursesTaught.Add(currentCourse);
-                            
+
                         }
+
+                        return coursesTaught;
                     }
-                    return coursesTaught;
                 }
             }
 

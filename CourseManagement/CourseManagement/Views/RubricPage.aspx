@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:DropDownList ID="ddlCourse" runat="server" DataSourceID="odsCourses" DataTextField="Courses" DataValueField="Courses">
     </asp:DropDownList>
-    <asp:ObjectDataSource ID="odsCourses" runat="server" SelectMethod="GetCourseByTeacherID" TypeName="CourseManagement.DAL.CourseDAL">
+    <asp:ObjectDataSource ID="odsCourses" runat="server" SelectMethod="GetCourseBulletinByTeacherID" TypeName="CourseManagement.DAL.CourseDAL">
         <SelectParameters>
             <asp:SessionParameter DefaultValue="Select Teacher" Name="teacherIDCheck" SessionField="UserID" Type="Int32" />
         </SelectParameters>
