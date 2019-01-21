@@ -64,10 +64,9 @@ namespace CourseManagement.DAL
         }
 
         [DataObjectMethod(DataObjectMethodType.Select)]
-        public CourseCollection GetCoursesByStudentID(string studentUIDCheck)
+        public Course GetCoursesByCRN(int CRN)
         {
             MySqlConnection conn = DbConnection.GetConnection();
-            CourseCollection coursesTaken = new CourseCollection();
             using (conn)
             {
                 GradedItemDAL gradedStuff = new GradedItemDAL();
@@ -104,8 +103,6 @@ namespace CourseManagement.DAL
 
                         }
                     }
-
-                    return coursesTaken;
                 }
                 conn.Close();
             }
