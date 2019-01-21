@@ -36,9 +36,6 @@ namespace CourseManagement.DAL
                         int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
                         int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
                         int locationOrdinal = reader.GetOrdinal("location");
-                        int assignmentTypesOrdinal = reader.GetOrdinal("assignment_types");
-                        int weightPerTypeOrdinal = reader.GetOrdinal("weight_per_type");
-                        
                         int rubricIDOrdinal = reader.GetOrdinal("rubric_id");
 
                         while (reader.Read())
@@ -53,9 +50,7 @@ namespace CourseManagement.DAL
                             
                             List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
                             
-                           
-                            
-                            CourseInfo currCourseInfo = new CourseInfo(courseName, location, creditHours, CRN, sectionNumber);
+                            CourseInfo currCourseInfo = new CourseInfo(courseName, currTeacher, location, creditHours, CRN, sectionNumber);
                             Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
                             coursesTaught.Add(currentCourse);
                             
