@@ -3,24 +3,25 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <asp:DropDownList ID="ddlCourses" runat="server" DataSourceID="odsCourses" DataTextField="Name" DataValueField="CRN">
-    </asp:DropDownList>
     <asp:ObjectDataSource ID="odsCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseBulletinByTeacherID" TypeName="CourseManagement.DAL.CourseDAL">
         <SelectParameters>
             <asp:SessionParameter Name="teacherIDCheck" SessionField="UserID" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
-    <asp:Label ID="lblAssignmentSelected" runat="server"></asp:Label>
+    <table class="auto-style1">
+        <tr>
+            <td>
 
-    <asp:GridView ID="gvwGradeItems" runat="server" OnSelectedIndexChanging="gvwGrade_SelectedIndexChanging" AllowPaging="True" AutoGenerateColumns="False" DataSourceID="odsAssignments">
-        <Columns>
-            <asp:BoundField HeaderText="Name" DataField="Name" ReadOnly="True" SortExpression="Name"/>
-            <asp:BoundField HeaderText="PossiblePoints" DataField="PossiblePoints" ReadOnly="True" SortExpression="PossiblePoints"/>
-            <asp:BoundField HeaderText="GradeType" DataField="GradeType" ReadOnly="True" SortExpression="GradeType"/>
-            <asp:CommandField ShowSelectButton="True" />
-        </Columns>
-    </asp:GridView>
-    <asp:ObjectDataSource ID="odsAssignments" runat="server" SelectMethod="GetGradedItemsByCRN" TypeName="CourseManagement.DAL.GradedItemDAL">
+    <asp:DropDownList ID="ddlCourses" runat="server" DataSourceID="odsCourses" DataTextField="Name" DataValueField="CRN">
+    </asp:DropDownList>
+            </td>
+            <td>
+                <asp:DropDownList ID="ddlAssignments" runat="server" DataSourceID="odsAssignments" DataTextField="Value" DataValueField="Value">
+                </asp:DropDownList>
+            </td>
+        </tr>
+    </table>
+    <asp:ObjectDataSource ID="odsAssignments" runat="server" SelectMethod="GetUniqueGradedItemsByCRN" TypeName="CourseManagement.DAL.GradedItemDAL" OldValuesParameterFormatString="original_{0}">
         <SelectParameters>
             <asp:ControlParameter ControlID="ddlCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
         </SelectParameters>

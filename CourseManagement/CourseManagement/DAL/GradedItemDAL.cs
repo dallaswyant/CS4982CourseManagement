@@ -70,6 +70,39 @@ namespace CourseManagement.DAL
             }
         }
 
+        public Dictionary<string, string> GetUniqueGradedItemsByCRN(int CRNCheck)
+        {
+            MySqlConnection conn = DbConnection.GetConnection();
+            var coursesTaught = new CourseCollection();
+            var grades = new Dictionary<string, string>();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery =
+                    "SELECT DISTINCT grade_items.grade_name From grade_items, grade_belongs_to_courses WHERE grade_belongs_to_courses.courses_CRN = @CRN";
+                var studentGetter = new StudentDAL();
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@CRN", CRNCheck);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        int gradeNameOrdinal = reader.GetOrdinal("grade_name");
+
+                        while (reader.Read())
+                        {
+                           
+                            var gradeName = reader[gradeNameOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(gradeNameOrdinal);
+                            
+                            grades.Add(gradeName, gradeName);
+                        }
+
+                        return grades;
+                    }
+                }
+            }
+        }
 
         public List<GradedItem> GetGradedItemsByStudentId(string studentId, int CRNCheck)
         {

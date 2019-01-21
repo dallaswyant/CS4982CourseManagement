@@ -13,15 +13,6 @@ namespace CourseManagement.Views {
     public partial class TeacherViewAllGrades {
         
         /// <summary>
-        /// ddlCourses control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCourses;
-        
-        /// <summary>
         /// odsCourses control.
         /// </summary>
         /// <remarks>
@@ -31,22 +22,22 @@ namespace CourseManagement.Views {
         protected global::System.Web.UI.WebControls.ObjectDataSource odsCourses;
         
         /// <summary>
-        /// lblAssignmentSelected control.
+        /// ddlCourses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAssignmentSelected;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCourses;
         
         /// <summary>
-        /// gvwGradeItems control.
+        /// ddlAssignments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvwGradeItems;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAssignments;
         
         /// <summary>
         /// odsAssignments control.

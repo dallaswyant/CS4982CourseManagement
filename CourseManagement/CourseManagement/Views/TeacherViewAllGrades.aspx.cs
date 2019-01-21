@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.UI.WebControls;
 using CourseManagement.App_Code;
+using CourseManagement.DAL;
 
 namespace CourseManagement.Views
 {
@@ -14,7 +15,6 @@ namespace CourseManagement.Views
 
         protected void gvwGrade_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
         {
-            GradedItem course = this.gvwGradeItems.SelectedRow.DataItem as GradedItem;
 
 
         }

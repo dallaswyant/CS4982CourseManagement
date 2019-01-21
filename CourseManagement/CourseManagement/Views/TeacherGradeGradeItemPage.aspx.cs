@@ -28,7 +28,7 @@ namespace CourseManagement
             var students = studentDAL.GetStudentsByCRN(1);//TODO change "1" to be what ever course the teacher is viewing
             foreach (var student in students)
             {
-                this.ddlStudentNames.Items.Add(new ListItem(student.name, student.StudentUID));
+                this.ddlStudentNames.Items.Add(new ListItem(student.Name, student.StudentUID));
             }
         }
 

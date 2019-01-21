@@ -25,7 +25,7 @@ namespace CourseManagement.DAL
                     {
                         int teacherUIDOrdinal = reader.GetOrdinal("uid");
                         int officeLocationOrdinal = reader.GetOrdinal("office_location");
-                        int nameOrdinal = reader.GetOrdinal("name");
+                        int nameOrdinal = reader.GetOrdinal("Name");
                         int emailOrdinal = reader.GetOrdinal("email");
                         int publicEmailOrdinal = reader.GetOrdinal("public_email");
                         int phoneOrdinal = reader.GetOrdinal("phone_number");
@@ -81,7 +81,7 @@ namespace CourseManagement.DAL
                     {
                         int teacherUIDOrdinal = reader.GetOrdinal("uid");
                         int officeLocationOrdinal = reader.GetOrdinal("office_location");
-                        int nameOrdinal = reader.GetOrdinal("name");
+                        int nameOrdinal = reader.GetOrdinal("Name");
                         int emailOrdinal = reader.GetOrdinal("email");
                         int publicEmailOrdinal = reader.GetOrdinal("public_email");
                         int phoneOrdinal = reader.GetOrdinal("phone_number");

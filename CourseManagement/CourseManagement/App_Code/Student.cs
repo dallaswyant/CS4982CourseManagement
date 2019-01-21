@@ -4,7 +4,7 @@
     {
         #region Properties
 
-        public string name { get; }
+        public string Name { get; }
         public string StudentUID { get; }
         public string Email { get; }
         public CourseCollection ActiveCourses { get; private set; }
@@ -16,11 +16,16 @@
 
         public Student(string studentUID,string name, string email)
         {
-            this.name = name;
+            this.Name = name;
             this.Email = email;
             this.StudentUID = studentUID;
         }
 
         #endregion
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

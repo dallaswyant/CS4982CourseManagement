@@ -32,7 +32,7 @@ namespace CourseManagement.DAL
                 conn.Open();
                 GradedItemDAL gradedStuff = new GradedItemDAL();
                 
-                var selectQuery = "select courses.*, rubrics.assignment_types, rubrics.weight_per_type from courses, teacher_teaches_courses, rubrics WHERE teacher_teaches_courses.courses_CRN = courses.CRN AND teacher_teaches_courses.teacher_uid = @teacherUID";
+                var selectQuery = "select courses.* from courses, teacher_teaches_courses WHERE teacher_teaches_courses.courses_CRN = courses.CRN AND teacher_teaches_courses.teacher_uid = @teacherUID";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
