@@ -5,6 +5,7 @@
         #region Properties
 
         public string name { get; }
+        public int StudentID { get; }
         public string Email { get; }
         public CourseCollection ActiveCourses { get; private set; }
         public DegreeProgram Program { get; private set; }
@@ -13,10 +14,11 @@
 
         #region Constructors
 
-        public Student(string name, string email)
+        public Student(int studentID,string name, string email)
         {
             this.name = name;
             this.Email = email;
+            this.StudentID = studentID;
         }
 
         #endregion
