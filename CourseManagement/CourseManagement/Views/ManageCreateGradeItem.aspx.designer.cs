@@ -22,15 +22,6 @@ namespace CourseManagement {
         protected global::System.Web.UI.WebControls.TextBox tbxAssignmentName;
         
         /// <summary>
-        /// tbxAssignmentWeight control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxAssignmentWeight;
-        
-        /// <summary>
         /// ddlAssignmentType control.
         /// </summary>
         /// <remarks>

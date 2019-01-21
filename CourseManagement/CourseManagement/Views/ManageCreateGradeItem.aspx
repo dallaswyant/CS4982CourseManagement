@@ -66,23 +66,6 @@
             </td>
         </tr>
         <tr>
-            <td class="auto-style7">&nbsp;</td>
-            <td colspan="3">Assignment Weight:</td>
-        </tr>
-        <tr>
-            <td class="auto-style7">&nbsp;</td>
-            <td colspan="3">
-                <asp:TextBox ID="tbxAssignmentWeight" runat="server"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td class="auto-style6">
-                &nbsp;
-            </td>
-            <td colspan="3" class="auto-style4">
-            </td>
-        </tr>
-        <tr>
             <td class="auto-style7">
                 &nbsp;
             </td>
@@ -137,7 +120,7 @@
         <tr>
             <td class="auto-style11"></td>
             <td colspan="3" class="auto-style12">
-                <asp:TextBox ID="tbxDueDate" runat="server"></asp:TextBox>
+                <asp:TextBox ID="tbxDueDate" runat="server" TextMode="DateTime"></asp:TextBox>
             </td>
         </tr>
         <tr>

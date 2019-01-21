@@ -13,17 +13,13 @@
     <table class="auto-style1">
         <tr>
             <td class="auto-style3" rowspan="2">
-                <asp:GridView ID="GridView2" runat="server">
-                    <Columns>
-                        <asp:BoundField HeaderText="Class" />
-                        <asp:BoundField HeaderText="Teacher" />
-                        <asp:BoundField HeaderText="Location" />
-                        <asp:BoundField HeaderText="Credit Hours" />
-                        <asp:BoundField HeaderText="CRN" />
-                        <asp:BoundField HeaderText="Section Number" />
-                        <asp:CommandField ShowSelectButton="True" />
-                    </Columns>
+                <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1">
                 </asp:GridView>
+                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByStudentID" TypeName="CourseManagement.DAL.CourseDAL">
+                    <SelectParameters>
+                        <asp:SessionParameter Name="studentUIDCheck" SessionField="UserID" Type="String" />
+                    </SelectParameters>
+                </asp:ObjectDataSource>
             </td>
             <td>
                 <asp:Label ID="Label2" runat="server" Text="Prerequisites:"></asp:Label>

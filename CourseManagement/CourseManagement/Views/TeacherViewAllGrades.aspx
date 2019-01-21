@@ -18,8 +18,6 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
-    <br/>
     <br/>
 
     <asp:GridView ID="gvwGrade" runat="server" OnSelectedIndexChanging="gvwGrade_SelectedIndexChanging">
