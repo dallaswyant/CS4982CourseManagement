@@ -64,10 +64,10 @@ namespace CourseManagement.DAL
         }
 
         [DataObjectMethod(DataObjectMethodType.Select)]
-        public CourseCollection GetCoursesByStudentID(string studentUIDCheck)
+        public List<CourseInfo> GetCoursesByStudentID(string studentUIDCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
-            CourseCollection coursesTaken = new CourseCollection();
+            List<Course> coursesTaken = new List<Course>();
             using (conn)
             {
                 GradedItemDAL gradedStuff = new GradedItemDAL();
@@ -98,7 +98,7 @@ namespace CourseManagement.DAL
                                 : reader.GetString(locationOrdinal);
 
                             List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
-                            TeacherDAL teacherGetter = new TeacherDAL();
+                            
                             
                             CourseInfo currCourseInfo = new CourseInfo(courseName, location, creditHours, CRN, sectionNumber);
                             Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
@@ -106,8 +106,13 @@ namespace CourseManagement.DAL
 
                         }
                     }
+                    List<CourseInfo> courseBulletin = new List<CourseInfo>();
+                    foreach (var courses in coursesTaken)
+                    {
+                        courseBulletin.Add(courses.CourseInfo);
+                    }
 
-                    return coursesTaken;
+                    return courseBulletin;
                 }
                 conn.Close();
             }

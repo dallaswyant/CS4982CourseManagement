@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <asp:GridView ID="gvwStudents" runat="server" OnSelectedIndexChanging="gvwGrade_SelectedIndexChanging" DataSourceID="SqlDataSource1">
+    <asp:GridView ID="gvwStudents" runat="server" OnSelectedIndexChanging="gvwGrade_SelectedIndexChanging" DataSourceID="ObjectDataSource1">
         <Columns>
             <asp:BoundField HeaderText="Student ID"/>
             <asp:BoundField HeaderText="First Name"/>
