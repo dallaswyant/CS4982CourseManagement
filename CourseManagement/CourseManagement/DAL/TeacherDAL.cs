@@ -16,7 +16,7 @@ namespace CourseManagement.DAL
             {
                 conn.Open();
                 var selectQuery =
-                    "select teachers.*, dept_employs_teachers.dept_name FROM teachers, dept_employs_teachers WHERE teachers.teacher_id = dept_employs_teachers.teacher_id";
+                    "select * FROM teachers";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
@@ -71,7 +71,7 @@ namespace CourseManagement.DAL
             {
                 conn.Open();
                 var selectQuery =
-                    "select teachers.*, dept_employs_teachers.dept_name FROM teachers, dept_employs_teachers WHERE teachers.teacher_id = dept_employs_teachers.teacher_id";
+                    "select teachers.*, dept_employs_teachers.dept_name FROM teachers, dept_employs_teachers WHERE teachers.uid = dept_employs_teachers.teacher_uid AND teachers.uid = @teacherUID";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {

@@ -90,12 +90,7 @@ namespace CourseManagement.DAL
             return null;
         }
 
-        /// <summary>
-        /// Gets the person by identifier.
-        /// </summary>
-        /// <param name="personIDCheck">The person identifier check.</param>
-        /// <returns>a person with the matching personID</returns>
-        public CourseCollection GetCoursesByStudentID(string studentIDCheck)
+        public CourseCollection GetCoursesByStudentID(string studentUIDCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             CourseCollection coursesTaken = new CourseCollection();
@@ -103,11 +98,11 @@ namespace CourseManagement.DAL
             {
                 GradedItemDAL gradedStuff = new GradedItemDAL();
                 conn.Open();
-                var selectQuery = "select courses.* from courses, students, student_has_courses WHERE students.student_id = student_has_courses.student_id AND student_has_courses.courses_CRN = courses.CRN AND students.student_id = @studentID";
+                var selectQuery = "select courses.* from courses, students, student_has_courses WHERE students.uid = student_has_courses.student_uid AND student_has_courses.courses_CRN = courses.CRN AND students.uid = @studentUID";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@studentID", studentIDCheck);
+                    cmd.Parameters.AddWithValue("@studentUID", studentUIDCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         int CRNOrdinal = reader.GetOrdinal("CRN");
@@ -116,8 +111,6 @@ namespace CourseManagement.DAL
                         int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
                         int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
                         int locationOrdinal = reader.GetOrdinal("location");
-                        int assignmentTypesOrdinal = reader.GetOrdinal("assignment_types");
-                        int weightPerTypeOrdinal = reader.GetOrdinal("weight_per_type");
                         int dropDateOrdinal = reader.GetOrdinal("add_drop_deadline");
                         int rubricIDOrdinal = reader.GetOrdinal("rubric_id");
 
@@ -129,30 +122,13 @@ namespace CourseManagement.DAL
                             int creditHours = reader[creditHoursOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(creditHoursOrdinal);
                             int maxSeats = reader[maxSeatsOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(maxSeatsOrdinal);
                             int rubricID = reader[rubricIDOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(rubricIDOrdinal);
-                            string location = reader[locationOrdinal] == DBNull.Value ? default(string) : reader.GetString(locationOrdinal);
-                            string assignmentTypes = reader[assignmentTypesOrdinal] == DBNull.Value ? default(string) : reader.GetString(assignmentTypesOrdinal);
-                            string weightPerType = reader[weightPerTypeOrdinal] == DBNull.Value ? default(string) : reader.GetString(weightPerTypeOrdinal);
+                            string location = reader[locationOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(locationOrdinal);
                             DateTime dropDate = reader[dropDateOrdinal] == DBNull.Value
                                 ? default(DateTime)
                                 : reader.GetDateTime(dropDateOrdinal);
-                            Dictionary<string, int> rubricStuff = new Dictionary<string, int>();
-                            int assingmentCount = assignmentTypes.Split('/').Length - 1;
-                            int weightCount = weightPerType.Split('/').Length - 1;
-                            String[] types = new String[assingmentCount];
-                            String[] weights = new String[weightCount];
-                            if (assignmentTypes != default(string))
-                            {
-                                types = assignmentTypes.Split('/');
-                            }
-                            if (weightPerType != default(string))
-                            {
-                                weights = weightPerType.Split('/');
-                            }
-                            for (int i = 0; i < types.Length; i++)
-                            {
-                                rubricStuff.Add(types[i], Convert.ToInt32(weights[i]));
-                            }
-                            CourseRubric rubric = new CourseRubric(rubricStuff, rubricID);
+
                             List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
                             TeacherDAL teacherGetter = new TeacherDAL();
                             Teacher currTeacher = teacherGetter.GetAllTeachers();
