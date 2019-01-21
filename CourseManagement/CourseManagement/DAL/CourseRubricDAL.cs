@@ -19,7 +19,7 @@ namespace CourseManagement.DAL
                 conn.Open();
                 GradedItemDAL gradedStuff = new GradedItemDAL();
 
-                var selectQuery = "SELECT * FROM rubrics, courses WHERE rubrics.rubric_id = courses.rubric_id AND courses.CRN = @CRNCheck";
+                var selectQuery = "SELECT * FROM rubrics WHERE rubrics.CRN = @CRNCheck";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
@@ -27,14 +27,13 @@ namespace CourseManagement.DAL
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
 
-                        int CRNOrdinal = reader.GetOrdinal("CRN");
                         int assignmentTypesOrdinal = reader.GetOrdinal("assignment_types");
                         int weightPerTypeOrdinal = reader.GetOrdinal("weight_per_type");
                         int rubricIDOrdinal = reader.GetOrdinal("rubric_id");
 
                         while (reader.Read())
                         {
-                            int CRN = reader[CRNOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(CRNOrdinal);
+                            
                             int rubricID = reader[rubricIDOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(rubricIDOrdinal);
                             string assignmentTypes = reader[assignmentTypesOrdinal] == DBNull.Value ? default(string) : reader.GetString(assignmentTypesOrdinal);
                             string weightPerType = reader[weightPerTypeOrdinal] == DBNull.Value ? default(string) : reader.GetString(weightPerTypeOrdinal);
@@ -65,6 +64,93 @@ namespace CourseManagement.DAL
             }
 
             return null;
+        }
+
+        public void AddCourseRubric(int CRN, CourseRubric rubricToAdd)
+        {
+            string assignment_types = "";
+            string weight_per_types = "";
+            for (int i = 0; i < rubricToAdd.GradeTypeWithWeights.Count; i++)
+            {
+                if (i == rubricToAdd.GradeTypeWithWeights.Count - 1)
+                {
+                    assignment_types += rubricToAdd.GradeTypeWithWeights.ElementAt(i).Key;
+                    weight_per_types += rubricToAdd.GradeTypeWithWeights.ElementAt(i).Value;
+                }
+                else
+                {
+                    assignment_types += rubricToAdd.GradeTypeWithWeights.ElementAt(i).Key + "/";
+                    weight_per_types += rubricToAdd.GradeTypeWithWeights.ElementAt(i).Value + "/";
+                }
+            }
+            MySqlConnection conn = DbConnection.GetConnection();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery =
+                    "INSERT INTO rubrics(assignment_types, weight_per_type,CRN) VALUES (@assignment_types,@weight_per_type,@CRNToAdd)";
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@assignment_types", assignment_types);
+                    cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
+                    cmd.Parameters.AddWithValue("@CRN", CRN);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+        }
+
+        public void DelteCourseRubric(int CRN)
+        {
+            MySqlConnection conn = DbConnection.GetConnection();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery =
+                    "DELETE FROM rubrics WHERE CRN = @CRN";
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@CRN",CRN);
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+        }
+
+        public void UpdateCourseRubric(int CRN, CourseRubric rubricToUpdate)
+        {
+            string assignment_types = "";
+            string weight_per_types = "";
+            for (int i = 0; i < rubricToUpdate.GradeTypeWithWeights.Count; i++)
+            {
+                if (i == rubricToUpdate.GradeTypeWithWeights.Count - 1)
+                {
+                    assignment_types += rubricToUpdate.GradeTypeWithWeights.ElementAt(i).Key;
+                    weight_per_types += rubricToUpdate.GradeTypeWithWeights.ElementAt(i).Value;
+                }
+                else
+                {
+                    assignment_types += rubricToUpdate.GradeTypeWithWeights.ElementAt(i).Key + "/";
+                    weight_per_types += rubricToUpdate.GradeTypeWithWeights.ElementAt(i).Value + "/";
+                }
+            }
+            MySqlConnection conn = DbConnection.GetConnection();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery =
+                    "UPDATE rubrics SET assignment_types=@assignment_types, weight_per_type=@weight_per_type WHERE CRN = @CRN";
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@assignment_types", assignment_types);
+                    cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
+                    cmd.Parameters.AddWithValue("@CRN", CRN);
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
         }
     }
 }

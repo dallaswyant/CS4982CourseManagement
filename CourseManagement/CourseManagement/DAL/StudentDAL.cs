@@ -83,7 +83,7 @@ namespace CourseManagement.DAL
                                 : reader.GetString(emailOrdinal);
                             var studentUID = reader[studentUIDOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(emailOrdinal);
+                                : reader.GetString(studentUIDOrdinal);
 
                             var newStudent = new Student(studentUID, name, email);
                             studentsInCurrentClasses.Add(newStudent);
