@@ -62,14 +62,21 @@
             <td rowspan="2" class="auto-style9">&nbsp;</td>
             <td>
                 &nbsp;
-                <asp:DropDownList ID="ddlStudentNames" runat="server">
+                <asp:DropDownList ID="ddlStudentNames" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlStudentNames_OnSelectedIndexChanged">
                     <asp:ListItem>Student Name</asp:ListItem>
                 </asp:DropDownList>
             </td>
             <td>
-                <asp:DropDownList ID="ddlAssignmentNames" runat="server">
-                    <asp:ListItem>Assignment Name</asp:ListItem>
-                </asp:DropDownList>
+                <asp:ScriptManager ID="ScriptManager1" runat="server"/>
+                
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                    <asp:DropDownList ID="ddlAssignmentNames" runat="server" >
+                        <asp:ListItem >Assignment Name</asp:ListItem>
+                    
+                    </asp:DropDownList>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </td>
         </tr>
         <tr>

@@ -71,7 +71,7 @@ namespace CourseManagement.DAL
         }
 
 
-        public List<GradedItem> GetGradedItemsByStudentId(int studentId, int CRNCheck)
+        public List<GradedItem> GetGradedItemsByStudentId(string studentId, int CRNCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             var coursesTaught = new CourseCollection();
@@ -85,9 +85,10 @@ namespace CourseManagement.DAL
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@CRN", CRNCheck);
+                    cmd.Parameters.AddWithValue("@studentId", studentId);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        int studentUIDOrdinal = reader.GetOrdinal("studentUID");
+                        int studentUIDOrdinal = reader.GetOrdinal("student_uid");
                         int totalPointsOrdinal = reader.GetOrdinal("grade_total_points");
                         int gradeEarnedOrdinal = reader.GetOrdinal("grade_earned_points");
                         int gradeTypeOrdinal = reader.GetOrdinal("grade_type");
