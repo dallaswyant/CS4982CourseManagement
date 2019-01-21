@@ -10,7 +10,7 @@ namespace CourseManagement.DAL
     public class CourseDAL
     {
 
-        public CourseCollection GetCourseByTeacherID(string teacherIDCheck)
+        public CourseCollection GetCourseByTeacherID(string teacherUIDCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             CourseCollection coursesTaught = new CourseCollection();
@@ -24,7 +24,7 @@ namespace CourseManagement.DAL
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@teacherID", teacherIDCheck);
+                    cmd.Parameters.AddWithValue("@teacherID", teacherUIDCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         
@@ -36,7 +36,6 @@ namespace CourseManagement.DAL
                         int locationOrdinal = reader.GetOrdinal("location");
                         int assignmentTypesOrdinal = reader.GetOrdinal("assignment_types");
                         int weightPerTypeOrdinal = reader.GetOrdinal("weight_per_type");
-                        int dropDateOrdinal = reader.GetOrdinal("add_drop_deadline");
                         int rubricIDOrdinal = reader.GetOrdinal("rubric_id");
 
                         while (reader.Read())
@@ -48,26 +47,7 @@ namespace CourseManagement.DAL
                             int maxSeats = reader[maxSeatsOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(maxSeatsOrdinal);
                             int rubricID = reader[rubricIDOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(rubricIDOrdinal);
                             string location = reader[locationOrdinal] == DBNull.Value ? default(string) : reader.GetString(locationOrdinal);
-                            string assignmentTypes = reader[assignmentTypesOrdinal] == DBNull.Value ? default(string) : reader.GetString(assignmentTypesOrdinal);
-                            string weightPerType = reader[weightPerTypeOrdinal] == DBNull.Value ? default(string) : reader.GetString(weightPerTypeOrdinal);
-                            Dictionary<string, int> rubricStuff = new Dictionary<string, int>();
-                            int assingmentCount = assignmentTypes.Split('/').Length - 1;
-                            int weightCount = weightPerType.Split('/').Length - 1;
-                            String[] types = new String[assingmentCount];
-                            String[] weights = new String[weightCount];
-                            if (assignmentTypes != default(string))
-                            {
-                                types = assignmentTypes.Split('/');
-                            }
-                            if (weightPerType != default(string))
-                            {
-                                weights = weightPerType.Split('/');
-                            }
-                            for (int i = 0; i < types.Length; i++)
-                            {
-                                rubricStuff.Add(types[i],Convert.ToInt32(weights[i]));
-                            }
-                            CourseRubric rubric = new CourseRubric(rubricStuff, rubricID);
+                            
                             List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
                             TeacherDAL teacherGetter = new TeacherDAL();
                             Teacher currTeacher = teacherGetter.GetAllTeachers();
@@ -75,7 +55,7 @@ namespace CourseManagement.DAL
                             CourseInfo currCourseInfo = new CourseInfo(courseName, currTeacher, location, creditHours, CRN, sectionNumber);
                             StudentDAL studentGetter = new StudentDAL();
                             List<Student> studentsInCourse = studentGetter.GetStudentsByCRN(CRN);
-                            Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats, studentsInCourse);
+                            Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
                             coursesTaught.Add(currentCourse);
                             
                         }
@@ -108,7 +88,6 @@ namespace CourseManagement.DAL
                         int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
                         int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
                         int locationOrdinal = reader.GetOrdinal("location");
-                        int rubricIDOrdinal = reader.GetOrdinal("rubric_id");
 
                         while (reader.Read())
                         {
@@ -117,7 +96,6 @@ namespace CourseManagement.DAL
                             string sectionNumber = reader[sectionNumberOrdinal] == DBNull.Value ? default(string) : reader.GetString(sectionNumberOrdinal);
                             int creditHours = reader[creditHoursOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(creditHoursOrdinal);
                             int maxSeats = reader[maxSeatsOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(maxSeatsOrdinal);
-                            int rubricID = reader[rubricIDOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(rubricIDOrdinal);
                             string location = reader[locationOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(locationOrdinal);
@@ -126,9 +104,7 @@ namespace CourseManagement.DAL
                             TeacherDAL teacherGetter = new TeacherDAL();
                             Teacher currTeacher = teacherGetter.GetAllTeachers();
                             CourseInfo currCourseInfo = new CourseInfo(courseName, currTeacher, location, creditHours, CRN, sectionNumber);
-                            StudentDAL studentGetter = new StudentDAL();
-                            List<Student> studentsInCourse = studentGetter.GetStudentsByCRN(CRN);
-                            Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats, studentsInCourse);
+                            Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
                             coursesTaken.Add(currentCourse);
 
                         }
