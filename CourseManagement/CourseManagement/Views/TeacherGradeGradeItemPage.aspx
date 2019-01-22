@@ -42,6 +42,19 @@
         .auto-style21 { width: 638px; }
 
         .auto-style22 { width: 792px; }
+        .auto-style23 {
+            text-align: center;
+            width: 147px;
+            height: 51px;
+        }
+        .auto-style25 {
+            height: 87px;
+        }
+        .auto-style26 {
+            text-align: center;
+            width: 147px;
+            height: 33px;
+        }
     </style>
 
 </asp:Content>
@@ -52,36 +65,39 @@
     &nbsp;<br/>
     <table class="auto-style1">
         <tr>
-            <td class="auto-style3" rowspan="2">
+            <td class="auto-style3" rowspan="3">
                 <asp:Image ID="profilePicture" runat="server" Height="90px" Width="136px" ImageUrl="~/Images/No image.jpg"/>
 
             </td>
-            <td class="auto-style4">
-                <asp:Label ID="Label3" runat="server" Text="Teacher name"></asp:Label>
+            <td class="auto-style26">
+                <asp:Label ID="lblTeacher" runat="server" Text="Teacher Name"></asp:Label>
             </td>
-            <td rowspan="2" class="auto-style9">&nbsp;</td>
-            <td>
+            <td rowspan="3" class="auto-style9">&nbsp;</td>
+            <td class="auto-style25" rowspan="2">
                 &nbsp;
                 <asp:DropDownList ID="ddlStudentNames" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlStudentNames_OnSelectedIndexChanged">
-                    <asp:ListItem>Student name</asp:ListItem>
+                    <asp:ListItem>Student Name</asp:ListItem>
                 </asp:DropDownList>
             </td>
-            <td>
+            <td class="auto-style25" rowspan="2">
+                    <asp:DropDownList ID="ddlAssignmentNames" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAssignmentNames_SelectedIndexChanged" >
+                        <asp:ListItem >Assignment Name</asp:ListItem>
+                    
+                    </asp:DropDownList>
                 <asp:ScriptManager ID="ScriptManager1" runat="server"/>
                 
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
-                    <ContentTemplate>
-                    <asp:DropDownList ID="ddlAssignmentNames" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAssignmentNames_SelectedIndexChanged" >
-                        <asp:ListItem >Assignment name</asp:ListItem>
-                    
-                    </asp:DropDownList>
-                    </ContentTemplate>
                 </asp:UpdatePanel>
             </td>
         </tr>
         <tr>
+            <td class="auto-style23">
+                <asp:Label ID="lblCourse" runat="server"></asp:Label>
+            </td>
+        </tr>
+        <tr>
             <td class="auto-style4">
-                <asp:Label ID="Label4" runat="server" Font-Italic="True" Text="Email"></asp:Label>
+                <asp:Label ID="lblEmail" runat="server" Font-Italic="True" Text="Email"></asp:Label>
             </td>
             <td colspan="2">
                 &nbsp;

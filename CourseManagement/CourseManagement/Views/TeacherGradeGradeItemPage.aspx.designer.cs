@@ -22,13 +22,13 @@ namespace CourseManagement {
         protected global::System.Web.UI.WebControls.Image profilePicture;
         
         /// <summary>
-        /// Label3 control.
+        /// lblTeacher control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Label lblTeacher;
         
         /// <summary>
         /// ddlStudentNames control.
@@ -38,6 +38,15 @@ namespace CourseManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlStudentNames;
+        
+        /// <summary>
+        /// ddlAssignmentNames control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAssignmentNames;
         
         /// <summary>
         /// ScriptManager1 control.
@@ -58,22 +67,22 @@ namespace CourseManagement {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// ddlAssignmentNames control.
+        /// lblCourse control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAssignmentNames;
+        protected global::System.Web.UI.WebControls.Label lblCourse;
         
         /// <summary>
-        /// Label4 control.
+        /// lblEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.Label lblEmail;
         
         /// <summary>
         /// Label6 control.

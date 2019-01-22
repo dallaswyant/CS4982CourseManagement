@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.UI.WebControls;
 using CourseManagement.App_Code;
 using CourseManagement.DAL;
@@ -10,14 +11,30 @@ namespace CourseManagement
         #region Methods
 
         private GradedItemDAL gradeItemDAL = new GradedItemDAL();
+        
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             var studentDAL = new StudentDAL();
             
             if (!IsPostBack)
             {
                 populateStudentDDL(studentDAL); //TODO right now this just uses psychology course
                 DataBind();
+            }
+
+            GradedItem currentGrade = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
+
+            if (currentGrade != null)
+            {
+                var user = HttpContext.Current.Session["User"] as User;
+                TeacherDAL teacherDAL = new TeacherDAL();
+                Teacher teacher = teacherDAL.GetTeacherByTeacherID(user.UserId);
+                var course = HttpContext.Current.Session["CurrentCourse"] as string;
+                this.lblCourse.Text = course;
+                this.lblTeacher.Text = teacher.Name;
+                this.lblEmail.Text = teacher.Email;
+                
             }
             
             

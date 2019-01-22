@@ -20,20 +20,21 @@
                 </asp:DropDownList>
             </td>
         </tr>
-    </table>
+</table>
     <asp:ObjectDataSource ID="odsAssignments" runat="server" SelectMethod="GetUniqueGradedItemsByCRN" TypeName="CourseManagement.DAL.GradedItemDAL" OldValuesParameterFormatString="original_{0}">
         <SelectParameters>
             <asp:ControlParameter ControlID="ddlCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
         </SelectParameters>
     </asp:ObjectDataSource>
     <br />
-    <asp:GridView ID="gvwStudents" runat="server" OnSelectedIndexChanging="gvwGrade_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsStudents">
+    <asp:GridView ID="gvwStudents" runat="server" OnSelectedIndexChanging="gvwGrade_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsStudents" AllowPaging="True" OnSelectedIndexChanged="gvwStudents_SelectedIndexChanged">
         <Columns>
             <asp:BoundField DataField="Student" HeaderText="Student" SortExpression="Student" />
             <asp:BoundField HeaderText="Grade" DataField="Grade" ReadOnly="True" SortExpression="Grade"/>
             <asp:BoundField HeaderText="PossiblePoints" DataField="PossiblePoints" ReadOnly="True" SortExpression="PossiblePoints"/>
             <asp:BoundField DataField="GradeType" HeaderText="GradeType" ReadOnly="True" SortExpression="GradeType" />
             <asp:BoundField HeaderText="Feedback" DataField="Feedback" SortExpression="Feedback"/>
+            <asp:CommandField ShowSelectButton="True" />
         </Columns>
     </asp:GridView>
     <asp:ObjectDataSource ID="odsStudents" runat="server" SelectMethod="GetGradedItemsByCRNAndGradeName" TypeName="CourseManagement.DAL.GradedItemDAL">
