@@ -9,19 +9,34 @@
             <asp:SessionParameter Name="teacherIDCheck" SessionField="UserID" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="odsWeights">
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="odsWeights" OnRowUpdated="GridView1_RowUpdated">
         <Columns>
-            <asp:BoundField HeaderText="Assignment Type" DataField="Key" SortExpression="Key"/>
-            <asp:BoundField HeaderText="Weight" DataField="Value" ReadOnly="True" SortExpression="Value"/>
+            <asp:TemplateField HeaderText="Assignment Type" SortExpression="Key">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Key") %>'></asp:TextBox><asp:RequiredFieldValidator runat="server" ErrorMessage="Required Field" ValidationGroup="gridview" Text="*" ControlToValidate="TextBox1"></asp:RequiredFieldValidator>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("Key") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Weight" SortExpression="Value">
+                <EditItemTemplate>
+                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("Value") %>'></asp:Label><asp:RequiredFieldValidator runat="server" ErrorMessage="Required Field" ValidationGroup="gridview" Text="*" ControlToValidate="TextBox1"></asp:RequiredFieldValidator>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("Value") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:CommandField ShowEditButton="True" />
         </Columns>
     </asp:GridView>
-    <asp:ObjectDataSource ID="odsWeights" runat="server" SelectMethod="GetCourseRubricByCRN" TypeName="CourseManagement.DAL.CourseRubricDAL" UpdateMethod="UpdateCourseRubric">
+    <asp:ObjectDataSource ID="odsWeights" runat="server" SelectMethod="GetCourseRubricByCRN" TypeName="CourseManagement.DAL.CourseRubricDAL" UpdateMethod="UpdateCourseRubric" OldValuesParameterFormatString="original_{0}">
         <SelectParameters>
             <asp:ControlParameter ControlID="ddlCourse" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
         </SelectParameters>
         <UpdateParameters>
             <asp:Parameter Name="CRN" Type="Int32" />
-            <asp:Parameter Name="rubricToUpdate" Type="Object" />
+            <asp:Parameter Name="rubric" Type="Object" />
         </UpdateParameters>
     </asp:ObjectDataSource>
     <asp:DetailsView ID="DetailsView1" runat="server" Height="50px" Width="333px">

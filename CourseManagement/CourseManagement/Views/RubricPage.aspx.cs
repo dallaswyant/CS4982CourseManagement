@@ -11,5 +11,10 @@ namespace CourseManagement.Views
         }
 
         #endregion
+
+        protected void GridView1_RowUpdated(object sender, System.Web.UI.WebControls.GridViewUpdatedEventArgs e)
+        {
+            this.Validate("gridview");
+        }
     }
 }

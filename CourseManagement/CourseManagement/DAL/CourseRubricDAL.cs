@@ -119,21 +119,21 @@ namespace CourseManagement.DAL
             }
         }
 
-        public void UpdateCourseRubric(int CRN, CourseRubric rubricToUpdate)
+        public void UpdateCourseRubric(int CRN, Dictionary<String,int> rubric)
         {
             string assignment_types = "";
             string weight_per_types = "";
-            for (int i = 0; i < rubricToUpdate.GradeTypeWithWeights.Count; i++)
+            for (int i = 0; i < rubric.Count; i++)
             {
-                if (i == rubricToUpdate.GradeTypeWithWeights.Count - 1)
+                if (i == rubric.Count - 1)
                 {
-                    assignment_types += rubricToUpdate.GradeTypeWithWeights.ElementAt(i).Key;
-                    weight_per_types += rubricToUpdate.GradeTypeWithWeights.ElementAt(i).Value;
+                    assignment_types += rubric.ElementAt(i).Key;
+                    weight_per_types += rubric.ElementAt(i).Value;
                 }
                 else
                 {
-                    assignment_types += rubricToUpdate.GradeTypeWithWeights.ElementAt(i).Key + "/";
-                    weight_per_types += rubricToUpdate.GradeTypeWithWeights.ElementAt(i).Value + "/";
+                    assignment_types += rubric.ElementAt(i).Key + "/";
+                    weight_per_types += rubric.ElementAt(i).Value + "/";
                 }
             }
             MySqlConnection conn = DbConnection.GetConnection();
