@@ -35,6 +35,11 @@ namespace CourseManagement.App_Code
 
         }
 
+        public override string ToString()
+        {
+            return CourseInfo.Name;
+        }
+
         #endregion
     }
 }

@@ -37,7 +37,7 @@
             <asp:CommandField ShowSelectButton="True" />
         </Columns>
     </asp:GridView>
-    <asp:ObjectDataSource ID="odsStudents" runat="server" SelectMethod="GetGradedItemsByCRNAndGradeName" TypeName="CourseManagement.DAL.GradedItemDAL">
+    <asp:ObjectDataSource ID="odsStudents" runat="server" SelectMethod="GetGradedItemsByCRNAndGradeNameForAllStudents" TypeName="CourseManagement.DAL.GradedItemDAL">
         <SelectParameters>
             <asp:ControlParameter ControlID="ddlCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
             <asp:ControlParameter ControlID="ddlAssignments" Name="gradeName" PropertyName="SelectedValue" Type="String" />
