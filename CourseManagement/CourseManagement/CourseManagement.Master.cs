@@ -18,6 +18,8 @@ namespace CourseManagement
 
             }
 
+
+
             User user = (User) HttpContext.Current.Session["User"];
             if (user == null)
             {
@@ -27,7 +29,6 @@ namespace CourseManagement
                 this.lblUsernameTXT.Visible = true;
                 this.tbxPassword.Visible = true;
                 this.tbxUsername.Visible = true;
-                
                 this.lblUsername.Text = "";
             }
             else
@@ -38,36 +39,51 @@ namespace CourseManagement
                 this.lblUsernameTXT.Visible = false;
                 this.tbxPassword.Visible = false;
                 this.tbxUsername.Visible = false;
-                this.lblUsername.Text = user.UserId;
+                if (user.Role.Equals("teachers"))
+                {
+                    TeacherDAL teacherDAL = new TeacherDAL();
+                    Teacher teacher = teacherDAL.GetTeacherByTeacherID(user.UserId);
+                    this.lblUsername.Text = "Welcome, " + teacher.Name + " (" + user.Role + ") ";
+                } else if (user.Role.Equals("students"))
+                {
+                    StudentDAL studentDAL = new StudentDAL();
+                    Student student = studentDAL.GetStudentByStudentID(user.UserId);
+                    this.lblUsername.Text = "Welcome, " + student.name + " (" + user.Role + ") ";
+                }
+                
             }
 
         }
 
-        private void handleLogin(UserDAL userDAL)
+        private void handleLogin()
         {
+            UserDAL userDAL = new UserDAL();
             User user = userDAL.CheckLogin(this.tbxUsername.Text, this.tbxPassword.Text);
-            if (string.IsNullOrEmpty(user.UserId + user.Password + user.Role))
+            if (user == null || string.IsNullOrWhiteSpace(user.UserId + user.Password + user.Role))
             {
                 HttpContext.Current.Session["User"] = null;
                 HttpContext.Current.Session["UserID"] = null;
+                this.lblLogin.Text = "Invalid username or password.";
             }
             else
             {
                 HttpContext.Current.Session["User"] = user;
-                HttpContext.Current.Session["UserID"] = user.UserId;
+                HttpContext.Current.Session["UserID"] = user?.UserId; 
+                this.lblPasswordTXT.Visible = false;
+                this.lblUsernameTXT.Visible = false;
+                this.tbxPassword.Visible = false;
+                this.tbxUsername.Visible = false;
+                this.rfvPassword.Enabled = false;
+                this.rfvUsername.Enabled = false;
+                this.lblLogin.Text = "";
+                this.lblUsername.Text = user.UserId;
             }
 
-            this.btnLogin.Text = "Logout";
-            this.lblPasswordTXT.Visible = false;
-            this.lblUsernameTXT.Visible = false;
-            this.tbxPassword.Visible = false;
-            this.tbxUsername.Visible = false;
-            this.lblUsername.Text = user.UserId;
+
         }
 
         private void handleLogout()
         {
-            this.btnLogin.Text = "Login";
             HttpContext.Current.Session["User"] = null;
 
             this.lblPasswordTXT.Visible = true;
@@ -76,14 +92,16 @@ namespace CourseManagement
             this.tbxUsername.Text = "";
             this.tbxPassword.Visible = true;
             this.tbxUsername.Visible = true;
+            this.rfvPassword.Enabled = true;
+            this.rfvUsername.Enabled = true;
 
             this.lblUsername.Text = "";
         }
 
         protected void login_OnClick(object sender, EventArgs e)
         {
-            UserDAL userDAL = new UserDAL();
-            handleLogin(userDAL);
+            
+            handleLogin();
             HttpContext.Current.Response.Redirect("Homepage.aspx");
 
         }
