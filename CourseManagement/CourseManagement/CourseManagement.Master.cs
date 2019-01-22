@@ -29,6 +29,8 @@ namespace CourseManagement
                 this.lblUsernameTXT.Visible = true;
                 this.tbxPassword.Visible = true;
                 this.tbxUsername.Visible = true;
+                this.rfvUsername.Enabled = true;
+                this.rfvPassword.Enabled = true;
                 this.lblUsername.Text = "";
             }
             else
@@ -39,6 +41,8 @@ namespace CourseManagement
                 this.lblUsernameTXT.Visible = false;
                 this.tbxPassword.Visible = false;
                 this.tbxUsername.Visible = false;
+                this.rfvUsername.Enabled = false;
+                this.rfvPassword.Enabled = false;
                 if (user.Role.Equals("teachers"))
                 {
                     TeacherDAL teacherDAL = new TeacherDAL();
@@ -73,8 +77,6 @@ namespace CourseManagement
                 this.lblUsernameTXT.Visible = false;
                 this.tbxPassword.Visible = false;
                 this.tbxUsername.Visible = false;
-                this.rfvPassword.Enabled = false;
-                this.rfvUsername.Enabled = false;
                 this.lblLogin.Text = "";
                 this.lblUsername.Text = user.UserId;
             }
@@ -92,8 +94,6 @@ namespace CourseManagement
             this.tbxUsername.Text = "";
             this.tbxPassword.Visible = true;
             this.tbxUsername.Visible = true;
-            this.rfvPassword.Enabled = true;
-            this.rfvUsername.Enabled = true;
 
             this.lblUsername.Text = "";
         }
