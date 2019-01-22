@@ -9,7 +9,7 @@
             <asp:SessionParameter Name="teacherIDCheck" SessionField="UserID" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="odsWeights" OnRowUpdated="GridView1_RowUpdated">
+    <asp:GridView ID="gvwWeights" runat="server" AutoGenerateColumns="False" DataSourceID="odsWeights" OnRowUpdated="GridView1_RowUpdated">
         <Columns>
             <asp:TemplateField HeaderText="Assignment Type" SortExpression="Key">
                 <EditItemTemplate>

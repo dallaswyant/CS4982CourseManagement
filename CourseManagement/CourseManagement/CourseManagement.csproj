@@ -79,6 +79,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="corporate-white\about.html" />
+    <Content Include="corporate-white\contact.html" />
+    <Content Include="corporate-white\css\style.css" />
+    <Content Include="corporate-white\images\bg-footnote.jpg" />
+    <Content Include="corporate-white\images\bg-header.jpg" />
+    <Content Include="corporate-white\images\border.png" />
+    <Content Include="corporate-white\images\frame1.png" />
+    <Content Include="corporate-white\images\frame3.png" />
+    <Content Include="corporate-white\images\frame4.png" />
+    <Content Include="corporate-white\images\frame5.png" />
+    <Content Include="corporate-white\images\frames.png" />
+    <Content Include="corporate-white\images\icons.png" />
+    <Content Include="corporate-white\images\interface.png" />
+    <Content Include="corporate-white\images\logo.png" />
+    <Content Include="corporate-white\images\Picture1.png" />
+    <Content Include="corporate-white\images\team.jpg" />
+    <Content Include="corporate-white\index.html" />
+    <Content Include="corporate-white\services.html" />
+    <Content Include="corporate-white\team.html" />
     <Content Include="Global.asax" />
     <Content Include="Images\EmptyFile.png" />
     <Content Include="Images\No image.jpg" />
@@ -172,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CourseManagement.Master" />
+    <Content Include="corporate-white\images\Thumbs.db" />
     <None Include="packages.config" />
     <Content Include="Student.sitemap" />
     <None Include="Web.Debug.config">

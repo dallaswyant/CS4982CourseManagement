@@ -12,7 +12,7 @@
             width: 100%;
         }
         .auto-style2 {
-            width: 1102px;
+            width: 747px;
         }
     </style>
 </head>
@@ -29,15 +29,13 @@
                     <td class="auto-style2" rowspan="2"><h1>CourseHub</h1></td>
                     <td>
                         <asp:Label ID="lblUsernameTXT" runat="server" Text="User name:"></asp:Label>
-                        <asp:TextBox ID="tbxUsername" runat="server" Height="25px"></asp:TextBox>
+                        <asp:TextBox ID="tbxUsername" runat="server"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="tbxUsername" ErrorMessage="*"></asp:RequiredFieldValidator>
                         <asp:Label ID="lblPasswordTXT" runat="server" Text="Password:"></asp:Label>
                         <asp:TextBox ID="tbxPassword" runat="server" TextMode="Password"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="tbxPassword">*</asp:RequiredFieldValidator>
-                        <asp:Button ID="btnLogin" runat="server" OnClick="login_OnClick" Text="Login" />
-                    </td>
-                    <td rowspan="2">
                         <asp:Label ID="lblUsername" runat="server"></asp:Label>
+                        <asp:Button ID="btnLogin" runat="server" OnClick="login_OnClick" Text="Login" />
                         <asp:Button ID="btnLogout" runat="server" OnClick="logout_OnClick" Text="Logout" />
                     </td>
                 </tr>
@@ -51,9 +49,6 @@
     </header>
 
         <nav>
-            <asp:SiteMapPath ID="smpMenu" runat="server">
-            </asp:SiteMapPath>
-            <asp:SiteMapDataSource ID="SiteMapDataSource2" runat="server" />
         </nav>
 
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">

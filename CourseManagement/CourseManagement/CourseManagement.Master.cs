@@ -68,6 +68,7 @@ namespace CourseManagement
                 HttpContext.Current.Session["User"] = null;
                 HttpContext.Current.Session["UserID"] = null;
                 this.lblLogin.Text = "Invalid username or password.";
+
             }
             else
             {
@@ -87,7 +88,6 @@ namespace CourseManagement
         private void handleLogout()
         {
             HttpContext.Current.Session["User"] = null;
-
             this.lblPasswordTXT.Visible = true;
             this.tbxPassword.Text = "";
             this.lblUsernameTXT.Visible = true;

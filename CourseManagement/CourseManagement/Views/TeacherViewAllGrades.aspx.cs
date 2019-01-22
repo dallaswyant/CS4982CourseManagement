@@ -20,10 +20,12 @@ namespace CourseManagement.Views
 
             int index = e.NewSelectedIndex;
             List<GradedItem> items = (List<GradedItem>) this.odsStudents.Select();
-            String course = this.ddlCourses.SelectedItem.Text;
 
             HttpContext.Current.Session["CurrentGradedItem"] = items[index];
-            HttpContext.Current.Session["CurrentCourse"] = course;
+            CourseDAL courseDal = new CourseDAL();
+            int crn = int.Parse(this.ddlCourses.SelectedValue);
+            Course currentCourse = courseDal.GetCourseByCRN(crn);
+            HttpContext.Current.Session["CurrentCourse"] = currentCourse;
             HttpContext.Current.Response.Redirect("TeacherGradeGradeItemPage.aspx");
         }
 

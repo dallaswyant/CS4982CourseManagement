@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using CourseManagement.App_Code;
@@ -7,6 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL
 {
+    [DataObject(true)]
     public class CourseRubricDAL
     {
         public Dictionary<string, int> GetCourseRubricByCRN(int CRNCheck)
@@ -118,8 +120,8 @@ namespace CourseManagement.DAL
                 conn.Close();
             }
         }
-
-        public void UpdateCourseRubric(int CRN, Dictionary<String,int> rubric)
+        [DataObjectMethod(DataObjectMethodType.Update)]
+        public void UpdateCourseRubric(Dictionary<String,int> rubric, int CRN)
         {
             string assignment_types = "";
             string weight_per_types = "";
