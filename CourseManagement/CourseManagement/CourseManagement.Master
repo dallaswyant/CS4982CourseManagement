@@ -46,6 +46,7 @@
         <nav>
             <asp:SiteMapPath ID="SiteMapPath1" runat="server">
             </asp:SiteMapPath>
+            <asp:SiteMapDataSource ID="SiteMapDataSource2" runat="server" />
         </nav>
 
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">

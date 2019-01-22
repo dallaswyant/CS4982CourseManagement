@@ -9,7 +9,7 @@ namespace CourseManagement.DAL
 {
     public class CourseRubricDAL
     {
-        public CourseRubric GetCourseRubricByCRN(int CRNCheck)
+        public Dictionary<string, int> GetCourseRubricByCRN(int CRNCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             
@@ -55,7 +55,7 @@ namespace CourseManagement.DAL
                                 rubricStuff.Add(types[i], Convert.ToInt32(weights[i]));
                             }
                             CourseRubric rubric = new CourseRubric(rubricStuff, rubricID);
-                            return rubric;
+                            return rubricStuff;
 
                         }
                     }
