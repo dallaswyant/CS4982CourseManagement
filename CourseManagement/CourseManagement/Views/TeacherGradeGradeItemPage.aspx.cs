@@ -11,6 +11,8 @@ namespace CourseManagement
         #region Methods
 
         private GradedItemDAL gradeItemDAL = new GradedItemDAL();
+        private int gradItemId;
+        private string gradeType;
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -53,7 +55,8 @@ namespace CourseManagement
 
         protected void ddlStudentNames_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            this.ddlAssignmentNames.Items.Clear();
+            this.ddlAssignmentNames.Items.Add(new ListItem("Assignment Name"));
             var gradedItems = gradeItemDAL.GetGradedItemsByStudentId(this.ddlStudentNames.SelectedValue, 1);
             foreach (var item in gradedItems)
             {
@@ -64,20 +67,35 @@ namespace CourseManagement
 
         protected void ddlAssignmentNames_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             var gradedItems = gradeItemDAL.GetGradedItemsByStudentId(this.ddlStudentNames.SelectedValue, 1);
-            var itemID = int.Parse(this.ddlAssignmentNames.SelectedValue);
+            int.TryParse(this.ddlAssignmentNames.SelectedValue, out int itemId);
             var totalPoints = 0;
             GradedItem currGradedItem = null;
             foreach (var item in gradedItems)
             {
-                if (item.GradeId == itemID)
+                if (item.GradeId == itemId)
                 {
                     currGradedItem = item;
                 }
             }
 
-            totalPoints = currGradedItem.PossiblePoints;
-            this.grade.Text = "/" + totalPoints;
+            if (currGradedItem != null)
+            {
+                totalPoints = currGradedItem.PossiblePoints;
+                this.grade.Text = "/" + totalPoints;
+                this.TextBox2.Text = currGradedItem.Grade.ToString();
+                this.TextBox1.Text = currGradedItem.Feedback;
+                
+            }
+            else
+            {
+                totalPoints = 0;
+                this.grade.Text = "";
+                this.TextBox2.Text = "";
+                this.TextBox1.Text = "";
+            }
+
             this.UpdatePanel2.Update();
         }
     }

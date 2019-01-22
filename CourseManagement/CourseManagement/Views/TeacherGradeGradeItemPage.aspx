@@ -156,11 +156,13 @@
                 <asp:Label ID="Label2" runat="server" Text="Monday, January 1, 2019 11:59 AM"></asp:Label>
             </td>
             <td class="auto-style10">
+                <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Conditional" runat="server">
+                    <ContentTemplate>
+                        <asp:TextBox ID="TextBox2" runat="server" Height="16px" Width="45px"></asp:TextBox>
                 
-                <asp:TextBox ID="TextBox2" runat="server" Height="16px" Width="45px"></asp:TextBox>
-                <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Conditional" runat="server"><ContentTemplate>
-                <asp:Label ID="grade" runat="server" Text="/100" Font-Size="Large"></asp:Label>
-                </ContentTemplate></asp:UpdatePanel>
+                        <asp:Label ID="grade" runat="server" Text="/100" Font-Size="Large"></asp:Label>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </td>
         </tr>
     </table>
@@ -171,7 +173,7 @@
         </tr>
         <tr>
             <td colspan="3" class="feedback">
-                <asp:TextBox ID="TextBox1" runat="server" Height="149px" Width="702px"></asp:TextBox>
+                <asp:TextBox ID="TextBox1" runat="server" Height="149px" Width="702px" TextMode="MultiLine"></asp:TextBox>
             </td>
         </tr>
         <tr>
