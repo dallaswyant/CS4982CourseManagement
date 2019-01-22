@@ -168,30 +168,63 @@ namespace CourseManagement.DAL
             }
         }
 
-
-
-        public void deleteGradedItem(GradedItem gradedItem)
+        public void gradeGradedItemByCRNAndStudentUID(GradedItem newItem, int CRN, string studentUID)
         {
+            StudentDAL studentGetter = new StudentDAL();
+            Student currStudent = studentGetter.GetStudentByStudentID(studentUID);
+
             MySqlConnection conn = DbConnection.GetConnection();
-            var coursesTaught = new CourseCollection();
-            var grades = new List<GradedItem>();
+
             using (conn)
             {
                 conn.Open();
-                var selectQuery =
-                    "DELETE FROM `grade_items` WHERE grade_item_id = @gradeId";
-                var studentGetter = new StudentDAL();
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@gradeId", gradedItem.GradeId);
-
-                    cmd.ExecuteNonQuery();
-
+                    GradedItem grade = new GradedItem(newItem.Name, currStudent, newItem.Grade, newItem.Feedback, newItem.PossiblePoints, newItem.GradeType, 0);
+                    var selectQuery =
+                        "UPDATE grade_items SET grade_earned_points=@grade_points, grade_feedback=@grade_feedback WHERE student_uid = @studentUID AND grade_name = @grade_name";
+                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@studentUID", grade.Student.StudentUID);
+                        cmd.Parameters.AddWithValue("@grade_points", grade.PossiblePoints);
+                        cmd.Parameters.AddWithValue("@grade_name", grade.Name);
+                        cmd.Parameters.AddWithValue("@grade_feedback", grade.Feedback);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
+                conn.Close();
+            
+        }
+
+
+        public void deleteGradedItemByCRNForAllStudents(GradedItem gradedItem, int CRN)
+        {
+            StudentDAL studentGetter = new StudentDAL();
+            List<Student> students = studentGetter.GetStudentsByCRN(CRN);
+
+
+            MySqlConnection conn = DbConnection.GetConnection();
+
+            using (conn)
+            {
+                conn.Open();
+                foreach (var t in students)
+                {
+                    var selectQuery =
+                        "DELETE grade_items FROM grade_items INNER JOIN grade_belongs_to_courses ON grade_items.grade_item_id = grade_belongs_to_courses.grade_item_id WHERE grade_items.student_uid = @studentUID AND grade_belongs_to_courses.courses_CRN = @CRNCheck AND grade_items.grade_name = @grade_name";
+
+                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@studentUID", t.StudentUID);
+                        cmd.Parameters.AddWithValue("@grade_name", gradedItem.Name);
+                        cmd.Parameters.AddWithValue("@CRNCheck", CRN);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                conn.Close();
             }
         }
 
-        public void InsertNewGradedItemByCRN(GradedItem newItem, int CRN)
+        public void InsertNewGradedItemByCRNForAllStudents(GradedItem newItem, int CRN)
         {
             StudentDAL studentGetter = new StudentDAL();
             List<Student> students = studentGetter.GetStudentsByCRN(CRN);
@@ -204,17 +237,17 @@ namespace CourseManagement.DAL
                     conn.Open();
                     foreach (var t in students)
                     {
-                        GradedItem grade = new GradedItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, null, 0);
+                        GradedItem grade = new GradedItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0);
                         var selectQuery =
                             "INSERT INTO grade_items(student_id, grade_total_points, grade_earned_points, grade_type, grade_name, grade_feedback) VALUES (@studentUID,@grade_total,@grade_points,@grade_type,@grade_name,@grade_feedback)";
                         using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                         {
-                            cmd.Parameters.AddWithValue("@studentUID", newItem.Student.StudentUID);
-                            cmd.Parameters.AddWithValue("@grade_total", newItem.Grade);
-                            cmd.Parameters.AddWithValue("@grade_points", newItem.PossiblePoints);
-                            cmd.Parameters.AddWithValue("@grade_type", newItem.GradeType);
-                            cmd.Parameters.AddWithValue("@grade_name", newItem.Name);
-                            cmd.Parameters.AddWithValue("@grade_feedback", newItem.Feedback);
+                            cmd.Parameters.AddWithValue("@studentUID", grade.Student.StudentUID);
+                            cmd.Parameters.AddWithValue("@grade_total", grade.Grade);
+                            cmd.Parameters.AddWithValue("@grade_points", grade.PossiblePoints);
+                            cmd.Parameters.AddWithValue("@grade_type", grade.GradeType);
+                            cmd.Parameters.AddWithValue("@grade_name", grade.Name);
+                            cmd.Parameters.AddWithValue("@grade_feedback", grade.Feedback);
                             cmd.ExecuteNonQuery();
                         }
                     }
@@ -223,29 +256,41 @@ namespace CourseManagement.DAL
             
         }
 
-        public void UpdateGradeItem(GradedItem newItem,int CRN)
+        public void UpdateGradeItemByCRNAndOldNameForAllStudents(GradedItem newItem,int CRN, string oldgradename)
         {
+            StudentDAL studentGetter = new StudentDAL();
+            List<Student> students = studentGetter.GetStudentsByCRN(CRN);
+
 
             MySqlConnection conn = DbConnection.GetConnection();
-            string sql = "UPDATE grade_items SET grade_total_points=@grade_total, grade_earned_points=@grade_points, grade_type=@grade_type, grade_name=@grade_name, grade_feedback=@grade_feedback WHERE student_uid = @studentUID";
-            conn.Open();
-            MySqlCommand cmd = new MySqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("@studentUID", newItem.Student.StudentUID);
-            cmd.Parameters.AddWithValue("@grade_total", newItem.Grade);
-            cmd.Parameters.AddWithValue("@grade_points", newItem.PossiblePoints);
-            cmd.Parameters.AddWithValue("@grade_type", newItem.GradeType);
-            cmd.Parameters.AddWithValue("@grade_name", newItem.Name);
-            cmd.Parameters.AddWithValue("@grade_feedback", newItem.Feedback);
-            cmd.Parameters.AddWithValue("@grade_item_id", newItem.GradeId);
-            cmd.ExecuteNonQuery();
-            conn.Close();
 
+            using (conn)
+            {
+                conn.Open();
+                foreach (var t in students)
+                {
+                    GradedItem grade = new GradedItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0);
+                    var selectQuery =
+                        "UPDATE grade_items SET grade_total_points=@grade_total, grade_earned_points=@grade_points, grade_type=@grade_type, grade_name=@grade_newname, grade_feedback=@grade_feedback WHERE student_uid = @studentUID AND grade_name = @grade_oldname";
+                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@studentUID", grade.Student.StudentUID);
+                        cmd.Parameters.AddWithValue("@grade_total", grade.Grade);
+                        cmd.Parameters.AddWithValue("@grade_points", grade.PossiblePoints);
+                        cmd.Parameters.AddWithValue("@grade_type", grade.GradeType);
+                        cmd.Parameters.AddWithValue("@grade_newname", grade.Name);
+                        cmd.Parameters.AddWithValue("@grade_feedback", grade.Feedback);
+                        cmd.Parameters.AddWithValue("@grade_oldname", oldgradename);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                conn.Close();
+            }
         }
 
-        public List<GradedItem> GetGradedItemsByCRNAndGradeName(int CRNCheck, string gradeName)
+        public List<GradedItem> GetGradedItemsByCRNAndGradeNameForAllStudents(int CRNCheck, string gradeName)
         {
             MySqlConnection conn = DbConnection.GetConnection();
-            var coursesTaught = new CourseCollection();
             var grades = new List<GradedItem>();
             using (conn)
             {
