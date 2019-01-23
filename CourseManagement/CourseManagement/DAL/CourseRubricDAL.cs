@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace CourseManagement.DAL
     [DataObject(true)]
     public class CourseRubricDAL
     {
-        public Dictionary<string, int> GetCourseRubricByCRN(int CRNCheck)
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<RubricItem> GetCourseRubricByCRN(int CRNCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             
@@ -39,7 +41,7 @@ namespace CourseManagement.DAL
                             int rubricID = reader[rubricIDOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(rubricIDOrdinal);
                             string assignmentTypes = reader[assignmentTypesOrdinal] == DBNull.Value ? default(string) : reader.GetString(assignmentTypesOrdinal);
                             string weightPerType = reader[weightPerTypeOrdinal] == DBNull.Value ? default(string) : reader.GetString(weightPerTypeOrdinal);
-                            Dictionary<string, int> rubricStuff = new Dictionary<string, int>();
+                            List<RubricItem> rubricStuff = new List<RubricItem>();
                             int assingmentCount = assignmentTypes.Split('/').Length - 1;
                             int weightCount = weightPerType.Split('/').Length - 1;
                             String[] types = new String[assingmentCount];
@@ -54,11 +56,10 @@ namespace CourseManagement.DAL
                             }
                             for (int i = 0; i < types.Length; i++)
                             {
-                                rubricStuff.Add(types[i], Convert.ToInt32(weights[i]));
+                                RubricItem rubricItem = new RubricItem(CRNCheck, types[i], Convert.ToInt32(weights[i]), i);
+                                rubricStuff.Add(rubricItem);
                             }
-                            CourseRubric rubric = new CourseRubric(rubricStuff, rubricID);
                             return rubricStuff;
-
                         }
                     }
                     
@@ -68,21 +69,21 @@ namespace CourseManagement.DAL
             return null;
         }
 
-        public void AddCourseRubric(int CRN, CourseRubric rubricToAdd)
+        public void AddCourseRubric(int CRN, List<RubricItem> rubricToAdd)
         {
             string assignment_types = "";
             string weight_per_types = "";
-            for (int i = 0; i < rubricToAdd.GradeTypeWithWeights.Count; i++)
+            for (int i = 0; i < rubricToAdd.Count; i++)
             {
-                if (i == rubricToAdd.GradeTypeWithWeights.Count - 1)
+                if (i == rubricToAdd.Count - 1)
                 {
-                    assignment_types += rubricToAdd.GradeTypeWithWeights.ElementAt(i).Key;
-                    weight_per_types += rubricToAdd.GradeTypeWithWeights.ElementAt(i).Value;
+                    assignment_types += rubricToAdd[i].AssignmentType;
+                    weight_per_types += rubricToAdd[i].AssignmentWeight;
                 }
                 else
                 {
-                    assignment_types += rubricToAdd.GradeTypeWithWeights.ElementAt(i).Key + "/";
-                    weight_per_types += rubricToAdd.GradeTypeWithWeights.ElementAt(i).Value + "/";
+                    assignment_types += rubricToAdd[i].AssignmentType + "/";
+                    weight_per_types += rubricToAdd[i].AssignmentWeight + "/";
                 }
             }
             MySqlConnection conn = DbConnection.GetConnection();
@@ -121,21 +122,29 @@ namespace CourseManagement.DAL
             }
         }
         [DataObjectMethod(DataObjectMethodType.Update)]
-        public void UpdateCourseRubric(Dictionary<String,int> rubric, int CRN)
+        public void UpdateCourseRubric(int CRN, string assignmentType, int assignmentWeight, int index)
         {
+            RubricItem item = new RubricItem(CRN, assignmentType, assignmentWeight, index);
+            List<RubricItem> rubric = GetCourseRubricByCRN(item.CRN);
+
             string assignment_types = "";
             string weight_per_types = "";
             for (int i = 0; i < rubric.Count; i++)
             {
-                if (i == rubric.Count - 1)
+                if (i == item.Index)
                 {
-                    assignment_types += rubric.ElementAt(i).Key;
-                    weight_per_types += rubric.ElementAt(i).Value;
+                    assignment_types += item.AssignmentType + "/";
+                    weight_per_types += item.AssignmentWeight + "/";
+                }
+                else if(i != rubric.Count - 1)
+                {
+                    assignment_types += rubric[i].AssignmentType + "/";
+                    weight_per_types += rubric[i].AssignmentWeight + "/";
                 }
                 else
                 {
-                    assignment_types += rubric.ElementAt(i).Key + "/";
-                    weight_per_types += rubric.ElementAt(i).Value + "/";
+                    assignment_types += rubric[i].AssignmentType;
+                    weight_per_types += rubric[i].AssignmentWeight;
                 }
             }
             MySqlConnection conn = DbConnection.GetConnection();
