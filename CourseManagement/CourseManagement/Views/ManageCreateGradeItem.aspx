@@ -37,10 +37,44 @@
         }
 
         .auto-style12 { height: 18px; }
+        .auto-style13 {
+            width: 661px;
+            height: 23px;
+        }
+        .auto-style14 {
+            height: 23px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <table class="auto-style1">
+        <tr>
+            <td class="auto-style7">
+                &nbsp;</td>
+            <td colspan="3">
+                Course:</td>
+        </tr>
+        <tr>
+            <td class="auto-style7">
+                &nbsp;</td>
+            <td colspan="3">
+
+    <asp:DropDownList ID="ddlCourses" runat="server" DataSourceID="odsCourses" DataTextField="Name" DataValueField="CRN">
+    </asp:DropDownList>
+                <br />
+    <asp:ObjectDataSource ID="odsCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseBulletinByTeacherID" TypeName="CourseManagement.DAL.CourseDAL">
+        <SelectParameters>
+            <asp:SessionParameter Name="teacherIDCheck" SessionField="UserID" Type="String" />
+        </SelectParameters>
+    </asp:ObjectDataSource>
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style7">
+                &nbsp;</td>
+            <td colspan="3">
+                &nbsp;</td>
+        </tr>
         <tr>
             <td class="auto-style7">
                 &nbsp;
@@ -66,10 +100,10 @@
             </td>
         </tr>
         <tr>
-            <td class="auto-style7">
+            <td class="auto-style13">
                 &nbsp;
             </td>
-            <td colspan="3">
+            <td colspan="3" class="auto-style14">
                 Assignment Type:
             </td>
         </tr>
@@ -79,6 +113,20 @@
                 <asp:DropDownList ID="ddlAssignmentType" runat="server">
                     <asp:ListItem>Assignment Type</asp:ListItem>
                 </asp:DropDownList>
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style7">&nbsp;</td>
+            <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style7">&nbsp;</td>
+            <td colspan="3">Possible Points:</td>
+        </tr>
+        <tr>
+            <td class="auto-style7">&nbsp;</td>
+            <td colspan="3">
+                <asp:TextBox ID="tbxPossiblePoints" runat="server"></asp:TextBox>
             </td>
         </tr>
         <tr>

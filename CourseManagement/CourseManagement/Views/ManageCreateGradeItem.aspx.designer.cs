@@ -13,6 +13,24 @@ namespace CourseManagement {
     public partial class ManageCreateGradeItem {
         
         /// <summary>
+        /// ddlCourses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCourses;
+        
+        /// <summary>
+        /// odsCourses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsCourses;
+        
+        /// <summary>
         /// tbxAssignmentName control.
         /// </summary>
         /// <remarks>
@@ -29,6 +47,15 @@ namespace CourseManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAssignmentType;
+        
+        /// <summary>
+        /// tbxPossiblePoints control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbxPossiblePoints;
         
         /// <summary>
         /// lblWeight control.

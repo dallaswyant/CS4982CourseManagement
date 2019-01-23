@@ -10,20 +10,22 @@ namespace CourseManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            var GradeDal = new GradedItemDAL();
+            var GradeDAL = new GradedItemDAL();
+            var RubricDAL = new CourseRubricDAL();
+            //RubricDAL.GetCourseRubricByCRN();
         }
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             var assignmentName = this.tbxAssignmentName.Text;
-            //GradedItem item = new GradedItem()
-                // {
-               
-           // };
+            var possiblePoints = Convert.ToInt32(this.tbxPossiblePoints.Text);
+            var gradeType = this.ddlAssignmentType.SelectedValue;
+            GradedItem item = new GradedItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0);
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
+
         }
 
         #endregion
