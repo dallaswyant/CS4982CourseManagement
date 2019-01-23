@@ -1,10 +1,12 @@
 ﻿header {
-    background-image: url("bg-7-full.jpg");
+    background: darkslategray;
     color: azure;
    
     
 }
-
+body {
+    background: #98ff98;
+}
 h1 {
     font: 29px/30px "AR Bonnie", AR Bonnie, serif;
 }
