@@ -14,6 +14,10 @@
         .auto-style2 {
             width: 747px;
         }
+
+        .auto-style3 {
+            width: 398px;
+        }
     </style>
 </head>
 
@@ -45,17 +49,22 @@
                     </td>
                 </tr>
             </table>
-        
+                        <table class="auto-style1">
+                    <tr>
+                        <td class="auto-style3">
+                            <asp:SiteMapPath ID="smpSite" runat="server" ForeColor="Orange">
+
+                            </asp:SiteMapPath>
+                        </td>
+                    </tr>
+                </table>
     </header>
 
         <nav>
         </nav>
 
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                <asp:TreeView ID="TreeView1" runat="server" DataSourceID="XmlDataSource1">
-                </asp:TreeView>
-                <asp:XmlDataSource ID="XmlDataSource1" runat="server"></asp:XmlDataSource>
-                <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+
             </asp:ContentPlaceHolder>
         
     </form>

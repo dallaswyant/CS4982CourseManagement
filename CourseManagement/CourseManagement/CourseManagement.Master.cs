@@ -18,10 +18,36 @@ namespace CourseManagement
 
             }
 
+            
+            
+            User currentUser = HttpContext.Current.Session["User"] as User;
+/*            if (currentUser == null)
+            {
+                HttpContext.Current.Session["smpCounter"] = 0;
+                this.smpSite.Visible = false;
+            } else
+            {
+                int counter = (int)HttpContext.Current.Session["smpCounter"];
+                if (currentUser.Role.Equals("teachers") && counter == 0)
+                {
+                    
+                    this.smpSite.Visible = true;
+                    this.smpSite.SiteMapProvider = "Teacher";
+                }
+                else if (currentUser.Role.Equals("students") && counter == 0)
+                {
 
+                    this.smpSite.Visible = true;
+                    this.smpSite.SiteMapProvider = "Student";
+                }
 
-            User user = (User) HttpContext.Current.Session["User"];
-            if (user == null)
+                counter++;
+                HttpContext.Current.Session["smpCounter"] = counter;
+            }*/
+            
+            
+
+            if (currentUser == null)
             {
                 this.btnLogin.Visible = true;
                 this.btnLogout.Visible = false;
@@ -43,16 +69,16 @@ namespace CourseManagement
                 this.tbxUsername.Visible = false;
                 this.rfvUsername.Enabled = false;
                 this.rfvPassword.Enabled = false;
-                if (user.Role.Equals("teachers"))
+                if (currentUser.Role.Equals("teachers"))
                 {
                     TeacherDAL teacherDAL = new TeacherDAL();
-                    Teacher teacher = teacherDAL.GetTeacherByTeacherID(user.UserId);
-                    this.lblUsername.Text = "Welcome, " + teacher.Name + " (" + user.Role + ") ";
-                } else if (user.Role.Equals("students"))
+                    Teacher teacher = teacherDAL.GetTeacherByTeacherID(currentUser.UserId);
+                    this.lblUsername.Text = "Welcome, " + teacher.Name + " (" + currentUser.Role + ") ";
+                } else if (currentUser.Role.Equals("students"))
                 {
                     StudentDAL studentDAL = new StudentDAL();
-                    Student student = studentDAL.GetStudentByStudentID(user.UserId);
-                    this.lblUsername.Text = "Welcome, " + student.name + " (" + user.Role + ") ";
+                    Student student = studentDAL.GetStudentByStudentID(currentUser.UserId);
+                    this.lblUsername.Text = "Welcome, " + student.name + " (" + currentUser.Role + ") ";
                 }
                 
             }

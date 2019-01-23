@@ -1,6 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
   <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
-    <siteMapNode url="Views/Homepage.aspx" title="Home Page" Description="The home page"></siteMapNode>
+    <siteMapNode url="Views/Homepage.aspx" title="Home Page" Description="The home page">
+
+      <siteMapNode url="Views/StudentViewAllGrades.aspx" title="Student View All Grades"
+                   Description="Allow student to view all grades" >
+          <siteMapNode url="Views/StudentViewGradeItem.aspx" title="Student View Grade Item"
+                     Description="Allow students to view grade item" />
+      </siteMapNode>
+
+      <siteMapNode url="Views/ManageCreateGradeItem.aspx" title="Manage Grade Item"
+                   Description="Allows teachers to edit, create and delete a grade item" />
+      <siteMapNode url="Views/TeacherViewAllGrades.aspx" title="Teacher View All Grades"
+                   Description="Allow teacher to view all grades">
+                    <siteMapNode url="Views/TeacherGradeGradeItem.aspx" title="Teacher Grade Grades"
+                     Description="Allow teacher to grade grades"/> 
+      </siteMapNode>
+      <siteMapNode url="Views/RubricPage.aspx" title="Allow Teacher To Manage Rubric"
+                   Description="Allow teacher to view manage rubric" />
+    </siteMapNode>
   </siteMap>
 
