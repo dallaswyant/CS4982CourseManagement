@@ -239,7 +239,7 @@ namespace CourseManagement.DAL
                     {
                         GradedItem grade = new GradedItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0);
                         var selectQuery =
-                            "INSERT INTO grade_items(student_id, grade_total_points, grade_earned_points, grade_type, grade_name, grade_feedback) VALUES (@studentUID,@grade_total,@grade_points,@grade_type,@grade_name,@grade_feedback)";
+                            "INSERT INTO grade_items(student_uid, grade_total_points, grade_earned_points, grade_type, grade_name, grade_feedback) VALUES (@studentUID,@grade_total,@grade_points,@grade_type,@grade_name,@grade_feedback)";
                         using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                         {
                             cmd.Parameters.AddWithValue("@studentUID", grade.Student.StudentUID);
