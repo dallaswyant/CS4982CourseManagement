@@ -8,9 +8,10 @@ namespace CourseManagement
     {
         #region Methods
 
+        private GradedItemDAL GradeDAL;
         protected void Page_Load(object sender, EventArgs e)
         {
-            var GradeDAL = new GradedItemDAL();
+             this.GradeDAL = new GradedItemDAL();
             var RubricDAL = new CourseRubricDAL();
             //RubricDAL.GetCourseRubricByCRN();
         }
@@ -21,6 +22,8 @@ namespace CourseManagement
             var possiblePoints = Convert.ToInt32(this.tbxPossiblePoints.Text);
             var gradeType = this.ddlAssignmentType.SelectedValue;
             GradedItem item = new GradedItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0);
+            this.GradeDAL.InsertNewGradedItemByCRNForAllStudents(item,1);
+
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
