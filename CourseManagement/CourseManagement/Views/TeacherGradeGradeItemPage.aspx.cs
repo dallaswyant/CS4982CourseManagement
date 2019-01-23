@@ -12,6 +12,7 @@ namespace CourseManagement
 
         private GradedItemDAL gradeItemDAL = new GradedItemDAL();
         private GradedItem currentGrade;
+        private Student currentStudent;
        
         
         protected void Page_Load(object sender, EventArgs e)
@@ -21,11 +22,24 @@ namespace CourseManagement
             
             if (!IsPostBack)
             {
-                populateStudentDDL(studentDAL); 
+                this.currentStudent = HttpContext.Current.Session["SelectedStudent"] as Student;
+                populateStudentDDL(studentDAL);
+                this.currentGrade = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
+                this.ddlStudentNames_OnSelectedIndexChanged(null, null);
+                int count = 0;
+                foreach(var item in this.ddlAssignmentNames.Items)
+                {
+                    if (item.ToString() == this.currentGrade.Name)
+                    {
+                        this.ddlAssignmentNames.SelectedIndex = count;
+                    }
+                    count++;
+                }
+                this.ddlAssignmentNames_SelectedIndexChanged(null,null);
                 DataBind();
             }
 
-             this.currentGrade = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
+            this.currentGrade = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
 
 
             if (currentGrade != null)
@@ -48,10 +62,20 @@ namespace CourseManagement
             var course =(Course) HttpContext.Current.Session["CurrentCourse"];
             var crn = course.CourseInfo.CRN;
             var students = studentDAL.GetStudentsByCRN(crn);
+            int counter = 1;
+            int index = 0;
+            
             foreach (var student in students)
             {
+                if (student.StudentUID == this.currentStudent.StudentUID)
+                {
+                    index = counter;
+                }
                 this.ddlStudentNames.Items.Add(new ListItem(student.name, student.StudentUID));
+                counter++;
             }
+            this.ddlStudentNames.SelectedIndex = index;
+
         }
 
         #endregion
@@ -65,6 +89,7 @@ namespace CourseManagement
             {
                 this.ddlAssignmentNames.Items.Add(new ListItem(item.Name, item.GradeId.ToString()));
             }
+            
             this.UpdatePanel1.Update();
         }
 
