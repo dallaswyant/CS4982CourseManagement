@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
-  <siteMapNode url="Views/Homepage.aspx" title="Home Page" Description="The home page">
-    <siteMapNode url="Views/StudentViewAllGrades.aspx" title="Student View All Grades"
+  <siteMapNode title="Home" url="Views/Homepage.aspx"  Description="The home page">
+    <siteMapNode title="View Grades" url="Views/StudentViewAllGrades.aspx"
                  Description="Allow student to view all grades" >
     </siteMapNode>
   </siteMapNode>

@@ -49,6 +49,7 @@ namespace CourseManagement
 
             if (currentUser == null)
             {
+                this.menuMain.Visible = false;
                 this.btnLogin.Visible = true;
                 this.btnLogout.Visible = false;
                 this.lblPasswordTXT.Visible = true;
@@ -74,11 +75,15 @@ namespace CourseManagement
                     TeacherDAL teacherDAL = new TeacherDAL();
                     Teacher teacher = teacherDAL.GetTeacherByTeacherID(currentUser.UserId);
                     this.lblUsername.Text = "Welcome, " + teacher.Name + " (" + currentUser.Role + ") ";
+                    this.smdsSite.SiteMapProvider = "Teacher";
+                    this.menuMain.Visible = true;
                 } else if (currentUser.Role.Equals("students"))
                 {
                     StudentDAL studentDAL = new StudentDAL();
                     Student student = studentDAL.GetStudentByStudentID(currentUser.UserId);
                     this.lblUsername.Text = "Welcome, " + student.name + " (" + currentUser.Role + ") ";
+                    this.smdsSite.SiteMapProvider = "Student";
+                    this.menuMain.Visible = true;
                 }
                 
             }

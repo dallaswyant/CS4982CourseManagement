@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
-  <siteMapNode url="Views/Homepage.aspx" title="Home Page" Description="The home page">
-    <siteMapNode url="Views/ManageCreateGradeItem.aspx" title="Manage Grade Item"
+  <siteMapNode  url="Views/Homepage.aspx" title="Home Page" Description="The home page">
+    <siteMapNode title="Manage Grades" url="Views/ManageCreateGradeItem.aspx"
                  Description="Allows teachers to edit, create and delete a grade item" />
-    <siteMapNode url="Views/TeacherViewAllGrades.aspx" title="Teacher View All Grades"
+    <siteMapNode title="View Grades" url="Views/TeacherViewAllGrades.aspx" 
                  Description="Allow teacher to view all grades" />
-    <siteMapNode url="Views/RubricPage.aspx" title="Allow Teacher To Manage Rubric"
+    <siteMapNode title="Manage Rubric" url="Views/RubricPage.aspx"
                  Description="Allow teacher to view manage rubric" />
   </siteMapNode>
 </siteMap>

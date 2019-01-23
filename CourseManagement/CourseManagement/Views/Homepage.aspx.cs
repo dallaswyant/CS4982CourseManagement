@@ -28,6 +28,7 @@ namespace CourseManagement.Views
             {
                 this.TreeView1.Visible = true;
                 this.SiteMapDataSource1.SiteMapProvider = "Teacher";
+                
             }
             else if (currentUser.Role.Equals("students"))
             {

@@ -1,12 +1,17 @@
 ﻿header {
-    background: darkslategray;
-    color: azure;
-   
-    
+    background: azure;
+    color:darkslategray;
 }
 body {
-    background: #98ff98;
+    background: azure;
+}
+.menu {
+    background: black;
 }
 h1 {
     font: 29px/30px "AR Bonnie", AR Bonnie, serif;
+}
+
+.table {
+    width: 500px;
 }

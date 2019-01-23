@@ -38,7 +38,7 @@
     <asp:ScriptManager runat="server" ID="ScriptManager"/>
     <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
         <ContentTemplate>
-    <asp:GridView ID="gvwStudents" runat="server" OnSelectedIndexChanging="gvwGrade_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsStudents" AllowPaging="True" OnSelectedIndexChanged="gvwStudents_SelectedIndexChanged">
+    <asp:GridView ID="gvwStudents" runat="server" OnSelectedIndexChanging="gvwGrade_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsStudents" AllowPaging="True" OnSelectedIndexChanged="gvwStudents_SelectedIndexChanged" CssClass="table">
         <Columns>
             <asp:BoundField DataField="Student" HeaderText="Student" SortExpression="Student" />
             <asp:BoundField HeaderText="Grade" DataField="Grade" ReadOnly="True" SortExpression="Grade"/>

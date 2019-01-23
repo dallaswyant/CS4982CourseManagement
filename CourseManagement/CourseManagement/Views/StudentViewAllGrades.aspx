@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <td class="auto-style3">
-                <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1">
+                <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" CssClass="table">
                     <Columns>
 
                         <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
@@ -60,7 +60,7 @@
         </tr>
     </table>
     <br />
-    <asp:GridView ID="GridView1" runat="server" OnSelectedIndexChanging="GridView1_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsGrades">
+    <asp:GridView ID="GridView1" runat="server" OnSelectedIndexChanging="GridView1_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsGrades" CssClass="table">
         <Columns>
             <asp:BoundField DataField="Name" HeaderText="Name" ReadOnly="True" SortExpression="Name" />
             <asp:BoundField DataField="Grade" HeaderText="Grade" ReadOnly="True" SortExpression="Grade" />

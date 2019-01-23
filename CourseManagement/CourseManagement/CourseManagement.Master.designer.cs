@@ -121,6 +121,15 @@ namespace CourseManagement {
         protected global::System.Web.UI.WebControls.Label lblLogin;
         
         /// <summary>
+        /// menuMain control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Menu menuMain;
+        
+        /// <summary>
         /// smpSite control.
         /// </summary>
         /// <remarks>
@@ -137,5 +146,14 @@ namespace CourseManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        
+        /// <summary>
+        /// smdsSite control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SiteMapDataSource smdsSite;
     }
 }

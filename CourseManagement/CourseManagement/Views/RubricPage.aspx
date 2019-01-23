@@ -9,7 +9,7 @@
             <asp:SessionParameter Name="teacherIDCheck" SessionField="UserID" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
-    <asp:GridView ID="gvwWeights" runat="server" AutoGenerateColumns="False" DataSourceID="odsRubricItems" OnRowUpdated="GridView1_RowUpdated" OnRowUpdating="gvwWeights_RowUpdating" OnRowDeleting="gvwWeights_RowDeleting">
+    <asp:GridView ID="gvwWeights" runat="server" AutoGenerateColumns="False" DataSourceID="odsRubricItems" OnRowUpdated="GridView1_RowUpdated" OnRowUpdating="gvwWeights_RowUpdating" OnRowDeleting="gvwWeights_RowDeleting" CssClass="table">
         <Columns>
             <asp:BoundField DataField="Index" HeaderText="Index" SortExpression="Index" ReadOnly="True" />
             <asp:BoundField DataField="CRN" HeaderText="CRN" SortExpression="CRN" ReadOnly="True" />
@@ -40,7 +40,7 @@
             <asp:Parameter Name="index" Type="Int32" />
         </UpdateParameters>
     </asp:ObjectDataSource>
-    <asp:DetailsView ID="DetailsView1" runat="server" Height="50px" Width="333px" AutoGenerateRows="False" DataSourceID="odsRubricItems" DefaultMode="Insert">
+    <asp:DetailsView ID="DetailsView1" runat="server" Width="500px" AutoGenerateRows="False" DataSourceID="odsRubricItems" DefaultMode="Insert" CssClass="table">
         <Fields>
             <asp:BoundField HeaderText="AssignmentType" DataField="AssignmentType" SortExpression="AssignmentType"/>
             <asp:BoundField DataField="AssignmentWeight" HeaderText="AssignmentWeight" SortExpression="AssignmentWeight" />
