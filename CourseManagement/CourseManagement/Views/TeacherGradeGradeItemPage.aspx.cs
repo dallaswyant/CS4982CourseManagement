@@ -11,8 +11,8 @@ namespace CourseManagement
         #region Methods
 
         private GradedItemDAL gradeItemDAL = new GradedItemDAL();
-        private int gradItemId;
-        private string gradeType;
+        private GradedItem currentGrade;
+       
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,11 +21,12 @@ namespace CourseManagement
             
             if (!IsPostBack)
             {
-                populateStudentDDL(studentDAL); //TODO right now this just uses psychology course
+                populateStudentDDL(studentDAL); 
                 DataBind();
             }
 
-            GradedItem currentGrade = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
+             this.currentGrade = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
+
 
             if (currentGrade != null)
             {
@@ -44,7 +45,9 @@ namespace CourseManagement
 
         private void populateStudentDDL(StudentDAL studentDAL)
         {
-            var students = studentDAL.GetStudentsByCRN(1);//TODO change "1" to be what ever course the teacher is viewing
+            var course =(Course) HttpContext.Current.Session["CurrentCourse"];
+            var crn = course.CourseInfo.CRN;
+            var students = studentDAL.GetStudentsByCRN(crn);
             foreach (var student in students)
             {
                 this.ddlStudentNames.Items.Add(new ListItem(student.name, student.StudentUID));
@@ -97,6 +100,23 @@ namespace CourseManagement
             }
 
             this.UpdatePanel2.Update();
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            var studentDAL = new StudentDAL();
+            var updatedGrade = new GradedItem()
+            {
+                Feedback = TextBox1.Text,
+                Grade = int.Parse(this.TextBox2.Text),
+                GradeId = this.currentGrade.GradeId,
+                Name = this.currentGrade.Name
+
+            };
+            var course =(Course) HttpContext.Current.Session["CurrentCourse"];
+            var crn = course.CourseInfo.CRN;
+               
+            this.gradeItemDAL.gradeGradedItemByCRNAndStudentUID(updatedGrade,crn,this.ddlStudentNames.SelectedValue);
         }
     }
 }

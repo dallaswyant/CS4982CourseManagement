@@ -182,7 +182,7 @@
                 <asp:Button ID="Button2" runat="server" Text="Save"/>
             </td>
             <td class="auto-style18">
-                <asp:Button ID="Button3" runat="server" Text="Grade"/>
+                <asp:Button ID="Button3" runat="server" Text="Grade" OnClick="Button3_Click"/>
             </td>
         </tr>
     </table>
