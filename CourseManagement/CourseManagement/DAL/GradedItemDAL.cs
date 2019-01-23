@@ -218,6 +218,16 @@ namespace CourseManagement.DAL
                         cmd.Parameters.AddWithValue("@CRNCheck", CRN);
                         cmd.ExecuteNonQuery();
                     }
+
+                    var query =
+                        "DELETE grade_belongs_to_courses (grade_item_id, courses_CRN) VALUES ((SELECT grade_items.grade_item_id FROM grade_items WHERE grade_items.student_uid = @studentUID AND grade_items.grade_name = @grade_name),@CRN)";
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@studentUID", t.StudentUID);
+                        cmd.Parameters.AddWithValue("@grade_name", gradedItem.Name);
+                        cmd.Parameters.AddWithValue("@CRN", CRN);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
 
                 conn.Close();
@@ -243,8 +253,8 @@ namespace CourseManagement.DAL
                         using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                         {
                             cmd.Parameters.AddWithValue("@studentUID", grade.Student.StudentUID);
-                            cmd.Parameters.AddWithValue("@grade_total", grade.Grade);
-                            cmd.Parameters.AddWithValue("@grade_points", grade.PossiblePoints);
+                            cmd.Parameters.AddWithValue("@grade_total", grade.PossiblePoints);
+                            cmd.Parameters.AddWithValue("@grade_points", grade.Grade);
                             cmd.Parameters.AddWithValue("@grade_type", grade.GradeType);
                             cmd.Parameters.AddWithValue("@grade_name", grade.Name);
                             cmd.Parameters.AddWithValue("@grade_feedback", grade.Feedback);
@@ -253,7 +263,7 @@ namespace CourseManagement.DAL
 
                         var query =
                             "INSERT INTO grade_belongs_to_courses (grade_item_id, courses_CRN) VALUES ((SELECT grade_items.grade_item_id FROM grade_items WHERE grade_items.student_uid = @studentUID AND grade_items.grade_name = @grade_name),@CRN)";
-                        using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                        using (MySqlCommand cmd = new MySqlCommand(query, conn))
                         {
                             cmd.Parameters.AddWithValue("@studentUID", grade.Student.StudentUID);
                             cmd.Parameters.AddWithValue("@grade_name", grade.Name);
@@ -281,15 +291,13 @@ namespace CourseManagement.DAL
                 {
                     GradedItem grade = new GradedItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0);
                     var selectQuery =
-                        "UPDATE grade_items SET grade_total_points=@grade_total, grade_earned_points=@grade_points, grade_type=@grade_type, grade_name=@grade_newname, grade_feedback=@grade_feedback WHERE student_uid = @studentUID AND grade_name = @grade_oldname";
+                        "UPDATE grade_items SET grade_total_points=@grade_total, grade_type=@grade_type, grade_name=@grade_newname WHERE student_uid = @studentUID AND grade_name = @grade_oldname";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@studentUID", grade.Student.StudentUID);
-                        cmd.Parameters.AddWithValue("@grade_total", grade.Grade);
-                        cmd.Parameters.AddWithValue("@grade_points", grade.PossiblePoints);
+                        cmd.Parameters.AddWithValue("@grade_total", grade.PossiblePoints);
                         cmd.Parameters.AddWithValue("@grade_type", grade.GradeType);
                         cmd.Parameters.AddWithValue("@grade_newname", grade.Name);
-                        cmd.Parameters.AddWithValue("@grade_feedback", grade.Feedback);
                         cmd.Parameters.AddWithValue("@grade_oldname", oldgradename);
                         cmd.ExecuteNonQuery();
                     }

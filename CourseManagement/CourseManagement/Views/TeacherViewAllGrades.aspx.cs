@@ -42,5 +42,17 @@ namespace CourseManagement.Views
         {
             this.UpdatePanel1.Update();
         }
+
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            List<GradedItem> items = (List<GradedItem>)this.odsStudents.Select();
+            GradedItem current = items[0];
+            HttpContext.Current.Session["CurrentGradedItem"] = current;
+            CourseDAL courseDal = new CourseDAL();
+            int crn = int.Parse(this.ddlCourses.SelectedValue);
+            Course currentCourse = courseDal.GetCourseByCRN(crn);
+            HttpContext.Current.Session["CurrentCourse"] = currentCourse;
+            HttpContext.Current.Response.Redirect("ManageCreateGradeItem.aspx");
+        }
     }
 }

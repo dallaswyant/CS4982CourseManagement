@@ -20,6 +20,14 @@
                 </asp:DropDownList>
             </td>
         </tr>
+        <tr>
+            <td>
+
+                &nbsp;</td>
+            <td>
+                <asp:Button ID="btnEdit" runat="server" OnClick="btnEdit_Click" Text="Edit This Assignment" />
+            </td>
+        </tr>
 </table>
     <asp:ObjectDataSource ID="odsAssignments" runat="server" SelectMethod="GetUniqueGradedItemsByCRN" TypeName="CourseManagement.DAL.GradedItemDAL" OldValuesParameterFormatString="original_{0}">
         <SelectParameters>
