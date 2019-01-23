@@ -7,8 +7,8 @@
         public string name { get; }
         public string StudentUID { get; }
         public string Email { get; }
-        public CourseCollection ActiveCourses { get; private set; }
-        public DegreeProgram Program { get; private set; }
+        public CourseCollection ActiveCourses { get; }
+        public DegreeProgram Program { get; }
 
         #endregion
 
