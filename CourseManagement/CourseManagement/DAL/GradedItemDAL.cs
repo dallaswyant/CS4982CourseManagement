@@ -239,7 +239,7 @@ namespace CourseManagement.DAL
                     {
                         GradedItem grade = new GradedItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0);
                         var selectQuery =
-                            "INSERT INTO grade_items(student_id, grade_total_points, grade_earned_points, grade_type, grade_name, grade_feedback) VALUES (@studentUID,@grade_total,@grade_points,@grade_type,@grade_name,@grade_feedback)";
+                            "INSERT INTO grade_items(student_uid, grade_total_points, grade_earned_points, grade_type, grade_name, grade_feedback) VALUES (@studentUID,@grade_total,@grade_points,@grade_type,@grade_name,@grade_feedback)";
                         using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                         {
                             cmd.Parameters.AddWithValue("@studentUID", grade.Student.StudentUID);
@@ -250,7 +250,17 @@ namespace CourseManagement.DAL
                             cmd.Parameters.AddWithValue("@grade_feedback", grade.Feedback);
                             cmd.ExecuteNonQuery();
                         }
-                    }
+
+                        var query =
+                            "INSERT INTO grade_belongs_to_courses (grade_item_id, courses_CRN) VALUES ((SELECT grade_items.grade_item_id FROM grade_items WHERE grade_items.student_uid = @studentUID AND grade_items.grade_name = @grade_name),@CRN)";
+                        using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@studentUID", grade.Student.StudentUID);
+                            cmd.Parameters.AddWithValue("@grade_name", grade.Name);
+                            cmd.Parameters.AddWithValue("@CRN", CRN);
+                            cmd.ExecuteNonQuery();
+                        }
+                }
                     conn.Close();
                 }
             
