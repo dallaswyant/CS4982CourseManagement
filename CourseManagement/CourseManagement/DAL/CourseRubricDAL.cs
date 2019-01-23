@@ -122,10 +122,14 @@ namespace CourseManagement.DAL
             }
         }
         [DataObjectMethod(DataObjectMethodType.Update)]
-        public void UpdateCourseRubric(int CRN, string assignmentType, int assignmentWeight, int index)
+        public void UpdateCourseRubric(int crn, string assignmentType, int assignmentWeight, int index)
         {
-            RubricItem item = new RubricItem(CRN, assignmentType, assignmentWeight, index);
-            List<RubricItem> rubric = GetCourseRubricByCRN(item.CRN);
+            int CRN = (int) HttpContext.Current.Session["CRN"];
+            List<RubricItem> rubric = GetCourseRubricByCRN(CRN);
+            RubricItem item = rubric.Find(x =>
+                x.AssignmentType.Equals(assignmentType) && x.AssignmentWeight == assignmentWeight);
+
+            
 
             string assignment_types = "";
             string weight_per_types = "";
@@ -171,17 +175,21 @@ namespace CourseManagement.DAL
 
 
         [DataObjectMethod(DataObjectMethodType.Delete)]
-        public void DeleteCourseRubric(string assignmentType, int assignmentWeight, int index)
+        public void DeleteCourseRubric(int CRN, string assignmentType, int assignmentWeight, int index)
         {
-            int CRN = (int) HttpContext.Current.Session["CRN"];
-            RubricItem item = new RubricItem(CRN, assignmentType, assignmentWeight, index);
+           
+            RubricItem item =  HttpContext.Current.Session["RubricItemToDelete"] as RubricItem;
             List<RubricItem> rubric = GetCourseRubricByCRN(item.CRN);
 
             string assignment_types = "";
             string weight_per_types = "";
             for (int i = 0; i < rubric.Count; i++)
             {
-                if (i == item.Index)
+                if (i == item.Index && i == rubric.Count - 1)
+                {
+                    assignment_types = assignment_types.Substring(0, assignment_types.Length - 1);
+                    weight_per_types = weight_per_types.Substring(0, weight_per_types.Length - 1);
+                } else if (i == item.Index)
                 {
 
                 }
@@ -206,7 +214,7 @@ namespace CourseManagement.DAL
                 {
                     cmd.Parameters.AddWithValue("@assignment_types", assignment_types);
                     cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
-                    cmd.Parameters.AddWithValue("@CRN", CRN);
+                    cmd.Parameters.AddWithValue("@CRN", item.CRN);
                     cmd.ExecuteNonQuery();
                 }
                 conn.Close();

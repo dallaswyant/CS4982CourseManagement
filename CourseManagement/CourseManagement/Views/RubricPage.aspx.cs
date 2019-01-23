@@ -48,5 +48,19 @@ namespace CourseManagement.Views
             HttpContext.Current.Session["CRN"] = int.Parse(this.ddlCourse.SelectedValue);
         }
 
+        protected void gvwWeights_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            object[] itemParts = new object[4];
+            e.Values.Values.CopyTo(itemParts,0);
+
+            int CRN = int.Parse((string)itemParts[1]);
+            string assignmentType = (string) itemParts[2];
+            int weight = int.Parse((string) itemParts[3]);
+            int index = int.Parse((string)itemParts[0]);
+
+            RubricItem item = new RubricItem(CRN,assignmentType, weight,index);
+            HttpContext.Current.Session["RubricItemToDelete"] = item;
+
+        }
     }
 }
