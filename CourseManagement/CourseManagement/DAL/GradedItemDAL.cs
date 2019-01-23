@@ -183,8 +183,8 @@ namespace CourseManagement.DAL
                         "UPDATE grade_items SET grade_earned_points=@grade_points, grade_feedback=@grade_feedback WHERE student_uid = @studentUID AND grade_name = @grade_name";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
-                        cmd.Parameters.AddWithValue("@studentUID", grade.Student.StudentUID);
-                        cmd.Parameters.AddWithValue("@grade_points", grade.PossiblePoints);
+                        cmd.Parameters.AddWithValue("@studentUID", studentUID);
+                        cmd.Parameters.AddWithValue("@grade_points", grade.Grade);
                         cmd.Parameters.AddWithValue("@grade_name", grade.Name);
                         cmd.Parameters.AddWithValue("@grade_feedback", grade.Feedback);
                         cmd.ExecuteNonQuery();

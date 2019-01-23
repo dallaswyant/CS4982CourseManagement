@@ -11,7 +11,7 @@ namespace CourseManagement.App_Code
         public string Email { get; }
         public bool IsEmailPublic { get; }
         public string PhoneNumber { get; }
-        public Department PrimaryDepartment { get; private set; }
+        public Department PrimaryDepartment { get; }
         public List<Course> CoursesTaught { get; }
 
         #endregion

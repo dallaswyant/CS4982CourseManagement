@@ -6,13 +6,13 @@ namespace CourseManagement.App_Code
     {
         #region Properties
 
-        public string Name { get; }
-        public Student Student { get; private set; }
-        public double Grade { get; }
+        public string Name { get; set; }
+        public Student Student { get;  }
+        public double Grade { get; set; }
         public string Feedback { get; set; }
-        public int PossiblePoints { get; }
-        public string GradeType { get; }
-        public int GradeId { get; private set; }
+        public int PossiblePoints { get;  }
+        public string GradeType { get;  }
+        public int GradeId { get; set; }
 
         #endregion
 
@@ -30,13 +30,18 @@ namespace CourseManagement.App_Code
             this.GradeId = gradeId;
         }
 
+        public GradedItem()
+        {
+        }
+
+
         #endregion
 
         #region Methods
 
-        
 
-        
+
+
 
         #endregion
     }
