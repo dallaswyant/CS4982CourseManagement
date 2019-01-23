@@ -220,11 +220,11 @@ namespace CourseManagement.DAL
                     }
 
                     var query =
-                        "DELETE grade_belongs_to_courses (grade_item_id, courses_CRN) VALUES ((SELECT grade_items.grade_item_id FROM grade_items WHERE grade_items.student_uid = @studentUID AND grade_items.grade_name = @grade_name),@CRN)";
+                        "DELETE grade_belongs_to_courses FROM grade_belongs_to_courses WHERE grade_belongs_to_courses.grade_item_id = (SELECT grade_items.grade_item_id FROM grade_items WHERE grade_items.student_uid = @studentUID AND grade_items.grade_name = @gradeName) AND grade_belongs_to_courses.courses_CRN = @CRN";
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@studentUID", t.StudentUID);
-                        cmd.Parameters.AddWithValue("@grade_name", gradedItem.Name);
+                        cmd.Parameters.AddWithValue("@gradeName", gradedItem.Name);
                         cmd.Parameters.AddWithValue("@CRN", CRN);
                         cmd.ExecuteNonQuery();
                     }
