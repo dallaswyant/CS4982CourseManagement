@@ -16,7 +16,7 @@
     </asp:DropDownList>
             </td>
             <td>
-                <asp:DropDownList ID="ddlAssignments" runat="server" DataSourceID="odsAssignments" DataTextField="Value" DataValueField="Value">
+                <asp:DropDownList ID="ddlAssignments" runat="server" AutoPostBack="True" DataSourceID="odsAssignments" DataTextField="Value" DataValueField="Value" OnSelectedIndexChanged="ddlAssignments_SelectedIndexChanged">
                 </asp:DropDownList>
             </td>
         </tr>
@@ -27,6 +27,9 @@
         </SelectParameters>
     </asp:ObjectDataSource>
     <br />
+    <asp:ScriptManager runat="server" ID="ScriptManager"/>
+    <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
+        <ContentTemplate>
     <asp:GridView ID="gvwStudents" runat="server" OnSelectedIndexChanging="gvwGrade_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsStudents" AllowPaging="True" OnSelectedIndexChanged="gvwStudents_SelectedIndexChanged">
         <Columns>
             <asp:BoundField DataField="Student" HeaderText="Student" SortExpression="Student" />
@@ -37,6 +40,8 @@
             <asp:CommandField ShowSelectButton="True" />
         </Columns>
     </asp:GridView>
+        </ContentTemplate>
+    </asp:UpdatePanel>
     <asp:ObjectDataSource ID="odsStudents" runat="server" SelectMethod="GetGradedItemsByCRNAndGradeNameForAllStudents" TypeName="CourseManagement.DAL.GradedItemDAL">
         <SelectParameters>
             <asp:ControlParameter ControlID="ddlCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />

@@ -37,5 +37,10 @@ namespace CourseManagement.Views
 
 
         }
+
+        protected void ddlAssignments_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.UpdatePanel1.Update();
+        }
     }
 }
