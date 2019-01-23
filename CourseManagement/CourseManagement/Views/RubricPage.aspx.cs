@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
+using System.Web.UI.WebControls;
 using CourseManagement.DAL;
 
 namespace CourseManagement.Views
@@ -11,6 +12,11 @@ namespace CourseManagement.Views
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                DataBind();
+            }
+            HttpContext.Current.Session["CRN"] = int.Parse(this.ddlCourse.SelectedValue);
         }
 
         #endregion
@@ -36,5 +42,11 @@ namespace CourseManagement.Views
 
 
         }
+
+        protected void ddlCourse_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            HttpContext.Current.Session["CRN"] = int.Parse(this.ddlCourse.SelectedValue);
+        }
+
     }
 }

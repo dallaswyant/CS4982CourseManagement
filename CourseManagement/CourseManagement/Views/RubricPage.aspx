@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:DropDownList ID="ddlCourse" runat="server" DataSourceID="odsCourses" DataTextField="Name" DataValueField="CRN">
+    <asp:DropDownList ID="ddlCourse" runat="server" DataSourceID="odsCourses" DataTextField="Name" DataValueField="CRN" OnSelectedIndexChanged="ddlCourse_SelectedIndexChanged">
     </asp:DropDownList>
     <asp:ObjectDataSource ID="odsCourses" runat="server" SelectMethod="GetCourseBulletinByTeacherID" TypeName="CourseManagement.DAL.CourseDAL" OldValuesParameterFormatString="original_{0}">
         <SelectParameters>
@@ -19,7 +19,16 @@
             <asp:CommandField ShowDeleteButton="True" />
         </Columns>
     </asp:GridView>
-    <asp:ObjectDataSource ID="odsRubricItems" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseRubricByCRN" TypeName="CourseManagement.DAL.CourseRubricDAL" UpdateMethod="UpdateCourseRubric">
+    <asp:ObjectDataSource ID="odsRubricItems" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseRubricByCRN" TypeName="CourseManagement.DAL.CourseRubricDAL" UpdateMethod="UpdateCourseRubric" DeleteMethod="DeleteCourseRubric" InsertMethod="InsertCourseRubric">
+        <DeleteParameters>
+            <asp:Parameter Name="assignmentType" Type="String" />
+            <asp:Parameter Name="assignmentWeight" Type="Int32" />
+            <asp:Parameter Name="index" Type="Int32" />
+        </DeleteParameters>
+        <InsertParameters>
+            <asp:Parameter Name="assignmentType" Type="String" />
+            <asp:Parameter Name="assignmentWeight" Type="Int32" />
+        </InsertParameters>
         <SelectParameters>
             <asp:ControlParameter ControlID="ddlCourse" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
         </SelectParameters>
@@ -30,11 +39,11 @@
             <asp:Parameter Name="index" Type="Int32" />
         </UpdateParameters>
     </asp:ObjectDataSource>
-    <asp:DetailsView ID="DetailsView1" runat="server" Height="50px" Width="333px">
+    <asp:DetailsView ID="DetailsView1" runat="server" Height="50px" Width="333px" AutoGenerateRows="False" DataSourceID="odsRubricItems" DefaultMode="Insert">
         <Fields>
-            <asp:BoundField HeaderText="Assignment Type"/>
-            <asp:BoundField HeaderText="Weight"/>
-            <asp:CommandField ShowInsertButton="True"/>
+            <asp:BoundField HeaderText="AssignmentType" DataField="AssignmentType" SortExpression="AssignmentType"/>
+            <asp:BoundField DataField="AssignmentWeight" HeaderText="AssignmentWeight" SortExpression="AssignmentWeight" />
+            <asp:CommandField ShowCancelButton="False" ShowInsertButton="True" />
         </Fields>
     </asp:DetailsView>
 </asp:Content>

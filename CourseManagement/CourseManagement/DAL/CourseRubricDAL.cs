@@ -105,7 +105,7 @@ namespace CourseManagement.DAL
             }
         }
 
-        public void DelteCourseRubric(int CRN)
+        public void DeleteCourseRubric(int CRN, int index)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             using (conn)
@@ -131,10 +131,59 @@ namespace CourseManagement.DAL
             string weight_per_types = "";
             for (int i = 0; i < rubric.Count; i++)
             {
-                if (i == item.Index)
+                if (i == item.Index && i != rubric.Count - 1)
                 {
                     assignment_types += item.AssignmentType + "/";
                     weight_per_types += item.AssignmentWeight + "/";
+                }
+                else if(i != rubric.Count - 1)
+                {
+                    assignment_types += rubric[i].AssignmentType + "/";
+                    weight_per_types += rubric[i].AssignmentWeight + "/";
+                } else if (item.Index == i && i == rubric.Count - 1)
+                {
+                    assignment_types += item.AssignmentType;
+                    weight_per_types += item.AssignmentWeight;
+                }
+                else
+                {
+                    assignment_types += rubric[i].AssignmentType;
+                    weight_per_types += rubric[i].AssignmentWeight;
+                }
+            }
+            MySqlConnection conn = DbConnection.GetConnection();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery =
+                    "UPDATE rubrics SET assignment_types=@assignment_types, weight_per_type=@weight_per_type WHERE CRN = @CRN";
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@assignment_types", assignment_types);
+                    cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
+                    cmd.Parameters.AddWithValue("@CRN", CRN);
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+        }
+
+
+
+        [DataObjectMethod(DataObjectMethodType.Delete)]
+        public void DeleteCourseRubric(string assignmentType, int assignmentWeight, int index)
+        {
+            int CRN = (int) HttpContext.Current.Session["CRN"];
+            RubricItem item = new RubricItem(CRN, assignmentType, assignmentWeight, index);
+            List<RubricItem> rubric = GetCourseRubricByCRN(item.CRN);
+
+            string assignment_types = "";
+            string weight_per_types = "";
+            for (int i = 0; i < rubric.Count; i++)
+            {
+                if (i == item.Index)
+                {
+
                 }
                 else if(i != rubric.Count - 1)
                 {
@@ -147,6 +196,46 @@ namespace CourseManagement.DAL
                     weight_per_types += rubric[i].AssignmentWeight;
                 }
             }
+            MySqlConnection conn = DbConnection.GetConnection();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery =
+                    "UPDATE rubrics SET assignment_types=@assignment_types, weight_per_type=@weight_per_type WHERE CRN = @CRN";
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@assignment_types", assignment_types);
+                    cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
+                    cmd.Parameters.AddWithValue("@CRN", CRN);
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+        }
+
+
+        [DataObjectMethod(DataObjectMethodType.Insert)]
+        public void InsertCourseRubric(string assignmentType, int assignmentWeight)
+        {
+            int CRN = (int) HttpContext.Current.Session["CRN"];
+
+            
+            List<RubricItem> rubric = GetCourseRubricByCRN(CRN);
+            RubricItem item = new RubricItem(CRN, assignmentType, assignmentWeight, rubric.Count);
+            rubric.Add(item);
+
+
+            string assignment_types = "";
+            string weight_per_types = "";
+            for (int i = 0; i < rubric.Count-1; i++)
+            {
+
+                    assignment_types += rubric[i].AssignmentType + "/";
+                    weight_per_types += rubric[i].AssignmentWeight + "/";
+            }
+
+            assignment_types += item.AssignmentType;
+            weight_per_types += item.AssignmentWeight;
             MySqlConnection conn = DbConnection.GetConnection();
             using (conn)
             {
