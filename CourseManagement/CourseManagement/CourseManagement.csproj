@@ -101,6 +101,9 @@
     <Content Include="Global.asax" />
     <Content Include="Images\EmptyFile.png" />
     <Content Include="Images\No image.jpg" />
+    <Content Include="Styles\background.jpg" />
+    <Content Include="Styles\bg-7-full.jpg" />
+    <Content Include="Styles\Styles.css" />
     <Content Include="Views\Homepage.aspx" />
     <Content Include="Views\ManageCreateGradeItem.aspx" />
     <Content Include="Views\RubricPage.aspx" />
