@@ -120,6 +120,7 @@
     <Compile Include="DAL\StudentDAL.cs" />
     <Compile Include="DAL\TeacherDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
+    <Compile Include="App_Code\RubricItem.cs" />
     <Compile Include="Views\Homepage.aspx.cs">
       <DependentUpon>Homepage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
