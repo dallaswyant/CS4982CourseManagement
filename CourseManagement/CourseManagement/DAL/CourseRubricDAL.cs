@@ -54,10 +54,16 @@ namespace CourseManagement.DAL
                             {
                                 weights = weightPerType.Split('/');
                             }
-                            for (int i = 0; i < types.Length; i++)
-                            {
-                                RubricItem rubricItem = new RubricItem(CRNCheck, types[i], Convert.ToInt32(weights[i]), i);
-                                rubricStuff.Add(rubricItem);
+
+                                for (int i = 0; i < types.Length; i++)
+                                {
+                                    if (!string.IsNullOrWhiteSpace(types[i]))
+                                    {
+                                        RubricItem rubricItem = new RubricItem(CRNCheck, types[i], Convert.ToInt32(weights[i]), i);
+                                        rubricStuff.Add(rubricItem);
+                                    }
+
+
                             }
                             return rubricStuff;
                         }
@@ -187,8 +193,12 @@ namespace CourseManagement.DAL
             {
                 if (i == item.Index && i == rubric.Count - 1)
                 {
+                    if (assignment_types.Length > 1)
+                    {
                     assignment_types = assignment_types.Substring(0, assignment_types.Length - 1);
                     weight_per_types = weight_per_types.Substring(0, weight_per_types.Length - 1);
+                    }
+
                 } else if (i == item.Index)
                 {
 
