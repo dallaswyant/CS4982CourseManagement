@@ -75,9 +75,7 @@
             <td rowspan="3" class="auto-style9">&nbsp;</td>
             <td class="auto-style25" rowspan="2">
                 &nbsp;
-                <asp:DropDownList ID="ddlStudentNames" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlStudentNames_OnSelectedIndexChanged">
-                    <asp:ListItem>Student Name</asp:ListItem>
-                </asp:DropDownList>
+                <asp:DropDownList ID="ddlStudentNames" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlStudentNames_OnSelectedIndexChanged"/>
             </td>
             <td class="auto-style25" rowspan="2">
                     <asp:DropDownList ID="ddlAssignmentNames" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAssignmentNames_SelectedIndexChanged" >
@@ -177,12 +175,14 @@
             </td>
         </tr>
         <tr>
-            <td class="auto-style22">&nbsp;</td>
-            <td class="auto-style21">
+            <td class="auto-style22">
                 <asp:Button ID="Button2" runat="server" Text="Save"/>
             </td>
-            <td class="auto-style18">
+            <td class="auto-style21">
                 <asp:Button ID="Button3" runat="server" Text="Grade" OnClick="Button3_Click"/>
+            </td>
+            <td class="auto-style18">
+                <asp:Button ID="Button4" runat="server" OnClick="Button4_Click" Text="Next" />
             </td>
         </tr>
     </table>

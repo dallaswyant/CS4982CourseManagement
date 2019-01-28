@@ -62,7 +62,7 @@ namespace CourseManagement
             var course =(Course) HttpContext.Current.Session["CurrentCourse"];
             var crn = course.CourseInfo.CRN;
             var students = studentDAL.GetStudentsByCRN(crn);
-            int counter = 1;
+            int counter = 0;
             int index = 0;
             
             foreach (var student in students)
@@ -142,6 +142,31 @@ namespace CourseManagement
             var crn = course.CourseInfo.CRN;
                
             this.gradeItemDAL.gradeGradedItemByCRNAndStudentUID(updatedGrade,crn,this.ddlStudentNames.SelectedValue);
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            if (this.ddlStudentNames.SelectedIndex < this.ddlStudentNames.Items.Count)
+            {
+                this.ddlStudentNames.SelectedIndex = this.ddlStudentNames.SelectedIndex + 1;
+            }
+            else
+            {
+                this.ddlStudentNames.SelectedIndex = 0;
+            }
+            
+            this.ddlStudentNames_OnSelectedIndexChanged(null,null);
+            int count = 0;
+            foreach (var item in this.ddlAssignmentNames.Items)
+            {
+                if (item.ToString() == this.currentGrade.Name)
+                {
+                    this.ddlAssignmentNames.SelectedIndex = count;
+                }
+                count++;
+            }
+            this.ddlAssignmentNames_SelectedIndexChanged(null, null);
+            DataBind();
         }
     }
 }
