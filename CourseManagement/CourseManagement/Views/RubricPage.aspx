@@ -19,7 +19,7 @@
             <asp:CommandField ShowDeleteButton="True" />
         </Columns>
     </asp:GridView>
-    <asp:ObjectDataSource ID="odsRubricItems" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseRubricByCRN" TypeName="CourseManagement.DAL.CourseRubricDAL" UpdateMethod="UpdateCourseRubric" DeleteMethod="DeleteCourseRubric" InsertMethod="InsertCourseRubric">
+    <asp:ObjectDataSource ID="odsRubricItems" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseRubricByCRN" TypeName="CourseManagement.DAL.CourseRubricDAL" UpdateMethod="UpdateCourseRubric" DeleteMethod="DeleteCourseRubric" InsertMethod="InsertCourseRubric" ConflictDetection="CompareAllValues">
         <DeleteParameters>
             <asp:Parameter Name="CRN" Type="Int32" />
             <asp:Parameter Name="assignmentType" Type="String" />
@@ -29,6 +29,7 @@
         <InsertParameters>
             <asp:Parameter Name="assignmentType" Type="String" />
             <asp:Parameter Name="assignmentWeight" Type="Int32" />
+
         </InsertParameters>
         <SelectParameters>
             <asp:ControlParameter ControlID="ddlCourse" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
@@ -37,6 +38,9 @@
             <asp:Parameter Name="CRN" Type="Int32" />
             <asp:Parameter Name="assignmentType" Type="String" />
             <asp:Parameter Name="assignmentWeight" Type="Int32" />
+            
+            <asp:Parameter Name="original_assignmentType" Type="string"/>
+            <asp:Parameter Name="original_assignmentWeight" Type="Int32"/>
             <asp:Parameter Name="index" Type="Int32" />
         </UpdateParameters>
     </asp:ObjectDataSource>

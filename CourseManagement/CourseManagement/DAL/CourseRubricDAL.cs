@@ -129,12 +129,12 @@ namespace CourseManagement.DAL
             }
         }
         [DataObjectMethod(DataObjectMethodType.Update)]
-        public void UpdateCourseRubric(int crn, string assignmentType, int assignmentWeight, int index)
+        public void UpdateCourseRubric(int crn, string assignmentType, int assignmentWeight, string original_assignmentType, int original_assignmentWeight, int index)
         {
             int CRN = (int) HttpContext.Current.Session["CRN"];
             List<RubricItem> rubric = GetCourseRubricByCRN(CRN);
             RubricItem item = rubric.Find(x =>
-                x.AssignmentType.Equals(assignmentType) && x.AssignmentWeight == assignmentWeight);
+                x.AssignmentType.Equals(original_assignmentType) && x.AssignmentWeight == original_assignmentWeight);
 
             
 
