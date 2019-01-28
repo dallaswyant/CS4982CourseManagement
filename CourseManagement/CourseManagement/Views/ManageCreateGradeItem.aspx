@@ -110,9 +110,15 @@
         <tr>
             <td class="auto-style7">&nbsp;</td>
             <td colspan="3">
-                <asp:DropDownList ID="ddlAssignmentType" runat="server">
+                <asp:DropDownList ID="ddlAssignmentType" runat="server" DataSourceID="odsGradeType" DataTextField="AssignmentType" DataValueField="AssignmentType">
                     <asp:ListItem>Assignment Type</asp:ListItem>
                 </asp:DropDownList>
+                <br />
+                <asp:ObjectDataSource ID="odsGradeType" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseRubricByCRN" TypeName="CourseManagement.DAL.CourseRubricDAL">
+                    <SelectParameters>
+                        <asp:ControlParameter ControlID="ddlCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
+                    </SelectParameters>
+                </asp:ObjectDataSource>
             </td>
         </tr>
         <tr>

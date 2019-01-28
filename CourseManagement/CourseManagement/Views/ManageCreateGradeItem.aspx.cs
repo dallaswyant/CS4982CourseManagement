@@ -12,18 +12,9 @@ namespace CourseManagement
         private GradedItemDAL GradeDAL;
         private GradedItem currentGradedItem;
         private Course currentCourse;
-        private bool wasDeleted;
         protected void Page_Load(object sender, EventArgs e) {
 
-            if (this.wasDeleted)
-            {
-                this.tbxAssignmentName.Text = string.Empty;
-                this.tbxPossiblePoints.Text = string.Empty;
-                this.btnCreate.Text = "Create";
-                this.wasDeleted = false;
-            }
-            else
-            {
+
                 if (!IsPostBack)
                 {
                     if (HttpContext.Current.Session["CurrentGradedItem"] != null)
@@ -40,11 +31,15 @@ namespace CourseManagement
                     this.currentGradedItem = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
                 }
 
+            if (HttpContext.Current.Session["CurrentCourse"] != null)
+            {
                 this.currentCourse = HttpContext.Current.Session["CurrentCourse"] as Course;
                 this.GradeDAL = new GradedItemDAL();
                 var RubricDAL = new CourseRubricDAL();
-                //RubricDAL.GetCourseRubricByCRN();
+                RubricDAL.GetCourseRubricByCRN(this.currentCourse.CourseInfo.CRN);
             }
+
+
         }
 
         protected void btnCreate_Click(object sender, EventArgs e)
@@ -80,7 +75,7 @@ namespace CourseManagement
             var gradeType = this.ddlAssignmentType.SelectedValue;
             GradedItem item = new GradedItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0);
             this.GradeDAL.deleteGradedItemByCRNForAllStudents(item, this.currentCourse.CourseInfo.CRN);
-            this.wasDeleted = true;
+            HttpContext.Current.Session["CurrentGradedItem"] = null;
         }
 
         #endregion

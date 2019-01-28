@@ -49,6 +49,15 @@ namespace CourseManagement {
         protected global::System.Web.UI.WebControls.DropDownList ddlAssignmentType;
         
         /// <summary>
+        /// odsGradeType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsGradeType;
+        
+        /// <summary>
         /// tbxPossiblePoints control.
         /// </summary>
         /// <remarks>
