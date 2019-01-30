@@ -32,9 +32,9 @@ namespace CourseManagement.Views
                 {
                     CourseRubricDAL rubricGetter = new CourseRubricDAL();
                     GradedItemDAL gradeGetter = new GradedItemDAL();
-                    List<RubricItem> rubric = rubricGetter.GetCourseRubricByCRN(this.ddlStudentCourses.SelectedIndex);
+                    List<RubricItem> rubric = rubricGetter.GetCourseRubricByCRN(int.Parse(this.ddlStudentCourses.SelectedItem.Value));
                     List<GradedItem> grades =
-                        gradeGetter.GetGradedItemsByStudentId(currentUser.UserId, this.ddlStudentCourses.SelectedIndex);
+                        gradeGetter.GetGradedItemsByStudentId(currentUser.UserId, int.Parse(this.ddlStudentCourses.SelectedItem.Value));
                     double overallGrade = 0.0;
                     foreach (var t in grades)
                     {
