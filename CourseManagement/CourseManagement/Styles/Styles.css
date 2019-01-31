@@ -1,9 +1,10 @@
 ﻿header {
-    background: azure;
     color:darkslategray;
 }
 body {
-    background: azure;
+    margin: auto;
+    width: 50%;
+
 }
 .menu {
     background: black;

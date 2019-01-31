@@ -129,13 +129,13 @@ namespace CourseManagement.DAL
             }
         }
         [DataObjectMethod(DataObjectMethodType.Update)]
-        public void UpdateCourseRubric(int crn, string assignmentType, int assignmentWeight, string originalAssignmentType, int originalAssignmentWeight, int index, int originalIndex, int originalCrn)
+        public void UpdateCourseRubric(int crn, string assignmentType, int assignmentWeight, string original_AssignmentType, int original_AssignmentWeight, int index, int original_Index, int original_Crn)
         {
 
             int CRN = (int) HttpContext.Current.Session["CRN"];
             List<RubricItem> rubric = GetCourseRubricByCRN(CRN);
             RubricItem original_item = rubric.Find(x =>
-                x.AssignmentType.Equals(originalAssignmentType) && x.AssignmentWeight == originalAssignmentWeight);
+                x.AssignmentType.Equals(original_AssignmentType) && x.AssignmentWeight == original_AssignmentWeight);
 
             
 
@@ -183,7 +183,7 @@ namespace CourseManagement.DAL
 
 
         [DataObjectMethod(DataObjectMethodType.Delete)]
-        public void DeleteCourseRubric(int CRN, string assignmentType, int assignmentWeight, int index)
+        public void DeleteCourseRubric(int crn, string assignmentType, int assignmentWeight, string original_AssignmentType, int original_AssignmentWeight, int index, int original_Index, int original_Crn)
         {
            
             RubricItem item =  HttpContext.Current.Session["RubricItemToDelete"] as RubricItem;
