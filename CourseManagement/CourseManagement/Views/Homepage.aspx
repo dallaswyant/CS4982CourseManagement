@@ -13,7 +13,7 @@
     <table class="auto-style1">
     <tr>
         <td class="auto-style2">
-    <asp:TreeView ID="TreeView1" runat="server" DataSourceID="SiteMapDataSource1">
+    <asp:TreeView ID="TreeView1" runat="server" DataSourceID="SiteMapDataSource1" TabIndex="-1">
 </asp:TreeView>
             <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" SiteMapProvider="Student" />
         </td>

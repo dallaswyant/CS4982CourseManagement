@@ -59,9 +59,17 @@ namespace CourseManagement
                 this.rfvUsername.Enabled = true;
                 this.rfvPassword.Enabled = true;
                 this.lblUsername.Text = "";
+                this.tbxUsername.TabIndex = 1;
+                this.tbxPassword.TabIndex = 2;
+                this.btnLogin.TabIndex = 3;
+                this.btnLogout.TabIndex = 100;
             }
             else
             {
+                this.tbxUsername.TabIndex = 100;
+                this.tbxPassword.TabIndex = 101;
+                this.btnLogin.TabIndex = 102;
+                this.btnLogout.TabIndex = 10;
                 this.btnLogin.Visible = false;
                 this.btnLogout.Visible = true;
                 this.lblPasswordTXT.Visible = false;

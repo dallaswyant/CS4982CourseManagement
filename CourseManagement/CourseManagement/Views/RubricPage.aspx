@@ -39,9 +39,11 @@
             <asp:Parameter Name="assignmentType" Type="String" />
             <asp:Parameter Name="assignmentWeight" Type="Int32" />
             
-            <asp:Parameter Name="original_assignmentType" Type="string"/>
-            <asp:Parameter Name="original_assignmentWeight" Type="Int32"/>
+            <asp:Parameter Name="originalAssignmentType" Type="string"/>
+            <asp:Parameter Name="originalAssignmentWeight" Type="Int32"/>
             <asp:Parameter Name="index" Type="Int32" />
+            <asp:Parameter Name="originalIndex" Type="Int32" />
+            <asp:Parameter Name="originalCrn" Type="Int32" />
         </UpdateParameters>
     </asp:ObjectDataSource>
     <asp:DetailsView ID="DetailsView1" runat="server" Width="500px" AutoGenerateRows="False" DataSourceID="odsRubricItems" DefaultMode="Insert" CssClass="table">
