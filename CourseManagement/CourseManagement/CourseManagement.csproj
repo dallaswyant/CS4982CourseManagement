@@ -86,12 +86,13 @@
     <Content Include="Styles\bg-7-full.jpg" />
     <Content Include="Styles\Styles.css" />
     <Content Include="Views\Homepage.aspx" />
-    <Content Include="Views\ManageCreateGradeItem.aspx" />
-    <Content Include="Views\RubricPage.aspx" />
-    <Content Include="Views\StudentViewAllGrades.aspx" />
-    <Content Include="Views\StudentViewGradeItem.aspx" />
-    <Content Include="Views\TeacherGradeGradeItemPage.aspx" />
-    <Content Include="Views\TeacherViewAllGrades.aspx" />
+    <Content Include="Views\Student\BrowseCourses.aspx" />
+    <Content Include="Views\Teacher\ManageCreateGradeItem.aspx" />
+    <Content Include="Views\Teacher\RubricPage.aspx" />
+    <Content Include="Views\Student\StudentViewAllGrades.aspx" />
+    <Content Include="Views\Student\StudentViewGradeItem.aspx" />
+    <Content Include="Views\Teacher\TeacherGradeGradeItemPage.aspx" />
+    <Content Include="Views\Teacher\TeacherViewAllGrades.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -113,46 +114,53 @@
     <Compile Include="Views\Homepage.aspx.designer.cs">
       <DependentUpon>Homepage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManageCreateGradeItem.aspx.cs">
+    <Compile Include="Views\Student\BrowseCourses.aspx.cs">
+      <DependentUpon>BrowseCourses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Student\BrowseCourses.aspx.designer.cs">
+      <DependentUpon>BrowseCourses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Teacher\ManageCreateGradeItem.aspx.cs">
       <DependentUpon>ManageCreateGradeItem.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\ManageCreateGradeItem.aspx.designer.cs">
+    <Compile Include="Views\Teacher\ManageCreateGradeItem.aspx.designer.cs">
       <DependentUpon>ManageCreateGradeItem.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\RubricPage.aspx.cs">
+    <Compile Include="Views\Teacher\RubricPage.aspx.cs">
       <DependentUpon>RubricPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\RubricPage.aspx.designer.cs">
+    <Compile Include="Views\Teacher\RubricPage.aspx.designer.cs">
       <DependentUpon>RubricPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\StudentViewAllGrades.aspx.cs">
+    <Compile Include="Views\Student\StudentViewAllGrades.aspx.cs">
       <DependentUpon>StudentViewAllGrades.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\StudentViewAllGrades.aspx.designer.cs">
+    <Compile Include="Views\Student\StudentViewAllGrades.aspx.designer.cs">
       <DependentUpon>StudentViewAllGrades.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\StudentViewGradeItem.aspx.cs">
+    <Compile Include="Views\Student\StudentViewGradeItem.aspx.cs">
       <DependentUpon>StudentViewGradeItem.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\StudentViewGradeItem.aspx.designer.cs">
+    <Compile Include="Views\Student\StudentViewGradeItem.aspx.designer.cs">
       <DependentUpon>StudentViewGradeItem.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\TeacherGradeGradeItemPage.aspx.cs">
+    <Compile Include="Views\Teacher\TeacherGradeGradeItemPage.aspx.cs">
       <DependentUpon>TeacherGradeGradeItemPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\TeacherGradeGradeItemPage.aspx.designer.cs">
+    <Compile Include="Views\Teacher\TeacherGradeGradeItemPage.aspx.designer.cs">
       <DependentUpon>TeacherGradeGradeItemPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\TeacherViewAllGrades.aspx.cs">
+    <Compile Include="Views\Teacher\TeacherViewAllGrades.aspx.cs">
       <DependentUpon>TeacherViewAllGrades.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\TeacherViewAllGrades.aspx.designer.cs">
+    <Compile Include="Views\Teacher\TeacherViewAllGrades.aspx.designer.cs">
       <DependentUpon>TeacherViewAllGrades.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Code\User.cs" />
