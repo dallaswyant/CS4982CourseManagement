@@ -47,8 +47,8 @@ namespace CourseManagement
                 var user = HttpContext.Current.Session["User"] as User;
                 TeacherDAL teacherDAL = new TeacherDAL();
                 Teacher teacher = teacherDAL.GetTeacherByTeacherID(user.UserId);
-                var course = HttpContext.Current.Session["CurrentCourse"] as string;
-                this.lblCourse.Text = course;
+                var course = HttpContext.Current.Session["CurrentCourse"] as Course;
+                this.lblCourse.Text = course.CourseInfo.Name;
                 this.lblTeacher.Text = teacher.Name;
                 this.lblEmail.Text = teacher.Email;
                 
@@ -84,7 +84,8 @@ namespace CourseManagement
         {
             this.ddlAssignmentNames.Items.Clear();
             this.ddlAssignmentNames.Items.Add(new ListItem("Assignment Name"));
-            var gradedItems = gradeItemDAL.GetGradedItemsByStudentId(this.ddlStudentNames.SelectedValue, 1);
+            var course = (Course)HttpContext.Current.Session["CurrentCourse"];
+            var gradedItems = gradeItemDAL.GetGradedItemsByStudentId(this.ddlStudentNames.SelectedValue,course.CourseInfo.CRN);
             foreach (var item in gradedItems)
             {
                 this.ddlAssignmentNames.Items.Add(new ListItem(item.Name, item.GradeId.ToString()));
@@ -95,8 +96,8 @@ namespace CourseManagement
 
         protected void ddlAssignmentNames_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-            var gradedItems = gradeItemDAL.GetGradedItemsByStudentId(this.ddlStudentNames.SelectedValue, 1);
+            var course = (Course)HttpContext.Current.Session["CurrentCourse"];
+            var gradedItems = gradeItemDAL.GetGradedItemsByStudentId(this.ddlStudentNames.SelectedValue, course.CourseInfo.CRN);
             int.TryParse(this.ddlAssignmentNames.SelectedValue, out int itemId);
             var totalPoints = 0;
             GradedItem currGradedItem = null;
@@ -105,6 +106,8 @@ namespace CourseManagement
                 if (item.GradeId == itemId)
                 {
                     currGradedItem = item;
+                    this.currentGrade = item;
+                    HttpContext.Current.Session["CurrentGradedItem"] = item;
                 }
             }
 
@@ -130,6 +133,7 @@ namespace CourseManagement
         protected void Button3_Click(object sender, EventArgs e)
         {
             var studentDAL = new StudentDAL();
+            
             var updatedGrade = new GradedItem()
             {
                 Feedback = TextBox1.Text,
