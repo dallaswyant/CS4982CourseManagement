@@ -15,12 +15,10 @@ namespace CourseManagement.App_Code
 
         #region Constructors
 
-        public Department(Teacher chair, CourseCollection deptCourses, string deptName, List<Teacher> teachers)
+        public Department(Teacher chair, string deptName)
         {
             this.Chair = chair;
-            this.DeptCourses = deptCourses;
             this.DeptName = deptName;
-            this.Teachers = teachers;
         }
 
         #endregion
