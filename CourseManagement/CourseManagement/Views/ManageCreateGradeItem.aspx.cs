@@ -44,6 +44,7 @@ namespace CourseManagement
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
+            this.GradeDAL = new GradedItemDAL();
             if (HttpContext.Current.Session["CurrentGradedItem"] != null)
             {
                 /**

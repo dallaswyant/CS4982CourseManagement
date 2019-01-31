@@ -36,10 +36,15 @@ namespace CourseManagement.Views
                     List<GradedItem> grades =
                         gradeGetter.GetGradedItemsByStudentId(currentUser.UserId, int.Parse(this.ddlStudentCourses.SelectedItem.Value));
                     double overallGrade = 0.0;
-                    foreach (var t in grades)
+                    foreach (var rubricItem in rubric)
                     {
-                        RubricItem item = rubric.Find(x => x.AssignmentType.Equals(t.GradeType));
-                        overallGrade += t.Grade / t.PossiblePoints * item.AssignmentWeight;
+                        foreach (var grade in grades)
+                        {
+                            if (grade.GradeType.Equals(rubricItem.AssignmentType))
+                            {
+                                overallGrade += (grade.Grade / grade.PossiblePoints) * rubricItem.AssignmentWeight;
+                            }
+                        }
                     }
 
                     this.GridView2.Rows[i].Cells[this.GridView2.Rows[i].Cells.Count - 1].Text = overallGrade.ToString();
