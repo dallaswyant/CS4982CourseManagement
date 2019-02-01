@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Web;
 using System.Web.UI.WebControls;
 using CourseManagement.App_Code;
@@ -13,6 +14,9 @@ namespace CourseManagement
         private GradedItemDAL gradeItemDAL = new GradedItemDAL();
         private GradedItem currentGrade;
         private Student currentStudent;
+        private double workingGrade;
+        private string currFeedBack;
+        
        
         
         protected void Page_Load(object sender, EventArgs e)
@@ -52,6 +56,8 @@ namespace CourseManagement
                 this.lblTeacher.Text = teacher.Name;
                 this.lblEmail.Text = teacher.Email;
                 
+                //this.currFeedBack = this.TextBox1.Text;
+
             }
             
             
@@ -99,7 +105,7 @@ namespace CourseManagement
             var course = (Course)HttpContext.Current.Session["CurrentCourse"];
             var gradedItems = gradeItemDAL.GetGradedItemsByStudentId(this.ddlStudentNames.SelectedValue, course.CourseInfo.CRN);
             int.TryParse(this.ddlAssignmentNames.SelectedValue, out int itemId);
-            var totalPoints = 0;
+            var totalPoints = 0.0;
             GradedItem currGradedItem = null;
             foreach (var item in gradedItems)
             {
@@ -146,9 +152,19 @@ namespace CourseManagement
             var crn = course.CourseInfo.CRN;
                
             this.gradeItemDAL.gradeGradedItemByCRNAndStudentUID(updatedGrade,crn,this.ddlStudentNames.SelectedValue);
+            Page.ClientScript.RegisterStartupScript(this.GetType(),"alert","showGradeItemDialogue()",true);
         }
 
         protected void Button4_Click(object sender, EventArgs e)
+        {
+            if (!checkUnsavedChangesAsync())
+            {
+                showNextStudent();
+            }
+            
+        }
+
+        private void showNextStudent()
         {
             if (this.ddlStudentNames.SelectedIndex < this.ddlStudentNames.Items.Count)
             {
@@ -158,8 +174,8 @@ namespace CourseManagement
             {
                 this.ddlStudentNames.SelectedIndex = 0;
             }
-            
-            this.ddlStudentNames_OnSelectedIndexChanged(null,null);
+
+            this.ddlStudentNames_OnSelectedIndexChanged(null, null);
             int count = 0;
             foreach (var item in this.ddlAssignmentNames.Items)
             {
@@ -167,10 +183,30 @@ namespace CourseManagement
                 {
                     this.ddlAssignmentNames.SelectedIndex = count;
                 }
+
                 count++;
             }
+
             this.ddlAssignmentNames_SelectedIndexChanged(null, null);
             DataBind();
+        }
+
+        private  System.Threading.Tasks.Task<bool> checkUnsavedChangesAsync()
+        {
+            bool result = false;
+            double.TryParse(this.TextBox2.Text, out this.workingGrade);
+            if (this.workingGrade != this.currentGrade.Grade)
+            {
+                 Page.ClientScript.RegisterStartupScript(this.GetType(), "confirm", "showNextButtonDialogue()", true);
+                 //result= Boolean.Parse(this.hdnVal.Value); 
+            }
+            
+            return result;
+        }
+
+        protected void TextBox2_TextChanged(object sender, EventArgs e)
+        {
+            double.TryParse(TextBox2.Text, out this.workingGrade);
         }
     }
 }

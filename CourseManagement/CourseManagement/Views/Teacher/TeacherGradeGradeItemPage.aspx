@@ -56,11 +56,27 @@
             height: 33px;
         }
     </style>
+    <script>
+        function showGradeItemDialogue() {
+            return alert("Grade has been updated.");
+        }
+
+        function showNextButtonDialogue() {
+            if (confirm("There are unsaved changes. \n Continue?") == true) {
+                document.getElementById('#hdnVal').value = "true";
+
+            } else {
+                document.getElementById('#hdnVal').value = "false";
+            }
+            return;
+        }
+
+    </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-
+    <input type="hidden" runat="server" id="hdnVal"/>
 
     &nbsp;<br/>
     <table class="auto-style1">
@@ -156,7 +172,7 @@
             <td class="auto-style10">
                 <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Conditional" runat="server">
                     <ContentTemplate>
-                        <asp:TextBox ID="TextBox2" runat="server" Height="16px" Width="45px"></asp:TextBox>
+                        <asp:TextBox ID="TextBox2" runat="server" Height="16px" Width="45px" OnTextChanged="TextBox2_TextChanged"></asp:TextBox>
                 
                         <asp:Label ID="grade" runat="server" Text="/100" Font-Size="Large"></asp:Label>
                     </ContentTemplate>
