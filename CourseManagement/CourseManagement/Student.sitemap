@@ -4,5 +4,7 @@
     <siteMapNode title="View Grades" url="Views/Student/StudentViewAllGrades.aspx"
                  Description="Allow student to view all grades" >
     </siteMapNode>
+    <siteMapNode title="Browse Courses" url="Views/Student/BrowseCourses.aspx"
+                 Description="Allow student to view and manage courses" />
   </siteMapNode>
 </siteMap>

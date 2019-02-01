@@ -6,6 +6,8 @@
       <siteMapNode title="View Grades" url="Views/Student/StudentViewAllGrades.aspx"
                    Description="Allow student to view all grades" >
       </siteMapNode>
+      <siteMapNode title="Browse Courses" url="Views/Student/BrowseCourses.aspx"
+                   Description="Allow student to view and manage courses" />
 
       <siteMapNode title="Manage Grade Items" url="Views/Teacher/ManageCreateGradeItem.aspx"
                    Description="Allows teachers to edit, create and delete a grade item" />
@@ -13,6 +15,7 @@
                    Description="Allow teacher to view all grades" />
       <siteMapNode title="Manage Rubric" url="Views/Teacher/RubricPage.aspx"
                    Description="Allow teacher to view manage rubric" />
+
     </siteMapNode>
   </siteMap>
 

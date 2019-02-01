@@ -2,7 +2,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="odsDepartment" DataTextField="DeptName" DataValueField="DeptCourses">
+    <br />
+<asp:Label ID="Label3" runat="server" Text="Choose Department:"></asp:Label>
+<br />
+<asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="odsDepartment" DataTextField="DeptName" DataValueField="DeptCourses">
 </asp:DropDownList>
 <asp:ObjectDataSource ID="odsDepartment" runat="server" SelectMethod="GetAllDepartments" TypeName="CourseManagement.DAL.DepartmentDAL"></asp:ObjectDataSource>
 <br />
@@ -25,9 +28,8 @@
 <br />
 <asp:Label ID="Label2" runat="server" Text="Department Courses"></asp:Label>
 <br />
-<asp:GridView ID="GridView2" runat="server" DataSourceID="odsAllCourses">
+<asp:GridView ID="GridView2" runat="server">
 </asp:GridView>
-<asp:ObjectDataSource ID="odsAllCourses" runat="server"></asp:ObjectDataSource>
 <br />
 <br />
 </asp:Content>

@@ -64,7 +64,6 @@
                             <DynamicMenuStyle BackColor="#CCCCCC" />
                             <StaticHoverStyle BackColor="#999999" ForeColor="White" />
                             <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
-                            <StaticSelectedStyle BackColor="#CCCCCC" />
                         </asp:Menu>
                     </td>
                 </tr>

@@ -15,87 +15,84 @@ namespace CourseManagement
             if (!IsPostBack)
             {
                 DataBind();
-
             }
-
-            
             
             User currentUser = HttpContext.Current.Session["User"] as User;
-/*            if (currentUser == null)
-            {
-                HttpContext.Current.Session["smpCounter"] = 0;
-                this.smpSite.Visible = false;
-            } else
-            {
-                int counter = (int)HttpContext.Current.Session["smpCounter"];
-                if (currentUser.Role.Equals("teachers") && counter == 0)
-                {
-                    
-                    this.smpSite.Visible = true;
-                    this.smpSite.SiteMapProvider = "Teacher";
-                }
-                else if (currentUser.Role.Equals("students") && counter == 0)
-                {
-
-                    this.smpSite.Visible = true;
-                    this.smpSite.SiteMapProvider = "Student";
-                }
-
-                counter++;
-                HttpContext.Current.Session["smpCounter"] = counter;
-            }*/
-            
-            
 
             if (currentUser == null)
             {
-                this.menuMain.Visible = false;
-                this.btnLogin.Visible = true;
-                this.btnLogout.Visible = false;
-                this.lblPasswordTXT.Visible = true;
-                this.lblUsernameTXT.Visible = true;
-                this.tbxPassword.Visible = true;
-                this.tbxUsername.Visible = true;
-                this.rfvUsername.Enabled = true;
-                this.rfvPassword.Enabled = true;
-                this.lblUsername.Text = "";
-                this.tbxUsername.TabIndex = 1;
-                this.tbxPassword.TabIndex = 2;
-                this.btnLogin.TabIndex = 3;
-                this.btnLogout.TabIndex = 100;
+                managePropertiesWhenNotLoggedIn();
             }
             else
             {
-                this.tbxUsername.TabIndex = 100;
-                this.tbxPassword.TabIndex = 101;
-                this.btnLogin.TabIndex = 102;
-                this.btnLogout.TabIndex = 10;
-                this.btnLogin.Visible = false;
-                this.btnLogout.Visible = true;
-                this.lblPasswordTXT.Visible = false;
-                this.lblUsernameTXT.Visible = false;
-                this.tbxPassword.Visible = false;
-                this.tbxUsername.Visible = false;
-                this.rfvUsername.Enabled = false;
-                this.rfvPassword.Enabled = false;
-                if (currentUser.Role.Equals("teachers"))
-                {
-                    TeacherDAL teacherDAL = new TeacherDAL();
-                    Teacher teacher = teacherDAL.GetTeacherByTeacherID(currentUser.UserId);
-                    this.lblUsername.Text = "Welcome, " + teacher.Name + " (" + currentUser.Role + ") ";
-                    this.smdsSite.SiteMapProvider = "Teacher";
-                    this.menuMain.Visible = true;
-                } else if (currentUser.Role.Equals("students"))
-                {
-                    StudentDAL studentDAL = new StudentDAL();
-                    Student student = studentDAL.GetStudentByStudentID(currentUser.UserId);
-                    this.lblUsername.Text = "Welcome, " + student.name + " (" + currentUser.Role + ") ";
-                    this.smdsSite.SiteMapProvider = "Student";
-                    this.menuMain.Visible = true;
-                }
-                
+                managePropertiesWhenLoggedIn();
+                handleLogin(currentUser);
             }
 
+        }
+
+        private void handleLogin(User currentUser)
+        {
+            if (currentUser.Role.Equals("teachers"))
+            {
+                handleTeacherLogin(currentUser);
+            }
+            else if (currentUser.Role.Equals("students"))
+            {
+                handleStudentLogin(currentUser);
+            }
+        }
+
+        private void handleStudentLogin(User currentUser)
+        {
+            StudentDAL studentDAL = new StudentDAL();
+            Student student = studentDAL.GetStudentByStudentID(currentUser.UserId);
+            this.lblUsername.Text = "Welcome, " + student.name + " (" + currentUser.Role + ") ";
+            this.smdsSite.SiteMapProvider = "Student";
+            this.menuMain.Visible = true;
+        }
+
+        private void handleTeacherLogin(User currentUser)
+        {
+            TeacherDAL teacherDAL = new TeacherDAL();
+            Teacher teacher = teacherDAL.GetTeacherByTeacherID(currentUser.UserId);
+            this.lblUsername.Text = "Welcome, " + teacher.Name + " (" + currentUser.Role + ") ";
+            this.smdsSite.SiteMapProvider = "Teacher";
+            this.menuMain.Visible = true;
+        }
+
+        private void managePropertiesWhenLoggedIn()
+        {
+            this.tbxUsername.TabIndex = 100;
+            this.tbxPassword.TabIndex = 101;
+            this.btnLogin.TabIndex = 102;
+            this.btnLogout.TabIndex = 10;
+            this.btnLogin.Visible = false;
+            this.btnLogout.Visible = true;
+            this.lblPasswordTXT.Visible = false;
+            this.lblUsernameTXT.Visible = false;
+            this.tbxPassword.Visible = false;
+            this.tbxUsername.Visible = false;
+            this.rfvUsername.Enabled = false;
+            this.rfvPassword.Enabled = false;
+        }
+
+        private void managePropertiesWhenNotLoggedIn()
+        {
+            this.menuMain.Visible = false;
+            this.btnLogin.Visible = true;
+            this.btnLogout.Visible = false;
+            this.lblPasswordTXT.Visible = true;
+            this.lblUsernameTXT.Visible = true;
+            this.tbxPassword.Visible = true;
+            this.tbxUsername.Visible = true;
+            this.rfvUsername.Enabled = true;
+            this.rfvPassword.Enabled = true;
+            this.lblUsername.Text = "";
+            this.tbxUsername.TabIndex = 1;
+            this.tbxPassword.TabIndex = 2;
+            this.btnLogin.TabIndex = 3;
+            this.btnLogout.TabIndex = 100;
         }
 
         private void handleLogin()

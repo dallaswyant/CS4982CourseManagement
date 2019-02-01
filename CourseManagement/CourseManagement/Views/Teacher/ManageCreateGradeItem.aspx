@@ -21,11 +21,6 @@
 
         .auto-style7 { width: 661px; }
 
-        .auto-style9 {
-            height: 26px;
-            width: 88px;
-        }
-
         .auto-style10 {
             height: 26px;
             width: 75px;
@@ -37,83 +32,76 @@
         }
 
         .auto-style12 { height: 18px; }
-        .auto-style13 {
-            width: 661px;
-            height: 23px;
-        }
         .auto-style14 {
             height: 23px;
         }
-    </style>
+        .auto-style15 {
+            height: 26px;
+        }
+        </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <table class="auto-style1">
         <tr>
-            <td class="auto-style7">
-                &nbsp;</td>
-            <td colspan="3">
-                Course:</td>
-        </tr>
-        <tr>
-            <td class="auto-style7">
-                &nbsp;</td>
-            <td colspan="3">
-
-    <asp:DropDownList ID="ddlCourses" runat="server" DataSourceID="odsCourses" DataTextField="Name" DataValueField="CRN">
-    </asp:DropDownList>
-                <br />
+            <td class="auto-style7" colspan="5">
     <asp:ObjectDataSource ID="odsCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseBulletinByTeacherID" TypeName="CourseManagement.DAL.CourseDAL">
         <SelectParameters>
             <asp:SessionParameter Name="teacherIDCheck" SessionField="UserID" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
             </td>
-        </tr>
-        <tr>
-            <td class="auto-style7">
-                &nbsp;</td>
-            <td colspan="3">
+            <td>
                 &nbsp;</td>
         </tr>
         <tr>
-            <td class="auto-style7">
-                &nbsp;
-            </td>
-            <td colspan="3">
+            <td class="auto-style7" colspan="5">
+                Course:</td>
+            <td>
+
                 Assignment name:
+                <br />
             </td>
         </tr>
         <tr>
-            <td class="auto-style5">
-                &nbsp;
-            </td>
-            <td colspan="3" class="auto-style3">
+            <td class="auto-style7" colspan="5">
+
+    <asp:DropDownList ID="ddlCourses" runat="server" DataSourceID="odsCourses" DataTextField="Name" DataValueField="CRN">
+    </asp:DropDownList>
+                </td>
+            <td>
                 <asp:TextBox ID="tbxAssignmentName" runat="server"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td class="auto-style7">
+            <td class="auto-style6" colspan="5">
                 &nbsp;
             </td>
-            <td class="auto-style2" colspan="3">
-                &nbsp;
-            </td>
+            <td class="auto-style15">
+                &nbsp;</td>
         </tr>
         <tr>
-            <td class="auto-style13">
+            <td class="auto-style5" colspan="5">
                 &nbsp;
-            </td>
-            <td colspan="3" class="auto-style14">
+            Due Date:</td>
+            <td class="auto-style3">
                 Assignment Type:
             </td>
         </tr>
         <tr>
-            <td class="auto-style7">&nbsp;</td>
-            <td colspan="3">
+            <td class="auto-style7" colspan="5" rowspan="8">
+                &nbsp;
+                <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+                &nbsp;
+            </td>
+            <td class="auto-style2">
+                &nbsp;
                 <asp:DropDownList ID="ddlAssignmentType" runat="server" DataSourceID="odsGradeType" DataTextField="AssignmentType" DataValueField="AssignmentType">
                     <asp:ListItem>Assignment Type</asp:ListItem>
                 </asp:DropDownList>
-                <br />
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style14">
                 <asp:ObjectDataSource ID="odsGradeType" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseRubricByCRN" TypeName="CourseManagement.DAL.CourseRubricDAL">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="ddlCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
@@ -122,101 +110,70 @@
             </td>
         </tr>
         <tr>
-            <td class="auto-style7">&nbsp;</td>
-            <td colspan="3">&nbsp;</td>
+            <td>
+                <br />
+            </td>
         </tr>
         <tr>
-            <td class="auto-style7">&nbsp;</td>
-            <td colspan="3">Possible Points:</td>
+            <td class="auto-style15">Possible Points:</td>
         </tr>
         <tr>
-            <td class="auto-style7">&nbsp;</td>
-            <td colspan="3">
+            <td>
                 <asp:TextBox ID="tbxPossiblePoints" runat="server"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td class="auto-style7">&nbsp;</td>
-            <td colspan="3">&nbsp;</td>
+            <td>
+                &nbsp;</td>
         </tr>
         <tr>
-            <td class="auto-style6">&nbsp;</td>
-            <td colspan="3" class="auto-style4">Weight:</td>
+            <td>Time Due:</td>
         </tr>
         <tr>
-            <td class="auto-style7">&nbsp;</td>
-            <td colspan="3">
-                <asp:Label ID="lblWeight" runat="server"></asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td class="auto-style11"></td>
-            <td colspan="3" class="auto-style12"></td>
-        </tr>
-        <tr>
-            <td class="auto-style11">&nbsp;</td>
-            <td colspan="3" class="auto-style12">Due Date:</td>
-        </tr>
-        <tr>
-            <td class="auto-style11">&nbsp;</td>
-            <td colspan="3" class="auto-style12">
-                <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
-            </td>
-        </tr>
-        <tr>
-            <td class="auto-style11">&nbsp;</td>
-            <td colspan="3" class="auto-style12">&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="auto-style11">&nbsp;</td>
-            <td colspan="3" class="auto-style12">Time Due:</td>
-        </tr>
-        <tr>
-            <td class="auto-style11"></td>
-            <td colspan="3" class="auto-style12">
+            <td class="auto-style4">
                 <asp:TextBox ID="tbxDueDate" runat="server" TextMode="DateTime"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td class="auto-style11">&nbsp;</td>
-            <td colspan="3" class="auto-style12">&nbsp;</td>
+            <td class="auto-style7" colspan="5">&nbsp;</td>
+            <td>
+                &nbsp;</td>
         </tr>
         <tr>
-            <td class="auto-style11">&nbsp;</td>
-            <td colspan="3" class="auto-style12">Description:</td>
+            <td class="auto-style11" colspan="5"></td>
+            <td class="auto-style12"></td>
         </tr>
         <tr>
-            <td class="auto-style11">&nbsp;</td>
-            <td colspan="3" rowspan="2">
-                <asp:TextBox ID="TextBox1" runat="server" Height="211px" Width="445px"></asp:TextBox>
+            <td class="auto-style12" colspan="3">Description:</td>
+            <td class="auto-style12" colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style12" colspan="6">
+                <asp:TextBox ID="TextBox1" runat="server" Height="211px" Width="1000px"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td class="auto-style11">&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="auto-style11">&nbsp;</td>
-            <td colspan="3" class="auto-style12">&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="auto-style6"></td>
+            <td class="auto-style15">
+                &nbsp;</td>
             <td class="auto-style10">
+                &nbsp;</td>
+            <td class="auto-style10" colspan="2">
                 <asp:Button ID="btnCreate" runat="server" OnClick="btnCreate_Click" Text="Create"/>
             </td>
-            <td class="auto-style9">
-                &nbsp;<asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete"/>
+            <td class="auto-style10">
+                <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete"/>
             </td>
-            <td class="auto-style4">
+            <td class="auto-style15">
                 <asp:Button ID="btnDelete0" runat="server" OnClick="btnDelete_Click" Text="Back"/>
             </td>
         </tr>
         <tr>
-            <td class="auto-style6"></td>
-            <td colspan="3" class="auto-style4"></td>
+            <td class="auto-style6" colspan="5"></td>
+            <td class="auto-style4"></td>
         </tr>
         <tr>
-            <td class="auto-style7">&nbsp;</td>
-            <td colspan="3">&nbsp;</td>
+            <td class="auto-style7" colspan="5">&nbsp;</td>
+            <td>&nbsp;</td>
         </tr>
     </table>
 </asp:Content>
