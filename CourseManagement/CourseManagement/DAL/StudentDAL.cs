@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using CourseManagement.App_Code;
 using MySql.Data.MySqlClient;
 
@@ -97,6 +98,27 @@ namespace CourseManagement.DAL
             }
 
             return null;
+        }
+
+        public void addCourseByCRNAndStudentUID(int CRN, string studentUID)
+        {
+            MySqlConnection conn = DbConnection.GetConnection();
+
+            using (conn)
+            {
+                conn.Open();
+                    var selectQuery =
+                        "INSERT INTO student_has_courses (student_uid, courses_CRN) VALUES (@studentUID,@CRN)";
+                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@studentUID", studentUID);
+                        cmd.Parameters.AddWithValue("@CRN", CRN);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                conn.Close();
+            
+
         }
 
         #endregion
