@@ -56,6 +56,7 @@
             height: 33px;
         }
     </style>
+   
     <script>
         function showGradeItemDialogue() {
             return alert("Grade has been updated.");
@@ -63,21 +64,24 @@
 
         function showNextButtonDialogue() {
             if (confirm("There are unsaved changes. \n Continue?") == true) {
-                document.getElementById('#hdnVal').value = "true";
-
+                document.getElementById('hdnVal').value = "true";
+                
+                return true;
             } else {
-                document.getElementById('#hdnVal').value = "false";
+                document.getElementById('hdnVal').value = "false";
+                
+                return false;
             }
-            return;
+            
         }
-
+        
     </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-    <input type="hidden" runat="server" id="hdnVal"/>
-
+    <input type="hidden" runat="server" value=""  ID="hdnVal" ClientIDMode="Static"/>
+    
+    
     &nbsp;<br/>
     <table class="auto-style1">
         <tr>
@@ -198,7 +202,7 @@
                 <asp:Button ID="Button3" runat="server" Text="Grade" OnClick="Button3_Click"/>
             </td>
             <td class="auto-style18">
-                <asp:Button ID="Button4" runat="server" OnClick="Button4_Click" Text="Next" />
+                <asp:Button ID="Button4" runat="server"  OnClick="Button4_Click" OnClientClick="showNextButtonDialogue()" Text="Next" />
             </td>
         </tr>
     </table>

@@ -157,7 +157,7 @@ namespace CourseManagement
 
         protected void Button4_Click(object sender, EventArgs e)
         {
-            if (!checkUnsavedChangesAsync())
+            if (checkUnsavedChangesAsync())
             {
                 showNextStudent();
             }
@@ -191,14 +191,16 @@ namespace CourseManagement
             DataBind();
         }
 
-        private  System.Threading.Tasks.Task<bool> checkUnsavedChangesAsync()
+        private  bool checkUnsavedChangesAsync()
         {
             bool result = false;
             double.TryParse(this.TextBox2.Text, out this.workingGrade);
             if (this.workingGrade != this.currentGrade.Grade)
             {
-                 Page.ClientScript.RegisterStartupScript(this.GetType(), "confirm", "showNextButtonDialogue()", true);
-                 //result= Boolean.Parse(this.hdnVal.Value); 
+                   
+                // Page.ClientScript.RegisterStartupScript(this.GetType(), "confirm", "showNextButtonDialogue()", true);
+                //Button4.Attributes.Add("confirm","showNextButtonDialogue()");
+                result= Boolean.Parse(this.hdnVal.Value); 
             }
             
             return result;
