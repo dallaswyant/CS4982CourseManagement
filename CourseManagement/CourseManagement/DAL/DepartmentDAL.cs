@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using CourseManagement.App_Code;
@@ -9,6 +10,7 @@ namespace CourseManagement.DAL
 {
     public class DepartmentDAL
     {
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Department> GetAllDepartments()
         {
             MySqlConnection conn = DbConnection.GetConnection();

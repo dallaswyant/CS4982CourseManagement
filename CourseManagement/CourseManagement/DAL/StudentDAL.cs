@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Reflection.Emit;
 using CourseManagement.App_Code;
 using MySql.Data.MySqlClient;
@@ -99,7 +100,7 @@ namespace CourseManagement.DAL
 
             return null;
         }
-
+        [DataObjectMethod(DataObjectMethodType.Insert)]
         public void addCourseByCRNAndStudentUID(int CRN, string studentUID)
         {
             MySqlConnection conn = DbConnection.GetConnection();

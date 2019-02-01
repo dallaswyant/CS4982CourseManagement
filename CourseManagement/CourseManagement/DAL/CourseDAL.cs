@@ -228,6 +228,7 @@ namespace CourseManagement.DAL
             return null;
         }
 
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Course> GetCoursesByDepartmentName(string departmentName)
         {
             MySqlConnection conn = DbConnection.GetConnection();
@@ -236,7 +237,16 @@ namespace CourseManagement.DAL
             {
                 GradedItemDAL gradedStuff = new GradedItemDAL();
                 conn.Open();
-                var selectQuery = "SELECT courses.* FROM courses, dept_offers_courses WHERE courses.CRN = dept_offers_courses.courses_CRN AND dept_offers_courses.dept_name = @deptName";
+                var selectQuery = String.Empty;
+                if (departmentName.Equals("All Departments"))
+                {
+                    selectQuery = "SELECT courses.* FROM courses, dept_offers_courses WHERE courses.CRN = dept_offers_courses.courses_CRN";
+                }
+                else
+                {
+                    selectQuery = "SELECT courses.* FROM courses, dept_offers_courses WHERE courses.CRN = dept_offers_courses.courses_CRN AND dept_offers_courses.dept_name = @deptName";
+                }
+               
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
@@ -282,7 +292,18 @@ namespace CourseManagement.DAL
         public List<CourseInfo> GetCourseBulletinByStudentID(string studentID)
         {
             List<CourseInfo> courseBulletin = new List<CourseInfo>();
-            foreach (var courses in GetCoursesByStudentID(studentID))
+            foreach (var courses in this.GetCoursesByStudentID(studentID))
+            {
+                courseBulletin.Add(courses.CourseInfo);
+            }
+            return courseBulletin;
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<CourseInfo> GetCourseBulletinByDepartmentName(string deptName)
+        {
+            List<CourseInfo> courseBulletin = new List<CourseInfo>();
+            foreach (var courses in this.GetCoursesByDepartmentName(deptName))
             {
                 courseBulletin.Add(courses.CourseInfo);
             }

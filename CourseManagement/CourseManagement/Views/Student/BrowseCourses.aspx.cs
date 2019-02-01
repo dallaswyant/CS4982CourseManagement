@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using CourseManagement.DAL;
 
 namespace CourseManagement.Views.Student
 {
@@ -11,7 +12,14 @@ namespace CourseManagement.Views.Student
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                DepartmentDAL deptGetter = new DepartmentDAL();
+                foreach (var dept in deptGetter.GetAllDepartments())
+                {
+                    this.DropDownList1.Items.Add(dept.DeptName);
+                }
+            }
         }
     }
 }
