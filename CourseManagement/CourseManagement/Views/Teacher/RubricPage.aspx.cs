@@ -29,19 +29,6 @@ namespace CourseManagement.Views
 
         protected void gvwWeights_RowUpdating(object sender, System.Web.UI.WebControls.GridViewUpdateEventArgs e)
         {
-       //     HttpContext.Current.Session["TypeWeightIndex"] = e.RowIndex;
-
-            //   int typeWeightIndex = e.RowIndex;
-            //    e.NewValues.Values as 
-
-            //       int crn = int.Parse(this.ddlCourse.SelectedValue);
-
-
-            // CourseRubricDAL dal = new CourseRubricDAL();
-            //  Dictionary<String,int> rubric = dal.GetCourseRubricByCRN(crn);
-            //  dal.UpdateCourseRubric(rubric, crn, typeWeightIndex);
-
-
         }
 
         protected void ddlCourse_SelectedIndexChanged(object sender, EventArgs e)

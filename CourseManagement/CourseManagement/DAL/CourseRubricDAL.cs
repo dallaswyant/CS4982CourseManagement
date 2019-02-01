@@ -129,12 +129,13 @@ namespace CourseManagement.DAL
             }
         }
         [DataObjectMethod(DataObjectMethodType.Update)]
-        public void UpdateCourseRubric(int crn, string assignmentType, int assignmentWeight, string original_assignmentType, int original_assignmentWeight, int index)
+        public void UpdateCourseRubric(int crn, string assignmentType, int assignmentWeight, string original_AssignmentType, int original_AssignmentWeight, int index, int original_Index, int original_Crn)
         {
+
             int CRN = (int) HttpContext.Current.Session["CRN"];
             List<RubricItem> rubric = GetCourseRubricByCRN(CRN);
-            RubricItem item = rubric.Find(x =>
-                x.AssignmentType.Equals(original_assignmentType) && x.AssignmentWeight == original_assignmentWeight);
+            RubricItem original_item = rubric.Find(x =>
+                x.AssignmentType.Equals(original_AssignmentType) && x.AssignmentWeight == original_AssignmentWeight);
 
             
 
@@ -142,19 +143,19 @@ namespace CourseManagement.DAL
             string weight_per_types = "";
             for (int i = 0; i < rubric.Count; i++)
             {
-                if (i == item.Index && i != rubric.Count - 1)
+                if (i == original_item.Index && i != rubric.Count - 1)
                 {
-                    assignment_types += item.AssignmentType + "/";
-                    weight_per_types += item.AssignmentWeight + "/";
+                    assignment_types += assignmentType + "/";
+                    weight_per_types += assignmentWeight + "/";
                 }
                 else if(i != rubric.Count - 1)
                 {
                     assignment_types += rubric[i].AssignmentType + "/";
                     weight_per_types += rubric[i].AssignmentWeight + "/";
-                } else if (item.Index == i && i == rubric.Count - 1)
+                } else if (original_item.Index == i && i == rubric.Count - 1)
                 {
-                    assignment_types += item.AssignmentType;
-                    weight_per_types += item.AssignmentWeight;
+                    assignment_types += assignmentType;
+                    weight_per_types += assignmentWeight;
                 }
                 else
                 {
@@ -182,7 +183,7 @@ namespace CourseManagement.DAL
 
 
         [DataObjectMethod(DataObjectMethodType.Delete)]
-        public void DeleteCourseRubric(int CRN, string assignmentType, int assignmentWeight, int index)
+        public void DeleteCourseRubric(int crn, string assignmentType, int assignmentWeight, string original_AssignmentType, int original_AssignmentWeight, int index, int original_Index, int original_Crn)
         {
            
             RubricItem item =  HttpContext.Current.Session["RubricItemToDelete"] as RubricItem;
