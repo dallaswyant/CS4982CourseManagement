@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -44,6 +45,7 @@ namespace CourseManagement
             }
 
             this.currentGrade = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
+            
 
 
             if (currentGrade != null)
@@ -55,7 +57,8 @@ namespace CourseManagement
                 this.lblCourse.Text = course.CourseInfo.Name;
                 this.lblTeacher.Text = teacher.Name;
                 this.lblEmail.Text = teacher.Email;
-                
+                this.currentGradeVal.Value = TextBox2.Text; 
+                this.workingGradeVal.Value = TextBox2.Text;
                 //this.currFeedBack = this.TextBox1.Text;
 
             }
@@ -157,11 +160,13 @@ namespace CourseManagement
 
         protected void Button4_Click(object sender, EventArgs e)
         {
-            if (checkUnsavedChangesAsync())
+            
+            if (!checkUnsavedChangesAsync())
             {
                 showNextStudent();
             }
-            
+            this.currentGradeVal.Value = this.TextBox2.Text;
+            this.workingGradeVal.Value = this.TextBox2.Text;
         }
 
         private void showNextStudent()
@@ -195,12 +200,11 @@ namespace CourseManagement
         {
             bool result = false;
             double.TryParse(this.TextBox2.Text, out this.workingGrade);
+            
             if (this.workingGrade != this.currentGrade.Grade)
             {
-                   
-                // Page.ClientScript.RegisterStartupScript(this.GetType(), "confirm", "showNextButtonDialogue()", true);
-                //Button4.Attributes.Add("confirm","showNextButtonDialogue()");
-                result= Boolean.Parse(this.hdnVal.Value); 
+
+                result= Boolean.Parse(this.hdnVal1.Value); 
             }
             
             return result;
@@ -209,6 +213,7 @@ namespace CourseManagement
         protected void TextBox2_TextChanged(object sender, EventArgs e)
         {
             double.TryParse(TextBox2.Text, out this.workingGrade);
+            this.workingGradeVal.Value = TextBox2.Text;
         }
     }
 }

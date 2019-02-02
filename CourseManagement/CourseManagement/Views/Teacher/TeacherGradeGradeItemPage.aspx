@@ -63,23 +63,34 @@
         }
 
         function showNextButtonDialogue() {
-            if (confirm("There are unsaved changes. \n Continue?") == true) {
-                document.getElementById('hdnVal').value = "true";
-                
-                return true;
-            } else {
-                document.getElementById('hdnVal').value = "false";
-                
-                return false;
+            var workingGrade = document.getElementById('workingGradeVal').value;
+            var currentGrade = document.getElementById('currentGradeVal').value;
+            console.log(workingGrade);
+            console.log(currentGrade);
+            if (workingGrade != currentGrade) {
+
+
+                if (confirm("There are unsaved changes. \n Continue?") == true) {
+                    document.getElementById('hdnVal1').value = "true";
+                    console.log(document.getElementById('hdnVal1').value);
+
+                    return true;
+                } else {
+                    document.getElementById('hdnVal1').value = "false";
+                    console.log(document.getElementById('hdnVal1').value);
+                    return false;
+                }
             }
-            
+
         }
         
     </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <input type="hidden" runat="server" value=""  ID="hdnVal" ClientIDMode="Static"/>
+    <input type="hidden" runat="server" value="false"  ID="hdnVal1" ClientIDMode="Static"/> <%--TODO This is a bug--%>
+    <input type="hidden" runat="server" value=""  ID="workingGradeVal" ClientIDMode="Static"/>
+    <input type="hidden" runat="server" value=""  ID="currentGradeVal" ClientIDMode="Static"/>
     
     
     &nbsp;<br/>
