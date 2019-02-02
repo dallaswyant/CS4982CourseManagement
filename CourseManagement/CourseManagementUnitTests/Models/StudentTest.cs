@@ -4,9 +4,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CourseManagementUnitTests.Models
 {
+    /// <summary>
+    /// Class for unit testing the student class
+    /// </summary>
     [TestClass]
     public class StudentTest
     {
+        /// <summary>
+        /// Tests the student constructor.
+        /// </summary>
         [TestMethod]
         public void TestStudentConstructor()
         {
@@ -16,6 +22,9 @@ namespace CourseManagementUnitTests.Models
             Assert.AreEqual(billy.StudentUID,"student");
         }
 
+        /// <summary>
+        /// Tests the student to string.
+        /// </summary>
         [TestMethod]
         public void TestStudentToString()
         {
@@ -24,6 +33,9 @@ namespace CourseManagementUnitTests.Models
             Assert.AreEqual(billy.ToString(), "Billy");
         }
 
+        /// <summary>
+        /// Tests the student properties.
+        /// </summary>
         [TestMethod]
         public void TestStudentProperties()
         {

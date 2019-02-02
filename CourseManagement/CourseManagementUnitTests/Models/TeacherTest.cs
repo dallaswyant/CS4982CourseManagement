@@ -5,9 +5,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CourseManagementUnitTests.Models
 {
+    /// <summary>
+    /// Class for unit testing the teacher class
+    /// </summary>
     [TestClass]
     public class TeacherTest
     {
+        /// <summary>
+        /// Tests the teacher constructor.
+        /// </summary>
         [TestMethod]
         public void TestTeacherConstructor()
         {
@@ -22,6 +28,9 @@ namespace CourseManagementUnitTests.Models
             Assert.AreEqual(teacher.TeacherUID,"teacher");
         }
 
+        /// <summary>
+        /// Tests the teacher properties.
+        /// </summary>
         [TestMethod]
         public void TestTeacherProperties()
         {

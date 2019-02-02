@@ -5,9 +5,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CourseManagementUnitTests.Models
 {
+    /// <summary>
+    /// Class for unit testing the Course class
+    /// </summary>
     [TestClass]
     public class CourseTest
     {
+        /// <summary>
+        /// Tests the course constructor.
+        /// </summary>
         [TestMethod]
         public void TestCourseConstructor()
         {
@@ -19,6 +25,9 @@ namespace CourseManagementUnitTests.Models
             Assert.AreEqual(course.MaxSeats,50);
         }
 
+        /// <summary>
+        /// Tests the course properties.
+        /// </summary>
         [TestMethod]
         public void TestCourseProperties()
         {
@@ -31,6 +40,9 @@ namespace CourseManagementUnitTests.Models
             Assert.AreEqual(course.LectureNotes,null);
         }
 
+        /// <summary>
+        /// Tests the course count remaining seats throws null.
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(System.NullReferenceException))]
         public void TestCourseCountRemainingSeatsThrowsNull()
@@ -42,6 +54,9 @@ namespace CourseManagementUnitTests.Models
 
         }
 
+        /// <summary>
+        /// Tests the course to string.
+        /// </summary>
         [TestMethod]
         public void TestCourseToString()
         {

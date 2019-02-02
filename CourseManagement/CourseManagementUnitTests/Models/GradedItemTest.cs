@@ -4,9 +4,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CourseManagementUnitTests.Models
 {
+    /// <summary>
+    /// Class for unit testing the graded item class
+    /// </summary>
     [TestClass]
     public class GradedItemTest
     {
+        /// <summary>
+        /// Tests the graded item constructor.
+        /// </summary>
         [TestMethod]
         public void TestGradedItemConstructor()
         {
@@ -22,6 +28,9 @@ namespace CourseManagementUnitTests.Models
 
         }
 
+        /// <summary>
+        /// Tests the graded item default constructor.
+        /// </summary>
         [TestMethod]
         public void TestGradedItemDefaultConstructor()
         {
@@ -37,6 +46,9 @@ namespace CourseManagementUnitTests.Models
 
         }
 
+        /// <summary>
+        /// Tests the graded item properties and setters.
+        /// </summary>
         [TestMethod]
         public void TestGradedItemPropertiesAndSetters()
         {

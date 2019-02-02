@@ -5,9 +5,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CourseManagementUnitTests.Models
 {
+    /// <summary>
+    /// Class for unit testing the Course Collection class
+    /// </summary>
     [TestClass]
     public class CourseCollectionTest
     {
+        /// <summary>
+        /// Tests the course collection constructor.
+        /// </summary>
         [TestMethod]
         public void TestCourseCollectionConstructor()
         { 
@@ -15,6 +21,9 @@ namespace CourseManagementUnitTests.Models
             Assert.AreEqual(collection.Courses.Count, 0);
         }
 
+        /// <summary>
+        /// Tests the course collection adding courses.
+        /// </summary>
         [TestMethod]
         public void TestCourseCollectionAddingCourses()
         {

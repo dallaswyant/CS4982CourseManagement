@@ -4,9 +4,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CourseManagementUnitTests.Models
 {
+    /// <summary>
+    /// Class for unit testing the degree program class
+    /// </summary>
     [TestClass]
     public class DegreeProgramTest
     {
+        /// <summary>
+        /// Tests the degree program constructor.
+        /// </summary>
         [TestMethod]
         public void TestDegreeProgramConstructor()
         {

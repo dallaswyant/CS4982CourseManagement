@@ -4,9 +4,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CourseManagementUnitTests.Models
 {
+    /// <summary>
+    /// Class for unit testing the rubric item class
+    /// </summary>
     [TestClass]
     public class RubricItemTest
     {
+        /// <summary>
+        /// Tests the rubric item constructor.
+        /// </summary>
         [TestMethod]
         public void TestRubricItemConstructor()
         {
@@ -17,6 +23,9 @@ namespace CourseManagementUnitTests.Models
             Assert.AreEqual(item.Index, 1);
         }
 
+        /// <summary>
+        /// Tests the rubric item properties.
+        /// </summary>
         [TestMethod]
         public void TestRubricItemProperties()
         {

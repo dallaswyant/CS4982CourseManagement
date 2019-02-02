@@ -4,9 +4,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CourseManagementUnitTests.Models
 {
+    /// <summary>
+    /// Class for unit testing the teacher class
+    /// </summary>
     [TestClass]
     public class UserTest
     {
+        /// <summary>
+        /// Tests the user constructor.
+        /// </summary>
         [TestMethod]
         public void TestUserConstructor()
         {
@@ -16,6 +22,9 @@ namespace CourseManagementUnitTests.Models
             Assert.AreEqual(theUser.Role,"teacher");
         }
 
+        /// <summary>
+        /// Tests the user default constructor.
+        /// </summary>
         [TestMethod]
         public void TestUserDefaultConstructor()
         {
