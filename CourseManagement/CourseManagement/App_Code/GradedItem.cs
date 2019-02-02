@@ -10,7 +10,7 @@ namespace CourseManagement.App_Code
         public Student Student { get;  }
         public double Grade { get; set; }
         public string Feedback { get; set; }
-        public int PossiblePoints { get;  }
+        public double PossiblePoints { get;  }
         public string GradeType { get;  }
         public int GradeId { get; set; }
 
@@ -19,7 +19,7 @@ namespace CourseManagement.App_Code
         #region Constructors
 
         public GradedItem(string name, Student student,double grade,
-            string feedBack, int possiblePoints, string gradeType, int gradeId)
+            string feedBack, double possiblePoints, string gradeType, int gradeId)
         {
             this.Name = name;
             this.Student = student;
