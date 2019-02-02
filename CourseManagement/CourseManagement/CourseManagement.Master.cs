@@ -145,7 +145,7 @@ namespace CourseManagement
         protected void logout_OnClick(object sender, EventArgs e)
         {
             handleLogout();
-            HttpContext.Current.Response.Redirect("../Homepage.aspx");
+            HttpContext.Current.Response.Redirect("~/Views/Homepage.aspx");
         }
     }
 }
