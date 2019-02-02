@@ -25,6 +25,7 @@
         <asp:SessionParameter Name="studentID" SessionField="UserID" Type="String" />
     </SelectParameters>
 </asp:ObjectDataSource>
+    <asp:Button ID="btnAddCourse" runat="server" OnClick="btnAddCourse_Click" Text="Add Course" />
 <br />
 <asp:Label ID="Label2" runat="server" Text="Department Courses"></asp:Label>
 <br />
@@ -36,6 +37,7 @@
         <asp:BoundField DataField="Location" HeaderText="Location" ReadOnly="True" SortExpression="Location" />
         <asp:BoundField DataField="CreditHours" HeaderText="CreditHours" ReadOnly="True" SortExpression="CreditHours" />
         <asp:BoundField DataField="SectionNumber" HeaderText="SectionNumber" ReadOnly="True" SortExpression="SectionNumber" />
+        <asp:CommandField ShowSelectButton="True" />
     </Columns>
 </asp:GridView>
     <asp:ObjectDataSource ID="odsDepartmentCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseBulletinByDepartmentName" TypeName="CourseManagement.DAL.CourseDAL">
