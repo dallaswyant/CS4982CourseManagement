@@ -20,6 +20,7 @@ namespace CourseManagement.Views.Student
                 {
                     this.DropDownList1.Items.Add(dept.DeptName);
                 }
+                this.DataBind();
             }
         }
 
@@ -32,13 +33,34 @@ namespace CourseManagement.Views.Student
 
         protected void btnAddCourse_Click(object sender, EventArgs e)
         {
-            if (this.GridView2.SelectedValue != null)
+            if (HttpContext.Current.Session["chosenCRN"] != null)
             {
                 var current = HttpContext.Current.Session["User"] as User;
                 StudentDAL courseAdder = new StudentDAL();
-                CourseInfo courseInfo = (CourseInfo) this.GridView2.SelectedValue;
-                courseAdder.addCourseByCRNAndStudentUID(courseInfo.CRN,current.UserId);
+                int crn = (int)HttpContext.Current.Session["chosenCRN"];
+                try
+                {
+                    courseAdder.addCourseByCRNAndStudentUID(crn, current.UserId);
+                    Response.Redirect("BrowseCourses.aspx");
+                }
+                catch (Exception ex)
+                {
+                    this.lblCourseToAdd.Text = "You are already in this course";
+                    HttpContext.Current.Session["chosenCRN"] = null;
+                }
             }
+            
+        }
+
+        protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int thing = (int)this.GridView2.SelectedValue;
+            HttpContext.Current.Session["chosenCRN"] = thing;
+            CourseDAL courseGetter = new CourseDAL();
+            Course courseToAdd = courseGetter.GetCourseByCRN(thing);
+            this.lblCourseToAdd.Text = "Course to Add: " + courseToAdd.CourseInfo.CRN + " " + courseToAdd.CourseInfo.Name + " " +
+                                           courseToAdd.CourseInfo.SectionNumber + " " + courseToAdd.CourseInfo.Teacher;
+            
         }
     }
 }
