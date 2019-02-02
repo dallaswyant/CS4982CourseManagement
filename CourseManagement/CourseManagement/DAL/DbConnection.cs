@@ -2,14 +2,17 @@
 
 namespace CourseManagement.DAL
 {
+    /// <summary>
+    /// Class returns a static instance of the database connection
+    /// </summary>
     public class DbConnection
     {
         #region Methods
 
         /// <summary>
-        ///     Gets the connection.
+        /// Gets the connection.
         /// </summary>
-        /// <returns> the connection for the db</returns>
+        /// <returns> the connection for the database</returns>
         public static MySqlConnection GetConnection()
         {
             var conStr = "server=160.10.25.16; port=3306; uid=cs4982s19d;" +

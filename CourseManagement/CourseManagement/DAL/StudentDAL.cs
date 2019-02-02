@@ -11,11 +11,12 @@ namespace CourseManagement.DAL
     {
         #region Methods
 
+
         /// <summary>
-        ///     Gets the person by identifier.
+        /// Gets the student by student id.
         /// </summary>
-        /// <param name="personIDCheck">The person identifier check.</param>
-        /// <returns>a person with the matching personID</returns>
+        /// <param name="studentUIDCheck">The student uid to check.</param>
+        /// <returns>A student with the selected studentUID</returns>
         public Student GetStudentByStudentID(string studentUIDCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
@@ -57,6 +58,11 @@ namespace CourseManagement.DAL
             return null;
         }
 
+        /// <summary>
+        /// Gets a list of students in the course with the given CRN.
+        /// </summary>
+        /// <param name="CRNCheck">The CRN to check.</param>
+        /// <returns>A list of students in the selected course</returns>
         public List<Student> GetStudentsByCRN(int CRNCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
@@ -94,12 +100,13 @@ namespace CourseManagement.DAL
                         return studentsInCurrentClasses;
                     }
                 }
-
-                conn.Close();
             }
-
-            return null;
         }
+        /// <summary>
+        /// Adds the course to the student's courses by CRN and studentUID
+        /// </summary>
+        /// <param name="CRN">The CRN.</param>
+        /// <param name="studentUID">The student uid.</param>
         [DataObjectMethod(DataObjectMethodType.Insert)]
         public void addCourseByCRNAndStudentUID(int CRN, string studentUID)
         {

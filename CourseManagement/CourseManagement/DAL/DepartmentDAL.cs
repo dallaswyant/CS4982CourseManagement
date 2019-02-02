@@ -8,8 +8,15 @@ using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL
 {
+    /// <summary>
+    /// This class defined a DepartmentDAL object for interacting with departments on the database
+    /// </summary>
     public class DepartmentDAL
     {
+        /// <summary>
+        /// Gets a list of all departments.
+        /// </summary>
+        /// <returns>A list of all departments.</returns>
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Department> GetAllDepartments()
         {
@@ -44,11 +51,7 @@ namespace CourseManagement.DAL
                         return departments;
                     }
                 }
-
-                conn.Close();
             }
-
-            return null;
         }
     }
 }

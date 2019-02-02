@@ -4,10 +4,19 @@ using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL
 {
+    /// <summary>
+    /// This class defines a userDAL object for interacting with users on the database
+    /// </summary>
     public class UserDAL
     {
         #region Methods
 
+        /// <summary>
+        /// Checks the login of a user.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>A user with the selected credentials, if one exists</returns>
         public User CheckLogin(string username, string password)
         {
             MySqlConnection conn = DbConnection.GetConnection();

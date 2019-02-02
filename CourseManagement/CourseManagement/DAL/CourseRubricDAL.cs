@@ -10,9 +10,17 @@ using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL
 {
+    /// <summary>
+    /// This Class defines a Course Rubric DAL for interacting with course rubrics on the Database
+    /// </summary>
     [DataObject(true)]
     public class CourseRubricDAL
     {
+        /// <summary>
+        /// Gets the course rubric by CRN.
+        /// </summary>
+        /// <param name="CRNCheck">The CRN check.</param>
+        /// <returns>A list of rubric items representing the course rubric for the selected CRN</returns>
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<RubricItem> GetCourseRubricByCRN(int CRNCheck)
         {
@@ -22,8 +30,6 @@ namespace CourseManagement.DAL
             {
 
                 conn.Open();
-                GradedItemDAL gradedStuff = new GradedItemDAL();
-
                 var selectQuery = "SELECT * FROM rubrics WHERE rubrics.CRN = @CRNCheck";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
@@ -76,6 +82,11 @@ namespace CourseManagement.DAL
             return null;
         }
 
+        /// <summary>
+        /// Adds the course rubric to the selected course.
+        /// </summary>
+        /// <param name="CRN">The CRN for the course.</param>
+        /// <param name="rubricToAdd">The rubric to add to the course.</param>
         public void AddCourseRubric(int CRN, List<RubricItem> rubricToAdd)
         {
             string assignment_types = "";
@@ -112,22 +123,17 @@ namespace CourseManagement.DAL
             }
         }
 
-        public void DeleteCourseRubric(int CRN, int index)
-        {
-            MySqlConnection conn = DbConnection.GetConnection();
-            using (conn)
-            {
-                conn.Open();
-                var selectQuery =
-                    "DELETE FROM rubrics WHERE CRN = @CRN";
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@CRN",CRN);
-                    cmd.ExecuteNonQuery();
-                }
-                conn.Close();
-            }
-        }
+        /// <summary>
+        /// Updates the course rubric.
+        /// </summary>
+        /// <param name="crn">The CRN.</param>
+        /// <param name="assignmentType">Type of the assignment.</param>
+        /// <param name="assignmentWeight">The assignment weight.</param>
+        /// <param name="original_AssignmentType">Type of the original assignment.</param>
+        /// <param name="original_AssignmentWeight">The original assignment weight.</param>
+        /// <param name="index">The index.</param>
+        /// <param name="original_Index">Index of the original.</param>
+        /// <param name="original_Crn">The original CRN.</param>
         [DataObjectMethod(DataObjectMethodType.Update)]
         public void UpdateCourseRubric(int crn, string assignmentType, int assignmentWeight, string original_AssignmentType, int original_AssignmentWeight, int index, int original_Index, int original_Crn)
         {
@@ -182,6 +188,17 @@ namespace CourseManagement.DAL
 
 
 
+        /// <summary>
+        /// Deletes the course rubric.
+        /// </summary>
+        /// <param name="crn">The CRN.</param>
+        /// <param name="assignmentType">Type of the assignment.</param>
+        /// <param name="assignmentWeight">The assignment weight.</param>
+        /// <param name="original_AssignmentType">Type of the original assignment.</param>
+        /// <param name="original_AssignmentWeight">The original assignment weight.</param>
+        /// <param name="index">The index.</param>
+        /// <param name="original_Index">Index of the original.</param>
+        /// <param name="original_Crn">The original CRN.</param>
         [DataObjectMethod(DataObjectMethodType.Delete)]
         public void DeleteCourseRubric(int crn, string assignmentType, int assignmentWeight, string original_AssignmentType, int original_AssignmentWeight, int index, int original_Index, int original_Crn)
         {
@@ -234,6 +251,11 @@ namespace CourseManagement.DAL
         }
 
 
+        /// <summary>
+        /// Inserts the course rubric.
+        /// </summary>
+        /// <param name="assignmentType">Type of the assignment.</param>
+        /// <param name="assignmentWeight">The assignment weight.</param>
         [DataObjectMethod(DataObjectMethodType.Insert)]
         public void InsertCourseRubric(string assignmentType, int assignmentWeight)
         {
@@ -272,6 +294,11 @@ namespace CourseManagement.DAL
                 conn.Close();
             }
         }
+        /// <summary>
+        /// Gets the assignment types by CRN.
+        /// </summary>
+        /// <param name="CRNCheck">The CRN of the selected course</param>
+        /// <returns> A list of assignment types for the selected course</returns>
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<string> GetAssignmentTypesByCRN(int CRNCheck)
         {
@@ -282,8 +309,6 @@ namespace CourseManagement.DAL
             {
 
                 conn.Open();
-                GradedItemDAL gradedStuff = new GradedItemDAL();
-
                 var selectQuery = "SELECT * FROM rubrics WHERE rubrics.CRN = @CRNCheck";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
