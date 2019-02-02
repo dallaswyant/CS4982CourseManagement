@@ -13,13 +13,31 @@ namespace CourseManagement {
     public partial class TeacherGradeGradeItemPage {
         
         /// <summary>
-        /// hdnVal control.
+        /// hdnVal1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hdnVal;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hdnVal1;
+        
+        /// <summary>
+        /// workingGradeVal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden workingGradeVal;
+        
+        /// <summary>
+        /// currentGradeVal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden currentGradeVal;
         
         /// <summary>
         /// profilePicture control.
