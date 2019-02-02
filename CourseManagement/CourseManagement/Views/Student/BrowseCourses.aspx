@@ -5,7 +5,7 @@
     <br />
 <asp:Label ID="Label3" runat="server" Text="Choose Department:"></asp:Label>
 <br />
-<asp:DropDownList ID="DropDownList1" runat="server" DataTextField="DeptName" DataValueField="DeptName">
+<asp:DropDownList ID="DropDownList1" AutoPostBack="True" runat="server"  DataTextField="DeptName" DataValueField="DeptName">
     <asp:ListItem>All Departments</asp:ListItem>
     </asp:DropDownList>
 <br />
@@ -29,6 +29,9 @@
 <br />
 <asp:Label ID="Label2" runat="server" Text="Department Courses"></asp:Label>
 <br />
+	<asp:ScriptManager ID="berowseCourseScriptManager" idrunat="server"></asp:ScriptManager>
+	<asp:UpdatePanel ID="browseCoursUpdatePanel" UpdateMode="Conditional" runat="server">
+		<ContentTemplate>
 <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="odsDepartmentCourses" Width="482px">
     <Columns>
         <asp:BoundField DataField="CRN" HeaderText="CRN" ReadOnly="True" SortExpression="CRN" />
@@ -39,12 +42,10 @@
         <asp:BoundField DataField="SectionNumber" HeaderText="SectionNumber" ReadOnly="True" SortExpression="SectionNumber" />
         <asp:CommandField ShowSelectButton="True" />
     </Columns>
-</asp:GridView>
-    <asp:ObjectDataSource ID="odsDepartmentCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseBulletinByDepartmentName" TypeName="CourseManagement.DAL.CourseDAL">
-        <SelectParameters>
-            <asp:ControlParameter ControlID="DropDownList1" Name="deptName" PropertyName="SelectedValue" Type="String" />
-        </SelectParameters>
-    </asp:ObjectDataSource>
-<br />
-<br />
+	
+
+		</ContentTemplate>
+	</asp:UpdatePanel>
+	<br/>
+<br/>
 </asp:Content>

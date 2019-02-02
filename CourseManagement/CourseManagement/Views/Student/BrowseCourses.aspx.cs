@@ -23,6 +23,13 @@ namespace CourseManagement.Views.Student
             }
         }
 
+        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e) { 
+        
+
+
+            this.browseCoursUpdatePanel.Update();
+        }
+
         protected void btnAddCourse_Click(object sender, EventArgs e)
         {
             if (this.GridView2.SelectedValue != null)
