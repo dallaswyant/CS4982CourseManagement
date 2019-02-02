@@ -5,7 +5,7 @@
     <br />
 <asp:Label ID="Label3" runat="server" Text="Choose Department:"></asp:Label>
 <br />
-<asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="odsDepartment" DataTextField="DeptName" DataValueField="DeptCourses">
+<asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="odsDepartment" DataTextField="DeptName" DataValueField="DeptCourses" AutoPostBack="True" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
 </asp:DropDownList>
 <asp:ObjectDataSource ID="odsDepartment" runat="server" SelectMethod="GetAllDepartments" TypeName="CourseManagement.DAL.DepartmentDAL"></asp:ObjectDataSource>
 <br />
@@ -28,8 +28,13 @@
 <br />
 <asp:Label ID="Label2" runat="server" Text="Department Courses"></asp:Label>
 <br />
+	<asp:ScriptManager ID="berowseCourseScriptManager" idrunat="server"></asp:ScriptManager>
+	<asp:UpdatePanel ID="browseCoursUpdatePanel" UpdateMode="Conditional" runat="server">
+		<ContentTemplate>
 <asp:GridView ID="GridView2" runat="server">
 </asp:GridView>
+		</ContentTemplate>
+	</asp:UpdatePanel>
 <br />
 <br />
 </asp:Content>

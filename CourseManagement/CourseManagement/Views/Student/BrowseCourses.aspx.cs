@@ -13,5 +13,12 @@ namespace CourseManagement.Views.Student
         {
 
         }
+
+        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e) { 
+        
+
+
+            this.browseCoursUpdatePanel.Update();
+        }
     }
 }
