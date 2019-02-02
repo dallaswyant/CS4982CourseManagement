@@ -41,9 +41,9 @@
         <asp:BoundField DataField="SectionNumber" HeaderText="SectionNumber" ReadOnly="True" SortExpression="SectionNumber" />
     </Columns>
 	
-<
+
 		</ContentTemplate>
 	</asp:UpdatePanel>
-<br />
-<br />
+	<br/>
+<br/>
 </asp:Content>
