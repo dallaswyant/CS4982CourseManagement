@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
+using AjaxControlToolkit;
 using CourseManagement.App_Code;
 using CourseManagement.DAL;
 
@@ -57,11 +60,11 @@ namespace CourseManagement
                 this.lblCourse.Text = course.CourseInfo.Name;
                 this.lblTeacher.Text = teacher.Name;
                 this.lblEmail.Text = teacher.Email;
-                this.currentGradeVal.Value = TextBox2.Text; 
-                this.workingGradeVal.Value = TextBox2.Text;
+                double.TryParse(TextBox2.Text, out this.workingGrade);
                 //this.currFeedBack = this.TextBox1.Text;
 
             }
+            
             
             
         }
@@ -156,17 +159,22 @@ namespace CourseManagement
                
             this.gradeItemDAL.gradeGradedItemByCRNAndStudentUID(updatedGrade,crn,this.ddlStudentNames.SelectedValue);
             Page.ClientScript.RegisterStartupScript(this.GetType(),"alert","showGradeItemDialogue()",true);
+            
         }
 
-        protected void Button4_Click(object sender, EventArgs e)
+        protected  void Button4_Click(object sender, EventArgs e)
         {
-            
-            if (!checkUnsavedChangesAsync())
+
+            if (this.currentGrade.Grade != this.workingGrade)
+            {
+                this.ModalPopUpExtender1.Show();
+            }
+            else
             {
                 showNextStudent();
             }
-            this.currentGradeVal.Value = this.TextBox2.Text;
-            this.workingGradeVal.Value = this.TextBox2.Text;
+
+            
         }
 
         private void showNextStudent()
@@ -196,24 +204,21 @@ namespace CourseManagement
             DataBind();
         }
 
-        private  bool checkUnsavedChangesAsync()
-        {
-            bool result = false;
-            double.TryParse(this.TextBox2.Text, out this.workingGrade);
-            
-            if (this.workingGrade != this.currentGrade.Grade)
-            {
-
-                result= Boolean.Parse(this.hdnVal1.Value); 
-            }
-            
-            return result;
-        }
 
         protected void TextBox2_TextChanged(object sender, EventArgs e)
         {
             double.TryParse(TextBox2.Text, out this.workingGrade);
-            this.workingGradeVal.Value = TextBox2.Text;
+
+        }
+
+        protected void savebtn_OnClick(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void continuebtn_OnClick(object sender, EventArgs e)
+        {
+            showNextStudent();
         }
     }
 }

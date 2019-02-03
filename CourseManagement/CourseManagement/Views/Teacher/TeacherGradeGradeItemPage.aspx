@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CourseManagement.Master" AutoEventWireup="true" CodeBehind="TeacherGradeGradeItemPage.aspx.cs" Inherits="CourseManagement.TeacherGradeGradeItemPage" %>
+﻿<%@ Page Title="" Language="C#" Async="true" MasterPageFile="~/CourseManagement.Master" AutoEventWireup="true" CodeBehind="TeacherGradeGradeItemPage.aspx.cs" Inherits="CourseManagement.TeacherGradeGradeItemPage" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style type="text/css">
@@ -62,37 +62,25 @@
             return alert("Grade has been updated.");
         }
 
-        function showNextButtonDialogue() {
-            var workingGrade = document.getElementById('workingGradeVal').value;
-            var currentGrade = document.getElementById('currentGradeVal').value;
-            console.log(workingGrade);
-            console.log(currentGrade);
-            if (workingGrade != currentGrade) {
 
-
-                if (confirm("There are unsaved changes. \n Continue?") == true) {
-                    document.getElementById('hdnVal1').value = "true";
-                    console.log(document.getElementById('hdnVal1').value);
-
-                    return true;
-                } else {
-                    document.getElementById('hdnVal1').value = "false";
-                    console.log(document.getElementById('hdnVal1').value);
-                    return false;
-                }
-            }
-
-        }
         
     </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <input type="hidden" runat="server" value="false"  ID="hdnVal1" ClientIDMode="Static"/> <%--TODO This is a bug--%>
-    <input type="hidden" runat="server" value=""  ID="workingGradeVal" ClientIDMode="Static"/>
-    <input type="hidden" runat="server" value=""  ID="currentGradeVal" ClientIDMode="Static"/>
     
     
+
+    <ajaxtoolkit:modalpopupextender id="ModalPopUpExtender1" TargetControlID="btnDummy" PopupControlID="PnlModal" runat="server"   backgroundcssclass="modalBackground">
+    </ajaxtoolkit:modalpopupextender>
+    <asp:Panel ID="PnlModal" BackColor="#D3D3D3" runat="server" Height="200px" Width="250px" CssClass="modalPopup">
+        There are unsaved Changes<br />
+        <asp:Button ID="savebtn" runat="server" Text="Save"  OnClick="savebtn_OnClick"  />
+        <asp:Button ID="continuebtn" runat="server" Text="Continue" OnClick="continuebtn_OnClick"  />
+    </asp:Panel>
+    
+    
+    <asp:Button ID="btnDummy" runat="server" Text="Edit" Style="display: none;" />
     &nbsp;<br/>
     <table class="auto-style1">
         <tr>
@@ -135,6 +123,7 @@
     </table>
     <br/>
     <br/>
+    
 
     <br/>
     <br/>
@@ -213,7 +202,7 @@
                 <asp:Button ID="Button3" runat="server" Text="Grade" OnClick="Button3_Click"/>
             </td>
             <td class="auto-style18">
-                <asp:Button ID="Button4" runat="server"  OnClick="Button4_Click" OnClientClick="showNextButtonDialogue()" Text="Next" />
+                <asp:Button ID="Button4" runat="server"  OnClick="Button4_Click"  Text="Next" />
             </td>
         </tr>
     </table>
