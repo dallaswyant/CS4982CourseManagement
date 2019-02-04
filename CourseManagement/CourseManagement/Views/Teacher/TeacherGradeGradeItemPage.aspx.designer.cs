@@ -13,31 +13,49 @@ namespace CourseManagement {
     public partial class TeacherGradeGradeItemPage {
         
         /// <summary>
-        /// hdnVal1 control.
+        /// ModalPopUpExtender1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hdnVal1;
+        protected global::AjaxControlToolkit.ModalPopupExtender ModalPopUpExtender1;
         
         /// <summary>
-        /// workingGradeVal control.
+        /// PnlModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden workingGradeVal;
+        protected global::System.Web.UI.WebControls.Panel PnlModal;
         
         /// <summary>
-        /// currentGradeVal control.
+        /// savebtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden currentGradeVal;
+        protected global::System.Web.UI.WebControls.Button savebtn;
+        
+        /// <summary>
+        /// continuebtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button continuebtn;
+        
+        /// <summary>
+        /// btnDummy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDummy;
         
         /// <summary>
         /// profilePicture control.
