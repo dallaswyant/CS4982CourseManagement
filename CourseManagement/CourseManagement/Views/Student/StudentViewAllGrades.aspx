@@ -13,7 +13,7 @@
     <table class="tableInfo">
         <tr>
             <td class="auto-style3">
-                <asp:DropDownList ID="ddlStudentCourses" runat="server" DataSourceID="odsCourses" DataTextField="Name" DataValueField="CRN" AutoPostBack="True" TabIndex="5">
+                <asp:DropDownList ID="ddlStudentCourses" runat="server" DataSourceID="odsCourses" DataTextField="Name" DataValueField="CRN" AutoPostBack="True" OnSelectedIndexChanged="ddlStudentCourses_SelectedIndexChanged" TabIndex="5">
                 </asp:DropDownList>
                 <asp:ObjectDataSource ID="odsCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseBulletinByStudentID" TypeName="CourseManagement.DAL.CourseDAL">
                     <SelectParameters>
@@ -61,7 +61,7 @@
         </tr>
     </table>
     <br />
-    <asp:GridView ID="gvwGrades" runat="server" OnSelectedIndexChanging="GradesGrid_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsGrades" CssClass="table">
+    <asp:GridView ID="gvwGrades" runat="server" OnSelectedIndexChanging="GradesGrid_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsGrades" CssClass="table" OnLoad="gvwGrades_Load">
         <Columns>
             <asp:BoundField DataField="Name" HeaderText="Name" ReadOnly="True" SortExpression="Name" />
             <asp:BoundField DataField="Grade" HeaderText="Grade" ReadOnly="True" SortExpression="Grade" />

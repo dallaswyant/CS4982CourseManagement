@@ -13,14 +13,14 @@ namespace CourseManagement.Views
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
         }
 
 
 
         private void loadGrades(User currentUser)
         {
-            for (int i = 0; i < this.gvwGrades.Rows.Count; i++)
-            {
+
                 CourseRubricDAL rubricGetter = new CourseRubricDAL();
                 GradedItemDAL gradeGetter = new GradedItemDAL();
                 List<RubricItem> rubric =
@@ -29,15 +29,15 @@ namespace CourseManagement.Views
                     gradeGetter.GetGradedItemsByStudentId(currentUser.UserId,
                         int.Parse(this.ddlStudentCourses.SelectedItem.Value));
 
-                assignCurrentGrade(rubric, grades, i);
-            }
+                assignCurrentGrade(rubric, grades);
+            
         }
 
-        private void assignCurrentGrade(List<RubricItem> rubric, List<GradedItem> grades, int i)
+        private void assignCurrentGrade(List<RubricItem> rubric, List<GradedItem> grades)
         {
             double overallGrade = computeOverallGrade(rubric, grades);
-            GridViewRow currentRow = this.gvwGrades.Rows[i];
-            TableCell currentCell = currentRow.Cells[this.gvwGrades.Rows[i].Cells.Count - 1];
+            GridViewRow currentRow = this.gvwCourses.Rows[0];
+            TableCell currentCell = currentRow.Cells[this.gvwCourses.Rows[0].Cells.Count - 1];
             currentCell.Text = overallGrade.ToString();
         }
 
@@ -71,7 +71,19 @@ namespace CourseManagement.Views
         {
             Response.Redirect("StudentViewGradeItem.aspx");
         }
-        
+
         #endregion
+
+        protected void ddlStudentCourses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            User currentUser = HttpContext.Current.Session["User"] as User;
+            loadGrades(currentUser);
+        }
+
+        protected void gvwGrades_Load(object sender, EventArgs e)
+        {
+            User currentUser = HttpContext.Current.Session["User"] as User;
+            loadGrades(currentUser);
+        }
     }
 }
