@@ -9,7 +9,7 @@
             <asp:SessionParameter Name="teacherIDCheck" SessionField="UserID" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
-    <asp:GridView ID="gvwWeights" runat="server" AutoGenerateColumns="False" DataSourceID="odsRubricItems" OnRowUpdated="GridView1_RowUpdated" OnRowUpdating="gvwWeights_RowUpdating" OnRowDeleting="gvwWeights_RowDeleting" CssClass="table">
+    <asp:GridView ID="gvwWeights" runat="server" AutoGenerateColumns="False" DataSourceID="odsRubricItems" OnRowDeleting="gvwWeights_RowDeleting" CssClass="table">
         <Columns>
             <asp:BoundField DataField="Index" HeaderText="Index" SortExpression="Index" ReadOnly="True" />
             <asp:BoundField DataField="CRN" HeaderText="CRN" SortExpression="CRN" ReadOnly="True" />

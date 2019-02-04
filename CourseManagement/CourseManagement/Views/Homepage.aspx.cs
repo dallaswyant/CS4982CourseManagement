@@ -20,26 +20,45 @@ namespace CourseManagement.Views
 
             User currentUser = HttpContext.Current.Session["User"] as User;
 
+            this.handleSiteNavigationDisplay(currentUser);
+
+        }
+
+        private void handleSiteNavigationDisplay(User currentUser)
+        {
             if (currentUser == null)
             {
-                this.TreeView1.Visible = false;
+                this.handleWhenUserNotSignedIn();
             }
             else if (currentUser.Role.Equals("teachers"))
             {
-                this.TreeView1.Visible = true;
-                this.SiteMapDataSource1.SiteMapProvider = "Teacher";
-                
+                this.handleWhenTeacherLogin();
             }
             else if (currentUser.Role.Equals("students"))
             {
-                this.TreeView1.Visible = true;
-                this.SiteMapDataSource1.SiteMapProvider = "Student";
+                this.handleWhenStudentLoggedIn();
             }
             else
             {
                 this.TreeView1.Visible = false;
             }
+        }
 
+        private void handleWhenUserNotSignedIn()
+        {
+            this.TreeView1.Visible = false;
+        }
+
+        private void handleWhenTeacherLogin()
+        {
+            this.TreeView1.Visible = true;
+            this.SiteMapDataSource1.SiteMapProvider = "Teacher";
+        }
+
+        private void handleWhenStudentLoggedIn()
+        {
+            this.TreeView1.Visible = true;
+            this.SiteMapDataSource1.SiteMapProvider = "Student";
         }
 
         #endregion

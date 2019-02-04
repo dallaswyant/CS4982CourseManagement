@@ -22,15 +22,6 @@ namespace CourseManagement.Views
 
         #endregion
 
-        protected void GridView1_RowUpdated(object sender, System.Web.UI.WebControls.GridViewUpdatedEventArgs e)
-        {
-            //this.Validate("gridview");
-        }
-
-        protected void gvwWeights_RowUpdating(object sender, System.Web.UI.WebControls.GridViewUpdateEventArgs e)
-        {
-        }
-
         protected void ddlCourse_SelectedIndexChanged(object sender, EventArgs e)
         {
             HttpContext.Current.Session["CRN"] = int.Parse(this.ddlCourse.SelectedValue);

@@ -18,17 +18,21 @@ namespace CourseManagement
             }
             
             User currentUser = HttpContext.Current.Session["User"] as User;
+            this.manageLogging(currentUser);
 
+        }
+
+        private void manageLogging(User currentUser)
+        {
             if (currentUser == null)
             {
-                managePropertiesWhenNotLoggedIn();
+                this.managePropertiesWhenNotLoggedIn();
             }
             else
             {
-                managePropertiesWhenLoggedIn();
-                handleLogin(currentUser);
+                this.managePropertiesWhenLoggedIn();
+                this.handleLogin(currentUser);
             }
-
         }
 
         private void handleLogin(User currentUser)
@@ -101,24 +105,31 @@ namespace CourseManagement
             User user = userDAL.CheckLogin(this.tbxUsername.Text, this.tbxPassword.Text);
             if (user == null || string.IsNullOrWhiteSpace(user.UserId + user.Password + user.Role))
             {
-                HttpContext.Current.Session["User"] = null;
-                HttpContext.Current.Session["UserID"] = null;
-                this.lblLogin.Text = "Invalid username or password.";
-
+                this.handleInvalidLogin();
             }
             else
             {
-                HttpContext.Current.Session["User"] = user;
-                HttpContext.Current.Session["UserID"] = user?.UserId; 
-                this.lblPasswordTXT.Visible = false;
-                this.lblUsernameTXT.Visible = false;
-                this.tbxPassword.Visible = false;
-                this.tbxUsername.Visible = false;
-                this.lblLogin.Text = "";
-                this.lblUsername.Text = user.UserId;
+                this.handleValidLogin(user);
             }
+        }
 
+        private void handleValidLogin(User user)
+        {
+            HttpContext.Current.Session["User"] = user;
+            HttpContext.Current.Session["UserID"] = user?.UserId;
+            this.lblPasswordTXT.Visible = false;
+            this.lblUsernameTXT.Visible = false;
+            this.tbxPassword.Visible = false;
+            this.tbxUsername.Visible = false;
+            this.lblLogin.Text = "";
+            this.lblUsername.Text = user.UserId;
+        }
 
+        private void handleInvalidLogin()
+        {
+            HttpContext.Current.Session["User"] = null;
+            HttpContext.Current.Session["UserID"] = null;
+            this.lblLogin.Text = "Invalid username or password.";
         }
 
         private void handleLogout()

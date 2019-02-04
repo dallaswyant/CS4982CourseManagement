@@ -35,21 +35,29 @@ namespace CourseManagement.Views
                     List<RubricItem> rubric = rubricGetter.GetCourseRubricByCRN(int.Parse(this.ddlStudentCourses.SelectedItem.Value));
                     List<GradedItem> grades =
                         gradeGetter.GetGradedItemsByStudentId(currentUser.UserId, int.Parse(this.ddlStudentCourses.SelectedItem.Value));
-                    double overallGrade = 0.0;
-                    foreach (var rubricItem in rubric)
-                    {
-                        foreach (var grade in grades)
-                        {
-                            if (grade.GradeType.Equals(rubricItem.AssignmentType))
-                            {
-                                overallGrade += (grade.Grade / grade.PossiblePoints) * rubricItem.AssignmentWeight;
-                            }
-                        }
-                    }
+                    
+                   double overallGrade = computeOverallGrade(rubric, grades);
 
                     this.GridView2.Rows[i].Cells[this.GridView2.Rows[i].Cells.Count - 1].Text = overallGrade.ToString();
                 }
             }
+        }
+
+        private static double computeOverallGrade(List<RubricItem> rubric, List<GradedItem> grades)
+        {
+            double overallGrade = 0.0;
+            foreach (var rubricItem in rubric)
+            {
+                foreach (var grade in grades)
+                {
+                    if (grade.GradeType.Equals(rubricItem.AssignmentType))
+                    {
+                        overallGrade += (grade.Grade / grade.PossiblePoints) * rubricItem.AssignmentWeight;
+                    }
+                }
+            }
+
+            return overallGrade;
         }
     }
 }

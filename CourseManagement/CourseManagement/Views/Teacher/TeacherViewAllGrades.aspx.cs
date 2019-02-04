@@ -32,11 +32,6 @@ namespace CourseManagement.Views
 
         #endregion
 
-        protected void gvwStudents_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-
-        }
 
         protected void ddlAssignments_SelectedIndexChanged(object sender, EventArgs e)
         {
