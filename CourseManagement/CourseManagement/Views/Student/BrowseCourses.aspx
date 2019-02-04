@@ -5,7 +5,7 @@
     <br />
 <asp:Label ID="Label3" runat="server" Text="Choose Department:"></asp:Label>
 <br />
-<asp:DropDownList ID="ddlDepartments" AutoPostBack="True" runat="server"  DataTextField="DeptName" DataValueField="DeptName">
+<asp:DropDownList ID="ddlDepartments" AutoPostBack="True" runat="server"  DataTextField="DeptName" DataValueField="DeptName" TabIndex="5">
     <asp:ListItem>All Departments</asp:ListItem>
     </asp:DropDownList>
 <br />
@@ -47,7 +47,7 @@
             <br/>
 		<asp:Label runat="server" ID ="lblCourseToAdd"></asp:Label>
 		    <br />
-            <asp:Button ID="btnAddCourse" runat="server" OnClick="btnAddCourse_Click" Text="Add Course" />
+            <asp:Button ID="btnAddCourse" runat="server" OnClick="btnAddCourse_Click" Text="Add Course" TabIndex="6" />
 		</ContentTemplate>
 	</asp:UpdatePanel>
 	<asp:ObjectDataSource ID="odsDepartmentCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseBulletinByDepartmentName" TypeName="CourseManagement.DAL.CourseDAL">

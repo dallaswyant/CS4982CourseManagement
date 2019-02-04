@@ -40,13 +40,13 @@ namespace CourseManagement {
         protected global::System.Web.UI.WebControls.TextBox tbxAssignmentName;
         
         /// <summary>
-        /// Calendar1 control.
+        /// tbxCalendar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar Calendar1;
+        protected global::System.Web.UI.WebControls.Calendar tbxCalendar;
         
         /// <summary>
         /// ddlAssignmentType control.
@@ -85,13 +85,13 @@ namespace CourseManagement {
         protected global::System.Web.UI.WebControls.TextBox tbxDueDate;
         
         /// <summary>
-        /// TextBox1 control.
+        /// tbxDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox tbxDescription;
         
         /// <summary>
         /// btnCreate control.

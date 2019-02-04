@@ -191,7 +191,7 @@
         </tr>
         <tr>
             <td colspan="3" class="feedback">
-                <asp:TextBox ID="TextBox1" runat="server" Height="149px" Width="702px" TextMode="MultiLine"></asp:TextBox>
+                <asp:TextBox ID="tbxDescription" runat="server" Height="149px" Width="702px" TextMode="MultiLine"></asp:TextBox>
             </td>
         </tr>
         <tr>

@@ -90,7 +90,7 @@
         <tr>
             <td class="auto-style7" colspan="5" rowspan="8">
                 &nbsp;
-                <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+                <asp:Calendar ID="tbxCalendar" runat="server"></asp:Calendar>
                 &nbsp;
             </td>
             <td class="auto-style2">
@@ -149,7 +149,7 @@
         </tr>
         <tr>
             <td class="auto-style12" colspan="6">
-                <asp:TextBox ID="TextBox1" runat="server" Height="211px" Width="1000px"></asp:TextBox>
+                <asp:TextBox ID="tbxDescription" runat="server" Height="211px" Width="1000px"></asp:TextBox>
             </td>
         </tr>
         <tr>

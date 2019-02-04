@@ -128,7 +128,7 @@ namespace CourseManagement
                 totalPoints = currGradedItem.PossiblePoints;
                 this.grade.Text = "/" + totalPoints;
                 this.TextBox2.Text = currGradedItem.Grade.ToString();
-                this.TextBox1.Text = currGradedItem.Feedback;
+                this.tbxDescription.Text = currGradedItem.Feedback;
                 
             }
             else
@@ -136,7 +136,7 @@ namespace CourseManagement
                 totalPoints = 0;
                 this.grade.Text = "";
                 this.TextBox2.Text = "";
-                this.TextBox1.Text = "";
+                this.tbxDescription.Text = "";
             }
 
             this.UpdatePanel2.Update();
@@ -148,7 +148,7 @@ namespace CourseManagement
             
             var updatedGrade = new GradedItem()
             {
-                Feedback = TextBox1.Text,
+                Feedback = tbxDescription.Text,
                 Grade = int.Parse(this.TextBox2.Text),
                 GradeId = this.currentGrade.GradeId,
                 Name = this.currentGrade.Name

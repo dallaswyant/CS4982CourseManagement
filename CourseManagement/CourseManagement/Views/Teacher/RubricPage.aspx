@@ -46,7 +46,7 @@
             <asp:Parameter Name="original_Crn" Type="Int32" />
         </UpdateParameters>
     </asp:ObjectDataSource>
-    <asp:DetailsView ID="DetailsView1" runat="server" Width="500px" AutoGenerateRows="False" DataSourceID="odsRubricItems" DefaultMode="Insert" CssClass="table">
+    <asp:DetailsView ID="dvwAddGradeItem" runat="server" Width="500px" AutoGenerateRows="False" DataSourceID="odsRubricItems" DefaultMode="Insert" CssClass="table">
         <Fields>
             <asp:BoundField HeaderText="AssignmentType" DataField="AssignmentType" SortExpression="AssignmentType"/>
             <asp:BoundField DataField="AssignmentWeight" HeaderText="AssignmentWeight" SortExpression="AssignmentWeight" />
