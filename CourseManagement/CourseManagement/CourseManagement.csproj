@@ -59,6 +59,7 @@
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -70,7 +71,6 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -87,6 +87,7 @@
     <Content Include="Images\No image.jpg" />
     <Content Include="Styles\background.jpg" />
     <Content Include="Styles\bg-7-full.jpg" />
+    <Content Include="Styles\StudentViewAllGrades.css" />
     <Content Include="Styles\Styles.css" />
     <Content Include="Views\Homepage.aspx" />
     <Content Include="Views\Student\BrowseCourses.aspx" />

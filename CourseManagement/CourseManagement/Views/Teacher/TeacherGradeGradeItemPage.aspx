@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style type="text/css">
-        .auto-style1 {
+        .tableInfo {
             align-content: center;
             width: 1263px;
         }
@@ -82,7 +82,7 @@
     
     <asp:Button ID="btnDummy" runat="server" Text="Edit" Style="display: none;" />
     &nbsp;<br/>
-    <table class="auto-style1">
+    <table class="tableInfo">
         <tr>
             <td class="auto-style3" rowspan="3">
                 <asp:Image ID="profilePicture" runat="server" Height="90px" Width="136px" ImageUrl="~/Images/No image.jpg"/>
@@ -127,7 +127,7 @@
 
     <br/>
     <br/>
-    <table class="auto-style1">
+    <table class="tableInfo">
         <tr>
             <td colspan="2">
                 <asp:Label runat="server" Font-Names="Californian FB" Font-Size="Larger" Text="Submission" Font-Bold="True"></asp:Label>
@@ -185,7 +185,7 @@
         </tr>
     </table>
     <br/>
-    <table class="auto-style1">
+    <table class="tableInfo">
         <tr>
             <td colspan="3" class="feedback">Feedback Comments</td>
         </tr>

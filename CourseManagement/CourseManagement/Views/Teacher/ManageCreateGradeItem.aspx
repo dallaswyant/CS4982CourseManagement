@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CourseManagement.Master" AutoEventWireup="true" CodeBehind="ManageCreateGradeItem.aspx.cs" Inherits="CourseManagement.ManageCreateGradeItem" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
-        .auto-style1 { width: 100%; }
+        .tableInfo { width: 100%; }
 
         .auto-style2 { width: 218px; }
 
@@ -41,7 +41,7 @@
         </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <table class="auto-style1">
+    <table class="tableInfo">
         <tr>
             <td class="auto-style7" colspan="5">
     <asp:ObjectDataSource ID="odsCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseBulletinByTeacherID" TypeName="CourseManagement.DAL.CourseDAL">

@@ -5,7 +5,7 @@
     <br />
 <asp:Label ID="Label3" runat="server" Text="Choose Department:"></asp:Label>
 <br />
-<asp:DropDownList ID="DropDownList1" AutoPostBack="True" runat="server"  DataTextField="DeptName" DataValueField="DeptName">
+<asp:DropDownList ID="ddlDepartments" AutoPostBack="True" runat="server"  DataTextField="DeptName" DataValueField="DeptName">
     <asp:ListItem>All Departments</asp:ListItem>
     </asp:DropDownList>
 <br />
@@ -14,7 +14,7 @@
 	<asp:UpdatePanel ID="browseCoursUpdatePanel" UpdateMode="Conditional" runat="server">
 		<ContentTemplate>
 		    <asp:Label ID="Label1" runat="server" Text="Your Courses"></asp:Label>
-		    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="odsUserCourses">
+		    <asp:GridView ID="UserCourseGrid" runat="server" AutoGenerateColumns="False" DataSourceID="odsUserCourses">
 		        <Columns>
 		            <asp:BoundField DataField="CRN" HeaderText="CRN" ReadOnly="True" SortExpression="CRN" />
 		            <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
@@ -26,13 +26,13 @@
 		    </asp:GridView>
 		    <asp:ObjectDataSource ID="odsUserCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseBulletinByStudentID" TypeName="CourseManagement.DAL.CourseDAL">
 		        <SelectParameters>
-		            <asp:SessionParameter Name="studentID" SessionField="UserID" Type="String" />
+		            <asp:SessionParameter Name="studentUID" SessionField="UserID" Type="String" />
 		        </SelectParameters>
 		    </asp:ObjectDataSource>
 		    <br />
 		    <asp:Label ID="Label2" runat="server" Text="Department Courses"></asp:Label>
 		    <br />
-		    <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="odsDepartmentCourses" Width="482px" DataKeyNames="CRN,Name,Description,Teacher,Location,PreReqClasses,CreditHours,SectionNumber" OnSelectedIndexChanged="GridView2_SelectedIndexChanged">
+		    <asp:GridView ID="AvailableCoursesGrid" runat="server" AutoGenerateColumns="False" DataSourceID="odsDepartmentCourses" Width="482px" DataKeyNames="CRN,Name,Description,Teacher,Location,PreReqClasses,CreditHours,SectionNumber" OnSelectedIndexChanged="GridView2_SelectedIndexChanged">
         <Columns>
             <asp:BoundField DataField="CRN" HeaderText="CRN" ReadOnly="True" SortExpression="CRN" />
             <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
@@ -52,7 +52,7 @@
 	</asp:UpdatePanel>
 	<asp:ObjectDataSource ID="odsDepartmentCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseBulletinByDepartmentName" TypeName="CourseManagement.DAL.CourseDAL">
         <SelectParameters>
-            <asp:ControlParameter ControlID="DropDownList1" Name="deptName" PropertyName="SelectedValue" Type="String" />
+            <asp:ControlParameter ControlID="ddlDepartments" Name="departmentName" PropertyName="SelectedValue" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
 	<br/>

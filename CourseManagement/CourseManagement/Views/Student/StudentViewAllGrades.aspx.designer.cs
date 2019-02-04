@@ -40,22 +40,22 @@ namespace CourseManagement.Views {
         protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// GridView2 control.
+        /// gvwCourses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView2;
+        protected global::System.Web.UI.WebControls.GridView gvwCourses;
         
         /// <summary>
-        /// ObjectDataSource1 control.
+        /// odsCourseDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSource1;
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsCourseDetails;
         
         /// <summary>
         /// lvwPrerequisites control.
@@ -76,13 +76,13 @@ namespace CourseManagement.Views {
         protected global::System.Web.UI.WebControls.Label lblDescription;
         
         /// <summary>
-        /// GridView1 control.
+        /// gvwGrades control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.GridView gvwGrades;
         
         /// <summary>
         /// odsGrades control.

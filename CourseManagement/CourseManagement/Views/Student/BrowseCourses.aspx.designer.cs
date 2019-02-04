@@ -22,13 +22,13 @@ namespace CourseManagement.Views.Student {
         protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// ddlDepartments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDepartments;
         
         /// <summary>
         /// berowseCourseScriptManager control.
@@ -58,13 +58,13 @@ namespace CourseManagement.Views.Student {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// GridView1 control.
+        /// UserCourseGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.GridView UserCourseGrid;
         
         /// <summary>
         /// odsUserCourses control.
@@ -85,13 +85,13 @@ namespace CourseManagement.Views.Student {
         protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// GridView2 control.
+        /// AvailableCoursesGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView2;
+        protected global::System.Web.UI.WebControls.GridView AvailableCoursesGrid;
         
         /// <summary>
         /// lblCourseToAdd control.

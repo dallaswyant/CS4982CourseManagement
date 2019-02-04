@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CourseManagement.Master" AutoEventWireup="true" CodeBehind="Homepage.aspx.cs" Inherits="CourseManagement.Views.Homepage" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
-    .auto-style1 {
+    .tableInfo {
         width: 100%;
     }
     .auto-style2 {
@@ -10,7 +10,7 @@
 </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <table class="auto-style1">
+    <table class="tableInfo">
     <tr>
         <td class="auto-style2">
     <asp:TreeView ID="TreeView1" runat="server" DataSourceID="SiteMapDataSource1" TabIndex="-1">

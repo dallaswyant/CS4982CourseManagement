@@ -1,69 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CourseManagement.Master" AutoEventWireup="true" CodeBehind="StudentViewGradeItem.aspx.cs" Inherits="CourseManagement.StudentViewGradeItem" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style type="text/css">
-        .auto-style1 {
-            align-content: center;
-            width: 1263px;
-        }
-
-        .auto-style3 { width: 157px; }
-
-        .auto-style4 {
-            text-align: center;
-            width: 147px;
-        }
-
-        .auto-style9 { width: 554px; }
-
-        .auto-style10 {
-            text-align: center;
-            width: 186px;
-        }
-
-        .auto-style12 {
-            height: 48px;
-            width: 147px;
-        }
-
-        .auto-style13 {
-            height: 48px;
-            width: 314px;
-        }
-
-        .auto-style15 { width: 314px; }
-
-        .auto-style18 {
-            height: 26px;
-            width: 866px;
-        }
-
-        .feedback { text-align: center; }
-
-        .auto-style19 { width: 147px; }
-
-        .auto-style21 {
-            height: 26px;
-            width: 638px;
-        }
-
-        .auto-style22 {
-            height: 26px;
-            width: 792px;
-        }
-
-        .auto-style23 {
-            height: 159px;
-            text-align: center;
-        }
-    </style>
-
+    <link href="../../Styles/StudentViewAllGrades.css" rel="stylesheet" type="text/css"/>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
 
     &nbsp;<br/>
-    <table class="auto-style1">
+    <table class="tableInfo">
         <tr>
             <td class="auto-style3" rowspan="2">
                 <asp:Image ID="profilePicture" runat="server" Height="90px" Width="136px" ImageUrl="~/Images/No image.jpg"/>
@@ -89,7 +33,7 @@
         </tr>
     </table>
     <br/>
-    <table class="auto-style1">
+    <table class="tableInfo">
         <tr>
             <td colspan="3">
                 Description:
@@ -152,7 +96,7 @@
         </tr>
     </table>
     <br/>
-    <table class="auto-style1">
+    <table class="tableInfo">
         <tr>
             <td colspan="3" class="feedback">Feedback Comments:</td>
         </tr>

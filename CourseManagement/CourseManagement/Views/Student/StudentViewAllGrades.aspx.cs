@@ -15,32 +15,30 @@ namespace CourseManagement.Views
         {
         }
 
-        protected void GridView1_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+
+
+        private void loadGrades(User currentUser)
         {
-            Response.Redirect("StudentViewGradeItem.aspx");
+            for (int i = 0; i < this.gvwGrades.Rows.Count; i++)
+            {
+                CourseRubricDAL rubricGetter = new CourseRubricDAL();
+                GradedItemDAL gradeGetter = new GradedItemDAL();
+                List<RubricItem> rubric =
+                    rubricGetter.GetCourseRubricByCRN(int.Parse(this.ddlStudentCourses.SelectedItem.Value));
+                List<GradedItem> grades =
+                    gradeGetter.GetGradedItemsByStudentId(currentUser.UserId,
+                        int.Parse(this.ddlStudentCourses.SelectedItem.Value));
+
+                assignCurrentGrade(rubric, grades, i);
+            }
         }
 
-        #endregion
-
-        protected void GridView2_Load(object sender, EventArgs e)
+        private void assignCurrentGrade(List<RubricItem> rubric, List<GradedItem> grades, int i)
         {
-            if (HttpContext.Current.Session["User"] != null)
-            {
-                
-                User currentUser = HttpContext.Current.Session["User"] as User;
-                for (int i = 0; i<this.GridView2.Rows.Count;i++)
-                {
-                    CourseRubricDAL rubricGetter = new CourseRubricDAL();
-                    GradedItemDAL gradeGetter = new GradedItemDAL();
-                    List<RubricItem> rubric = rubricGetter.GetCourseRubricByCRN(int.Parse(this.ddlStudentCourses.SelectedItem.Value));
-                    List<GradedItem> grades =
-                        gradeGetter.GetGradedItemsByStudentId(currentUser.UserId, int.Parse(this.ddlStudentCourses.SelectedItem.Value));
-                    
-                   double overallGrade = computeOverallGrade(rubric, grades);
-
-                    this.GridView2.Rows[i].Cells[this.GridView2.Rows[i].Cells.Count - 1].Text = overallGrade.ToString();
-                }
-            }
+            double overallGrade = computeOverallGrade(rubric, grades);
+            GridViewRow currentRow = this.gvwGrades.Rows[i];
+            TableCell currentCell = currentRow.Cells[this.gvwGrades.Rows[i].Cells.Count - 1];
+            currentCell.Text = overallGrade.ToString();
         }
 
         private static double computeOverallGrade(List<RubricItem> rubric, List<GradedItem> grades)
@@ -59,5 +57,21 @@ namespace CourseManagement.Views
 
             return overallGrade;
         }
+
+        protected void CourseGrid_Load(object sender, EventArgs e)
+        {
+            if (HttpContext.Current.Session["User"] != null)
+            {
+                User currentUser = HttpContext.Current.Session["User"] as User;
+                loadGrades(currentUser);
+            }
+        }
+
+        protected void GradesGrid_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+        {
+            Response.Redirect("StudentViewGradeItem.aspx");
+        }
+        
+        #endregion
     }
 }

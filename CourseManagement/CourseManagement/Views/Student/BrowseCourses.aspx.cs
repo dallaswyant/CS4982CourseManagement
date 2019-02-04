@@ -18,7 +18,7 @@ namespace CourseManagement.Views.Student
                 DepartmentDAL deptGetter = new DepartmentDAL();
                 foreach (var dept in deptGetter.GetAllDepartments())
                 {
-                    this.DropDownList1.Items.Add(dept.DeptName);
+                    this.ddlDepartments.Items.Add(dept.DeptName);
                 }
                 this.DataBind();
             }
@@ -54,7 +54,7 @@ namespace CourseManagement.Views.Student
 
         protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int thing = (int)this.GridView2.SelectedValue;
+            int thing = (int)this.AvailableCoursesGrid.SelectedValue;
             HttpContext.Current.Session["chosenCRN"] = thing;
             CourseDAL courseGetter = new CourseDAL();
             Course courseToAdd = courseGetter.GetCourseByCRN(thing);

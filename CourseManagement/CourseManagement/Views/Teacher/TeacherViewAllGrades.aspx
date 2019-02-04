@@ -8,7 +8,7 @@
             <asp:SessionParameter Name="teacherIDCheck" SessionField="UserID" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
-    <table class="auto-style1">
+    <table class="tableInfo">
         <tr>
             <td>
 

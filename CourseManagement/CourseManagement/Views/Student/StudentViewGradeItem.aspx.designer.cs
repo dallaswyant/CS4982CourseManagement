@@ -22,7 +22,7 @@ namespace CourseManagement {
         protected global::System.Web.UI.WebControls.Image profilePicture;
         
         /// <summary>
-        /// lblTeacher control.
+        /// Label3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

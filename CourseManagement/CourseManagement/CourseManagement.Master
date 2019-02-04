@@ -10,7 +10,7 @@
     </asp:ContentPlaceHolder>
     <link href="Styles/Styles.css" rel="stylesheet" type="text/css"/>
     <style type="text/css">
-        .auto-style1 {
+        .tableInfo {
             width: 100%;
         }
         
@@ -33,7 +33,7 @@
     <header>
         
         
-            <table class="auto-style1">
+            <table class="tableInfo">
                 <tr>
                     <td class="auto-style5" rowspan="2"><h1>CourseHub</h1></td>
                     <td align="right">
@@ -55,7 +55,7 @@
                 </tr>
             </table>
         <section>
-            <table class="auto-style1">
+            <table class="tableInfo">
                 <tr class="menu">
                     <td class="auto-style4" >
                         <asp:Menu runat="server" DataSourceID="smdsSite" Font-Bold="True" Font-Underline="True" ForeColor="#CCCCCC" ID="menuMain" Orientation="Horizontal">
