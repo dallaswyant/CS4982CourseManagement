@@ -84,7 +84,7 @@
 	</ajaxtoolkit:modalpopupextender>
 	<asp:Button ID="btnDummy2" runat="server" Text="Edit" Style="display: none;" />
 	<asp:Panel ID="PnlModal2" BackColor="#D3D3D3" runat="server" Height="200px" Width="250px" CssClass="modalPopup">
-		There are unsaved Changes<br />
+		Grade Updated<br />
 		<asp:Button ID="okayBtn" runat="server" Text="Okay"   />
 		
 	</asp:Panel>
