@@ -32,7 +32,7 @@
 		    <br />
 		    <asp:Label ID="Label2" runat="server" Text="Department Courses"></asp:Label>
 		    <br />
-		    <asp:GridView ID="AvailableCoursesGrid" runat="server" AutoGenerateColumns="False" DataSourceID="odsDepartmentCourses" Width="482px" DataKeyNames="CRN,Name,Description,Teacher,Location,PreReqClasses,CreditHours,SectionNumber" OnSelectedIndexChanged="GridView2_SelectedIndexChanged">
+		    <asp:GridView ID="AvailableCoursesGrid" runat="server" AutoGenerateColumns="False" DataSourceID="odsDepartmentCourses" Width="482px" DataKeyNames="CRN,Name,Description,Teacher,Location,PreReqClasses,CreditHours,SectionNumber" OnSelectedIndexChanged="AvailableCourses_SelectedIndexChanged">
         <Columns>
             <asp:BoundField DataField="CRN" HeaderText="CRN" ReadOnly="True" SortExpression="CRN" />
             <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />

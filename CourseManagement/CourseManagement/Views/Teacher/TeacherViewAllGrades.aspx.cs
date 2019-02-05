@@ -30,7 +30,7 @@ namespace CourseManagement.Views
             HttpContext.Current.Response.Redirect("TeacherGradeGradeItemPage.aspx");
         }
 
-        #endregion
+      
 
 
         protected void ddlAssignments_SelectedIndexChanged(object sender, EventArgs e)
@@ -48,6 +48,8 @@ namespace CourseManagement.Views
             Course currentCourse = courseDal.GetCourseByCRN(crn);
             HttpContext.Current.Session["CurrentCourse"] = currentCourse;
             HttpContext.Current.Response.Redirect("ManageCreateGradeItem.aspx");
-        }
+        }  
+        
+        #endregion
     }
 }

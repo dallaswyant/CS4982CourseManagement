@@ -20,8 +20,7 @@ namespace CourseManagement.Views
             HttpContext.Current.Session["CRN"] = int.Parse(this.ddlCourse.SelectedValue);
         }
 
-        #endregion
-
+       
         protected void ddlCourse_SelectedIndexChanged(object sender, EventArgs e)
         {
             HttpContext.Current.Session["CRN"] = int.Parse(this.ddlCourse.SelectedValue);
@@ -40,6 +39,9 @@ namespace CourseManagement.Views
             RubricItem item = new RubricItem(CRN,assignmentType, weight,index);
             HttpContext.Current.Session["RubricItemToDelete"] = item;
 
-        }
+        } 
+        
+        #endregion
+
     }
 }
