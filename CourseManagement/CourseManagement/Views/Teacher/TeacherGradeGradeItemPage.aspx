@@ -165,7 +165,7 @@
                 <asp:Label ID="lblTimeRemaining" runat="server" Text="12 Hours"></asp:Label>
             </td>
             <td class="auto-style10">
-                <asp:Button ID="Button1" runat="server" Text="View File"/>
+                <asp:Button ID="Button1" runat="server" Text="View File" TabIndex="1"/>
             </td>
         </tr>
         <tr>
@@ -176,7 +176,7 @@
             <td class="auto-style10">
                 <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Conditional" runat="server">
                     <ContentTemplate>
-                        <asp:TextBox ID="TextBox2" runat="server" Height="16px" Width="45px" OnTextChanged="TextBox2_TextChanged"></asp:TextBox>
+                        <asp:TextBox ID="TextBox2" runat="server" Height="16px" Width="45px" OnTextChanged="TextBox2_TextChanged" TabIndex="2"></asp:TextBox>
                 
                         <asp:Label ID="grade" runat="server" Text="/100" Font-Size="Large"></asp:Label>
                     </ContentTemplate>
@@ -191,7 +191,7 @@
         </tr>
         <tr>
             <td colspan="3" class="feedback">
-                <asp:TextBox ID="tbxDescription" runat="server" Height="149px" Width="702px" TextMode="MultiLine"></asp:TextBox>
+                <asp:TextBox ID="tbxDescription" runat="server" Height="149px" Width="702px" TextMode="MultiLine" TabIndex="3"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -202,7 +202,7 @@
                 <asp:Button ID="Button3" runat="server" Text="Grade" OnClick="Button3_Click"/>
             </td>
             <td class="auto-style18">
-                <asp:Button ID="Button4" runat="server"  OnClick="Button4_Click"  Text="Next" />
+                <asp:Button ID="Button4" runat="server"  OnClick="Button4_Click"  Text="Next" TabIndex="4" />
             </td>
         </tr>
     </table>
