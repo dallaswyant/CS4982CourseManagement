@@ -13,7 +13,7 @@ namespace CourseManagement
 {
     public partial class TeacherGradeGradeItemPage : System.Web.UI.Page
     {
-        #region Methods
+       
 
         private GradedItemDAL gradeItemDAL = new GradedItemDAL();
         private GradedItem currentGrade;
@@ -22,7 +22,7 @@ namespace CourseManagement
         private string currFeedBack;
         
        
-        
+         #region Methods
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -90,7 +90,7 @@ namespace CourseManagement
 
         }
 
-        #endregion
+       
 
         protected void ddlStudentNames_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -220,5 +220,7 @@ namespace CourseManagement
         {
             showNextStudent();
         }
+
+        #endregion
     }
 }
