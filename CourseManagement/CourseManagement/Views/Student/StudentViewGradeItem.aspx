@@ -18,7 +18,7 @@
             </td>
             <td rowspan="2" class="auto-style9">&nbsp;</td>
             <td>
-                <asp:DropDownList ID="ddlAssignmentNames" runat="server">
+                <asp:DropDownList ID="ddlAssignmentNames" runat="server" TabIndex="1">
                     <asp:ListItem>Assignment name</asp:ListItem>
                 </asp:DropDownList>
             </td>
@@ -81,7 +81,7 @@
                 <asp:Label ID="lblTimeRemaining" runat="server" Text="12 Hours"></asp:Label>
             </td>
             <td class="auto-style10">
-                <asp:Button ID="btnChooseFile" runat="server" Text="Choose File"/>
+                <asp:Button ID="btnChooseFile" runat="server" Text="Choose File" TabIndex="2"/>
             </td>
         </tr>
         <tr>
@@ -90,7 +90,7 @@
                 <asp:Label ID="Label2" runat="server" Text="Monday, January 1, 2019 11:59 AM"></asp:Label>
             </td>
             <td class="auto-style10">
-                <asp:Label ID="Label7" runat="server" Text="___"></asp:Label>
+                <asp:Label ID="Label7" runat="server" Text="___" TabIndex="-1"></asp:Label>
                 <asp:Label ID="grade" runat="server" Text="/100" Font-Size="Large"></asp:Label>
             </td>
         </tr>
