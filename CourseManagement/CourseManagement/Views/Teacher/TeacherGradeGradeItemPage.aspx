@@ -71,16 +71,26 @@
     
     
 
-    <ajaxtoolkit:modalpopupextender id="ModalPopUpExtender1" TargetControlID="btnDummy" PopupControlID="PnlModal" runat="server"   backgroundcssclass="modalBackground">
+    <ajaxtoolkit:modalpopupextender id="unsavedChangesModal" TargetControlID="btnDummy" PopupControlID="PnlModal" runat="server"   backgroundcssclass="modalBackground">
     </ajaxtoolkit:modalpopupextender>
+	<asp:Button ID="btnDummy" runat="server" Text="Edit" Style="display: none;" />
     <asp:Panel ID="PnlModal" BackColor="#D3D3D3" runat="server" Height="200px" Width="250px" CssClass="modalPopup">
         There are unsaved Changes<br />
         <asp:Button ID="savebtn" runat="server" Text="Save"  OnClick="savebtn_OnClick"  />
         <asp:Button ID="continuebtn" runat="server" Text="Continue" OnClick="continuebtn_OnClick"  />
     </asp:Panel>
+	
+	<ajaxtoolkit:modalpopupextender id="gradedModal" TargetControlID="btnDummy2" PopupControlID="PnlModal2" runat="server"   backgroundcssclass="modalBackground">
+	</ajaxtoolkit:modalpopupextender>
+	<asp:Button ID="btnDummy2" runat="server" Text="Edit" Style="display: none;" />
+	<asp:Panel ID="PnlModal2" BackColor="#D3D3D3" runat="server" Height="200px" Width="250px" CssClass="modalPopup">
+		There are unsaved Changes<br />
+		<asp:Button ID="okayBtn" runat="server" Text="Okay"   />
+		
+	</asp:Panel>
     
     
-    <asp:Button ID="btnDummy" runat="server" Text="Edit" Style="display: none;" />
+   
     &nbsp;<br/>
     <table class="tableInfo">
         <tr>
