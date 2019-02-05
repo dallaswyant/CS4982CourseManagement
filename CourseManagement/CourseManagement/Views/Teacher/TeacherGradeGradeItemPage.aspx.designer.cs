@@ -13,13 +13,22 @@ namespace CourseManagement {
     public partial class TeacherGradeGradeItemPage {
         
         /// <summary>
-        /// ModalPopUpExtender1 control.
+        /// unsavedChangesModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.modalpopupextender ModalPopUpExtender1;
+        protected global::AjaxControlToolkit.ModalPopupExtender unsavedChangesModal;
+        
+        /// <summary>
+        /// btnDummy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDummy;
         
         /// <summary>
         /// PnlModal control.
@@ -49,13 +58,40 @@ namespace CourseManagement {
         protected global::System.Web.UI.WebControls.Button continuebtn;
         
         /// <summary>
-        /// btnDummy control.
+        /// gradedModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDummy;
+        protected global::AjaxControlToolkit.ModalPopupExtender gradedModal;
+        
+        /// <summary>
+        /// btnDummy2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDummy2;
+        
+        /// <summary>
+        /// PnlModal2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlModal2;
+        
+        /// <summary>
+        /// okayBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button okayBtn;
         
         /// <summary>
         /// profilePicture control.
