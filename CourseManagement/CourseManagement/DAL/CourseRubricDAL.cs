@@ -173,6 +173,8 @@ namespace CourseManagement.DAL
             using (conn)
             {
                 conn.Open();
+
+                
                 var selectQuery =
                     "UPDATE rubrics SET assignment_types=@assignment_types, weight_per_type=@weight_per_type WHERE CRN = @CRN";
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
@@ -181,6 +183,22 @@ namespace CourseManagement.DAL
                     cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
                     cmd.Parameters.AddWithValue("@CRN", CRN);
                     cmd.ExecuteNonQuery();
+                }
+
+                StudentDAL studentGetter = new StudentDAL();
+                List<Student> students = studentGetter.GetStudentsByCRN(CRN);
+                foreach (var student in students)
+                {
+                    var updateQuery =
+                        "UPDATE grade_items SET grade_type = @newType WHERE grade_item_id = (SELECT grade_items.grade_item_id FROM grade_belongs_to_courses WHERE grade_belongs_to_courses.courses_CRN = @CRN  AND grade_belongs_to_courses.grade_item_id = grade_items.grade_item_id AND grade_items.grade_type = @oldType AND grade_items.student_uid = @studentUID)";
+                    using (MySqlCommand cmd = new MySqlCommand(updateQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@newType", assignmentType);
+                        cmd.Parameters.AddWithValue("@oldType", original_AssignmentType);
+                        cmd.Parameters.AddWithValue("@CRN", CRN);
+                        cmd.Parameters.AddWithValue("@studentUID", student.StudentUID);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
                 conn.Close();
             }

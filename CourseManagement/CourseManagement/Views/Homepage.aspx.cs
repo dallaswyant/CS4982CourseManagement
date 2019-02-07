@@ -17,7 +17,8 @@ namespace CourseManagement.Views
             {
                 DataBind();
             }
-
+           
+            HttpContext.Current.Session["CurrentGradedItem"] = null;
             User currentUser = HttpContext.Current.Session["User"] as User;
 
             this.handleSiteNavigationDisplay(currentUser);
