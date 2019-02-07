@@ -1,5 +1,6 @@
 ﻿using System;
 using CourseManagement.App_Code;
+using CourseManagement.Utilities;
 using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL
@@ -25,12 +26,11 @@ namespace CourseManagement.DAL
             {
                 conn.Open();
                 var selectQuery =
-                    "SELECT `users`.`uid`, `users`.password, `roles`.role_name  FROM `users`, `user_has_role`, `roles` WHERE `users`.`uid` = `user_has_role`.user_uid AND `user_has_role`.`roles_role_id` = `roles`.role_id AND users.uid = @username AND users.password = @password";
+                    "SELECT `users`.`uid`, `users`.password, `roles`.role_name  FROM `users`, `user_has_role`, `roles` WHERE `users`.`uid` = `user_has_role`.user_uid AND `user_has_role`.`roles_role_id` = `roles`.role_id AND users.uid = @username";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@username", username);
-                    cmd.Parameters.AddWithValue("@password", password);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         int unameOrdinal = reader.GetOrdinal("uid");
@@ -45,10 +45,11 @@ namespace CourseManagement.DAL
                             var foundpassword = reader[pwordOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(pwordOrdinal);
+                            var decryptedpassword = Encrypter.Decrypt(foundpassword, "raspberryberet");
                             var foundrole = reader[roleOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(roleOrdinal);
-                            var foundUser = new User(foundusername, foundpassword, foundrole);
+                            var foundUser = new User(foundusername, decryptedpassword, foundrole);
                             return foundUser;
                         }
                     }
