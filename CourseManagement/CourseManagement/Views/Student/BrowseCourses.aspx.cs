@@ -52,7 +52,7 @@ namespace CourseManagement.Views.Student
             
         }
 
-        protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
+        protected void AvailableCourses_SelectedIndexChanged(object sender, EventArgs e)
         {
             int thing = (int)this.AvailableCoursesGrid.SelectedValue;
             HttpContext.Current.Session["chosenCRN"] = thing;
@@ -60,7 +60,6 @@ namespace CourseManagement.Views.Student
             Course courseToAdd = courseGetter.GetCourseByCRN(thing);
             this.lblCourseToAdd.Text = "Course to Add: " + courseToAdd.CourseInfo.CRN + " " + courseToAdd.CourseInfo.Name + " " +
                                            courseToAdd.CourseInfo.SectionNumber + " " + courseToAdd.CourseInfo.Teacher;
-            
         }
     }
 }

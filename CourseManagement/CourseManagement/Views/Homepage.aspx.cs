@@ -41,24 +41,24 @@ namespace CourseManagement.Views
             }
             else
             {
-                this.TreeView1.Visible = false;
+                this.tvwSite.Visible = false;
             }
         }
 
         private void handleWhenUserNotSignedIn()
         {
-            this.TreeView1.Visible = false;
+            this.tvwSite.Visible = false;
         }
 
         private void handleWhenTeacherLogin()
         {
-            this.TreeView1.Visible = true;
+            this.tvwSite.Visible = true;
             this.SiteMapDataSource1.SiteMapProvider = "Teacher";
         }
 
         private void handleWhenStudentLoggedIn()
         {
-            this.TreeView1.Visible = true;
+            this.tvwSite.Visible = true;
             this.SiteMapDataSource1.SiteMapProvider = "Student";
         }
 

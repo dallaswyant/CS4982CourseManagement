@@ -13,7 +13,7 @@ namespace CourseManagement
 {
     public partial class TeacherGradeGradeItemPage : System.Web.UI.Page
     {
-        #region Methods
+       
 
         private GradedItemDAL gradeItemDAL = new GradedItemDAL();
         private GradedItem currentGrade;
@@ -22,7 +22,7 @@ namespace CourseManagement
         private string currFeedBack;
         
        
-        
+         #region Methods
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -90,7 +90,7 @@ namespace CourseManagement
 
         }
 
-        #endregion
+       
 
         protected void ddlStudentNames_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -158,8 +158,8 @@ namespace CourseManagement
             var crn = course.CourseInfo.CRN;
                
             this.gradeItemDAL.gradeGradedItemByCRNAndStudentUID(updatedGrade,crn,this.ddlStudentNames.SelectedValue);
-            Page.ClientScript.RegisterStartupScript(this.GetType(),"alert","showGradeItemDialogue()",true);
-            
+            this.gradedModal.Show();
+
         }
 
         protected  void Button4_Click(object sender, EventArgs e)
@@ -167,7 +167,7 @@ namespace CourseManagement
 
             if (this.currentGrade.Grade != this.workingGrade)
             {
-                this.ModalPopUpExtender1.Show();
+                this.unsavedChangesModal.Show();
             }
             else
             {
@@ -220,5 +220,7 @@ namespace CourseManagement
         {
             showNextStudent();
         }
+
+        #endregion
     }
 }

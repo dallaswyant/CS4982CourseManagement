@@ -8,7 +8,8 @@ namespace CourseManagement
 {
     public partial class CourseManagement : System.Web.UI.MasterPage
     {
-        
+
+        #region Method
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -158,5 +159,7 @@ namespace CourseManagement
             handleLogout();
             HttpContext.Current.Response.Redirect("~/Views/Homepage.aspx");
         }
+
+        #endregion
     }
 }
