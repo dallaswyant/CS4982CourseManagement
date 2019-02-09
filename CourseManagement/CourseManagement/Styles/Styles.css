@@ -27,5 +27,15 @@ h1 {
     justify-content: center 
 
 }
+.StaticMenuStyle {
+    color: white;
+}
+.StaticMenuItemStyle {
+    color: white;
+}
 
+.textShadow a.static.highlighted {
+
+    color: aqua;
+}
 

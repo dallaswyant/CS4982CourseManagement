@@ -70,18 +70,23 @@
                     <table class="tableInfo">
                         <tr class="menu">
                             <td class="auto-style4" >
-                                <asp:Menu runat="server" DataSourceID="smdsSite" Font-Bold="True" Font-Underline="True" ForeColor="#CCCCCC" ID="menuMain" Orientation="Horizontal">
-                                    <DynamicHoverStyle ForeColor="White" BackColor="#CCCCCC" />
-                                    <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
-                                    <DynamicMenuStyle BackColor="#CCCCCC" />
-                                    <StaticHoverStyle BackColor="#999999" ForeColor="White" />
-                                    <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                                <asp:Menu runat="server" DataSourceID="smdsSite" 
+                                          Font-Bold="True" 
+                                          Font-Underline="True"  
+                                          ID="menuMain" 
+                                          Orientation="Horizontal"
+                                          
+                                          CssClass="textShadow" 
+                                          StaticMenuStyle-CssClass="StaticMenuStyle"
+                                          StaticMenuItemStyle-CssClass="StaticMenuItemStyle"
+                                          >
+        
                                 </asp:Menu>
                             </td>
                         </tr>
                         <tr>
                             <td class="auto-style3">
-                                <asp:SiteMapPath ID="smpSite" runat="server" ForeColor="Orange">
+                                <asp:SiteMapPath ID="smpSite" runat="server" ForeColor="#001C27">
 
                                 </asp:SiteMapPath>
                             </td>
