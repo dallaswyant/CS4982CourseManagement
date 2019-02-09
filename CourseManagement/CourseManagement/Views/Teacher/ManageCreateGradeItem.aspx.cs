@@ -65,6 +65,8 @@ namespace CourseManagement
             {
                 this.handleWhenGradeITemNotExists();
             }
+            
+            this.createdModal.Show();
 
         }
 
@@ -95,6 +97,9 @@ namespace CourseManagement
             GradedItem item = new GradedItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0);
             this.GradeDAL.deleteGradedItemByCRNForAllStudents(item, this.currentCourse.CourseInfo.CRN);
             HttpContext.Current.Session["CurrentGradedItem"] = null;
+
+            //TODO dialogue here
+            this.deleteModal.Show();
         }
 
         #endregion

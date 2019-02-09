@@ -57,14 +57,9 @@
         }
     </style>
    
-    <script>
-        function showGradeItemDialogue() {
-            return alert("Grade has been updated.");
-        }
+    <link href="../../Styles/DialogueStyleSheet.css" rel="stylesheet" type="text/css" />
 
-
-        
-    </script>
+    
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -74,18 +69,23 @@
     <ajaxtoolkit:modalpopupextender id="unsavedChangesModal" TargetControlID="btnDummy" PopupControlID="PnlModal" runat="server"   backgroundcssclass="modalBackground">
     </ajaxtoolkit:modalpopupextender>
 	<asp:Button ID="btnDummy" runat="server" Text="Edit" Style="display: none;" />
-    <asp:Panel ID="PnlModal" BackColor="#D3D3D3" runat="server" Height="200px" Width="250px" CssClass="modalPopup">
-        There are unsaved Changes<br />
-        <asp:Button ID="savebtn" runat="server" Text="Save"  OnClick="savebtn_OnClick"  />
-        <asp:Button ID="continuebtn" runat="server" Text="Continue" OnClick="continuebtn_OnClick"  />
+    <asp:Panel ID="PnlModal"   runat="server"  CssClass="modalPopup">
+        <div  style="text-align: center; font-family:'Roboto',sans-serif;  " >
+        There Are Unsaved Changes<br/>
+        </div>
+        <asp:Button ID="savebtn" runat="server" Text="Save" CssClass="buttons"  OnClick="savebtn_OnClick"  />
+        <asp:Button ID="continuebtn" runat="server" Text="Continue" CssClass="buttons" OnClick="continuebtn_OnClick"  />
     </asp:Panel>
+
 	
 	<ajaxtoolkit:modalpopupextender id="gradedModal" TargetControlID="btnDummy2" PopupControlID="PnlModal2" runat="server"   backgroundcssclass="modalBackground">
 	</ajaxtoolkit:modalpopupextender>
 	<asp:Button ID="btnDummy2" runat="server" Text="Edit" Style="display: none;" />
-	<asp:Panel ID="PnlModal2" BackColor="#D3D3D3" runat="server" Height="200px" Width="250px" CssClass="modalPopup">
+	<asp:Panel ID="PnlModal2"  runat="server"  CssClass="oneBtnModal">
+	    <div  style="text-align: center; font-family:'Roboto',sans-serif; " >
 		Grade Updated<br />
-		<asp:Button ID="okayBtn" runat="server" Text="Okay"   />
+	    </div>
+		<asp:Button ID="okayBtn" CssClass="buttons" runat="server" Text="Okay"   />
 		
 	</asp:Panel>
     
@@ -201,7 +201,7 @@
         </tr>
         <tr>
             <td colspan="3" class="feedback">
-                <asp:TextBox ID="tbxDescription" runat="server" Height="149px" Width="702px" TextMode="MultiLine" TabIndex="3"></asp:TextBox>
+                <asp:TextBox ID="tbxDescription" runat="server" Height="149px" Width="702px" TextMode="MultiLine" TabIndex="3" OnTextChanged="tbxDescription_TextChanged"></asp:TextBox>
             </td>
         </tr>
         <tr>
