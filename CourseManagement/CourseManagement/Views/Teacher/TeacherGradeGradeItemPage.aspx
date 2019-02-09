@@ -71,7 +71,7 @@
 	<asp:Button ID="btnDummy" runat="server" Text="Edit" Style="display: none;" />
     <asp:Panel ID="PnlModal"   runat="server"  CssClass="modalPopup">
         <div  style="text-align: center; font-family:'Roboto',sans-serif;  " >
-        There are unsaved Changes<br/>
+        There Are Unsaved Changes<br/>
         </div>
         <asp:Button ID="savebtn" runat="server" Text="Save" CssClass="buttons"  OnClick="savebtn_OnClick"  />
         <asp:Button ID="continuebtn" runat="server" Text="Continue" CssClass="buttons" OnClick="continuebtn_OnClick"  />
