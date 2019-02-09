@@ -70,7 +70,7 @@
     </ajaxtoolkit:modalpopupextender>
 	<asp:Button ID="btnDummy" runat="server" Text="Edit" Style="display: none;" />
     <asp:Panel ID="PnlModal"   runat="server"  CssClass="modalPopup">
-        <div  style="text-align: center; font-family:'Roboto',sans-serif;  " >
+        <div  style="text-align: center; font-family:'Roboto',sans-serif; padding-top: 5pt;  "  >
         There Are Unsaved Changes<br/>
         </div>
         <asp:Button ID="savebtn" runat="server" Text="Save" CssClass="buttons"  OnClick="savebtn_OnClick"  />
@@ -82,7 +82,7 @@
 	</ajaxtoolkit:modalpopupextender>
 	<asp:Button ID="btnDummy2" runat="server" Text="Edit" Style="display: none;" />
 	<asp:Panel ID="PnlModal2"  runat="server"  CssClass="oneBtnModal">
-	    <div  style="text-align: center; font-family:'Roboto',sans-serif; " >
+	    <div  style="text-align: center; font-family:'Roboto',sans-serif; padding-top: 5pt; " >
 		Grade Updated<br />
 	    </div>
 		<asp:Button ID="okayBtn" CssClass="buttons" runat="server" Text="Okay"   />
