@@ -13,14 +13,10 @@ namespace CourseManagement.Views
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
-
-
 
         private void loadGrades(User currentUser)
         {
-
                 CourseRubricDAL rubricGetter = new CourseRubricDAL();
                 GradedItemDAL gradeGetter = new GradedItemDAL();
                 List<RubricItem> rubric =
@@ -30,15 +26,15 @@ namespace CourseManagement.Views
                         int.Parse(this.ddlStudentCourses.SelectedItem.Value));
 
                 assignCurrentGrade(rubric, grades);
-            
         }
 
         private void assignCurrentGrade(List<RubricItem> rubric, List<GradedItem> grades)
         {
             double overallGrade = computeOverallGrade(rubric, grades);
-            GridViewRow currentRow = this.gvwCourses.Rows[0];
-            TableCell currentCell = currentRow.Cells[this.gvwCourses.Rows[0].Cells.Count - 1];
-            currentCell.Text = overallGrade.ToString();
+            var ctlGrade = this.gvwCourses.Rows[0].FindControl("lblGrade");
+            Label gradeLabel = (Label) ctlGrade;
+            gradeLabel.Text = overallGrade.ToString();
+
         }
 
         private static double computeOverallGrade(List<RubricItem> rubric, List<GradedItem> grades)
@@ -58,7 +54,7 @@ namespace CourseManagement.Views
             return overallGrade;
         }
 
-        protected void CourseGrid_Load(object sender, EventArgs e)
+        protected void gvwCourses_DataBound(object sender, EventArgs e)
         {
             if (HttpContext.Current.Session["User"] != null)
             {
@@ -66,7 +62,6 @@ namespace CourseManagement.Views
                 loadGrades(currentUser);
             }
         }
-
         protected void GradesGrid_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
         {
             Response.Redirect("StudentViewGradeItem.aspx");
@@ -74,16 +69,8 @@ namespace CourseManagement.Views
 
         #endregion
 
-        protected void ddlStudentCourses_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            User currentUser = HttpContext.Current.Session["User"] as User;
-            loadGrades(currentUser);
-        }
 
-        protected void gvwGrades_Load(object sender, EventArgs e)
-        {
-            User currentUser = HttpContext.Current.Session["User"] as User;
-            loadGrades(currentUser);
-        }
+
+
     }
 }

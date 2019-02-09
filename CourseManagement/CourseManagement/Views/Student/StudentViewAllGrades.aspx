@@ -13,7 +13,7 @@
     <table class="tableInfo">
         <tr>
             <td class="auto-style3">
-                <asp:DropDownList ID="ddlStudentCourses" runat="server" DataSourceID="odsCourses" DataTextField="Name" DataValueField="CRN" AutoPostBack="True" OnSelectedIndexChanged="ddlStudentCourses_SelectedIndexChanged" TabIndex="5">
+                <asp:DropDownList ID="ddlStudentCourses" runat="server" DataSourceID="odsCourses" DataTextField="Name" DataValueField="CRN" AutoPostBack="True" TabIndex="5">
                 </asp:DropDownList>
                 <asp:ObjectDataSource ID="odsCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseBulletinByStudentID" TypeName="CourseManagement.DAL.CourseDAL">
                     <SelectParameters>
@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <td class="auto-style3">
-                <asp:GridView ID="gvwCourses" runat="server" AutoGenerateColumns="False" DataSourceID="odsCourseDetails" CssClass="table" OnLoad="CourseGrid_Load">
+                <asp:GridView ID="gvwCourses" runat="server" AutoGenerateColumns="False" DataSourceID="odsCourseDetails" CssClass="table" OnDataBound="gvwCourses_DataBound">
                     <Columns>
 
                         <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
@@ -36,7 +36,11 @@
                         <asp:BoundField DataField="CreditHours" HeaderText="CreditHours" ReadOnly="True" SortExpression="CreditHours" />
                         <asp:BoundField DataField="CRN" HeaderText="CRN" ReadOnly="True" SortExpression="CRN" />
                         <asp:BoundField DataField="SectionNumber" HeaderText="SectionNumber" ReadOnly="True" SortExpression="SectionNumber" />
-                        <asp:TemplateField HeaderText="Overall Grade"></asp:TemplateField>
+                        <asp:TemplateField HeaderText="Overall Grade">
+                            <ItemTemplate>
+                                <asp:Label ID="lblGradse" runat="server" ></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
                 <asp:ObjectDataSource ID="odsCourseDetails" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByCRN" TypeName="CourseManagement.DAL.CourseDAL">
@@ -61,7 +65,7 @@
         </tr>
     </table>
     <br />
-    <asp:GridView ID="gvwGrades" runat="server" OnSelectedIndexChanging="GradesGrid_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsGrades" CssClass="table" OnLoad="gvwGrades_Load">
+    <asp:GridView ID="gvwGrades" runat="server" OnSelectedIndexChanging="GradesGrid_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsGrades" CssClass="table">
         <Columns>
             <asp:BoundField DataField="Name" HeaderText="Name" ReadOnly="True" SortExpression="Name" />
             <asp:BoundField DataField="Grade" HeaderText="Grade" ReadOnly="True" SortExpression="Grade" />
