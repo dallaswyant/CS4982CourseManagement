@@ -20,8 +20,49 @@ namespace CourseManagement
             
             User currentUser = HttpContext.Current.Session["User"] as User;
             this.manageLogging(currentUser);
+            HttpContext.Current.Session["CurrentGradedItem"] = null;
+
+            this.handleSiteNavigationDisplay(currentUser);
 
         }
+
+        private void handleSiteNavigationDisplay(User currentUser)
+        {
+            if (currentUser == null)
+            {
+                this.handleWhenUserNotSignedIn();
+            }
+            else if (currentUser.Role.Equals("teachers"))
+            {
+                this.handleWhenTeacherLogin();
+            }
+            else if (currentUser.Role.Equals("students"))
+            {
+                this.handleWhenStudentLoggedIn();
+            }
+            else
+            {
+                this.tvwSite.Visible = false;
+            }
+        }
+
+        private void handleWhenUserNotSignedIn()
+        {
+            this.tvwSite.Visible = false;
+        }
+
+        private void handleWhenTeacherLogin()
+        {
+            this.tvwSite.Visible = true;
+            this.SiteMapDataSource1.SiteMapProvider = "Teacher";
+        }
+
+        private void handleWhenStudentLoggedIn()
+        {
+            this.tvwSite.Visible = true;
+            this.SiteMapDataSource1.SiteMapProvider = "Student";
+        }
+
 
         private void manageLogging(User currentUser)
         {
@@ -124,6 +165,15 @@ namespace CourseManagement
             this.tbxUsername.Visible = false;
             this.lblLogin.Text = "";
             this.lblUsername.Text = user.UserId;
+            if (user.Role.Equals("teachers"))
+            {
+                HttpContext.Current.Response.Redirect("Teacher/TeacherViewAllGrades.aspx");
+            }
+            else if(user.Role.Equals("students"))
+            {
+                HttpContext.Current.Response.Redirect("Student/BrowseCourses.aspx");
+            }
+            
         }
 
         private void handleInvalidLogin()
@@ -150,7 +200,7 @@ namespace CourseManagement
         {
             
             handleLogin();
-            HttpContext.Current.Response.Redirect("Homepage.aspx");
+            
 
         }
 

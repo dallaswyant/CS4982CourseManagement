@@ -23,72 +23,78 @@
         .auto-style5 {
             width: 166px;
         }
+        .auto-style6 {
+            width: 367px;
+        }
     </style>
 </head>
 
 <body>
 
-    <form id="form1" runat="server">
+   <section>
 
-    <header>
-        
-        
-            <table class="tableInfo">
-                <tr>
-                    <td class="auto-style5" rowspan="2"><h1>CourseHub</h1></td>
-                    <td align="right">
-                        <asp:Label ID="lblUsernameTXT" runat="server" Text="User name:"></asp:Label>
-                        <asp:TextBox ID="tbxUsername" runat="server" TabIndex="1"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="tbxUsername" ErrorMessage="*"></asp:RequiredFieldValidator>
-                        <asp:Label ID="lblPasswordTXT" runat="server" Text="Password:"></asp:Label>
-                        <asp:TextBox ID="tbxPassword" runat="server" TextMode="Password" TabIndex="2"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="tbxPassword">*</asp:RequiredFieldValidator>
-                        <asp:Label ID="lblUsername" runat="server"></asp:Label>
-                        <asp:Button ID="btnLogin" runat="server" OnClick="login_OnClick" Text="Login" TabIndex="3" />
-                        <asp:Button ID="btnLogout" runat="server" OnClick="logout_OnClick" Text="Logout" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Label ID="lblLogin" runat="server"></asp:Label>
-                    </td>
-                </tr>
-            </table>
-        <section>
-            <table class="tableInfo">
-                <tr class="menu">
-                    <td class="auto-style4" >
-                        <asp:Menu runat="server" DataSourceID="smdsSite" Font-Bold="True" Font-Underline="True" ForeColor="#CCCCCC" ID="menuMain" Orientation="Horizontal">
-                            <DynamicHoverStyle ForeColor="White" BackColor="#CCCCCC" />
-                            <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
-                            <DynamicMenuStyle BackColor="#CCCCCC" />
-                            <StaticHoverStyle BackColor="#999999" ForeColor="White" />
-                            <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
-                        </asp:Menu>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="auto-style3">
-                        <asp:SiteMapPath ID="smpSite" runat="server" ForeColor="Orange">
+        <form id="form1" runat="server">
+            <section class="sitemap">
+                
+                <asp:TreeView ID="tvwSite" runat="server" DataSourceID="SiteMapDataSource1" TabIndex="-1">
+                </asp:TreeView>
+                <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" SiteMapProvider="Student" />
+                    
+                <asp:SiteMapDataSource ID="smdsSite" runat="server" ShowStartingNode="False" />
+         
+            </section>
+            <section class="body">
+                <header>
+                    <table class="tableInfo">
+                        <tr>
+                            <td class="auto-style5" rowspan="2"><h1>CourseHub</h1></td>
+                            <td align="right">
+                                <asp:Label ID="lblUsernameTXT" runat="server" Text="User name:"></asp:Label>
+                                <asp:TextBox ID="tbxUsername" runat="server" TabIndex="1"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="tbxUsername" ErrorMessage="*"></asp:RequiredFieldValidator>
+                                <asp:Label ID="lblPasswordTXT" runat="server" Text="Password:"></asp:Label>
+                                <asp:TextBox ID="tbxPassword" runat="server" TextMode="Password" TabIndex="2"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="tbxPassword">*</asp:RequiredFieldValidator>
+                                <asp:Label ID="lblUsername" runat="server"></asp:Label>
+                                <asp:Button ID="btnLogin" runat="server" OnClick="login_OnClick" Text="Login" TabIndex="3" />
+                                <asp:Button ID="btnLogout" runat="server" OnClick="logout_OnClick" Text="Logout" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:Label ID="lblLogin" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                    </table>
+                    <section>
+                    <table class="tableInfo">
+                        <tr class="menu">
+                            <td class="auto-style4" >
+                                <asp:Menu runat="server" DataSourceID="smdsSite" Font-Bold="True" Font-Underline="True" ForeColor="#CCCCCC" ID="menuMain" Orientation="Horizontal">
+                                    <DynamicHoverStyle ForeColor="White" BackColor="#CCCCCC" />
+                                    <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                                    <DynamicMenuStyle BackColor="#CCCCCC" />
+                                    <StaticHoverStyle BackColor="#999999" ForeColor="White" />
+                                    <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                                </asp:Menu>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style3">
+                                <asp:SiteMapPath ID="smpSite" runat="server" ForeColor="Orange">
 
-                        </asp:SiteMapPath>
-                    </td>
-                </tr>
-            </table>
-        </section>
-    </header>
-        <section>
-
-        <nav>
-        </nav>
-
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-
-            </asp:ContentPlaceHolder>
-        </section>
-        
-                        <asp:SiteMapDataSource ID="smdsSite" runat="server" ShowStartingNode="False" />
-        
-    </form>
+                                </asp:SiteMapPath>
+                            </td>
+                        </tr>
+                    </table>
+              </section>
+                </header>
+                <section>
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </section>
+            </section>
+        </form>
+    </section>
 </body>
 </html>

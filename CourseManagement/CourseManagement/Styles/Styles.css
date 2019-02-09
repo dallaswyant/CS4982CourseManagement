@@ -1,9 +1,11 @@
 ﻿header {
     color:darkslategray;
 }
-body {
+.body {
     margin: auto;
     width: 50%;
+}
+body {
     background: #E5EAEE;
 }
 .menu {
@@ -15,6 +17,15 @@ h1 {
 
 .table {
     width: 500px;
+}
+
+.sitemap {
+    float: left;
+    height: 25em;
+    display: flex;
+    align-items: center;
+    justify-content: center 
+
 }
 
 
