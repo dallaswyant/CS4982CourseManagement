@@ -39,8 +39,37 @@
             height: 26px;
         }
         </style>
+    
+    <link href="../../Styles/DialogueStyleSheet.css" rel="stylesheet" type="text/css" />
 </asp:Content>
+
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    
+    <asp:ScriptManager ID="ScriptManager1" runat="server"/>
+    
+    <ajaxtoolkit:modalpopupextender id="createdModal" TargetControlID="btnDummy1" PopupControlID="PnlModal1" runat="server"   backgroundcssclass="modalBackground">
+    </ajaxtoolkit:modalpopupextender>
+    <asp:Button ID="btnDummy1" runat="server" Text="Edit" Style="display: none;" />
+    <asp:Panel ID="PnlModal1"  runat="server"  CssClass="oneBtnModal">
+        <div  style="text-align: center; font-family:'Roboto',sans-serif;  " >
+        Item Created<br />
+        </div>
+        <asp:Button ID="okayBtn1" CssClass="buttons" runat="server" Text="OK"   />
+		
+    </asp:Panel>
+    
+    <ajaxtoolkit:modalpopupextender id="deleteModal" TargetControlID="btnDummy2" PopupControlID="PnlModal2" runat="server"   backgroundcssclass="modalBackground">
+    </ajaxtoolkit:modalpopupextender>
+    <asp:Button ID="btnDummy2" runat="server" Text="Edit" Style="display: none;" />
+    <asp:Panel ID="PnlModal2"  runat="server"  CssClass="oneBtnModal">
+        <div  style="text-align: center; font-family:'Roboto',sans-serif;  " >
+        Item Deleted<br />
+        </div>
+        <asp:Button ID="okayBtn2" CssClass="buttons" runat="server" Text="OK"   />
+		
+    </asp:Panel>
+
     <table class="tableInfo">
         <tr>
             <td class="auto-style7" colspan="5">
@@ -149,7 +178,7 @@
         </tr>
         <tr>
             <td class="auto-style12" colspan="6">
-                <asp:TextBox ID="tbxDescription" runat="server" Height="211px" Width="1000px"></asp:TextBox>
+                <asp:TextBox ID="tbxDescription" runat="server" Height="211px" Width="1000px" TextMode="MultiLine"></asp:TextBox>
             </td>
         </tr>
         <tr>

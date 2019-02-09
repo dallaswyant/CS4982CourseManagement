@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -20,6 +21,7 @@ namespace CourseManagement
         private Student currentStudent;
         private double workingGrade;
         private string currFeedBack;
+        private string workingFeedback;
         
        
          #region Methods
@@ -61,7 +63,8 @@ namespace CourseManagement
                 this.lblTeacher.Text = teacher.Name;
                 this.lblEmail.Text = teacher.Email;
                 double.TryParse(TextBox2.Text, out this.workingGrade);
-                //this.currFeedBack = this.TextBox1.Text;
+                this.currFeedBack = this.currentGrade.Feedback == null ? "" : this.currentGrade.Feedback;
+                this.workingFeedback = this.tbxDescription.Text;
 
             }
             
@@ -165,7 +168,7 @@ namespace CourseManagement
         protected  void Button4_Click(object sender, EventArgs e)
         {
 
-            if (this.currentGrade.Grade != this.workingGrade)
+            if (this.currentGrade.Grade != this.workingGrade || !this.currFeedBack.Equals(this.workingFeedback)  )
             {
                 this.unsavedChangesModal.Show();
             }
@@ -222,5 +225,10 @@ namespace CourseManagement
         }
 
         #endregion
+
+        protected void tbxDescription_TextChanged(object sender, EventArgs e)
+        {
+            this.workingFeedback = tbxDescription.Text;
+        }
     }
 }
