@@ -68,10 +68,10 @@ namespace CourseManagement
 
         private void managePropertiesWhenLoggedIn()
         {
-            this.tbxUsername.TabIndex = 100;
-            this.tbxPassword.TabIndex = 101;
-            this.btnLogin.TabIndex = 102;
-            this.btnLogout.TabIndex = 10;
+            this.tbxUsername.TabIndex = -1;
+            this.tbxPassword.TabIndex = -1;
+            this.btnLogin.TabIndex = -1;
+            this.btnLogout.TabIndex = 1;
             this.btnLogin.Visible = false;
             this.btnLogout.Visible = true;
             this.lblPasswordTXT.Visible = false;
@@ -97,7 +97,7 @@ namespace CourseManagement
             this.tbxUsername.TabIndex = 1;
             this.tbxPassword.TabIndex = 2;
             this.btnLogin.TabIndex = 3;
-            this.btnLogout.TabIndex = 100;
+            this.btnLogout.TabIndex = -1;
         }
 
         private void handleLogin()

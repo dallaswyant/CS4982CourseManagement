@@ -14,7 +14,7 @@
             width: 147px;
         }
 
-        .auto-style9 { width: 554px; }
+        .auto-style9 { width: 524px; }
 
         .auto-style10 {
             text-align: center;
@@ -91,6 +91,10 @@
     
     
    
+                <asp:ScriptManager ID="ScriptManager1" runat="server"/>
+                
+    
+   
     &nbsp;<br/>
     <table class="tableInfo">
         <tr>
@@ -103,18 +107,13 @@
             </td>
             <td rowspan="3" class="auto-style9">&nbsp;</td>
             <td class="auto-style25" rowspan="2">
-                &nbsp;
-                <asp:DropDownList ID="ddlStudentNames" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlStudentNames_OnSelectedIndexChanged"/>
+                <asp:DropDownList ID="ddlStudentNames" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlStudentNames_OnSelectedIndexChanged" TabIndex="7"/>
             </td>
             <td class="auto-style25" rowspan="2">
-                    <asp:DropDownList ID="ddlAssignmentNames" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAssignmentNames_SelectedIndexChanged" >
+                    <asp:DropDownList ID="ddlAssignmentNames" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAssignmentNames_SelectedIndexChanged" TabIndex="8" >
                         <asp:ListItem >Assignment Name</asp:ListItem>
                     
                     </asp:DropDownList>
-                <asp:ScriptManager ID="ScriptManager1" runat="server"/>
-                
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
-                </asp:UpdatePanel>
             </td>
         </tr>
         <tr>
@@ -127,8 +126,9 @@
                 <asp:Label ID="lblEmail" runat="server" Font-Italic="True" Text="Email"></asp:Label>
             </td>
             <td colspan="2">
-                &nbsp;
-            </td>
+                &nbsp;<asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                </asp:UpdatePanel>
+            &nbsp;</td>
         </tr>
     </table>
     <br/>
@@ -206,10 +206,10 @@
         </tr>
         <tr>
             <td class="auto-style22">
-                <asp:Button ID="Button2" runat="server" Text="Save"/>
+                <asp:Button ID="Button2" runat="server" Text="Save" TabIndex="6"/>
             </td>
             <td class="auto-style21">
-                <asp:Button ID="Button3" runat="server" Text="Grade" OnClick="Button3_Click"/>
+                <asp:Button ID="Button3" runat="server" Text="Grade" OnClick="Button3_Click" TabIndex="5"/>
             </td>
             <td class="auto-style18">
                 <asp:Button ID="Button4" runat="server"  OnClick="Button4_Click"  Text="Next" TabIndex="4" />
