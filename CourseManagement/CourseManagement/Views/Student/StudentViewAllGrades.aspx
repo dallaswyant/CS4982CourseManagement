@@ -38,7 +38,7 @@
                         <asp:BoundField DataField="SectionNumber" HeaderText="SectionNumber" ReadOnly="True" SortExpression="SectionNumber" />
                         <asp:TemplateField HeaderText="Overall Grade">
                             <ItemTemplate>
-                                <asp:Label ID="lblGradse" runat="server" ></asp:Label>
+                                <asp:Label ID="lblGrade" runat="server" ></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

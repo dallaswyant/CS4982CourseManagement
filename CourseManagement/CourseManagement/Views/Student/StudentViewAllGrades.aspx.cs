@@ -67,10 +67,10 @@ namespace CourseManagement.Views
             Response.Redirect("StudentViewGradeItem.aspx");
         }
 
+
+
+
         #endregion
-
-
-
 
     }
 }
