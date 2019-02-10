@@ -68,6 +68,8 @@ namespace CourseManagement.DAL
                             var gradeItemId = reader[gradeItemIdOrdinal] == DBNull.Value
                                 ? default(int)
                                 : reader.GetInt32(gradeItemIdOrdinal);
+                            var isPublic = reader[isPublicOrdinal] != DBNull.Value && reader.GetBoolean(isPublicOrdinal);
+                            var isGraded = reader[isGradedOrdinal] != DBNull.Value && reader.GetBoolean(isGradedOrdinal);
 
                             var currStudent = studentGetter.GetStudentByStudentID(studentUID);
                             
@@ -176,6 +178,8 @@ namespace CourseManagement.DAL
                             var gradeItemId = reader[gradeItemIdOrdinal] == DBNull.Value
                                 ? default(int)
                                 : reader.GetInt32(gradeItemIdOrdinal);
+                            var isPublic = reader[isPublicOrdinal] != DBNull.Value && reader.GetBoolean(isPublicOrdinal);
+                            var isGraded = reader[isGradedOrdinal] != DBNull.Value && reader.GetBoolean(isGradedOrdinal);
 
                             var currStudent = studentGetter.GetStudentByStudentID(studentUid);
                             
@@ -208,13 +212,14 @@ namespace CourseManagement.DAL
                 conn.Open();
                     GradedItem grade = new GradedItem(newItem.Name, currStudent, newItem.Grade, newItem.Feedback, newItem.PossiblePoints, newItem.GradeType, 0);
                     var selectQuery =
-                        "UPDATE grade_items SET grade_earned_points=@grade_points, grade_feedback=@grade_feedback WHERE student_uid = @studentUID AND grade_name = @grade_name";
+                        "UPDATE grade_items SET grade_earned_points=@grade_points, grade_feedback=@grade_feedback, is_graded=@is_graded WHERE student_uid = @studentUID AND grade_name = @grade_name";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@studentUID", studentUID);
                         cmd.Parameters.AddWithValue("@grade_points", grade.Grade);
                         cmd.Parameters.AddWithValue("@grade_name", grade.Name);
                         cmd.Parameters.AddWithValue("@grade_feedback", grade.Feedback);
+                        cmd.Parameters.AddWithValue("@is_graded", newItem.IsGraded);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -287,7 +292,7 @@ namespace CourseManagement.DAL
                     {
                         GradedItem grade = new GradedItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0);
                         var selectQuery =
-                            "INSERT INTO grade_items(student_uid, grade_total_points, grade_earned_points, grade_type, grade_name, grade_feedback) VALUES (@studentUID,@grade_total,@grade_points,@grade_type,@grade_name,@grade_feedback)";
+                            "INSERT INTO grade_items(student_uid, grade_total_points, grade_earned_points, grade_type, grade_name, grade_feedback, is_public) VALUES (@studentUID,@grade_total,@grade_points,@grade_type,@grade_name,@grade_feedback,@is_public)";
                         using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                         {
                             cmd.Parameters.AddWithValue("@studentUID", grade.Student.StudentUID);
@@ -296,6 +301,7 @@ namespace CourseManagement.DAL
                             cmd.Parameters.AddWithValue("@grade_type", grade.GradeType);
                             cmd.Parameters.AddWithValue("@grade_name", grade.Name);
                             cmd.Parameters.AddWithValue("@grade_feedback", grade.Feedback);
+                            cmd.Parameters.AddWithValue("@is_public", grade.IsPublic);
                             cmd.ExecuteNonQuery();
                         }
 
@@ -335,12 +341,13 @@ namespace CourseManagement.DAL
                 {
                     GradedItem grade = new GradedItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0);
                     var selectQuery =
-                        "UPDATE grade_items SET grade_total_points=@grade_total, grade_type=@grade_type, grade_name=@grade_newname WHERE student_uid = @studentUID AND grade_name = @grade_oldname";
+                        "UPDATE grade_items SET grade_total_points=@grade_total, grade_type=@grade_type, grade_name=@grade_newname, is_public=@is_public WHERE student_uid = @studentUID AND grade_name = @grade_oldname";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@studentUID", grade.Student.StudentUID);
                         cmd.Parameters.AddWithValue("@grade_total", grade.PossiblePoints);
                         cmd.Parameters.AddWithValue("@grade_type", grade.GradeType);
+                        cmd.Parameters.AddWithValue("@is_public", grade.IsPublic);
                         cmd.Parameters.AddWithValue("@grade_newname", grade.Name);
                         cmd.Parameters.AddWithValue("@grade_oldname", oldgradename);
                         cmd.ExecuteNonQuery();
@@ -401,7 +408,8 @@ namespace CourseManagement.DAL
                             var gradeItemId = reader[gradeItemIdOrdinal] == DBNull.Value
                                 ? default(int)
                                 : reader.GetInt32(gradeItemIdOrdinal);
-
+                            var isPublic = reader[isPublicOrdinal] != DBNull.Value && reader.GetBoolean(isPublicOrdinal);
+                            var isGraded = reader[isGradedOrdinal] != DBNull.Value && reader.GetBoolean(isGradedOrdinal);
                             var currStudent = studentGetter.GetStudentByStudentID(studentUID);
 
                             var currGradedItem = new GradedItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
