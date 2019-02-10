@@ -41,6 +41,7 @@
         </style>
     
     <link href="../../Styles/DialogueStyleSheet.css" rel="stylesheet" type="text/css" />
+    
 </asp:Content>
 
 
@@ -52,11 +53,10 @@
     </ajaxtoolkit:modalpopupextender>
     <asp:Button ID="btnDummy1" runat="server" Text="Edit" Style="display: none;" />
     <asp:Panel ID="PnlModal1"  runat="server"  CssClass="oneBtnModal">
-        <div  style="text-align: center; font-family:'Roboto',sans-serif;  " >
+        <div id="editUpdateText"   style="text-align: center; font-family:'Roboto',sans-serif;  " >
         Item Created<br />
         </div>
         <asp:Button ID="okayBtn1" CssClass="buttons" runat="server" Text="OK"   />
-		
     </asp:Panel>
     
     <ajaxtoolkit:modalpopupextender id="deleteModal" TargetControlID="btnDummy2" PopupControlID="PnlModal2" runat="server"   backgroundcssclass="modalBackground">

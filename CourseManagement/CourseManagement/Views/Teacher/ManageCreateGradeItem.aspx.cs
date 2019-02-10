@@ -69,8 +69,12 @@ namespace CourseManagement
             {
                 this.handleWhenGradeITemNotExists();
             }
+
             
-            this.createdModal.Show();
+                
+                this.createdModal.Show();
+           
+            
 
         }
 
@@ -103,7 +107,7 @@ namespace CourseManagement
             HttpContext.Current.Session["CurrentGradedItem"] = null;
             HttpContext.Current.Session["editing"] = null;
 
-            //TODO dialogue here
+            
             this.deleteModal.Show();
         }
 
