@@ -42,6 +42,8 @@ namespace CourseManagement.DAL
                         int gradeNameOrdinal = reader.GetOrdinal("grade_name");
                         int gradeFeedbackOrdinal = reader.GetOrdinal("grade_feedback");
                         int gradeItemIdOrdinal = reader.GetOrdinal("grade_item_id");
+                        int isPublicOrdinal = reader.GetOrdinal("is_public");
+                        int isGradedOrdinal = reader.GetOrdinal("is_graded");
 
                         while (reader.Read())
                         {
@@ -148,6 +150,8 @@ namespace CourseManagement.DAL
                         int gradeNameOrdinal = reader.GetOrdinal("grade_name");
                         int gradeFeedbackOrdinal = reader.GetOrdinal("grade_feedback");
                         int gradeItemIdOrdinal = reader.GetOrdinal("grade_item_id");
+                        int isPublicOrdinal = reader.GetOrdinal("is_public");
+                        int isGradedOrdinal = reader.GetOrdinal("is_graded");
 
                         while (reader.Read())
                         {
@@ -374,6 +378,8 @@ namespace CourseManagement.DAL
                         int gradeTypeOrdinal = reader.GetOrdinal("grade_type");
                         int gradeFeedbackOrdinal = reader.GetOrdinal("grade_feedback");
                         int gradeItemIdOrdinal = reader.GetOrdinal("grade_item_id");
+                        int isPublicOrdinal = reader.GetOrdinal("is_public");
+                        int isGradedOrdinal = reader.GetOrdinal("is_graded");
 
                         while (reader.Read())
                         {

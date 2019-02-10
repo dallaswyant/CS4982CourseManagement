@@ -43,6 +43,7 @@ namespace CourseManagement.Views
             List<GradedItem> items = (List<GradedItem>)this.odsStudents.Select();
             GradedItem current = items[0];
             HttpContext.Current.Session["CurrentGradedItem"] = current;
+            HttpContext.Current.Session["editing"] = true;
             CourseDAL courseDal = new CourseDAL();
             int crn = int.Parse(this.ddlCourses.SelectedValue);
             Course currentCourse = courseDal.GetCourseByCRN(crn);

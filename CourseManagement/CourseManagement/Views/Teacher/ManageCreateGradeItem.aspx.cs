@@ -37,9 +37,13 @@ namespace CourseManagement
 
         private void displayExistingGradeItem()
         {
-            if (HttpContext.Current.Session["CurrentGradedItem"] != null)
+            if (HttpContext.Current.Session["CurrentGradedItem"] != null&&HttpContext.Current.Session["editing"] != null)
             {
-                this.currentGradedItem = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
+                bool isEditing = (bool)HttpContext.Current.Session["editing"];
+                if (isEditing)
+                {
+                    this.currentGradedItem = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
+                }
             }
         }
 
@@ -97,6 +101,7 @@ namespace CourseManagement
             GradedItem item = new GradedItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0);
             this.GradeDAL.deleteGradedItemByCRNForAllStudents(item, this.currentCourse.CourseInfo.CRN);
             HttpContext.Current.Session["CurrentGradedItem"] = null;
+            HttpContext.Current.Session["editing"] = null;
 
             //TODO dialogue here
             this.deleteModal.Show();

@@ -33,6 +33,14 @@ namespace CourseManagement.App_Code
         /// gets or sets the Grade ID
         /// </summary>
         public int GradeId { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is public.
+        /// </summary>
+        public bool IsPublic { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is graded.
+        /// </summary>
+        public bool IsGraded { get; set; }
 
         #endregion
 
