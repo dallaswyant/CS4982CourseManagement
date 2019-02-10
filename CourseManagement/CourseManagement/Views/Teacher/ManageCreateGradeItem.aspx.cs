@@ -49,7 +49,7 @@ namespace CourseManagement
 
         private void handleExistingGradeItemOnLoad()
         {
-            if (HttpContext.Current.Session["CurrentGradedItem"] != null)
+            if (HttpContext.Current.Session["CurrentGradedItem"] != null && HttpContext.Current.Session["editing"] != null)
             {
                 this.currentGradedItem = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
                 this.tbxAssignmentName.Text = this.currentGradedItem.Name;
@@ -79,6 +79,7 @@ namespace CourseManagement
             var assignmentName = this.tbxAssignmentName.Text;
             var possiblePoints = Convert.ToInt32(this.tbxPossiblePoints.Text);
             var gradeType = this.ddlAssignmentType.SelectedValue;
+            var currentGradedItem = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
             GradedItem item = new GradedItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0);
             this.GradeDAL.InsertNewGradedItemByCRNForAllStudents(item, int.Parse(this.ddlCourses.SelectedValue));
         }
@@ -108,5 +109,18 @@ namespace CourseManagement
         }
 
         #endregion
+
+        protected void okayBtn1_Click(object sender, EventArgs e)
+        {
+            this.btnCreate.Text = "Update";
+            HttpContext.Current.Session["editing"] = true;
+        }
+
+        protected void okayBtn2_Click(object sender, EventArgs e)
+        {
+            HttpContext.Current.Session["CurrentGradedItem"] = null;
+            HttpContext.Current.Session["editing"] = false;
+            Response.Redirect("ManageCreateGradeItem.aspx");
+        }
     }
 }

@@ -55,7 +55,7 @@
         <div  style="text-align: center; font-family:'Roboto',sans-serif;  " >
         Item Created<br />
         </div>
-        <asp:Button ID="okayBtn1" CssClass="buttons" runat="server" Text="OK"   />
+        <asp:Button ID="okayBtn1" CssClass="buttons" runat="server" Text="OK" OnClick="okayBtn1_Click"   />
 		
     </asp:Panel>
     
@@ -66,7 +66,7 @@
         <div  style="text-align: center; font-family:'Roboto',sans-serif;  " >
         Item Deleted<br />
         </div>
-        <asp:Button ID="okayBtn2" CssClass="buttons" runat="server" Text="OK"   />
+        <asp:Button ID="okayBtn2" CssClass="buttons" runat="server" Text="OK" OnClick="okayBtn2_Click"   />
 		
     </asp:Panel>
 
@@ -193,8 +193,7 @@
                 <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete"/>
             </td>
             <td class="auto-style15">
-                <asp:Button ID="btnDelete0" runat="server" OnClick="btnDelete_Click" Text="Back"/>
-            </td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td class="auto-style6" colspan="5"></td>

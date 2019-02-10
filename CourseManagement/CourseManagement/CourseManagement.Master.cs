@@ -20,7 +20,13 @@ namespace CourseManagement
             
             User currentUser = HttpContext.Current.Session["User"] as User;
             this.manageLogging(currentUser);
-            HttpContext.Current.Session["CurrentGradedItem"] = null;
+            //HttpContext.Current.Session["CurrentGradedItem"] = null;
+            
+            var page = this.ContentPlaceHolder1.Page.GetType().BaseType.Name;
+            if (!page.Equals("ManageCreateGradeItem"))
+            {
+                HttpContext.Current.Session["editing"] = null;
+            }
 
             this.handleSiteNavigationDisplay(currentUser);
 
