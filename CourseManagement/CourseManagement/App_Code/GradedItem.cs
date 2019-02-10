@@ -56,7 +56,7 @@ namespace CourseManagement.App_Code
         /// <param name="gradeType">the grade type</param>
         /// <param name="gradeId">the grade id</param>
         public GradedItem(string name, Student student,double grade,
-            string feedBack, double possiblePoints, string gradeType, int gradeId)
+            string feedBack, double possiblePoints, string gradeType, int gradeId, bool isPublic, bool isGraded)
         {
             this.Name = name;
             this.Student = student;
@@ -65,6 +65,8 @@ namespace CourseManagement.App_Code
             this.PossiblePoints = possiblePoints;
             this.GradeType = gradeType;
             this.GradeId = gradeId;
+            this.IsPublic = isPublic;
+            this.IsGraded = isGraded;
         }
         /// <summary>
         /// default constructor

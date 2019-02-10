@@ -41,7 +41,6 @@
         </style>
     
     <link href="../../Styles/DialogueStyleSheet.css" rel="stylesheet" type="text/css" />
-    
 </asp:Content>
 
 
@@ -53,10 +52,11 @@
     </ajaxtoolkit:modalpopupextender>
     <asp:Button ID="btnDummy1" runat="server" Text="Edit" Style="display: none;" />
     <asp:Panel ID="PnlModal1"  runat="server"  CssClass="oneBtnModal">
-        <div id="editUpdateText"   style="text-align: center; font-family:'Roboto',sans-serif;  " >
+        <div  style="text-align: center; font-family:'Roboto',sans-serif;  " >
         Item Created<br />
         </div>
-        <asp:Button ID="okayBtn1" CssClass="buttons" runat="server" Text="OK"   />
+        <asp:Button ID="okayBtn1" CssClass="buttons" runat="server" Text="OK" OnClick="okayBtn1_Click"   />
+		
     </asp:Panel>
     
     <ajaxtoolkit:modalpopupextender id="deleteModal" TargetControlID="btnDummy2" PopupControlID="PnlModal2" runat="server"   backgroundcssclass="modalBackground">
@@ -66,7 +66,7 @@
         <div  style="text-align: center; font-family:'Roboto',sans-serif;  " >
         Item Deleted<br />
         </div>
-        <asp:Button ID="okayBtn2" CssClass="buttons" runat="server" Text="OK"   />
+        <asp:Button ID="okayBtn2" CssClass="buttons" runat="server" Text="OK" OnClick="okayBtn2_Click"   />
 		
     </asp:Panel>
 
@@ -169,6 +169,13 @@
                 &nbsp;</td>
         </tr>
         <tr>
+            <td class="auto-style7" colspan="5">&nbsp;</td>
+            <td>
+                Is Visible For Students:
+                <asp:CheckBox ID="cbxIsVisible" runat="server" />
+            </td>
+        </tr>
+        <tr>
             <td class="auto-style11" colspan="5"></td>
             <td class="auto-style12"></td>
         </tr>
@@ -193,8 +200,7 @@
                 <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete"/>
             </td>
             <td class="auto-style15">
-                <asp:Button ID="btnDelete0" runat="server" OnClick="btnDelete_Click" Text="Back"/>
-            </td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td class="auto-style6" colspan="5"></td>
