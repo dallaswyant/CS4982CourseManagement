@@ -17,7 +17,7 @@ namespace CourseManagementUnitTests.Models
         public void TestGradedItemConstructor()
         {
             Student student = new Student("student", "billy", "billy@billy.com");
-            GradedItem grade = new GradedItem("Homework 1", student, 30, "you failed", 100, "homework", 1, null, null);
+            GradedItem grade = new GradedItem("Homework 1", student, 30, "you failed", 100, "homework", 1, true, null);
             Assert.AreEqual(grade.Name, "Homework 1");
             Assert.AreEqual(grade.Student, student);
             Assert.AreEqual(grade.Grade, 30);
@@ -53,7 +53,7 @@ namespace CourseManagementUnitTests.Models
         public void TestGradedItemPropertiesAndSetters()
         {
             Student student = new Student("student", "billy", "billy@billy.com");
-            GradedItem grade = new GradedItem("Homework 1", student, 30, "you failed", 100, "homework", 1, null, null);
+            GradedItem grade = new GradedItem("Homework 1", student, 30, "you failed", 100, "homework", 1, true, null);
             grade.Name = "Homework 2";
             grade.Grade = 90;
             grade.Feedback = "you passed";

@@ -43,7 +43,7 @@ namespace CourseManagement.DAL
                         int gradeFeedbackOrdinal = reader.GetOrdinal("grade_feedback");
                         int gradeItemIdOrdinal = reader.GetOrdinal("grade_item_id");
                         int isPublicOrdinal = reader.GetOrdinal("is_public");
-                        int isGradedOrdinal = reader.GetOrdinal("is_graded");
+                        int timeGradedOrdinal = reader.GetOrdinal("time_graded");
 
                         while (reader.Read())
                         {
@@ -69,12 +69,15 @@ namespace CourseManagement.DAL
                                 ? default(int)
                                 : reader.GetInt32(gradeItemIdOrdinal);
                             var isPublic = reader[isPublicOrdinal] != DBNull.Value && reader.GetBoolean(isPublicOrdinal);
-                            var isGraded = reader[isGradedOrdinal] != DBNull.Value && reader.GetBoolean(isGradedOrdinal);
-
+                            DateTime? timeGraded = reader[gradeFeedbackOrdinal] == DBNull.Value ? default(DateTime) : reader.GetDateTime(timeGradedOrdinal);
+                            if (timeGraded == DateTime.MinValue)
+                            {
+                                timeGraded = null;
+                            }
                             var currStudent = studentGetter.GetStudentByStudentID(studentUID);
                             
                             var currGradedItem = new GradedItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
-                                gradeType,gradeItemId, isPublic, isGraded);
+                                gradeType,gradeItemId, isPublic, timeGraded);
                             grades.Add(currGradedItem);
                         }
 
@@ -153,7 +156,7 @@ namespace CourseManagement.DAL
                         int gradeFeedbackOrdinal = reader.GetOrdinal("grade_feedback");
                         int gradeItemIdOrdinal = reader.GetOrdinal("grade_item_id");
                         int isPublicOrdinal = reader.GetOrdinal("is_public");
-                        int isGradedOrdinal = reader.GetOrdinal("is_graded");
+                        int timeGradedOrdinal = reader.GetOrdinal("time_graded");
 
                         while (reader.Read())
                         {
@@ -179,12 +182,16 @@ namespace CourseManagement.DAL
                                 ? default(int)
                                 : reader.GetInt32(gradeItemIdOrdinal);
                             var isPublic = reader[isPublicOrdinal] != DBNull.Value && reader.GetBoolean(isPublicOrdinal);
-                            var isGraded = reader[isGradedOrdinal] != DBNull.Value && reader.GetBoolean(isGradedOrdinal);
+                            DateTime? timeGraded = reader[gradeFeedbackOrdinal] == DBNull.Value ? default(DateTime) : reader.GetDateTime(timeGradedOrdinal);
+                            if (timeGraded == DateTime.MinValue)
+                            {
+                                timeGraded = null;
+                            }
 
                             var currStudent = studentGetter.GetStudentByStudentID(studentUid);
                             
                             var currGradedItem = new GradedItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
-                                gradeType,gradeItemId, isPublic, isGraded);
+                                gradeType,gradeItemId, isPublic, timeGraded);
                             grades.Add(currGradedItem);
                         }
 
@@ -210,16 +217,16 @@ namespace CourseManagement.DAL
             using (conn)
             {
                 conn.Open();
-                    GradedItem grade = new GradedItem(newItem.Name, currStudent, newItem.Grade, newItem.Feedback, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.IsGraded);
+                    GradedItem grade = new GradedItem(newItem.Name, currStudent, newItem.Grade, newItem.Feedback, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.TimeGraded);
                     var selectQuery =
-                        "UPDATE grade_items SET grade_earned_points=@grade_points, grade_feedback=@grade_feedback, is_graded=@is_graded WHERE student_uid = @studentUID AND grade_name = @grade_name";
+                        "UPDATE grade_items SET grade_earned_points=@grade_points, grade_feedback=@grade_feedback, time_graded=@time_graded WHERE student_uid = @studentUID AND grade_name = @grade_name";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@studentUID", studentUID);
                         cmd.Parameters.AddWithValue("@grade_points", grade.Grade);
                         cmd.Parameters.AddWithValue("@grade_name", grade.Name);
                         cmd.Parameters.AddWithValue("@grade_feedback", grade.Feedback);
-                        cmd.Parameters.AddWithValue("@is_graded", newItem.IsGraded);
+                        cmd.Parameters.AddWithValue("@time_graded", DateTime.Now);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -290,7 +297,7 @@ namespace CourseManagement.DAL
                     conn.Open();
                     foreach (var t in students)
                     {
-                        GradedItem grade = new GradedItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.IsGraded);
+                        GradedItem grade = new GradedItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.TimeGraded);
                         var selectQuery =
                             "INSERT INTO grade_items(student_uid, grade_total_points, grade_earned_points, grade_type, grade_name, grade_feedback, is_public) VALUES (@studentUID,@grade_total,@grade_points,@grade_type,@grade_name,@grade_feedback,@is_public)";
                         using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
@@ -339,7 +346,7 @@ namespace CourseManagement.DAL
                 conn.Open();
                 foreach (var t in students)
                 {
-                    GradedItem grade = new GradedItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.IsGraded);
+                    GradedItem grade = new GradedItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.TimeGraded);
                     var selectQuery =
                         "UPDATE grade_items SET grade_total_points=@grade_total, grade_type=@grade_type, grade_name=@grade_newname, is_public=@is_public WHERE student_uid = @studentUID AND grade_name = @grade_oldname";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
@@ -386,7 +393,7 @@ namespace CourseManagement.DAL
                         int gradeFeedbackOrdinal = reader.GetOrdinal("grade_feedback");
                         int gradeItemIdOrdinal = reader.GetOrdinal("grade_item_id");
                         int isPublicOrdinal = reader.GetOrdinal("is_public");
-                        int isGradedOrdinal = reader.GetOrdinal("is_graded");
+                        int timeGradedOrdinal = reader.GetOrdinal("time_graded");
 
                         while (reader.Read())
                         {
@@ -409,11 +416,15 @@ namespace CourseManagement.DAL
                                 ? default(int)
                                 : reader.GetInt32(gradeItemIdOrdinal);
                             var isPublic = reader[isPublicOrdinal] != DBNull.Value && reader.GetBoolean(isPublicOrdinal);
-                            var isGraded = reader[isGradedOrdinal] != DBNull.Value && reader.GetBoolean(isGradedOrdinal);
+                            DateTime? timeGraded = reader[gradeFeedbackOrdinal] == DBNull.Value ? default(DateTime) : reader.GetDateTime(timeGradedOrdinal);
+                            if (timeGraded == DateTime.MinValue)
+                            {
+                                timeGraded = null;
+                            }
                             var currStudent = studentGetter.GetStudentByStudentID(studentUID);
 
                             var currGradedItem = new GradedItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
-                                gradeType, gradeItemId, isPublic, isGraded);
+                                gradeType, gradeItemId, isPublic, timeGraded);
                             grades.Add(currGradedItem);
                         }
 

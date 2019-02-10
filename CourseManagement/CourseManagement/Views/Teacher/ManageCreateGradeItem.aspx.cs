@@ -55,14 +55,14 @@ namespace CourseManagement
                 this.tbxAssignmentName.Text = this.currentGradedItem.Name;
                 this.tbxPossiblePoints.Text = this.currentGradedItem.PossiblePoints.ToString();
                 this.btnCreate.Text = "Update";
-                this.cbxIsVisible.Checked = this.currentGradedItem.IsGraded;
+                this.cbxIsVisible.Checked = this.currentGradedItem.IsPublic;
             }
         }
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             this.GradeDAL = new GradedItemDAL();
-            if (HttpContext.Current.Session["CurrentGradedItem"] != null)
+            if (HttpContext.Current.Session["CurrentGradedItem"] != null && HttpContext.Current.Session["editing"] != null)
             {
                 this.handleWhenGradeItemExists();
             }
@@ -80,7 +80,7 @@ namespace CourseManagement
             var assignmentName = this.tbxAssignmentName.Text;
             var possiblePoints = Convert.ToInt32(this.tbxPossiblePoints.Text);
             var gradeType = this.ddlAssignmentType.SelectedValue;
-            GradedItem item = new GradedItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0, this.cbxIsVisible.Checked, false);
+            GradedItem item = new GradedItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0, this.cbxIsVisible.Checked, null);
             this.GradeDAL.InsertNewGradedItemByCRNForAllStudents(item, int.Parse(this.ddlCourses.SelectedValue));
         }
 
@@ -93,11 +93,11 @@ namespace CourseManagement
             if (HttpContext.Current.Session["CurrentGradedItem"] != null)
             {
                 this.currentGradedItem = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
-                item = new GradedItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0, this.cbxIsVisible.Checked, this.currentGradedItem.IsGraded);
+                item = new GradedItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0, this.cbxIsVisible.Checked, this.currentGradedItem.TimeGraded);
             }
             else
             {
-                item = new GradedItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0, this.cbxIsVisible.Checked, false);
+                item = new GradedItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0, this.cbxIsVisible.Checked, null);
             }
             
                 
@@ -110,7 +110,7 @@ namespace CourseManagement
             var assignmentName = this.tbxAssignmentName.Text;
             var possiblePoints = Convert.ToInt32(this.tbxPossiblePoints.Text);
             var gradeType = this.ddlAssignmentType.SelectedValue;
-            GradedItem item = new GradedItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0, false, false);
+            GradedItem item = new GradedItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0, false, null);
             this.GradeDAL.deleteGradedItemByCRNForAllStudents(item, this.currentCourse.CourseInfo.CRN);
             HttpContext.Current.Session["CurrentGradedItem"] = null;
             HttpContext.Current.Session["editing"] = null;
