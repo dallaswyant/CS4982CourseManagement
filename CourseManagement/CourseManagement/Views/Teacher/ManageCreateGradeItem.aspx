@@ -169,6 +169,13 @@
                 &nbsp;</td>
         </tr>
         <tr>
+            <td class="auto-style7" colspan="5">&nbsp;</td>
+            <td>
+                Is Visible For Students:
+                <asp:CheckBox ID="cbxIsVisible" runat="server" />
+            </td>
+        </tr>
+        <tr>
             <td class="auto-style11" colspan="5"></td>
             <td class="auto-style12"></td>
         </tr>
