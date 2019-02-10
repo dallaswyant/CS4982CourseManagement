@@ -22,14 +22,14 @@ namespace CourseManagement
             this.manageLogging(currentUser);
             //HttpContext.Current.Session["CurrentGradedItem"] = null;
             
-            var page = this.ContentPlaceHolder1.Page.GetType().BaseType.Name;
-            if (!page.Equals("ManageCreateGradeItem"))
+            var currentPage = this.ContentPlaceHolder1.Page.GetType().BaseType.Name;
+            if (!currentPage.Equals("ManageCreateGradeItem"))
             {
                 HttpContext.Current.Session["editing"] = null;
             }
 
             this.handleSiteNavigationDisplay(currentUser);
-
+            HttpContext.Current.Session["previousPage"] = this.ContentPlaceHolder1.Page.GetType().BaseType.Name;
         }
 
         private void handleSiteNavigationDisplay(User currentUser)

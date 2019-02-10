@@ -94,7 +94,7 @@ namespace CourseManagement
             var possiblePoints = Convert.ToInt32(this.tbxPossiblePoints.Text);
             var gradeType = this.ddlAssignmentType.SelectedValue;
             GradedItem item = null;
-            if (HttpContext.Current.Session["CurrentGradedItem"] != null)
+            if (HttpContext.Current.Session["CurrentGradedItem"] != null && HttpContext.Current.Session["editing"] != null)
             {
                 this.currentGradedItem = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
                 item = new GradedItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0, this.cbxIsVisible.Checked, this.currentGradedItem.TimeGraded);
@@ -128,13 +128,15 @@ namespace CourseManagement
         protected void okayBtn1_Click(object sender, EventArgs e)
         {
             this.btnCreate.Text = "Update";
-            HttpContext.Current.Session["editing"] = true;
+            HttpContext.Current.Session["editing"] = null;
+            HttpContext.Current.Session["CurrentGradedItem"] = null;
+            Response.Redirect("TeacherViewAllGrades.aspx");
         }
 
         protected void okayBtn2_Click(object sender, EventArgs e)
         {
             HttpContext.Current.Session["CurrentGradedItem"] = null;
-            HttpContext.Current.Session["editing"] = false;
+            HttpContext.Current.Session["editing"] = null;
             Response.Redirect("ManageCreateGradeItem.aspx");
         }
     }
