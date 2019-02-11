@@ -1,6 +1,6 @@
 ﻿using System;
 using CourseManagement.App_Code;
-using CourseManagement.Utilities;
+
 using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL
