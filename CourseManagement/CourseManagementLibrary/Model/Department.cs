@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CourseManagement.App_Code
+namespace CourseManagementLibrary.Model
 {
     public class Department
     {

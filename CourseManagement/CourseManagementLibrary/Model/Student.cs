@@ -1,4 +1,4 @@
-﻿namespace CourseManagement.App_Code
+﻿namespace CourseManagementLibrary.Model
 {
     public class Student
     {

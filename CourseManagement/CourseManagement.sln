@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseManagementUnitTests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseManagementDesktop", "CourseManagementDesktop\CourseManagementDesktop.csproj", "{DAD294BC-C199-47AB-81DC-5AF68106886A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseManagementLibrary", "CourseManagementLibrary\CourseManagementLibrary.csproj", "{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,26 @@ Global
 		{DAD294BC-C199-47AB-81DC-5AF68106886A}.Release|x86.ActiveCfg = Release|x86
 		{DAD294BC-C199-47AB-81DC-5AF68106886A}.Release|x86.Build.0 = Release|x86
 		{DAD294BC-C199-47AB-81DC-5AF68106886A}.Release|x86.Deploy.0 = Release|x86
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Debug|ARM.Build.0 = Debug|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Debug|x64.Build.0 = Debug|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Debug|x86.Build.0 = Debug|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Release|ARM.ActiveCfg = Release|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Release|ARM.Build.0 = Release|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Release|ARM64.Build.0 = Release|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Release|x64.ActiveCfg = Release|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Release|x64.Build.0 = Release|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Release|x86.ActiveCfg = Release|Any CPU
+		{409EFD3A-1AC0-4E51-B5F2-2F413EB04C47}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

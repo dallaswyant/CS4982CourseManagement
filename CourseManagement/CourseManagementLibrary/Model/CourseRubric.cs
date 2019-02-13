@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
-namespace CourseManagement.App_Code
+namespace CourseManagementLibrary.Model
 {
     /// <summary>
     /// Course rubric class

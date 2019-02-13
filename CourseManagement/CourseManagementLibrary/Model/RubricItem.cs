@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
-namespace CourseManagement.App_Code
+namespace CourseManagementLibrary.Model
 {
     public class RubricItem
     {

@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace CourseManagement.App_Code
+namespace CourseManagementLibrary.Model
 {
     public class GradedItem
     {
@@ -40,7 +41,8 @@ namespace CourseManagement.App_Code
         /// <summary>
         /// Gets or sets a value indicating whether this instance is graded.
         /// </summary>
-        public bool IsGraded { get; set; }
+        public DateTime? TimeGraded { get; set; }
+
 
         #endregion
 
@@ -56,7 +58,7 @@ namespace CourseManagement.App_Code
         /// <param name="gradeType">the grade type</param>
         /// <param name="gradeId">the grade id</param>
         public GradedItem(string name, Student student,double grade,
-            string feedBack, double possiblePoints, string gradeType, int gradeId)
+            string feedBack, double possiblePoints, string gradeType, int gradeId, bool isPublic, DateTime? timeGraded)
         {
             this.Name = name;
             this.Student = student;
@@ -65,6 +67,8 @@ namespace CourseManagement.App_Code
             this.PossiblePoints = possiblePoints;
             this.GradeType = gradeType;
             this.GradeId = gradeId;
+            this.IsPublic = isPublic;
+            this.TimeGraded = timeGraded;
         }
         /// <summary>
         /// default constructor
@@ -78,7 +82,17 @@ namespace CourseManagement.App_Code
 
         #region Methods
 
-
+        public bool IsGraded()
+        {
+            if (TimeGraded != null && TimeGraded != DateTime.MinValue)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
 
 
