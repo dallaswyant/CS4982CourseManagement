@@ -9,7 +9,7 @@
             <asp:SessionParameter Name="teacherIDCheck" SessionField="UserID" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
-    <asp:GridView ID="gvwWeights" runat="server" AutoGenerateColumns="False" DataSourceID="odsRubricItems" OnRowDeleting="gvwWeights_RowDeleting" CssClass="table">
+    <asp:GridView ID="gvwWeights" runat="server" AutoGenerateColumns="False" DataSourceID="odsRubricItems" OnRowDeleting="gvwWeights_RowDeleting" CssClass="table" OnRowDeleted="gvwWeights_RowDeleted" OnRowUpdated="gvwWeights_RowUpdated">
         <Columns>
             <asp:BoundField DataField="Index" HeaderText="Index" SortExpression="Index" ReadOnly="True" />
             <asp:BoundField DataField="CRN" HeaderText="CRN" SortExpression="CRN" ReadOnly="True" />
@@ -46,7 +46,8 @@
             <asp:Parameter Name="original_Crn" Type="Int32" />
         </UpdateParameters>
     </asp:ObjectDataSource>
-    <asp:DetailsView ID="dvwAddGradeItem" runat="server" Width="500px" AutoGenerateRows="False" DataSourceID="odsRubricItems" DefaultMode="Insert" CssClass="table">
+    <asp:Label runat="server" ID="lblWarning" ForeColor="#0066FF"></asp:Label>
+    <asp:DetailsView ID="dvwAddGradeItem" runat="server" Width="500px" AutoGenerateRows="False" DataSourceID="odsRubricItems" DefaultMode="Insert" CssClass="table" OnItemInserted="dvwAddGradeItem_ItemInserted">
         <Fields>
             <asp:BoundField HeaderText="AssignmentType" DataField="AssignmentType" SortExpression="AssignmentType"/>
             <asp:BoundField DataField="AssignmentWeight" HeaderText="AssignmentWeight" SortExpression="AssignmentWeight" />

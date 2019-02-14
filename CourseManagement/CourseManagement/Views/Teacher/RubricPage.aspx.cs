@@ -17,6 +17,22 @@ namespace CourseManagement.Views
             {
                 DataBind();
             }
+            CourseRubricDAL rubricGetter = new CourseRubricDAL();
+            List<RubricItem> rubric = rubricGetter.GetCourseRubricByCRN(int.Parse(this.ddlCourse.SelectedValue));
+            int sum = 0;
+            foreach (var currRubricItem in rubric)
+            {
+                sum += currRubricItem.AssignmentWeight;
+
+            }
+
+            if (sum > 100)
+            {
+                this.lblWarning.Text = "Caution: rubric values add to be over 100 percent";
+            } else if (sum < 100)
+            {
+                this.lblWarning.Text = "Caution: rubric values add to be less than 100 percent";
+            }
             HttpContext.Current.Session["CRN"] = int.Parse(this.ddlCourse.SelectedValue);
         }
 
@@ -39,9 +55,23 @@ namespace CourseManagement.Views
             RubricItem item = new RubricItem(CRN,assignmentType, weight,index);
             HttpContext.Current.Session["RubricItemToDelete"] = item;
 
-        } 
-        
+        }
+
         #endregion
 
+        protected void gvwWeights_RowUpdated(object sender, GridViewUpdatedEventArgs e)
+        {
+            Response.Redirect("RubricPage.aspx");
+        }
+
+        protected void dvwAddGradeItem_ItemInserted(object sender, DetailsViewInsertedEventArgs e)
+        {
+            Response.Redirect("RubricPage.aspx");
+        }
+
+        protected void gvwWeights_RowDeleted(object sender, GridViewDeletedEventArgs e)
+        {
+            Response.Redirect("RubricPage.aspx");
+        }
     }
 }
