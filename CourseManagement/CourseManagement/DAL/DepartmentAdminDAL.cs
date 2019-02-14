@@ -8,6 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL
 {
+    [DataObject(true)]
     public class DepartmentAdminDAL
     {
         //Add new course
