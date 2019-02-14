@@ -20,7 +20,7 @@ namespace CourseManagement
         private GradedItem currentGrade;
         private Student currentStudent;
         private double workingGrade;
-        private string currFeedBack;
+
         private string workingFeedback;
         
        
@@ -63,7 +63,7 @@ namespace CourseManagement
                 this.lblTeacher.Text = teacher.Name;
                 this.lblEmail.Text = teacher.Email;
                 double.TryParse(TextBox2.Text, out this.workingGrade);
-                this.currFeedBack = this.currentGrade.Feedback == null ? "" : this.currentGrade.Feedback;
+                //this.currFeedBack = this.currentGrade.Feedback == null ? "" : this.currentGrade.Feedback;
                 this.workingFeedback = this.tbxDescription.Text;
 
             }
@@ -147,28 +147,32 @@ namespace CourseManagement
 
         protected void Button3_Click(object sender, EventArgs e)
         {
-            var studentDAL = new StudentDAL();
+            gradeGradeItem();
             
+        }
+
+        private void gradeGradeItem()
+        {
             var updatedGrade = new GradedItem()
             {
                 Feedback = tbxDescription.Text,
                 Grade = int.Parse(this.TextBox2.Text),
                 GradeId = this.currentGrade.GradeId,
                 Name = this.currentGrade.Name
-
             };
-            var course =(Course) HttpContext.Current.Session["CurrentCourse"];
+            var course = (Course) HttpContext.Current.Session["CurrentCourse"];
             var crn = course.CourseInfo.CRN;
-               
-            this.gradeItemDAL.gradeGradedItemByCRNAndStudentUID(updatedGrade,crn,this.ddlStudentNames.SelectedValue);
-            this.gradedModal.Show();
 
+            this.gradeItemDAL.gradeGradedItemByCRNAndStudentUID(updatedGrade, crn, this.ddlStudentNames.SelectedValue);
+            this.currentGrade.Grade = this.workingGrade;
+            this.currentGrade.Feedback = this.workingFeedback;
+            this.gradedModal.Show();
         }
 
         protected  void Button4_Click(object sender, EventArgs e)
         {
 
-            if (this.currentGrade.Grade != this.workingGrade || !this.currFeedBack.Equals(this.workingFeedback)  )
+            if (this.currentGrade.Grade != this.workingGrade || !this.currentGrade.Feedback.Equals(this.workingFeedback)  )
             {
                 this.unsavedChangesModal.Show();
             }
@@ -216,7 +220,9 @@ namespace CourseManagement
 
         protected void savebtn_OnClick(object sender, EventArgs e)
         {
+            this.gradeGradeItem();
             
+
         }
 
         protected void continuebtn_OnClick(object sender, EventArgs e)
