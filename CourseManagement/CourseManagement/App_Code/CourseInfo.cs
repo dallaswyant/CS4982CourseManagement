@@ -36,6 +36,8 @@
         /// </summary>
         public string SectionNumber { get; }
 
+        
+
         #endregion
 
         #region Constructors

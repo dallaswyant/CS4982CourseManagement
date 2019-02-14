@@ -103,6 +103,7 @@
   <ItemGroup>
     <Compile Include="App_Code\CourseRubric.cs" />
     <Compile Include="App_Code\GradedItem.cs" />
+    <Compile Include="App_Code\Semester.cs" />
     <Compile Include="DAL\CourseDAL.cs" />
     <Compile Include="DAL\CourseRubricDAL.cs" />
     <Compile Include="DAL\DbConnection.cs" />
