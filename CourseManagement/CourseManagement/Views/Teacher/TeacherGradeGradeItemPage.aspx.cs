@@ -97,15 +97,27 @@ namespace CourseManagement
 
         protected void ddlStudentNames_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+            int itemId = this.ddlAssignmentNames.SelectedIndex;
             this.ddlAssignmentNames.Items.Clear();
             this.ddlAssignmentNames.Items.Add(new ListItem("Assignment Name"));
             var course = (Course)HttpContext.Current.Session["CurrentCourse"];
             var gradedItems = gradeItemDAL.GetGradedItemsByStudentId(this.ddlStudentNames.SelectedValue,course.CourseInfo.CRN);
+            int count = 0;
+
             foreach (var item in gradedItems)
             {
                 this.ddlAssignmentNames.Items.Add(new ListItem(item.Name, item.GradeId.ToString()));
+                if (count == itemId)
+                {
+                    this.currentGrade = item;
+                    HttpContext.Current.Session["CurrentGradedItem"] = item;
+                    this.ddlAssignmentNames.SelectedIndex = count;
+                }
+
+                count++;
             }
-            
+
+            this.ddlAssignmentNames_SelectedIndexChanged(null,null);
             this.UpdatePanel1.Update();
         }
 

@@ -95,7 +95,8 @@
                 
     
    
-    &nbsp;<br/>
+    
+    <br/>
     <table class="tableInfo">
         <tr>
             <td class="auto-style3" rowspan="3">
