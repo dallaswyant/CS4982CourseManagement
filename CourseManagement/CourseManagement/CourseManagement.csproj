@@ -90,6 +90,7 @@
     <Content Include="Styles\bg-7-full.jpg" />
     <Content Include="Styles\StudentViewAllGrades.css" />
     <Content Include="Styles\Styles.css" />
+    <Content Include="Views\DepartmentAdmin\ManageCourses.aspx" />
     <Content Include="Views\Homepage.aspx" />
     <Content Include="Views\Student\BrowseCourses.aspx" />
     <Content Include="Views\Teacher\ManageCreateGradeItem.aspx" />
@@ -115,6 +116,13 @@
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="App_Code\RubricItem.cs" />
     <Compile Include="Utilities\Encrypter.cs" />
+    <Compile Include="Views\DepartmentAdmin\ManageCourses.aspx.cs">
+      <DependentUpon>ManageCourses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\DepartmentAdmin\ManageCourses.aspx.designer.cs">
+      <DependentUpon>ManageCourses.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Homepage.aspx.cs">
       <DependentUpon>Homepage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
