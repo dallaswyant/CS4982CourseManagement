@@ -46,7 +46,7 @@
             <asp:Parameter Name="original_Crn" Type="Int32" />
         </UpdateParameters>
     </asp:ObjectDataSource>
-    <asp:Label runat="server" ID="lblWarning" ForeColor="#0066FF"></asp:Label>
+    <asp:Label runat="server" ID="lblWarning"></asp:Label>
     <asp:DetailsView ID="dvwAddGradeItem" runat="server" Width="500px" AutoGenerateRows="False" DataSourceID="odsRubricItems" DefaultMode="Insert" CssClass="table" OnItemInserted="dvwAddGradeItem_ItemInserted">
         <Fields>
             <asp:BoundField HeaderText="AssignmentType" DataField="AssignmentType" SortExpression="AssignmentType"/>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Web;
 using System.Web.UI.WebControls;
 using CourseManagement.App_Code;
@@ -25,13 +26,18 @@ namespace CourseManagement.Views
                 sum += currRubricItem.AssignmentWeight;
 
             }
-
+            this.lblWarning.ForeColor = ColorTranslator.FromHtml("#0066FF");
             if (sum > 100)
             {
-                this.lblWarning.Text = "Caution: rubric values add to be over 100 percent";
+                this.lblWarning.Text = "Caution: rubric values add to " + sum + " which is over 100 percent";
             } else if (sum < 100)
             {
-                this.lblWarning.Text = "Caution: rubric values add to be less than 100 percent";
+                this.lblWarning.Text = "Caution: rubric values add to " + sum + " which is less than 100 percent";
+            }
+            else
+            {
+                this.lblWarning.Text = "Rubric values sum to 100";
+                this.lblWarning.ForeColor = ColorTranslator.FromHtml("#009900"); 
             }
             HttpContext.Current.Session["CRN"] = int.Parse(this.ddlCourse.SelectedValue);
         }
