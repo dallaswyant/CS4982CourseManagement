@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-
+using Rijndael256;
 
 namespace CourseManagementDesktop.Utilities
 {
@@ -18,6 +18,9 @@ namespace CourseManagementDesktop.Utilities
 
         public static string Encrypt(string plainText, string passPhrase)
         {
+            string encrypted = RijndaelEtM.Encrypt(plainText, passPhrase, KeySize.Aes256);
+            return encrypted;
+            /**
             var saltStringBytes = Generate256BitsOfRandomEntropy();
             var ivStringBytes = Generate256BitsOfRandomEntropy();
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
@@ -48,11 +51,14 @@ namespace CourseManagementDesktop.Utilities
                         }
                     }
                 }
-            }
+            }**/
         }
 
         public static string Decrypt(string cipherText, string passPhrase)
         {
+            string decrypted = RijndaelEtM.Decrypt(cipherText, passPhrase,KeySize.Aes256);
+            return decrypted;
+            /**
             // Get the complete stream of bytes that represent:
             // [32 bytes of Salt] + [32 bytes of IV] + [n bytes of CipherText]
             var cipherTextBytesWithSaltAndIv = Convert.FromBase64String(cipherText);
@@ -86,11 +92,12 @@ namespace CourseManagementDesktop.Utilities
                         }
                     }
                 }
-            }
+            }**/
         }
-
+        /**
         private static byte[] Generate256BitsOfRandomEntropy()
         {
+
             var randomBytes = new byte[32]; // 32 Bytes will give us 256 bits.
             using (var rngCsp = new RNGCryptoServiceProvider())
             {
@@ -98,6 +105,6 @@ namespace CourseManagementDesktop.Utilities
                 rngCsp.GetBytes(randomBytes);
             }
             return randomBytes;
-        }
+        }**/
     }
 }
