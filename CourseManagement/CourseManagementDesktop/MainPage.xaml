@@ -39,6 +39,7 @@
         <TextBlock Margin="24,26.6,7.4,14.4" Text="Password" TextWrapping="Wrap" Grid.Row="3" Grid.Column="2" VerticalAlignment="Stretch"/>
         <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="4,26.6,0,1.4" Grid.Row="3" Grid.Column="4" VerticalAlignment="Stretch" Width="230"/>
         <Button Content="Login" Grid.Column="4" HorizontalAlignment="Left" Margin="88,53.6,0,0" Grid.Row="4" VerticalAlignment="Top" Width="62" Click="Button_Click"/>
+        <TextBlock x:Name="errorText" Grid.Column="4" HorizontalAlignment="Left" Visibility="Collapsed" Foreground="Red" Margin="27,17.6,0,533.8" Grid.Row="4" Text="Invalid Username or Password" TextWrapping="Wrap"/>
 
 
     </Grid>

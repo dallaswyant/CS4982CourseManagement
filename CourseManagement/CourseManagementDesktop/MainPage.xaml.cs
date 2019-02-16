@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using CourseManagement.DAL;
+using CourseManagementDesktop.Model;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -30,7 +32,23 @@ namespace CourseManagementDesktop
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            handleLogin();
+        }
+
+        private void handleLogin()
+        {
+            UserDAL userDAL = new UserDAL();
+            User user = userDAL.CheckLogin(this.userNameBox.Text, this.passwordBox.Password);
+            if (user == null || string.IsNullOrWhiteSpace(user.UserId + user.Password + user.Role))
+            {
+                this.passwordBox.Password ="";
+                this.errorText.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.Frame.Navigate(typeof(HomePage));
+                
+            }
         }
     }
 }
