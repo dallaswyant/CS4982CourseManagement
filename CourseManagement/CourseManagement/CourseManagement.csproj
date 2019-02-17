@@ -204,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CourseManagement.Master" />
+    <Content Include="Admin.sitemap" />
     <None Include="packages.config" />
     <Content Include="Student.sitemap" />
     <None Include="Web.Debug.config">

@@ -15,7 +15,7 @@
                    Description="Allow teacher to view all grades" />
       <siteMapNode title="Manage Rubric" url="Views/Teacher/RubricPage.aspx"
                    Description="Allow teacher to view manage rubric" />
-
+      <siteMapNode title="Manage Courses" url="Views/DepartmentAdmin/ManageCourses.aspx" description="This page allows the administrator to manage courses." />
     </siteMapNode>
   </siteMap>
 
