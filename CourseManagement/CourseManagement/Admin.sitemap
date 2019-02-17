@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode title="Home" url="Views/Homepage.aspx"  Description="The home page">
+    <siteMapNode title="Manage Courses" url="Views/DepartmentAdmin/ManageCourses.aspx" description="This page allows the administrator to manage courses." />
+  </siteMapNode>
+</siteMap>

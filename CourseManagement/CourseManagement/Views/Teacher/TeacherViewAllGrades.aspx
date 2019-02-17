@@ -26,6 +26,19 @@
                 &nbsp;</td>
             <td>
                 <asp:Button ID="btnEdit" runat="server" OnClick="btnEdit_Click" Text="Edit This Assignment" />
+    <asp:ScriptManager runat="server" ID="ScriptManager"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                Assignment visible:</td>
+            <td>
+                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                    <ContentTemplate>
+                        <asp:CheckBox ID="cbxVisibility" runat="server" AutoPostBack="True" OnCheckedChanged="cbxVisibility_CheckedChanged" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </td>
         </tr>
 </table>
@@ -35,7 +48,6 @@
         </SelectParameters>
     </asp:ObjectDataSource>
     <br />
-    <asp:ScriptManager runat="server" ID="ScriptManager"/>
     <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
         <ContentTemplate>
     <asp:GridView ID="gvwStudents" runat="server" OnSelectedIndexChanging="gvwGrade_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsStudents" AllowPaging="True" CssClass="table">

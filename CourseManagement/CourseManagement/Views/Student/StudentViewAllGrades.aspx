@@ -75,7 +75,7 @@
             <asp:BoundField DataField="GradeId" HeaderText="GradeId" ReadOnly="True" SortExpression="GradeId" />
         </Columns>
     </asp:GridView>
-<asp:ObjectDataSource ID="odsGrades" runat="server" SelectMethod="GetGradedItemsByStudentId" TypeName="CourseManagement.DAL.GradedItemDAL" OldValuesParameterFormatString="original_{0}">
+<asp:ObjectDataSource ID="odsGrades" runat="server" SelectMethod="GetPublicGradedItemsByStudentId" TypeName="CourseManagement.DAL.GradedItemDAL" OldValuesParameterFormatString="original_{0}">
     <SelectParameters>
         <asp:SessionParameter Name="studentUID" SessionField="UserID" Type="String" />
         <asp:ControlParameter ControlID="ddlStudentCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />

@@ -1,6 +1,6 @@
 ﻿using System;
 
-using CourseManagement.Utilities;
+using CourseManagementDesktop.Utilities;
 using CourseManagementDesktop.Model;
 using MySql.Data.MySqlClient;
 

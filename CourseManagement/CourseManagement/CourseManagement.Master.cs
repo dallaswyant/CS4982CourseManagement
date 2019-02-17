@@ -45,6 +45,9 @@ namespace CourseManagement
             else if (currentUser.Role.Equals("students"))
             {
                 this.handleWhenStudentLoggedIn();
+            }else if (currentUser.Role.Equals("admin"))
+            {
+                this.handleWhenAdminLoggedIn();
             }
             else
             {
@@ -67,6 +70,12 @@ namespace CourseManagement
         {
             this.tvwSite.Visible = true;
             this.SiteMapDataSource1.SiteMapProvider = "Student";
+        }
+
+        private void handleWhenAdminLoggedIn()
+        {
+            this.tvwSite.Visible = true;
+            this.SiteMapDataSource1.SiteMapProvider = "Admin";
         }
 
 
@@ -92,6 +101,9 @@ namespace CourseManagement
             else if (currentUser.Role.Equals("students"))
             {
                 handleStudentLogin(currentUser);
+            }else if (currentUser.Role.Equals("admin"))
+            {
+                handleAdminLogin(currentUser);
             }
         }
 
@@ -110,6 +122,13 @@ namespace CourseManagement
             Teacher teacher = teacherDAL.GetTeacherByTeacherID(currentUser.UserId);
             this.lblUsername.Text = "Welcome, " + teacher.Name + " (" + currentUser.Role + ") ";
             this.smdsSite.SiteMapProvider = "Teacher";
+            this.menuMain.Visible = true;
+        }
+
+        private void handleAdminLogin(User currentUser)
+        {
+            this.lblUsername.Text = "Welcome, " + currentUser.UserId + " (" + currentUser.Role + ") ";
+            this.smdsSite.SiteMapProvider = "Admin";
             this.menuMain.Visible = true;
         }
 
@@ -179,7 +198,10 @@ namespace CourseManagement
             {
                 HttpContext.Current.Response.Redirect("Student/BrowseCourses.aspx");
             }
-            
+            else if(user.Role.Equals("admin"))
+            {
+                HttpContext.Current.Response.Redirect("DepartmentAdmin/ManageCourses.aspx");
+            }
         }
 
         private void handleInvalidLogin()
@@ -204,10 +226,7 @@ namespace CourseManagement
 
         protected void login_OnClick(object sender, EventArgs e)
         {
-            
             handleLogin();
-            
-
         }
 
         protected void logout_OnClick(object sender, EventArgs e)
