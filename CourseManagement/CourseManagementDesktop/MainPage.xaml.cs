@@ -35,20 +35,6 @@ namespace CourseManagementDesktop
             handleLogin();
         }
 
-        private void handleLogin()
-        {
-            UserDAL userDAL = new UserDAL();
-            User user = userDAL.CheckLogin(this.userNameBox.Text, this.passwordBox.Password);
-            if (user == null || string.IsNullOrWhiteSpace(user.UserId + user.Password + user.Role))
-            {
-                this.passwordBox.Password ="";
-                this.errorText.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                this.Frame.Navigate(typeof(HomePage));
-                
-            }
-        }
+       
     }
 }
