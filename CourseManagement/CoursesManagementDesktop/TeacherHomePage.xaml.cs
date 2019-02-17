@@ -43,7 +43,7 @@ namespace CoursesManagementDesktop
         {
             
             
-            var assignments =  this.gradedItemDal.GetUniqueGradedItemsByCRN(1);
+            var assignments =  this.gradedItemDal.GetUniqueGradedItemsByCRN(1); //TODO fix this
             var courses = this.courseDAL.GetCourseBulletinByTeacherID(this.teacherID);
             foreach (var name in assignments)
             {
