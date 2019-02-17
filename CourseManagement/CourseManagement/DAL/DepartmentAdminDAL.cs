@@ -11,6 +11,47 @@ namespace CourseManagement.DAL
     [DataObject(true)]
     public class DepartmentAdminDAL
     {
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public Department GetDepartmentByUserID(string userID)
+        {
+                MySqlConnection conn = DbConnection.GetConnection();
+
+                using (conn)
+                {
+                    conn.Open();
+                    var selectQuery =
+                        "select departments.* FROM department_admins, departments WHERE departments.name = department_admins.department_name AND department_admins.admin_uid = @user_uid";
+                    
+                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@user_uid", userID);
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            int departmentNameOrdinal = reader.GetOrdinal("name");
+                            int chairOrdinal = reader.GetOrdinal("chair_uid");
+
+                            while (reader.Read())
+                            {
+                                var departmentName = reader[departmentNameOrdinal] == DBNull.Value
+                                    ? default(string)
+                                    : reader.GetString(departmentNameOrdinal);
+                                var chairUID = reader[chairOrdinal] == DBNull.Value
+                                    ? default(string)
+                                    : reader.GetString(chairOrdinal);
+                                TeacherDAL teacherGetter = new TeacherDAL();
+                                Teacher chair = teacherGetter.GetTeacherByTeacherID(chairUID);
+                                Department dept = new Department(chair, departmentName);
+                                return dept;
+                            }
+                           
+                        }
+                    }
+                
+            }
+
+            return null;
+        }
+
         //Add new course
         //INSERT INTO courses (dept_name, course_name, section_num, credit_hours, seats_max, location) VALUES (@dept_name, @course_name, @section_num, @credit_hours, @seats_max, @location)
         //THEN
