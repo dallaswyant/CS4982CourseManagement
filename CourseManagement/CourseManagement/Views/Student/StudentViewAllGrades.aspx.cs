@@ -22,7 +22,7 @@ namespace CourseManagement.Views
                 List<RubricItem> rubric =
                     rubricGetter.GetCourseRubricByCRN(int.Parse(this.ddlStudentCourses.SelectedItem.Value));
                 List<GradedItem> grades =
-                    gradeGetter.GetGradedItemsByStudentId(currentUser.UserId,
+                    gradeGetter.GetPublicGradedItemsByStudentId(currentUser.UserId,
                         int.Parse(this.ddlStudentCourses.SelectedItem.Value));
 
                 assignCurrentGrade(rubric, grades);
