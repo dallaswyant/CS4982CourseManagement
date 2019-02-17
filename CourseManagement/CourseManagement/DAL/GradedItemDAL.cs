@@ -407,15 +407,12 @@ namespace CourseManagement.DAL
                     cmd.Parameters.AddWithValue("@grade_name", name);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        int gradeNameOrdinal = reader.GetOrdinal("grade_name");
                         int publicOrdinal = reader.GetOrdinal("is_public");
 
                         while (reader.Read())
                         {
 
-                            var gradeName = reader[gradeNameOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(gradeNameOrdinal);
+                           
                             var isPublic = reader[publicOrdinal] != DBNull.Value && reader.GetBoolean(publicOrdinal);
 
                             return isPublic;

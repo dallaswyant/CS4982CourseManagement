@@ -14,16 +14,25 @@ namespace CourseManagement.Views
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                DataBind();
+            }
             GradedItemDAL checker = new GradedItemDAL();
             //need to get current assignment and check the box or uncheck appropriately
-            /**
-            checker.GetUniqueGradedItemsByCRN()
+            int crn = Int32.Parse(this.ddlCourses.SelectedValue);
+            Dictionary<string,string> items =  checker.GetUniqueGradedItemsByCRN(crn);
+            var selected = items.First(o => o.Value.Equals(this.ddlAssignments.SelectedValue));
+
             Dictionary<string,string> list = (Dictionary<string,string>) this.odsAssignments.Select();
             string stuff = list.Values.ToList()[0];
-            bool visible = checker.getPublicStatusByCRNandGradeName(Int32.Parse(this.ddlCourses.SelectedValue),
-                this.ddlAssignments.SelectedValue);
+      
+            string selectedValue = selected.Value;
+
+            bool visible = checker.getPublicStatusByCRNandGradeName(crn,
+                selectedValue);
             this.cbxVisibility.Checked = visible;
-            **/
+            
         }
 
         protected void gvwGrade_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
@@ -40,9 +49,6 @@ namespace CourseManagement.Views
             HttpContext.Current.Session["CurrentCourse"] = currentCourse;
             HttpContext.Current.Response.Redirect("TeacherGradeGradeItemPage.aspx");
         }
-
-      
-
 
         protected void ddlAssignments_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -66,8 +72,10 @@ namespace CourseManagement.Views
 
         protected void cbxVisibility_CheckedChanged(object sender, EventArgs e)
         {
+            
             GradedItemDAL gradeStuff = new GradedItemDAL();
-            gradeStuff.PublishGradeItemByNameAndCRNForAllStudents(Int32.Parse(this.ddlCourses.SelectedValue), this.ddlAssignments.SelectedValue,this.cbxVisibility.Checked);
+            gradeStuff.PublishGradeItemByNameAndCRNForAllStudents(Int32.Parse(this.ddlCourses.SelectedValue), this.ddlAssignments.SelectedValue, !this.cbxVisibility.Checked);
+            
         }
     }
 }
