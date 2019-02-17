@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 using CourseManagement.App_Code;
@@ -13,6 +14,16 @@ namespace CourseManagement.Views
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            GradedItemDAL checker = new GradedItemDAL();
+            //need to get current assignment and check the box or uncheck appropriately
+            /**
+            checker.GetUniqueGradedItemsByCRN()
+            Dictionary<string,string> list = (Dictionary<string,string>) this.odsAssignments.Select();
+            string stuff = list.Values.ToList()[0];
+            bool visible = checker.getPublicStatusByCRNandGradeName(Int32.Parse(this.ddlCourses.SelectedValue),
+                this.ddlAssignments.SelectedValue);
+            this.cbxVisibility.Checked = visible;
+            **/
         }
 
         protected void gvwGrade_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
@@ -49,8 +60,14 @@ namespace CourseManagement.Views
             Course currentCourse = courseDal.GetCourseByCRN(crn);
             HttpContext.Current.Session["CurrentCourse"] = currentCourse;
             HttpContext.Current.Response.Redirect("ManageCreateGradeItem.aspx");
-        }  
-        
+        }
+
         #endregion
+
+        protected void cbxVisibility_CheckedChanged(object sender, EventArgs e)
+        {
+            GradedItemDAL gradeStuff = new GradedItemDAL();
+            gradeStuff.PublishGradeItemByNameAndCRNForAllStudents(Int32.Parse(this.ddlCourses.SelectedValue), this.ddlAssignments.SelectedValue,this.cbxVisibility.Checked);
+        }
     }
 }

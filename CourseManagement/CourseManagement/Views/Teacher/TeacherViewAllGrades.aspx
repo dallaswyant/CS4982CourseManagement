@@ -28,6 +28,14 @@
                 <asp:Button ID="btnEdit" runat="server" OnClick="btnEdit_Click" Text="Edit This Assignment" />
             </td>
         </tr>
+        <tr>
+            <td>
+
+                Assignment visible:</td>
+            <td>
+                <asp:CheckBox ID="cbxVisibility" runat="server" OnCheckedChanged="cbxVisibility_CheckedChanged" />
+            </td>
+        </tr>
 </table>
     <asp:ObjectDataSource ID="odsAssignments" runat="server" SelectMethod="GetUniqueGradedItemsByCRN" TypeName="CourseManagement.DAL.GradedItemDAL" OldValuesParameterFormatString="original_{0}">
         <SelectParameters>

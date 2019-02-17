@@ -364,6 +364,69 @@ namespace CourseManagement.DAL
             }
         }
 
+        public void PublishGradeItemByNameAndCRNForAllStudents(int CRN, string name, bool isPublic)
+        {
+            StudentDAL studentGetter = new StudentDAL();
+            List<Student> students = studentGetter.GetStudentsByCRN(CRN);
+
+
+            MySqlConnection conn = DbConnection.GetConnection();
+
+            using (conn)
+            {
+                conn.Open();
+                foreach (var t in students)
+                {
+                    var selectQuery =
+                        "UPDATE grade_items SET is_public=@is_public WHERE student_uid = @studentUID AND grade_name = @grade_name";
+                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@studentUID", t.StudentUID);
+                        cmd.Parameters.AddWithValue("@is_public", isPublic);
+                        cmd.Parameters.AddWithValue("@grade_name", name);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                conn.Close();
+            }
+        }
+
+        public bool getPublicStatusByCRNandGradeName(int CRN, string name)
+        {
+            MySqlConnection conn = DbConnection.GetConnection();
+            var grades = new Dictionary<string, string>();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery =
+                    "SELECT DISTINCT grade_items.is_public From grade_items, grade_belongs_to_courses WHERE grade_belongs_to_courses.courses_CRN = @CRN AND grade_name = @grade_name";
+                var studentGetter = new StudentDAL();
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@CRN", CRN);
+                    cmd.Parameters.AddWithValue("@grade_name", name);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        int gradeNameOrdinal = reader.GetOrdinal("grade_name");
+                        int publicOrdinal = reader.GetOrdinal("is_public");
+
+                        while (reader.Read())
+                        {
+
+                            var gradeName = reader[gradeNameOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(gradeNameOrdinal);
+                            var isPublic = reader[publicOrdinal] != DBNull.Value && reader.GetBoolean(publicOrdinal);
+
+                            return isPublic;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// Gets the graded items by CRN and grade name for all students.
         /// </summary>
