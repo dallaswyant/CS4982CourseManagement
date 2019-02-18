@@ -49,8 +49,31 @@
     <asp:Label runat="server" ID="lblWarning"></asp:Label>
     <asp:DetailsView ID="dvwAddGradeItem" runat="server" Width="500px" AutoGenerateRows="False" DataSourceID="odsRubricItems" DefaultMode="Insert" CssClass="table" OnItemInserted="dvwAddGradeItem_ItemInserted">
         <Fields>
-            <asp:BoundField HeaderText="AssignmentType" DataField="AssignmentType" SortExpression="AssignmentType"/>
-            <asp:BoundField DataField="AssignmentWeight" HeaderText="AssignmentWeight" SortExpression="AssignmentWeight" />
+            <asp:TemplateField HeaderText="AssignmentType" SortExpression="AssignmentType">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("AssignmentType") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <InsertItemTemplate>
+                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("AssignmentType") %>'></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvAssignmentType" runat="server" ControlToValidate="TextBox1" CssClass="error" ErrorMessage="*"></asp:RequiredFieldValidator>
+
+                </InsertItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("AssignmentType") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="AssignmentWeight" SortExpression="AssignmentWeight">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("AssignmentWeight") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <InsertItemTemplate>
+                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("AssignmentWeight") %>'></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvAssignmentType" runat="server" ControlToValidate="TextBox2" CssClass="error" ErrorMessage="*"></asp:RequiredFieldValidator>
+                </InsertItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("AssignmentWeight") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:CommandField ShowCancelButton="False" ShowInsertButton="True" />
         </Fields>
     </asp:DetailsView>

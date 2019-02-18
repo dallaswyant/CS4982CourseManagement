@@ -99,6 +99,7 @@
                 </td>
             <td>
                 <asp:TextBox ID="tbxAssignmentName" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvAssignmentName" runat="server" ControlToValidate="tbxAssignmentName" CssClass="error" ErrorMessage="*"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -149,6 +150,7 @@
         <tr>
             <td>
                 <asp:TextBox ID="tbxPossiblePoints" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvPossiblePointa" runat="server" ControlToValidate="tbxPossiblePoints" CssClass="error" ErrorMessage="*"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -161,6 +163,7 @@
         <tr>
             <td class="auto-style4">
                 <asp:TextBox ID="tbxDueDate" runat="server" TextMode="DateTime"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvTimeDue" runat="server" ControlToValidate="tbxDueDate" CssClass="error" ErrorMessage="*"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>

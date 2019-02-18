@@ -121,6 +121,15 @@ namespace CourseManagement {
         protected global::System.Web.UI.WebControls.TextBox tbxAssignmentName;
         
         /// <summary>
+        /// rfvAssignmentName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAssignmentName;
+        
+        /// <summary>
         /// tbxCalendar control.
         /// </summary>
         /// <remarks>
@@ -157,6 +166,15 @@ namespace CourseManagement {
         protected global::System.Web.UI.WebControls.TextBox tbxPossiblePoints;
         
         /// <summary>
+        /// rfvPossiblePointa control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPossiblePointa;
+        
+        /// <summary>
         /// tbxDueDate control.
         /// </summary>
         /// <remarks>
@@ -164,6 +182,15 @@ namespace CourseManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbxDueDate;
+        
+        /// <summary>
+        /// rfvTimeDue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTimeDue;
         
         /// <summary>
         /// cbxIsVisible control.
