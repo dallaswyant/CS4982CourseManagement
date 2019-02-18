@@ -18,11 +18,16 @@
             <asp:CommandField ShowSelectButton="True" />
         </Columns>
     </asp:GridView>
-    <asp:ObjectDataSource ID="odsDeptCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetDepartmentCoursesByUserID" TypeName="CourseManagement.DAL.DepartmentAdminDAL" DeleteMethod="DeleteCourseByDepartmentAndCRN" DataObjectTypeName="CourseManagement.App_Code.Course" InsertMethod="InsertNewCourse">
+    <asp:ObjectDataSource ID="odsDeptCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetDepartmentCoursesByUserID" TypeName="CourseManagement.DAL.DepartmentAdminDAL" DeleteMethod="DeleteCourseByDepartmentAndCRN" InsertMethod="InsertNewCourse">
         <DeleteParameters>
             <asp:Parameter Name="departmentName" Type="String" />
             <asp:Parameter Name="CRN" Type="Int32" />
         </DeleteParameters>
+        <InsertParameters>
+            <asp:Parameter Name="newCourse" Type="Object" />
+            <asp:Parameter Name="maxSeats" Type="Int32" />
+            <asp:Parameter Name="departmentName" Type="String" />
+        </InsertParameters>
         <SelectParameters>
             <asp:SessionParameter Name="userID" SessionField="UserID" Type="String" />
         </SelectParameters>
@@ -30,6 +35,11 @@
     <br />
     <asp:DetailsView ID="dvwDepartmentCourses" runat="server" DefaultMode="Insert" Height="50px" Width="125px" DataSourceID="odsDeptCourses">
         <Fields>
+            <asp:TemplateField HeaderText="Max Seats">
+                <EditItemTemplate>
+                    <asp:TextBox ID="tbxSeats" runat="server" TextMode="Number" />
+                </EditItemTemplate>
+            </asp:TemplateField>
             <asp:CommandField ShowCancelButton="False" ShowInsertButton="True" />
         </Fields>
     </asp:DetailsView>
