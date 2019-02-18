@@ -7,7 +7,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:GridView ID="gvwDepartmentCourses" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataSourceID="odsDeptCourses" PageSize="5" OnSelectedIndexChanged="gvwDepartmentCourses_SelectedIndexChanged">
+    <asp:GridView ID="gvwDepartmentCourses" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataSourceID="odsDeptCourses" PageSize="5" OnSelectedIndexChanged="gvwDepartmentCourses_SelectedIndexChanged" DataKeyNames="CRN">
         <Columns>
             <asp:BoundField DataField="Name" HeaderText="Course Name" SortExpression="Name" />
             <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="True" SortExpression="Description" />
@@ -47,8 +47,21 @@
         </tr>
         <tr>
             <td class="auto-style7">
-                <asp:DetailsView ID="dvwTeacherCourse" runat="server" Height="50px" Width="125px">
+                <asp:DetailsView ID="dvwTeacherCourse" runat="server" Height="50px" Width="125px" AutoGenerateRows="False" DataSourceID="odsTeacherCourse">
+                    <Fields>
+                        <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
+                        <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="True" SortExpression="Description" />
+                        <asp:BoundField DataField="Location" HeaderText="Location" ReadOnly="True" SortExpression="Location" />
+                        <asp:BoundField DataField="CreditHours" HeaderText="CreditHours" ReadOnly="True" SortExpression="CreditHours" />
+                        <asp:BoundField DataField="CRN" HeaderText="CRN" ReadOnly="True" SortExpression="CRN" />
+                        <asp:BoundField DataField="SectionNumber" HeaderText="SectionNumber" ReadOnly="True" SortExpression="SectionNumber" />
+                    </Fields>
                 </asp:DetailsView>
+                <asp:ObjectDataSource ID="odsTeacherCourse" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByCRN" TypeName="CourseManagement.DAL.CourseDAL">
+                    <SelectParameters>
+                        <asp:ControlParameter ControlID="gvwDepartmentCourses" Name="CRN" PropertyName="SelectedValue" Type="Int32" />
+                    </SelectParameters>
+                </asp:ObjectDataSource>
             </td>
             <td>
                 <asp:GridView ID="gvwTeacherCourses" runat="server" AutoGenerateColumns="False" DataSourceID="odsTeacherCourses">
