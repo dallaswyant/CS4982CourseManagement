@@ -20,7 +20,6 @@ namespace CourseManagement
             
             User currentUser = HttpContext.Current.Session["User"] as User;
             this.manageLogging(currentUser);
-            //HttpContext.Current.Session["CurrentGradedItem"] = null;
             
             var currentPage = this.ContentPlaceHolder1.Page.GetType().BaseType.Name;
             if (!currentPage.Equals("ManageCreateGradeItem"))
@@ -36,7 +35,7 @@ namespace CourseManagement
         {
             if (currentUser == null)
             {
-                this.handleWhenUserNotSignedIn();
+               
             }
             else if (currentUser.Role.Equals("teachers"))
             {
@@ -49,32 +48,24 @@ namespace CourseManagement
             {
                 this.handleWhenAdminLoggedIn();
             }
-            else
-            {
-                this.tvwSite.Visible = false;
-            }
         }
 
-        private void handleWhenUserNotSignedIn()
-        {
-            this.tvwSite.Visible = false;
-        }
 
         private void handleWhenTeacherLogin()
         {
-            this.tvwSite.Visible = true;
+
             this.SiteMapDataSource1.SiteMapProvider = "Teacher";
         }
 
         private void handleWhenStudentLoggedIn()
         {
-            this.tvwSite.Visible = true;
+
             this.SiteMapDataSource1.SiteMapProvider = "Student";
         }
 
         private void handleWhenAdminLoggedIn()
         {
-            this.tvwSite.Visible = true;
+
             this.SiteMapDataSource1.SiteMapProvider = "Admin";
         }
 

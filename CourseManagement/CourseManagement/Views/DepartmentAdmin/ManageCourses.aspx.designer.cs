@@ -13,13 +13,13 @@ namespace CourseManagement.Views.DepartmentAdmin {
     public partial class ManageCourses {
         
         /// <summary>
-        /// dtvDepartmentCourses control.
+        /// gvwDepartmentCourses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DetailsView dtvDepartmentCourses;
+        protected global::System.Web.UI.WebControls.GridView gvwDepartmentCourses;
         
         /// <summary>
         /// odsDeptCourses control.
@@ -29,6 +29,15 @@ namespace CourseManagement.Views.DepartmentAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ObjectDataSource odsDeptCourses;
+        
+        /// <summary>
+        /// dvwDepartmentCourses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DetailsView dvwDepartmentCourses;
         
         /// <summary>
         /// ddlTeachers control.
@@ -49,6 +58,15 @@ namespace CourseManagement.Views.DepartmentAdmin {
         protected global::System.Web.UI.WebControls.Button btnAddTeachers;
         
         /// <summary>
+        /// dvwTeacherCourse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DetailsView dvwTeacherCourse;
+        
+        /// <summary>
         /// gvwTeacherCourses control.
         /// </summary>
         /// <remarks>
@@ -65,5 +83,14 @@ namespace CourseManagement.Views.DepartmentAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ObjectDataSource odsTeacherCourses;
+        
+        /// <summary>
+        /// odsDeptTeachers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsDeptTeachers;
     }
 }

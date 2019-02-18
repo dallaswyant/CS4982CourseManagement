@@ -1,5 +1,8 @@
-﻿namespace CourseManagement.App_Code
+﻿using System;
+
+namespace CourseManagement.App_Code
 {
+    [Serializable]
     public class User
     {
         #region Properties

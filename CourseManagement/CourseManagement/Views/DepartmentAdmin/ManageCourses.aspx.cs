@@ -13,5 +13,11 @@ namespace CourseManagement.Views.DepartmentAdmin
         {
 
         }
+
+        protected void gvwDepartmentCourses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.dvwTeacherCourse.PageIndex = gvwDepartmentCourses.SelectedIndex;
+            dvwTeacherCourse.DataBind();
+        }
     }
 }

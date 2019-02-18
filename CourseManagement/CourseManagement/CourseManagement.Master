@@ -24,7 +24,7 @@
             width: 166px;
         }
         .auto-style6 {
-            width: 367px;
+            width: 729px;
         }
     </style>
 </head>
@@ -36,8 +36,6 @@
         <form id="form1" runat="server">
             <section class="sitemap">
                 
-                <asp:TreeView ID="tvwSite" runat="server" DataSourceID="SiteMapDataSource1" TabIndex="-1">
-                </asp:TreeView>
                 <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" SiteMapProvider="Student" />
                     
                 <asp:SiteMapDataSource ID="smdsSite" runat="server" ShowStartingNode="False" />
@@ -48,21 +46,25 @@
                     <table class="tableInfo">
                         <tr>
                             <td class="auto-style5" rowspan="2"><h1>CourseHub</h1></td>
-                            <td align="right">
-                                <asp:Label ID="lblUsernameTXT" runat="server" Text="User name:"></asp:Label>
+                            <td align="right" class="auto-style6">
+                                <asp:Label ID="lblUsernameTXT" runat="server" Text="Username:"></asp:Label>
                                 <asp:TextBox ID="tbxUsername" runat="server" TabIndex="1"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="tbxUsername" ErrorMessage="*"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="tbxUsername" ErrorMessage="*" CssClass="error"></asp:RequiredFieldValidator>
+                                <br />
                                 <asp:Label ID="lblPasswordTXT" runat="server" Text="Password:"></asp:Label>
                                 <asp:TextBox ID="tbxPassword" runat="server" TextMode="Password" TabIndex="2"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="tbxPassword">*</asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="tbxPassword" CssClass="error">*</asp:RequiredFieldValidator>
                                 <asp:Label ID="lblUsername" runat="server"></asp:Label>
-                                <asp:Button ID="btnLogin" runat="server" OnClick="login_OnClick" Text="Login" TabIndex="3" />
+                                <br />
+                            </td>
+                            <td align="right">
+                                <asp:Button ID="btnLogin" runat="server" OnClick="login_OnClick" Text="Login" TabIndex="3" Height="32px" Width="70px" />
                                 <asp:Button ID="btnLogout" runat="server" OnClick="logout_OnClick" Text="Logout" />
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                <asp:Label ID="lblLogin" runat="server"></asp:Label>
+                            <td colspan="2" style="float: right">
+                                <asp:Label ID="lblLogin" runat="server" CssClass="error"></asp:Label>
                             </td>
                         </tr>
                     </table>

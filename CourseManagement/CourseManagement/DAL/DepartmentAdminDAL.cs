@@ -11,7 +11,7 @@ namespace CourseManagement.DAL
     [DataObject(true)]
     public class DepartmentAdminDAL
     {
-        [DataObjectMethod(DataObjectMethodType.Select)]
+       
         public Department GetDepartmentByUserID(string userID)
         {
                 MySqlConnection conn = DbConnection.GetConnection();
@@ -51,6 +51,16 @@ namespace CourseManagement.DAL
 
             return null;
         }
+
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<CourseInfo> GetDepartmentCoursesByUserID(string userID)
+        {
+            Department currentDepartment = GetDepartmentByUserID(userID);
+            CourseDAL courseDal = new CourseDAL();
+            return courseDal.GetCourseBulletinByDepartmentName(currentDepartment.DeptName);
+        }
+
+
 
         //Add new course
         //INSERT INTO courses (dept_name, course_name, section_num, credit_hours, seats_max, location) VALUES (@dept_name, @course_name, @section_num, @credit_hours, @seats_max, @location)
@@ -178,6 +188,80 @@ namespace CourseManagement.DAL
                 conn.Close();
             }
 
+        }
+
+        /// <summary>
+        /// Gets a list of all teachers for admin's department.
+        /// </summary>
+        /// <returns>A list of all departments.</returns>
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<Teacher> GetAllTeachersByAdminDepartment(User user)
+        {
+
+            string department = GetAdminDepartment(user);
+
+            MySqlConnection conn = DbConnection.GetConnection();
+
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery =
+                    "select * FROM dept_employs_teachers WHERE dept_name=@dept_name";
+                List<Teacher> teachers = new List<Teacher>();
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@dept_name", department);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        int teacherIDOrdinal = reader.GetOrdinal("teacher_uid");
+
+                        while (reader.Read())
+                        {
+                            var teacherID = reader[teacherIDOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(teacherIDOrdinal);
+                            TeacherDAL teacherGetter = new TeacherDAL();
+                            Teacher teacher = teacherGetter.GetTeacherByTeacherID(teacherID);
+     
+                            teachers.Add(teacher);
+                        }
+                        return teachers;
+                    }
+                }
+            }
+        }
+
+ 
+        private string GetAdminDepartment(User user)
+        {
+
+
+            MySqlConnection conn = DbConnection.GetConnection();
+            string department = "";
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery =
+                    "select * FROM department_admins WHERE admin_uid=@admin_uid";
+                List<Teacher> teachers = new List<Teacher>();
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@admin_uid", user.UserId);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        int departmentOrdinal = reader.GetOrdinal("department_name");
+
+                        while (reader.Read())
+                        {
+                            department = reader[departmentOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(departmentOrdinal);
+                        }
+
+                        return department;
+                    }
+                }
+            }
         }
     }
 }
