@@ -10,6 +10,6 @@
         Title="MainWindow" Height="750" Width="1100">
     <Grid Width="auto">
         
-        <Frame x:Name="myFrame" Content="Frame" HorizontalAlignment="Stretch" Height="709" Margin="10,10,0,0" VerticalAlignment="Stretch" Width="1080"/>
+        <Frame x:Name="myFrame" Content="Frame"  HorizontalAlignment="Stretch" MinHeight="709" Margin="10,10,0,0" VerticalAlignment="Stretch" MinWidth="1080"/>
     </Grid>
 </Window>
