@@ -43,19 +43,27 @@ namespace CoursesManagementDesktop
         {
             
             
-            var assignments =  this.gradedItemDal.GetUniqueGradedItemsByCRN(1); //TODO fix this
+            
             var courses = this.courseDAL.GetCourseBulletinByTeacherID(this.teacherID);
-            foreach (var name in assignments)
-            {
-                this.AssignmentCombo.Items.Add(name.Value);
-            }
 
             foreach (var name in courses)
             {
                 this.CourseCombo.Items.Add(name.Name);
             }
-            this.AssignmentCombo.SelectedIndex = 0;
+
             this.CourseCombo.SelectedIndex = 0;
+
+            var crn = findCRN(this.CourseCombo.Text);
+            var assignments =  this.gradedItemDal.GetUniqueGradedItemsByCRN(crn); //TODO fix this
+
+            foreach (var name in assignments)
+            {
+                this.AssignmentCombo.Items.Add(name.Value);
+            }
+
+            
+            this.AssignmentCombo.SelectedIndex = 0;
+            
 
         }
 

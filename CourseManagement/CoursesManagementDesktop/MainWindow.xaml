@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoursesManagementDesktop"
         mc:Ignorable="d"
+        WindowState="Maximized"
+        
         Title="MainWindow" Height="750" Width="1100">
-    <Frame x:Name="myFrame" Content="Frame" HorizontalAlignment="Left" Height="709" Margin="10,10,0,0" VerticalAlignment="Top" Width="1080"/>
-
+    <Grid Width="auto">
+        
+        <Frame x:Name="myFrame" Content="Frame" HorizontalAlignment="Stretch" Height="709" Margin="10,10,0,0" VerticalAlignment="Stretch" Width="1080"/>
+    </Grid>
 </Window>

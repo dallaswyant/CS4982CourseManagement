@@ -6,9 +6,11 @@
       xmlns:local="clr-namespace:CoursesManagementDesktop"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      VerticalAlignment="Stretch"
+      HorizontalAlignment="Stretch"
       Title="LoginPage">
 
-    <Grid  Background="#E5EAEE" Margin="0,0,-6.4,5.8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid  Background="#E5EAEE" Margin="0,0,-6.4,5.8"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
 
         <Grid Background="Black" HorizontalAlignment="Stretch" Height="159" VerticalAlignment="Top" RenderTransformOrigin="0.509,0.037" Grid.Column="1" Grid.ColumnSpan="4" Margin="0,0,0.4,0">
