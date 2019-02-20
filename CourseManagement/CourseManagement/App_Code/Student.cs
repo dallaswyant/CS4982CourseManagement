@@ -24,20 +24,31 @@
         /// </summary>
         public DegreeProgram Program { get; }
 
+
+        /// <summary>
+        ///   Gets the classification.
+        /// </summary>
+        /// <value>
+        ///   The classification.
+        /// </value>
+        public string Classification { get; }
+
         #endregion
 
         #region Constructors
         /// <summary>
-        /// constructor for student 
+        /// constructor for student
         /// </summary>
         /// <param name="studentUID">the student ID</param>
         /// <param name="name">The student Name</param>
         /// <param name="email">the email of the student</param>
-        public Student(string studentUID,string name, string email)
+        /// <param name="classification">The classification.</param>
+        public Student(string studentUID,string name, string email, string classification)
         {
             this.name = name;
             this.Email = email;
             this.StudentUID = studentUID;
+            this.Classification = classification;
         }
 
         #endregion

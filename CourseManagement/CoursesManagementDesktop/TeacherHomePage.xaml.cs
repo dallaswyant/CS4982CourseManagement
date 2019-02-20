@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using CourseManagement.App_Code;
 using CourseManagement.DAL;
 using CoursesManagementDesktop.DAL;
-using GradedItemDAL = CourseManagement.DAL.GradedItemDAL;
+using GradeItemDAL = CourseManagement.DAL.GradeItemDAL;
 
 namespace CoursesManagementDesktop
 {
@@ -24,7 +24,7 @@ namespace CoursesManagementDesktop
     /// </summary>
     public partial class TeacherHomePAge : Page
     {
-        private CourseManagement.DAL.GradedItemDAL gradedItemDal;
+        private CourseManagement.DAL.GradeItemDAL gradedItemDal;
         private DesktopGradedItemDAL desktopGradedItemDal;
         private CourseDAL courseDAL;
         private string teacherID;
@@ -32,7 +32,7 @@ namespace CoursesManagementDesktop
         {
             InitializeComponent();
             this.teacherID = teacherID;
-             gradedItemDal = new GradedItemDAL();
+             gradedItemDal = new GradeItemDAL();
             desktopGradedItemDal = new DesktopGradedItemDAL();
             this.courseDAL = new CourseDAL();
             populateComboBoxes();

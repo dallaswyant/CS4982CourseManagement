@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CourseManagement.App_Code
 {
-    public class GradedItem
+    public class GradeItem
     {
         #region Properties
         /// <summary>
@@ -57,7 +57,7 @@ namespace CourseManagement.App_Code
         /// <param name="possiblePoints">the possible points</param>
         /// <param name="gradeType">the grade type</param>
         /// <param name="gradeId">the grade id</param>
-        public GradedItem(string name, Student student,double grade,
+        public GradeItem(string name, Student student,double grade,
             string feedBack, double possiblePoints, string gradeType, int gradeId, bool isPublic, DateTime? timeGraded)
         {
             this.Name = name;
@@ -73,7 +73,7 @@ namespace CourseManagement.App_Code
         /// <summary>
         /// default constructor
         /// </summary>
-        public GradedItem()
+        public GradeItem()
         {
         }
 

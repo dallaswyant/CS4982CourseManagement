@@ -8,7 +8,7 @@ namespace CourseManagement.DAL
     /// <summary>
     /// This class defines a gradedItemDAL for interacting with gradedItems on the database
     /// </summary>
-    public class GradedItemDAL
+    public class GradeItemDAL
     {
         #region Methods
 
@@ -19,11 +19,11 @@ namespace CourseManagement.DAL
         /// </summary>
         /// <param name="CRNCheck">The CRN for the selected course</param>
         /// <returns>A list of graded items for the selected course</returns>
-        public List<GradedItem> GetGradedItemsByCRN(int CRNCheck)
+        public List<GradeItem> GetGradedItemsByCRN(int CRNCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             var coursesTaught = new CourseCollection();
-            var grades = new List<GradedItem>();
+            var grades = new List<GradeItem>();
             using (conn)
             {
                 conn.Open();
@@ -76,7 +76,7 @@ namespace CourseManagement.DAL
                             }
                             var currStudent = studentGetter.GetStudentByStudentID(studentUID);
                             
-                            var currGradedItem = new GradedItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
+                            var currGradedItem = new GradeItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
                                 gradeType,gradeItemId, isPublic, timeGraded);
                             grades.Add(currGradedItem);
                         }
@@ -131,11 +131,11 @@ namespace CourseManagement.DAL
         /// <param name="studentUID">The student uid.</param>
         /// <param name="CRNCheck">The CRN check.</param>
         /// <returns>A list of graded items that belong to the selected student</returns>
-        public List<GradedItem> GetGradedItemsByStudentId(string studentUID, int CRNCheck)
+        public List<GradeItem> GetGradedItemsByStudentId(string studentUID, int CRNCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             var coursesTaught = new CourseCollection();
-            var grades = new List<GradedItem>();
+            var grades = new List<GradeItem>();
             using (conn)
             {
                 conn.Open();
@@ -190,7 +190,7 @@ namespace CourseManagement.DAL
 
                             var currStudent = studentGetter.GetStudentByStudentID(studentUid);
                             
-                            var currGradedItem = new GradedItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
+                            var currGradedItem = new GradeItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
                                 gradeType,gradeItemId, isPublic, timeGraded);
                             grades.Add(currGradedItem);
                         }
@@ -201,11 +201,11 @@ namespace CourseManagement.DAL
             }
         }
 
-        public List<GradedItem> GetPublicGradedItemsByStudentId(string studentUID, int CRNCheck)
+        public List<GradeItem> GetPublicGradedItemsByStudentId(string studentUID, int CRNCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             var coursesTaught = new CourseCollection();
-            var grades = new List<GradedItem>();
+            var grades = new List<GradeItem>();
             using (conn)
             {
                 conn.Open();
@@ -260,7 +260,7 @@ namespace CourseManagement.DAL
 
                             var currStudent = studentGetter.GetStudentByStudentID(studentUid);
 
-                            var currGradedItem = new GradedItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
+                            var currGradedItem = new GradeItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
                                 gradeType, gradeItemId, isPublic, timeGraded);
                             grades.Add(currGradedItem);
                         }
@@ -277,7 +277,7 @@ namespace CourseManagement.DAL
         /// <param name="newItem">The new item.</param>
         /// <param name="CRN">The CRN.</param>
         /// <param name="studentUID">The student uid.</param>
-        public void gradeGradedItemByCRNAndStudentUID(GradedItem newItem, int CRN, string studentUID)
+        public void gradeGradedItemByCRNAndStudentUID(GradeItem newItem, int CRN, string studentUID)
         {
             StudentDAL studentGetter = new StudentDAL();
             Student currStudent = studentGetter.GetStudentByStudentID(studentUID);
@@ -287,7 +287,7 @@ namespace CourseManagement.DAL
             using (conn)
             {
                 conn.Open();
-                    GradedItem grade = new GradedItem(newItem.Name, currStudent, newItem.Grade, newItem.Feedback, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.TimeGraded);
+                    GradeItem grade = new GradeItem(newItem.Name, currStudent, newItem.Grade, newItem.Feedback, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.TimeGraded);
                     var selectQuery =
                         "UPDATE grade_items SET grade_earned_points=@grade_points, grade_feedback=@grade_feedback, time_graded=@time_graded WHERE student_uid = @studentUID AND grade_name = @grade_name";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
@@ -310,7 +310,7 @@ namespace CourseManagement.DAL
         /// </summary>
         /// <param name="gradedItem">The graded item.</param>
         /// <param name="CRN">The CRN.</param>
-        public void deleteGradedItemByCRNForAllStudents(GradedItem gradedItem, int CRN)
+        public void deleteGradedItemByCRNForAllStudents(GradeItem gradedItem, int CRN)
         {
             StudentDAL studentGetter = new StudentDAL();
             List<Student> students = studentGetter.GetStudentsByCRN(CRN);
@@ -354,7 +354,7 @@ namespace CourseManagement.DAL
         /// </summary>
         /// <param name="newItem">The new item.</param>
         /// <param name="CRN">The CRN.</param>
-        public void InsertNewGradedItemByCRNForAllStudents(GradedItem newItem, int CRN)
+        public void InsertNewGradedItemByCRNForAllStudents(GradeItem newItem, int CRN)
         {
             StudentDAL studentGetter = new StudentDAL();
             List<Student> students = studentGetter.GetStudentsByCRN(CRN);
@@ -367,7 +367,7 @@ namespace CourseManagement.DAL
                     conn.Open();
                     foreach (var t in students)
                     {
-                        GradedItem grade = new GradedItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.TimeGraded);
+                        GradeItem grade = new GradeItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.TimeGraded);
                         var selectQuery =
                             "INSERT INTO grade_items(student_uid, grade_total_points, grade_earned_points, grade_type, grade_name, grade_feedback, is_public) VALUES (@studentUID,@grade_total,@grade_points,@grade_type,@grade_name,@grade_feedback,@is_public)";
                         using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
@@ -403,7 +403,7 @@ namespace CourseManagement.DAL
         /// <param name="newItem">The new item.</param>
         /// <param name="CRN">The CRN.</param>
         /// <param name="oldgradename">The oldgradename.</param>
-        public void UpdateGradeItemByCRNAndOldNameForAllStudents(GradedItem newItem,int CRN, string oldgradename)
+        public void UpdateGradeItemByCRNAndOldNameForAllStudents(GradeItem newItem,int CRN, string oldgradename)
         {
             StudentDAL studentGetter = new StudentDAL();
             List<Student> students = studentGetter.GetStudentsByCRN(CRN);
@@ -416,7 +416,7 @@ namespace CourseManagement.DAL
                 conn.Open();
                 foreach (var t in students)
                 {
-                    GradedItem grade = new GradedItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.TimeGraded);
+                    GradeItem grade = new GradeItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.TimeGraded);
                     var selectQuery =
                         "UPDATE grade_items SET grade_total_points=@grade_total, grade_type=@grade_type, grade_name=@grade_newname, is_public=@is_public WHERE student_uid = @studentUID AND grade_name = @grade_oldname";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
@@ -500,10 +500,10 @@ namespace CourseManagement.DAL
         /// <param name="CRNCheck">The CRN check.</param>
         /// <param name="gradeName">Name of the grade.</param>
         /// <returns>A list of graded Items by crn and name of the grade</returns>
-        public List<GradedItem> GetGradedItemsByCRNAndGradeNameForAllStudents(int CRNCheck, string gradeName)
+        public List<GradeItem> GetGradedItemsByCRNAndGradeNameForAllStudents(int CRNCheck, string gradeName)
         {
             MySqlConnection conn = DbConnection.GetConnection();
-            var grades = new List<GradedItem>();
+            var grades = new List<GradeItem>();
             using (conn)
             {
                 conn.Open();
@@ -553,7 +553,7 @@ namespace CourseManagement.DAL
                             }
                             var currStudent = studentGetter.GetStudentByStudentID(studentUID);
 
-                            var currGradedItem = new GradedItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
+                            var currGradedItem = new GradeItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
                                 gradeType, gradeItemId, isPublic, timeGraded);
                             grades.Add(currGradedItem);
                         }

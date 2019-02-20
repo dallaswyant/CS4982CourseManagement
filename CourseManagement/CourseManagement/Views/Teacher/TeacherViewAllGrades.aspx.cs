@@ -18,7 +18,7 @@ namespace CourseManagement.Views
             {
                 DataBind();
             }
-            GradedItemDAL checker = new GradedItemDAL();
+            GradeItemDAL checker = new GradeItemDAL();
             //need to get current assignment and check the box or uncheck appropriately
             int crn = Int32.Parse(this.ddlCourses.SelectedValue);
             Dictionary<string,string> items =  checker.GetUniqueGradedItemsByCRN(crn);
@@ -39,7 +39,7 @@ namespace CourseManagement.Views
         {
 
             int index = e.NewSelectedIndex;
-            List<GradedItem> items = (List<GradedItem>) this.odsStudents.Select();
+            List<GradeItem> items = (List<GradeItem>) this.odsStudents.Select();
 
             HttpContext.Current.Session["CurrentGradedItem"] = items[index];
             HttpContext.Current.Session["SelectedStudent"] = items[index].Student;
@@ -57,8 +57,8 @@ namespace CourseManagement.Views
 
         protected void btnEdit_Click(object sender, EventArgs e)
         {
-            List<GradedItem> items = (List<GradedItem>)this.odsStudents.Select();
-            GradedItem current = items[0];
+            List<GradeItem> items = (List<GradeItem>)this.odsStudents.Select();
+            GradeItem current = items[0];
             HttpContext.Current.Session["CurrentGradedItem"] = current;
             HttpContext.Current.Session["editing"] = true;
             CourseDAL courseDal = new CourseDAL();
@@ -73,7 +73,7 @@ namespace CourseManagement.Views
         protected void cbxVisibility_CheckedChanged(object sender, EventArgs e)
         {
             
-            GradedItemDAL gradeStuff = new GradedItemDAL();
+            GradeItemDAL gradeStuff = new GradeItemDAL();
             gradeStuff.PublishGradeItemByNameAndCRNForAllStudents(Int32.Parse(this.ddlCourses.SelectedValue), this.ddlAssignments.SelectedValue, !this.cbxVisibility.Checked);
             
         }

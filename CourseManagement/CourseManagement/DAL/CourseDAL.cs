@@ -14,22 +14,6 @@ namespace CourseManagement.DAL
     [DataObject(true)]
     public class CourseDAL
     {
-        /// <summary>
-        /// Gets a list of course info bulletins by teacher id.
-        /// </summary>
-        /// <param name="teacherIDCheck">The teacher id to check.</param>
-        /// <returns>A list of course info for courses taught by the teacher.</returns>
-        [DataObjectMethod(DataObjectMethodType.Select)]
-        public List<CourseInfo> GetCourseBulletinByTeacherID(string teacherIDCheck)
-        {
-            List<CourseInfo> courseBulletin = new List<CourseInfo>();
-            List<Course> teacherCourses = this.GetCoursesByTeacherID(teacherIDCheck);
-            foreach (var courses in teacherCourses)
-            {
-                courseBulletin.Add(courses.CourseInfo);
-            }
-            return courseBulletin;
-        }
 
         /// <summary>
         /// Gets a list of courses by teacher id.
@@ -44,7 +28,7 @@ namespace CourseManagement.DAL
             {
 
                 conn.Open();
-                GradedItemDAL gradedStuff = new GradedItemDAL();
+                GradeItemDAL gradedStuff = new GradeItemDAL();
                 
                 var selectQuery = "select courses.* from courses, teacher_teaches_courses WHERE teacher_teaches_courses.courses_CRN = courses.CRN AND teacher_teaches_courses.teacher_uid = @teacherUID";
 
@@ -80,11 +64,9 @@ namespace CourseManagement.DAL
                                 ? default(string)
                                 : reader.GetString(locationOrdinal);
 
-                            List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
-
-                            CourseInfo currCourseInfo =
-                                new CourseInfo(courseName, location, creditHours, CRN, sectionNumber);
+                            List<GradeItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
                             Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
+                            currentCourse.LectureNotes.Clear();
                             coursesTaught.Add(currentCourse);
 
                         }
@@ -101,12 +83,12 @@ namespace CourseManagement.DAL
         /// <param name="CRN">The CRN.</param>
         /// <returns>Course information about the course with the selected CRN</returns>
         [DataObjectMethod(DataObjectMethodType.Select)]
-        public CourseInfo GetCoursesByCRN(int CRN)
+        public Course GetCoursesByCRN(int CRN)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             using (conn)
             {
-                GradedItemDAL gradedStuff = new GradedItemDAL();
+                GradeItemDAL gradedStuff = new GradeItemDAL();
                 conn.Open();
                 var selectQuery = "SELECT * from courses WHERE courses.CRN = @CRNCheck";
 
@@ -131,10 +113,9 @@ namespace CourseManagement.DAL
                                 ? default(string)
                                 : reader.GetString(locationOrdinal);
 
-                            List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
-                            CourseInfo currCourseInfo = new CourseInfo(courseName, location, creditHours, CRN, sectionNumber);
+                            List<GradeItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
                             Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
-                            return currCourseInfo;
+                            return currentCourse;
 
                         }
                     }
@@ -156,7 +137,7 @@ namespace CourseManagement.DAL
             MySqlConnection conn = DbConnection.GetConnection();
             using (conn)
             {
-                GradedItemDAL gradedStuff = new GradedItemDAL();
+                GradeItemDAL gradedStuff = new GradeItemDAL();
                 conn.Open();
                 var selectQuery = "SELECT * from courses WHERE courses.CRN = @CRNCheck";
 
@@ -181,9 +162,8 @@ namespace CourseManagement.DAL
                                 ? default(string)
                                 : reader.GetString(locationOrdinal);
 
-                            List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
+                            List<GradeItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
                             
-                            CourseInfo currCourseInfo = new CourseInfo(courseName, location, creditHours, CRN, sectionNumber);
                             Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
                             return currentCourse;
 
@@ -208,7 +188,7 @@ namespace CourseManagement.DAL
             List<Course> coursesTaken = new List<Course>();
             using (conn)
             {
-                GradedItemDAL gradedStuff = new GradedItemDAL();
+                GradeItemDAL gradedStuff = new GradeItemDAL();
                 conn.Open();
                 var selectQuery = "SELECT courses.* FROM courses, students, student_has_courses WHERE students.uid = student_has_courses.student_uid AND student_has_courses.courses_CRN = courses.CRN AND students.uid = @studentUID";
 
@@ -235,8 +215,7 @@ namespace CourseManagement.DAL
                                 ? default(string)
                                 : reader.GetString(locationOrdinal);
 
-                            List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
-                            CourseInfo currCourseInfo = new CourseInfo(courseName, location, creditHours, CRN, sectionNumber);
+                            List<GradeItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
                             Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
                             coursesTaken.Add(currentCourse);
 
@@ -263,7 +242,7 @@ namespace CourseManagement.DAL
             List<Course> deptCourses = new List<Course>();
             using (conn)
             {
-                GradedItemDAL gradedStuff = new GradedItemDAL();
+                GradeItemDAL gradedStuff = new GradeItemDAL();
                 conn.Open();
                 var selectQuery = String.Empty;
                 if (departmentName.Equals("All Departments"))
@@ -299,9 +278,8 @@ namespace CourseManagement.DAL
                                 ? default(string)
                                 : reader.GetString(locationOrdinal);
 
-                            List<GradedItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
+                            List<GradeItem> listOfGrades = gradedStuff.GetGradedItemsByCRN(CRN);
 
-                            CourseInfo currCourseInfo = new CourseInfo(courseName, location, creditHours, CRN, sectionNumber);
                             Course currentCourse = new Course(listOfGrades, currCourseInfo, maxSeats);
                             deptCourses.Add(currentCourse);
 
@@ -311,40 +289,6 @@ namespace CourseManagement.DAL
                     return deptCourses;
                 }
             }
-        }
-
-        /// <summary>
-        /// Gets a list of course info bulletin by student id.
-        /// </summary>
-        /// <param name="studentUID">The student uid.</param>
-        /// <returns>A list of course info for all courses taken by the selected student</returns>
-        [DataObjectMethod(DataObjectMethodType.Select)]
-        public List<CourseInfo> GetCourseBulletinByStudentID(string studentUID)
-        {
-            List<CourseInfo> courseBulletin = new List<CourseInfo>();
-            List<Course> studentsCourses = this.GetCoursesByStudentID(studentUID);
-            foreach (var courses in studentsCourses)
-            {
-                courseBulletin.Add(courses.CourseInfo);
-            }
-            return courseBulletin;
-        }
-
-        /// <summary>
-        /// Gets a list of course info bulletins by department name.
-        /// </summary>
-        /// <param name="departmentName">Name of the department</param>
-        /// <returns>A list of course info offered by the selected department</returns>
-        [DataObjectMethod(DataObjectMethodType.Select)]
-        public List<CourseInfo> GetCourseBulletinByDepartmentName(string departmentName)
-        {
-            List<CourseInfo> courseBulletin = new List<CourseInfo>();
-            List<Course> departmentCourses = this.GetCoursesByDepartmentName(departmentName);
-            foreach (var courses in departmentCourses)
-            {
-                courseBulletin.Add(courses.CourseInfo);
-            }
-            return courseBulletin;
         }
     }
 }

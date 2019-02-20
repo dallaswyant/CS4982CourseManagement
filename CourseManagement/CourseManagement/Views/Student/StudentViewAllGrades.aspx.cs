@@ -18,17 +18,17 @@ namespace CourseManagement.Views
         private void loadGrades(User currentUser)
         {
                 CourseRubricDAL rubricGetter = new CourseRubricDAL();
-                GradedItemDAL gradeGetter = new GradedItemDAL();
+                GradeItemDAL gradeGetter = new GradeItemDAL();
                 List<RubricItem> rubric =
                     rubricGetter.GetCourseRubricByCRN(int.Parse(this.ddlStudentCourses.SelectedItem.Value));
-                List<GradedItem> grades =
+                List<GradeItem> grades =
                     gradeGetter.GetPublicGradedItemsByStudentId(currentUser.UserId,
                         int.Parse(this.ddlStudentCourses.SelectedItem.Value));
 
                 assignCurrentGrade(rubric, grades);
         }
 
-        private void assignCurrentGrade(List<RubricItem> rubric, List<GradedItem> grades)
+        private void assignCurrentGrade(List<RubricItem> rubric, List<GradeItem> grades)
         {
             double overallGrade = computeOverallGrade(rubric, grades);
             var ctlGrade = this.gvwCourses.Rows[0].FindControl("lblGrade");
@@ -37,7 +37,7 @@ namespace CourseManagement.Views
 
         }
 
-        private static double computeOverallGrade(List<RubricItem> rubric, List<GradedItem> grades)
+        private static double computeOverallGrade(List<RubricItem> rubric, List<GradeItem> grades)
         {
             double overallGrade = 0.0;
             foreach (var rubricItem in rubric)

@@ -16,8 +16,8 @@ namespace CourseManagement
     {
        
 
-        private GradedItemDAL gradeItemDAL = new GradedItemDAL();
-        private GradedItem currentGrade;
+        private GradeItemDAL gradeItemDAL = new GradeItemDAL();
+        private GradeItem currentGrade;
         private Student currentStudent;
         private double workingGrade;
 
@@ -34,7 +34,7 @@ namespace CourseManagement
             {
                 this.currentStudent = HttpContext.Current.Session["SelectedStudent"] as Student;
                 populateStudentDDL(studentDAL);
-                this.currentGrade = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
+                this.currentGrade = HttpContext.Current.Session["CurrentGradedItem"] as GradeItem;
                 this.ddlStudentNames_OnSelectedIndexChanged(null, null);
                 int count = 0;
                 foreach(var item in this.ddlAssignmentNames.Items)
@@ -49,7 +49,7 @@ namespace CourseManagement
                 DataBind();
             }
 
-            this.currentGrade = HttpContext.Current.Session["CurrentGradedItem"] as GradedItem;
+            this.currentGrade = HttpContext.Current.Session["CurrentGradedItem"] as GradeItem;
             
 
 
@@ -127,7 +127,7 @@ namespace CourseManagement
             var gradedItems = gradeItemDAL.GetGradedItemsByStudentId(this.ddlStudentNames.SelectedValue, course.CourseInfo.CRN);
             int.TryParse(this.ddlAssignmentNames.SelectedValue, out int itemId);
             var totalPoints = 0.0;
-            GradedItem currGradedItem = null;
+            GradeItem currGradedItem = null;
             foreach (var item in gradedItems)
             {
                 if (item.GradeId == itemId)
@@ -165,7 +165,7 @@ namespace CourseManagement
 
         private void gradeGradeItem()
         {
-            var updatedGrade = new GradedItem()
+            var updatedGrade = new GradeItem()
             {
                 Feedback = tbxDescription.Text,
                 Grade = int.Parse(this.TextBox2.Text),

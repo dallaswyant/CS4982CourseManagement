@@ -53,11 +53,11 @@ namespace CourseManagement.DAL
         }
 
         [DataObjectMethod(DataObjectMethodType.Select)]
-        public List<CourseInfo> GetDepartmentCoursesByUserID(string userID)
+        public List<Course> GetDepartmentCoursesByUserID(string userID)
         {
             Department currentDepartment = GetDepartmentByUserID(userID);
             CourseDAL courseDal = new CourseDAL();
-            return courseDal.GetCourseBulletinByDepartmentName(currentDepartment.DeptName);
+            return courseDal.GetCoursesByDepartmentName(currentDepartment.DeptName);
         }
 
 
@@ -67,7 +67,7 @@ namespace CourseManagement.DAL
         //THEN
         //INSERT INTO dept_offers_courses(dept_name, courses_CRN) VALUES (@department_name, @CRN)
         [DataObjectMethod(DataObjectMethodType.Insert)]
-        public void InsertNewCourse(CourseInfo newCourse, int maxSeats, string departmentName)
+        public void InsertNewCourse(Course newCourse, int maxSeats, string departmentName)
         {
             MySqlConnection conn = DbConnection.GetConnection();
 
@@ -138,7 +138,7 @@ namespace CourseManagement.DAL
         }
         //Edit course
         //UPDATE courses SET (course_name=@course_name, section_num=@section_num, credit_hours=@credit_hours, seats_max=@seats_max, location=@location, semester_id=@semester_id) WHERE CRN = @CRN;
-        public void UpdateCourse(CourseInfo courseInfo, int maxSeats)
+        public void UpdateCourse(Course course, int maxSeats)
         {
             MySqlConnection conn = DbConnection.GetConnection();
 
@@ -150,12 +150,12 @@ namespace CourseManagement.DAL
                         "UPDATE courses SET (course_name=@course_name, section_num=@section_num, credit_hours=@credit_hours, seats_max=@seats_max, location=@location) WHERE CRN = @CRN";
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@course_name", courseInfo.Name);
-                    cmd.Parameters.AddWithValue("@section_num", courseInfo.SectionNumber);
-                    cmd.Parameters.AddWithValue("@credit_hours", courseInfo.CreditHours);
+                    cmd.Parameters.AddWithValue("@course_name", course.Name);
+                    cmd.Parameters.AddWithValue("@section_num", course.SectionNumber);
+                    cmd.Parameters.AddWithValue("@credit_hours", course.CreditHours);
                     cmd.Parameters.AddWithValue("@seats_max", maxSeats);
-                    cmd.Parameters.AddWithValue("@location", courseInfo.Location);
-                    cmd.Parameters.AddWithValue("@CRN", courseInfo.CRN);
+                    cmd.Parameters.AddWithValue("@location", course.Location);
+                    cmd.Parameters.AddWithValue("@CRN", course.CRN);
                     //cmd.Parameters.AddWithValue("@semester_id", newCourse.CourseInfo.);
                     cmd.ExecuteNonQuery();
                 }
