@@ -9,71 +9,84 @@ namespace CourseManagement.App_Code
     public class Course
     {
         #region Properties
+
         /// <summary>
-        /// gets grade Item
+        /// gets or sets the Name
         /// </summary>
-        public List<GradedItem> GradeItems { get; }
+        public string Name { get; set; }        
+        
+        /// <summary>
+        /// gets the description
+        /// </summary>
+        public string Description { get; set;  }
+
+        /// <summary>
+        ///   Location of the Course
+        /// </summary>
+        public string Location { get; set; }
+
         /// <summary>
         /// Gets lecture Notes
         /// </summary>
-        public List<string> LectureNotes { get; } //TODO discuss being file paths
+        public List<string> LectureNotes { get; set; } //TODO discuss being file paths
+
         /// <summary>
-        /// Gets courseInfo
+        /// gets the credit hours
         /// </summary>
-        public CourseInfo CourseInfo { get; }
+        public int CreditHours { get; set; }
+
+        /// <summary>
+        /// gets the crn
+        /// </summary>
+        public int CRN { get; set; }
+
+        /// <summary>
+        /// gets the section number
+        /// </summary>
+        public string SectionNumber { get; set; }
+
         /// <summary>
         /// Gets the Department
         /// </summary>
-        public Department Department { get; }
-        /// <summary>
-        /// Gets the Drop dead line
-        /// </summary>
-        public DateTime DropDeadline { get; }
+        public Department Department { get; set; }
+ 
         /// <summary>
         /// Gets the Max seats
         /// </summary>
-        public int MaxSeats { get; }
+        public int MaxSeats { get; set; }
+
         /// <summary>
-        /// Gets the Enrolled Students
+        /// Gets the semester ID
         /// </summary>
-        public List<Student> EnrolledStudents { get; }
-        /// <summary>
-        /// Gets course Rubric
-        /// </summary>
-        public CourseRubric CourseRubric { get; }
+        public string SemesterID { get; set; }
         #endregion
 
         #region Constructors
-        /// <summary>
-        /// Constructor for course
-        /// </summary>
-        /// <param name="gradeItems">the grade items</param>
-        /// <param name="courseInfo"> the course info</param>
+
+        /// <summary>Constructor for course</summary>
+        /// <param name="name">Course name</param>
+        /// <param name="description">Course description</param>
+        /// <param name="location">Course location</param>
+        /// <param name="lectureNotes">Course lecture notes</param>
+        /// <param name="creditHours">Credit hours</param>
+        /// <param name="crn">Course crn</param>
+        /// <param name="sectionNumber">Section number</param>
+        /// <param name="department">Course department</param>
         /// <param name="maxSeats">the maximum seats</param>
-        public Course(List<GradedItem> gradeItems, CourseInfo courseInfo, int maxSeats)
+        /// <param name="semesterID">The semester id</param>
+        public Course(string name, string description, string location, List<string> lectureNotes, int creditHours, int crn, string sectionNumber, Department department, int maxSeats, string semesterID)
         {
-            this.GradeItems = gradeItems;
-            this.CourseInfo = courseInfo;
+            this.Name = name;
+            this.Description = description;
+            this.Location = location;
+            this.LectureNotes = lectureNotes;
+            this.CreditHours = creditHours;
+            this.CRN = crn;
+            this.Department = department;
             this.MaxSeats = maxSeats;
+            this.SectionNumber = sectionNumber;
+            this.SemesterID = semesterID;
         }
-        /// <summary>
-        /// counts the remaining seats and returns them
-        /// </summary>
-        /// <returns>the number of remaining seats</returns>
-        public int CountRemainingSeats()
-        {
-            return this.MaxSeats - this.EnrolledStudents.Count;
-
-        }
-        /// <summary>
-        /// auto-generated to string
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return CourseInfo.Name;
-        }
-
         #endregion
     }
 }

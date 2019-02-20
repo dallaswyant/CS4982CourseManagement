@@ -10,6 +10,9 @@ namespace CourseManagement.App_Code
         /// gets the userID
         /// </summary>
         public string UserId { get; }
+
+        /// <summary></summary>
+        public string PersonalInfoID { get; }
         /// <summary>
         /// gets the password
         /// </summary>
@@ -28,11 +31,13 @@ namespace CourseManagement.App_Code
         /// <param name="userID">the user ID</param>
         /// <param name="password">The password</param>
         /// <param name="role">the user role</param>
-        public User(string userID, string password, string role)
+        /// <param name="personalInfoID">the personal Info ID</param>
+        public User(string userID, string password, string role, string personalInfoID)
         {
             this.UserId = userID;
             this.Password = password;
             this.Role = role;
+            this.PersonalInfoID = personalInfoID;
         }
 
         public User()
