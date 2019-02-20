@@ -48,7 +48,7 @@ namespace CourseManagement.App_Code
         /// <summary>
         /// Gets the Department
         /// </summary>
-        public Department Department { get; }
+        public string DepartmentName { get; }
  
         /// <summary>
         /// Gets the Max seats
@@ -71,21 +71,21 @@ namespace CourseManagement.App_Code
         /// <param name="creditHours">Credit hours</param>
         /// <param name="crn">Course crn</param>
         /// <param name="sectionNumber">Section number</param>
-        /// <param name="department">Course department</param>
+        /// <param name="departmentName">Course department</param>
         /// <param name="maxSeats">the maximum seats</param>
         /// <param name="semesterID">The semester id</param>
-        public Course(string name, string description, string location, int creditHours, int crn, string sectionNumber, Department department, int maxSeats, string semesterID)
+        public Course(int crn, string departmentName, string name, string description, string sectionNumber, int creditHours, int maxSeats, string location, string semesterID)
         {
+            this.CRN = crn;
+            this.DepartmentName = departmentName;
             this.Name = name;
             this.Description = description;
-            this.Location = location;
-            this.LectureNotes = new List<string>();
-            this.CreditHours = creditHours;
-            this.CRN = crn;
-            this.Department = department;
-            this.MaxSeats = maxSeats;
             this.SectionNumber = sectionNumber;
+            this.CreditHours = creditHours;
+            this.MaxSeats = maxSeats;
+            this.Location = location;
             this.SemesterID = semesterID;
+            this.LectureNotes = new List<string>();
         }
         #endregion
 

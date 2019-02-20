@@ -12,7 +12,7 @@ namespace CourseManagement.App_Code
         public string UserId { get; }
 
         /// <summary></summary>
-        public string PersonalInfoID { get; }
+        public int PersonalInfoID { get; }
         /// <summary>
         /// gets the password
         /// </summary>
@@ -32,7 +32,7 @@ namespace CourseManagement.App_Code
         /// <param name="password">The password</param>
         /// <param name="role">the user role</param>
         /// <param name="personalInfoID">the personal Info ID</param>
-        public User(string userID, string password, string role, string personalInfoID)
+        public User(string userID, string password, string role, int personalInfoID)
         {
             this.UserId = userID;
             this.Password = password;

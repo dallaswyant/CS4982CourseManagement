@@ -86,7 +86,8 @@ namespace CourseManagement
                 {
                     index = counter;
                 }
-                this.ddlStudentNames.Items.Add(new ListItem(student.name, student.StudentUID));
+                //this.ddlStudentNames.Items.Add(new ListItem(student.name, student.StudentUID));
+                //TODO need different way to get student name
                 counter++;
             }
             this.ddlStudentNames.SelectedIndex = index;

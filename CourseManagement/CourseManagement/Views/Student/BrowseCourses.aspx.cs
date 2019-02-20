@@ -55,8 +55,9 @@ namespace CourseManagement.Views.Student
             HttpContext.Current.Session["chosenCRN"] = thing;
             CourseDAL courseGetter = new CourseDAL();
             Course courseToAdd = courseGetter.GetCourseByCRN(thing);
-            this.lblCourseToAdd.Text = "Course to Add: " + courseToAdd.CRN + " " + courseToAdd.Name + " " +
-                                           courseToAdd.SectionNumber + " " + courseToAdd.Teacher;
+            //TODO get this teacher somehow
+            //this.lblCourseToAdd.Text = "Course to Add: " + courseToAdd.CRN + " " + courseToAdd.Name + " " +
+            //                               courseToAdd.SectionNumber + " " + courseToAdd.Teacher;
         }
     }
 }

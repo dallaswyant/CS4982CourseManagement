@@ -31,22 +31,24 @@ namespace CourseManagement.DAL
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         int studentUIDOrdinal = reader.GetOrdinal("uid");
-                        int nameOrdinal = reader.GetOrdinal("name");
                         int emailOrdinal = reader.GetOrdinal("email");
+                        int classificationOrdinal = reader.GetOrdinal("classification");
+                        
 
                         while (reader.Read())
                         {
-                            var name = reader[nameOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(nameOrdinal);
-                            var email = reader[emailOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(emailOrdinal);
                             var studentUID = reader[studentUIDOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(studentUIDOrdinal);
+                            var email = reader[emailOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(emailOrdinal);
+                            var classification = reader[classificationOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(classificationOrdinal);
 
-                            var newStudent = new Student(studentUID, name, email);
+
+                            var newStudent = new Student(studentUID, email, classification);
                             return newStudent;
                         }
                     }
@@ -77,23 +79,25 @@ namespace CourseManagement.DAL
                     cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        int nameOrdinal = reader.GetOrdinal("name");
-                        int emailOrdinal = reader.GetOrdinal("email");
                         int studentUIDOrdinal = reader.GetOrdinal("uid");
+                        int emailOrdinal = reader.GetOrdinal("email");
+                        int classificationOrdinal = reader.GetOrdinal("classification");
+
 
                         while (reader.Read())
                         {
-                            var name = reader[nameOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(nameOrdinal);
-                            var email = reader[emailOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(emailOrdinal);
                             var studentUID = reader[studentUIDOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(studentUIDOrdinal);
+                            var email = reader[emailOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(emailOrdinal);
+                            var classification = reader[classificationOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(classificationOrdinal);
 
-                            var newStudent = new Student(studentUID, name, email);
+
+                            var newStudent = new Student(studentUID, email, classification);
                             studentsInCurrentClasses.Add(newStudent);
                         }
 

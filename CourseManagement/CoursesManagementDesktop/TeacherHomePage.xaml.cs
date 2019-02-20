@@ -41,16 +41,16 @@ namespace CoursesManagementDesktop
 
         private void populateComboBoxes()
         {
-            
-            
-            
+            //TODO
+            //need to figure out what to replace this with
+            /**
             var courses = this.courseDAL.GetCourseBulletinByTeacherID(this.teacherID);
 
             foreach (var name in courses)
             {
                 this.CourseCombo.Items.Add(name.Name);
             }
-
+            **/
             this.CourseCombo.SelectedIndex = 0;
 
             var crn = findCRN(this.CourseCombo.Text);
@@ -83,7 +83,8 @@ namespace CoursesManagementDesktop
         private int findCRN(string courseName)
         {
             int crn = -1;
-            var courses = this.courseDAL.GetCourseBulletinByTeacherID(this.teacherID);
+            //need to change to use existing methods
+            /**var courses = this.courseDAL.GetCourseBulletinByTeacherID(this.teacherID);
             foreach (var course in courses)
             {
                 if (course.Name.Equals(this.CourseCombo.Text))
@@ -91,7 +92,7 @@ namespace CoursesManagementDesktop
                     crn = course.CRN;
                 }  
             }
-
+            **/
             return crn;
         }
     }

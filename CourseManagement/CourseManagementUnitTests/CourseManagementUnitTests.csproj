@@ -54,7 +54,6 @@
     <Compile Include="Models\GradedItemTest.cs" />
     <Compile Include="Models\DepartmentTest.cs" />
     <Compile Include="Models\DegreeProgramTest.cs" />
-    <Compile Include="Models\CourseInfoTest.cs" />
     <Compile Include="Models\CourseTest.cs" />
     <Compile Include="Models\CourseCollectionTest.cs" />
     <Compile Include="Models\RubricItemTest.cs" />

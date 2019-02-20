@@ -17,7 +17,6 @@ namespace CourseManagementUnitTests.Models
         public void TestStudentConstructor()
         {
             Student billy = new Student("student", "Billy", "billy@billy.com");
-            Assert.AreEqual(billy.name,"Billy");
             Assert.AreEqual(billy.Email,"billy@billy.com");
             Assert.AreEqual(billy.StudentUID,"student");
         }

@@ -100,9 +100,10 @@ namespace CourseManagement
 
         private void handleStudentLogin(User currentUser)
         {
+            //TODO get student name here
             StudentDAL studentDAL = new StudentDAL();
             Student student = studentDAL.GetStudentByStudentID(currentUser.UserId);
-            this.lblUsername.Text = "Welcome, " + student.name + " (" + currentUser.Role + ") ";
+            this.lblUsername.Text = "Welcome, " + student.StudentUID + " (" + currentUser.Role + ") ";
             this.smdsSite.SiteMapProvider = "Student";
             this.menuMain.Visible = true;
         }
