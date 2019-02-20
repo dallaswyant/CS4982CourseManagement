@@ -28,7 +28,7 @@ namespace CourseManagement.DAL
             {
                 conn.Open();
                 var selectQuery =
-                    "SELECT grade_items.* from grade_items, grade_belongs_to_courses WHERE grade_items.grade_item_id = grade_belongs_to_courses.grade_item_id AND grade_belongs_to_courses.courses_CRN = @CRN";
+                    "SELECT grade_defs.* from grade_defs WHERE grade_defs.course_CRN = @CRNCheck";
                 var studentGetter = new StudentDAL();
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
@@ -41,6 +41,7 @@ namespace CourseManagement.DAL
                         int gradeTypeOrdinal = reader.GetOrdinal("grade_type");
                         int gradeNameOrdinal = reader.GetOrdinal("grade_name");
                         int gradeFeedbackOrdinal = reader.GetOrdinal("grade_feedback");
+                        int gradeDescriptionOrdinal = reader.GetOrdinal("grade_description");
                         int gradeItemIdOrdinal = reader.GetOrdinal("grade_item_id");
                         int isPublicOrdinal = reader.GetOrdinal("is_public");
                         int timeGradedOrdinal = reader.GetOrdinal("time_graded");
@@ -65,6 +66,9 @@ namespace CourseManagement.DAL
                             var gradeFeedback = reader[gradeFeedbackOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(gradeFeedbackOrdinal);
+                            var gradeDescription = reader[gradeDescriptionOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(gradeDescriptionOrdinal);
                             var gradeItemId = reader[gradeItemIdOrdinal] == DBNull.Value
                                 ? default(int)
                                 : reader.GetInt32(gradeItemIdOrdinal);
@@ -75,9 +79,9 @@ namespace CourseManagement.DAL
                                 timeGraded = null;
                             }
                             var currStudent = studentGetter.GetStudentByStudentID(studentUID);
-                            
+                            //fix this one
                             var currGradedItem = new GradeItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
-                                gradeType,gradeItemId, isPublic, timeGraded);
+                                gradeType,gradeDescription,gradeItemId, isPublic, timeGraded);
                             grades.Add(currGradedItem);
                         }
 
@@ -100,11 +104,11 @@ namespace CourseManagement.DAL
             {
                 conn.Open();
                 var selectQuery =
-                    "SELECT DISTINCT grade_items.grade_name From grade_items, grade_belongs_to_courses WHERE grade_belongs_to_courses.courses_CRN = @CRN";
+                    "SELECT grade_defs.* from grade_defs WHERE grade_defs.course_CRN = @CRNCheck";
                 var studentGetter = new StudentDAL();
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@CRN", CRNCheck);
+                    cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         int gradeNameOrdinal = reader.GetOrdinal("grade_name");
@@ -131,7 +135,7 @@ namespace CourseManagement.DAL
         /// <param name="studentUID">The student uid.</param>
         /// <param name="CRNCheck">The CRN check.</param>
         /// <returns>A list of graded items that belong to the selected student</returns>
-        public List<GradeItem> GetGradedItemsByStudentId(string studentUID, int CRNCheck)
+        public List<GradeItem> GetGradedItemsByStudentId(string studentUIDCheck, int CRNCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             var coursesTaught = new CourseCollection();
@@ -140,12 +144,12 @@ namespace CourseManagement.DAL
             {
                 conn.Open();
                 var selectQuery =
-                    "SELECT grade_items.* FROM grade_items, grade_belongs_to_courses WHERE grade_items.grade_item_id = grade_belongs_to_courses.grade_item_id AND grade_belongs_to_courses.courses_CRN = @CRN AND student_uid = @studentId";
+                    "SELECT grade_defs.*, student_grade_items.* from grade_defs, student_grade_items WHERE student_grade_items.student_uid = @studentUIDCheck AND grade_defs.grade_def_id = student_grade_items.grade_def_id AND grade_defs.course_CRN = @CRNCheck";
                 var studentGetter = new StudentDAL();
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@CRN", CRNCheck);
-                    cmd.Parameters.AddWithValue("@studentId", studentUID);
+                    cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
+                    cmd.Parameters.AddWithValue("@studentUIDCheck", studentUIDCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         int studentUIDOrdinal = reader.GetOrdinal("student_uid");
@@ -157,6 +161,7 @@ namespace CourseManagement.DAL
                         int gradeItemIdOrdinal = reader.GetOrdinal("grade_item_id");
                         int isPublicOrdinal = reader.GetOrdinal("is_public");
                         int timeGradedOrdinal = reader.GetOrdinal("time_graded");
+                        int gradeDescriptionOrdinal = reader.GetOrdinal("grade_description");
 
                         while (reader.Read())
                         {
@@ -181,6 +186,9 @@ namespace CourseManagement.DAL
                             var gradeItemId = reader[gradeItemIdOrdinal] == DBNull.Value
                                 ? default(int)
                                 : reader.GetInt32(gradeItemIdOrdinal);
+                            var gradeDescription = reader[gradeDescriptionOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(gradeDescriptionOrdinal);
                             var isPublic = reader[isPublicOrdinal] != DBNull.Value && reader.GetBoolean(isPublicOrdinal);
                             DateTime? timeGraded = reader[gradeFeedbackOrdinal] == DBNull.Value ? default(DateTime) : reader.GetDateTime(timeGradedOrdinal);
                             if (timeGraded == DateTime.MinValue)
@@ -191,7 +199,7 @@ namespace CourseManagement.DAL
                             var currStudent = studentGetter.GetStudentByStudentID(studentUid);
                             
                             var currGradedItem = new GradeItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
-                                gradeType,gradeItemId, isPublic, timeGraded);
+                                gradeType,gradeDescription,gradeItemId, isPublic, timeGraded);
                             grades.Add(currGradedItem);
                         }
 
@@ -201,7 +209,7 @@ namespace CourseManagement.DAL
             }
         }
 
-        public List<GradeItem> GetPublicGradedItemsByStudentId(string studentUID, int CRNCheck)
+        public List<GradeItem> GetPublicGradedItemsByStudentId(string studentUIDCheck, int CRNCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             var coursesTaught = new CourseCollection();
@@ -210,12 +218,12 @@ namespace CourseManagement.DAL
             {
                 conn.Open();
                 var selectQuery =
-                    "SELECT grade_items.* FROM grade_items, grade_belongs_to_courses WHERE grade_items.grade_item_id = grade_belongs_to_courses.grade_item_id AND grade_belongs_to_courses.courses_CRN = @CRN AND student_uid = @studentId AND is_public = 1";
+                    "SELECT grade_defs.*, student_grade_items.* from grade_defs, student_grade_items WHERE student_grade_items.student_uid = @studentUIDCheck AND grade_defs.grade_def_id = student_grade_items.grade_def_id AND grade_defs.course_CRN = @CRNCheck AND grade_defs.is_public = 1";
                 var studentGetter = new StudentDAL();
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@CRN", CRNCheck);
-                    cmd.Parameters.AddWithValue("@studentId", studentUID);
+                    cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
+                    cmd.Parameters.AddWithValue("@studentUIDCheck", studentUIDCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         int studentUIDOrdinal = reader.GetOrdinal("student_uid");
@@ -227,6 +235,7 @@ namespace CourseManagement.DAL
                         int gradeItemIdOrdinal = reader.GetOrdinal("grade_item_id");
                         int isPublicOrdinal = reader.GetOrdinal("is_public");
                         int timeGradedOrdinal = reader.GetOrdinal("time_graded");
+                        int gradeDescriptionOrdinal = reader.GetOrdinal("grade_description");
 
                         while (reader.Read())
                         {
@@ -251,6 +260,9 @@ namespace CourseManagement.DAL
                             var gradeItemId = reader[gradeItemIdOrdinal] == DBNull.Value
                                 ? default(int)
                                 : reader.GetInt32(gradeItemIdOrdinal);
+                            var gradeDescription = reader[gradeDescriptionOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(gradeDescriptionOrdinal);
                             var isPublic = reader[isPublicOrdinal] != DBNull.Value && reader.GetBoolean(isPublicOrdinal);
                             DateTime? timeGraded = reader[gradeFeedbackOrdinal] == DBNull.Value ? default(DateTime) : reader.GetDateTime(timeGradedOrdinal);
                             if (timeGraded == DateTime.MinValue)
@@ -261,7 +273,8 @@ namespace CourseManagement.DAL
                             var currStudent = studentGetter.GetStudentByStudentID(studentUid);
 
                             var currGradedItem = new GradeItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
-                                gradeType, gradeItemId, isPublic, timeGraded);
+                                gradeType, gradeDescription, gradeItemId, isPublic, timeGraded);
+
                             grades.Add(currGradedItem);
                         }
 
@@ -287,16 +300,17 @@ namespace CourseManagement.DAL
             using (conn)
             {
                 conn.Open();
-                    GradeItem grade = new GradeItem(newItem.Name, currStudent, newItem.Grade, newItem.Feedback, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.TimeGraded);
+                    GradeItem grade = new GradeItem(newItem.Name, currStudent, newItem.Grade, newItem.Feedback, newItem.PossiblePoints, newItem.GradeType, newItem.Description, 0, newItem.IsPublic, newItem.TimeGraded);
                     var selectQuery =
-                        "UPDATE grade_items SET grade_earned_points=@grade_points, grade_feedback=@grade_feedback, time_graded=@time_graded WHERE student_uid = @studentUID AND grade_name = @grade_name";
+                        "UPDATE student_grade_items SET grade_earned_points=@grade_earned_points, grade_feedback=@grade_feedback, time_graded=@time_graded WHERE student_uid = @studentUID AND student_grade_items.grade_def_id = (SELECT grade_defs.grade_def_id FROM grade_defs WHERE grade_defs.grade_name = @grade_name AND grade_defs.course_CRN = @CRNCheck)";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@studentUID", studentUID);
-                        cmd.Parameters.AddWithValue("@grade_points", grade.Grade);
+                        cmd.Parameters.AddWithValue("@grade_earned_points", grade.Grade);
                         cmd.Parameters.AddWithValue("@grade_name", grade.Name);
                         cmd.Parameters.AddWithValue("@grade_feedback", grade.Feedback);
                         cmd.Parameters.AddWithValue("@time_graded", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@CRNCheck", CRN);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -312,38 +326,20 @@ namespace CourseManagement.DAL
         /// <param name="CRN">The CRN.</param>
         public void deleteGradedItemByCRNForAllStudents(GradeItem gradedItem, int CRN)
         {
-            StudentDAL studentGetter = new StudentDAL();
-            List<Student> students = studentGetter.GetStudentsByCRN(CRN);
-
-
             MySqlConnection conn = DbConnection.GetConnection();
 
             using (conn)
             {
                 conn.Open();
-                foreach (var t in students)
-                {
                     var selectQuery =
-                        "DELETE grade_items FROM grade_items INNER JOIN grade_belongs_to_courses ON grade_items.grade_item_id = grade_belongs_to_courses.grade_item_id WHERE grade_items.student_uid = @studentUID AND grade_belongs_to_courses.courses_CRN = @CRNCheck AND grade_items.grade_name = @grade_name";
+                        "DELETE grade_defs FROM grade_defs WHERE grade_defs.course_CRN = @CRNCheck AND grade_items.grade_name = @grade_name";
 
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
-                        cmd.Parameters.AddWithValue("@studentUID", t.StudentUID);
                         cmd.Parameters.AddWithValue("@grade_name", gradedItem.Name);
                         cmd.Parameters.AddWithValue("@CRNCheck", CRN);
                         cmd.ExecuteNonQuery();
                     }
-
-                    var query =
-                        "DELETE grade_belongs_to_courses FROM grade_belongs_to_courses WHERE grade_belongs_to_courses.grade_item_id = (SELECT grade_items.grade_item_id FROM grade_items WHERE grade_items.student_uid = @studentUID AND grade_items.grade_name = @gradeName) AND grade_belongs_to_courses.courses_CRN = @CRN";
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@studentUID", t.StudentUID);
-                        cmd.Parameters.AddWithValue("@gradeName", gradedItem.Name);
-                        cmd.Parameters.AddWithValue("@CRN", CRN);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
 
                 conn.Close();
             }
@@ -365,30 +361,33 @@ namespace CourseManagement.DAL
                 using (conn)
                 {
                     conn.Open();
-                    foreach (var t in students)
+                    //GradeItem grade = new GradeItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.TimeGraded);
+                    var selectQuery =
+                        "INSERT INTO grade_defs(grade_total_points, grade_description, grade_type, grade_name, is_public, course_CRN) VALUES (@grade_total_points,@grade_description,@grade_type,@grade_name,@is_public,@course_CRN)";
+                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
-                        GradeItem grade = new GradeItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.TimeGraded);
-                        var selectQuery =
-                            "INSERT INTO grade_items(student_uid, grade_total_points, grade_earned_points, grade_type, grade_name, grade_feedback, is_public) VALUES (@studentUID,@grade_total,@grade_points,@grade_type,@grade_name,@grade_feedback,@is_public)";
-                        using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@studentUID", grade.Student.StudentUID);
-                            cmd.Parameters.AddWithValue("@grade_total", grade.PossiblePoints);
-                            cmd.Parameters.AddWithValue("@grade_points", grade.Grade);
-                            cmd.Parameters.AddWithValue("@grade_type", grade.GradeType);
-                            cmd.Parameters.AddWithValue("@grade_name", grade.Name);
-                            cmd.Parameters.AddWithValue("@grade_feedback", grade.Feedback);
-                            cmd.Parameters.AddWithValue("@is_public", grade.IsPublic);
-                            cmd.ExecuteNonQuery();
-                        }
+                        cmd.Parameters.AddWithValue("@grade_total_points", newItem.PossiblePoints);
+                        cmd.Parameters.AddWithValue("@grade_description", newItem.Description);
+                        cmd.Parameters.AddWithValue("@grade_type", newItem.GradeType);
+                        cmd.Parameters.AddWithValue("@grade_name", newItem.Name);
+                        cmd.Parameters.AddWithValue("@grade_feedback", newItem.Feedback);
+                        cmd.Parameters.AddWithValue("@is_public", newItem.IsPublic);
+                        cmd.ExecuteNonQuery();
+                    }
+                foreach (var t in students)
+                    {
 
-                        var query =
-                            "INSERT INTO grade_belongs_to_courses (grade_item_id, courses_CRN) VALUES ((SELECT grade_items.grade_item_id FROM grade_items WHERE grade_items.student_uid = @studentUID AND grade_items.grade_name = @grade_name),@CRN)";
+                    GradeItem grade = new GradeItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, null, 0, newItem.IsPublic, newItem.TimeGraded);
+                    var query =
+                            "INSERT INTO student_grade_items (grade_def_id, student_uid, grade_earned_points,grade_feedback,time_graded) VALUES ((SELECT grade_defs.grade_def_id FROM grade_defs WHERE grade_defs.grade_name = @grade_name AND grade_defs.course_CRN = @CRNCheck),@studentUID,@grade_earned_points,@grade_feedback,@time_graded)";
                         using (MySqlCommand cmd = new MySqlCommand(query, conn))
                         {
                             cmd.Parameters.AddWithValue("@studentUID", grade.Student.StudentUID);
                             cmd.Parameters.AddWithValue("@grade_name", grade.Name);
-                            cmd.Parameters.AddWithValue("@CRN", CRN);
+                            cmd.Parameters.AddWithValue("@CRNCheck", CRN);
+                            cmd.Parameters.AddWithValue("@grade_earned_points", 0);
+                            cmd.Parameters.AddWithValue("@grade_feedback",null);
+                            cmd.Parameters.AddWithValue("@time_graded", null);
                             cmd.ExecuteNonQuery();
                         }
                 }
@@ -416,7 +415,7 @@ namespace CourseManagement.DAL
                 conn.Open();
                 foreach (var t in students)
                 {
-                    GradeItem grade = new GradeItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, 0, newItem.IsPublic, newItem.TimeGraded);
+                    GradeItem grade = new GradeItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, newItem.Description, 0, newItem.IsPublic, newItem.TimeGraded);
                     var selectQuery =
                         "UPDATE grade_items SET grade_total_points=@grade_total, grade_type=@grade_type, grade_name=@grade_newname, is_public=@is_public WHERE student_uid = @studentUID AND grade_name = @grade_oldname";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
@@ -433,7 +432,7 @@ namespace CourseManagement.DAL
                 conn.Close();
             }
         }
-
+        //TODO fix from here down
         public void PublishGradeItemByNameAndCRNForAllStudents(int CRN, string name, bool isPublic)
         {
             StudentDAL studentGetter = new StudentDAL();

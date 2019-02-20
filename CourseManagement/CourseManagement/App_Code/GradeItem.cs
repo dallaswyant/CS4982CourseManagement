@@ -38,6 +38,7 @@ namespace CourseManagement.App_Code
         /// Gets or sets a value indicating whether this instance is public.
         /// </summary>
         public bool IsPublic { get; set; }
+        public string Description { get; set; }
         /// <summary>
         /// Gets or sets a value indicating whether this instance is graded.
         /// </summary>
@@ -58,7 +59,7 @@ namespace CourseManagement.App_Code
         /// <param name="gradeType">the grade type</param>
         /// <param name="gradeId">the grade id</param>
         public GradeItem(string name, Student student,double grade,
-            string feedBack, double possiblePoints, string gradeType, int gradeId, bool isPublic, DateTime? timeGraded)
+            string feedBack, double possiblePoints, string gradeType, string gradeDescription, int gradeId, bool isPublic, DateTime? timeGraded)
         {
             this.Name = name;
             this.Student = student;
@@ -66,6 +67,7 @@ namespace CourseManagement.App_Code
             this.Feedback = feedBack;
             this.PossiblePoints = possiblePoints;
             this.GradeType = gradeType;
+            this.Description = gradeDescription;
             this.GradeId = gradeId;
             this.IsPublic = isPublic;
             this.TimeGraded = timeGraded;
