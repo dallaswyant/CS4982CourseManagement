@@ -31,7 +31,7 @@ namespace CourseManagement
                 this.currentCourse = HttpContext.Current.Session["CurrentCourse"] as Course;
                 this.GradeDAL = new GradeItemDAL();
                 var RubricDAL = new CourseRubricDAL();
-                RubricDAL.GetCourseRubricByCRN(this.currentCourse.CourseInfo.CRN);
+                RubricDAL.GetCourseRubricByCRN(this.currentCourse.CRN);
             }
         }
 
@@ -105,7 +105,7 @@ namespace CourseManagement
             }
             
                 
-            this.GradeDAL.UpdateGradeItemByCRNAndOldNameForAllStudents(item, this.currentCourse.CourseInfo.CRN,
+            this.GradeDAL.UpdateGradeItemByCRNAndOldNameForAllStudents(item, this.currentCourse.CRN,
                 this.currentGradedItem.Name);
         }
 
@@ -115,7 +115,7 @@ namespace CourseManagement
             var possiblePoints = Convert.ToInt32(this.tbxPossiblePoints.Text);
             var gradeType = this.ddlAssignmentType.SelectedValue;
             GradeItem item = new GradeItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0, false, null);
-            this.GradeDAL.deleteGradedItemByCRNForAllStudents(item, this.currentCourse.CourseInfo.CRN);
+            this.GradeDAL.deleteGradedItemByCRNForAllStudents(item, this.currentCourse.CRN);
             HttpContext.Current.Session["CurrentGradedItem"] = null;
             HttpContext.Current.Session["editing"] = null;
 

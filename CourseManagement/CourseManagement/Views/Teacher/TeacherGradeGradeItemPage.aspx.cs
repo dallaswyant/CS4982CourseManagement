@@ -59,7 +59,7 @@ namespace CourseManagement
                 TeacherDAL teacherDAL = new TeacherDAL();
                 Teacher teacher = teacherDAL.GetTeacherByTeacherID(user.UserId);
                 var course = HttpContext.Current.Session["CurrentCourse"] as Course;
-                this.lblCourse.Text = course.CourseInfo.Name;
+                this.lblCourse.Text = course.Name;
                 this.lblTeacher.Text = teacher.Name;
                 this.lblEmail.Text = teacher.Email;
                 double.TryParse(TextBox2.Text, out this.workingGrade);
@@ -75,7 +75,7 @@ namespace CourseManagement
         private void populateStudentDDL(StudentDAL studentDAL)
         {
             var course =(Course) HttpContext.Current.Session["CurrentCourse"];
-            var crn = course.CourseInfo.CRN;
+            var crn = course.CRN;
             var students = studentDAL.GetStudentsByCRN(crn);
             int counter = 0;
             int index = 0;
@@ -101,7 +101,7 @@ namespace CourseManagement
             this.ddlAssignmentNames.Items.Clear();
             this.ddlAssignmentNames.Items.Add(new ListItem("Assignment Name"));
             var course = (Course)HttpContext.Current.Session["CurrentCourse"];
-            var gradedItems = gradeItemDAL.GetGradedItemsByStudentId(this.ddlStudentNames.SelectedValue,course.CourseInfo.CRN);
+            var gradedItems = gradeItemDAL.GetGradedItemsByStudentId(this.ddlStudentNames.SelectedValue,course.CRN);
             int count = 0;
 
             foreach (var item in gradedItems)
@@ -124,7 +124,7 @@ namespace CourseManagement
         protected void ddlAssignmentNames_SelectedIndexChanged(object sender, EventArgs e)
         {
             var course = (Course)HttpContext.Current.Session["CurrentCourse"];
-            var gradedItems = gradeItemDAL.GetGradedItemsByStudentId(this.ddlStudentNames.SelectedValue, course.CourseInfo.CRN);
+            var gradedItems = gradeItemDAL.GetGradedItemsByStudentId(this.ddlStudentNames.SelectedValue, course.CRN);
             int.TryParse(this.ddlAssignmentNames.SelectedValue, out int itemId);
             var totalPoints = 0.0;
             GradeItem currGradedItem = null;
@@ -173,7 +173,7 @@ namespace CourseManagement
                 Name = this.currentGrade.Name
             };
             var course = (Course) HttpContext.Current.Session["CurrentCourse"];
-            var crn = course.CourseInfo.CRN;
+            var crn = course.CRN;
 
             this.gradeItemDAL.gradeGradedItemByCRNAndStudentUID(updatedGrade, crn, this.ddlStudentNames.SelectedValue);
             this.currentGrade.Grade = this.workingGrade;
