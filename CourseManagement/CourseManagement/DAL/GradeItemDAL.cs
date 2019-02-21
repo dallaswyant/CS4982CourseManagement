@@ -42,7 +42,7 @@ namespace CourseManagement.DAL
                         int gradeNameOrdinal = reader.GetOrdinal("grade_name");
                         int gradeFeedbackOrdinal = reader.GetOrdinal("grade_feedback");
                         int gradeDescriptionOrdinal = reader.GetOrdinal("grade_description");
-                        int gradeItemIdOrdinal = reader.GetOrdinal("grade_item_id");
+                        int gradeItemIdOrdinal = reader.GetOrdinal("grade_def_id");
                         int isPublicOrdinal = reader.GetOrdinal("is_public");
                         int timeGradedOrdinal = reader.GetOrdinal("time_graded");
 
@@ -158,7 +158,7 @@ namespace CourseManagement.DAL
                         int gradeTypeOrdinal = reader.GetOrdinal("grade_type");
                         int gradeNameOrdinal = reader.GetOrdinal("grade_name");
                         int gradeFeedbackOrdinal = reader.GetOrdinal("grade_feedback");
-                        int gradeItemIdOrdinal = reader.GetOrdinal("grade_item_id");
+                        int gradeItemIdOrdinal = reader.GetOrdinal("grade_def_id");
                         int isPublicOrdinal = reader.GetOrdinal("is_public");
                         int timeGradedOrdinal = reader.GetOrdinal("time_graded");
                         int gradeDescriptionOrdinal = reader.GetOrdinal("grade_description");
@@ -232,7 +232,7 @@ namespace CourseManagement.DAL
                         int gradeTypeOrdinal = reader.GetOrdinal("grade_type");
                         int gradeNameOrdinal = reader.GetOrdinal("grade_name");
                         int gradeFeedbackOrdinal = reader.GetOrdinal("grade_feedback");
-                        int gradeItemIdOrdinal = reader.GetOrdinal("grade_item_id");
+                        int gradeItemIdOrdinal = reader.GetOrdinal("grade_def_id");
                         int isPublicOrdinal = reader.GetOrdinal("is_public");
                         int timeGradedOrdinal = reader.GetOrdinal("time_graded");
                         int gradeDescriptionOrdinal = reader.GetOrdinal("grade_description");
@@ -332,7 +332,7 @@ namespace CourseManagement.DAL
             {
                 conn.Open();
                     var selectQuery =
-                        "DELETE grade_defs FROM grade_defs WHERE grade_defs.course_CRN = @CRNCheck AND grade_items.grade_name = @grade_name";
+                        "DELETE grade_defs FROM grade_defs WHERE grade_defs.course_CRN = @CRNCheck AND grade_defs.grade_name = @grade_name";
 
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
@@ -404,60 +404,49 @@ namespace CourseManagement.DAL
         /// <param name="oldgradename">The oldgradename.</param>
         public void UpdateGradeItemByCRNAndOldNameForAllStudents(GradeItem newItem,int CRN, string oldgradename)
         {
-            StudentDAL studentGetter = new StudentDAL();
-            List<Student> students = studentGetter.GetStudentsByCRN(CRN);
-
+            
 
             MySqlConnection conn = DbConnection.GetConnection();
 
             using (conn)
             {
                 conn.Open();
-                foreach (var t in students)
-                {
-                    GradeItem grade = new GradeItem(newItem.Name, t, 0.0, null, newItem.PossiblePoints, newItem.GradeType, newItem.Description, 0, newItem.IsPublic, newItem.TimeGraded);
+                
                     var selectQuery =
-                        "UPDATE grade_items SET grade_total_points=@grade_total, grade_type=@grade_type, grade_name=@grade_newname, is_public=@is_public WHERE student_uid = @studentUID AND grade_name = @grade_oldname";
+                        "UPDATE grade_defs SET grade_total_points=@grade_total, grade_type=@grade_type, grade_description = @grade_description grade_name=@grade_newname, is_public=@is_public WHERE grade_name = @grade_oldname AND course_CRN = @CRNCheck";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
-                        cmd.Parameters.AddWithValue("@studentUID", grade.Student.StudentUID);
-                        cmd.Parameters.AddWithValue("@grade_total", grade.PossiblePoints);
-                        cmd.Parameters.AddWithValue("@grade_type", grade.GradeType);
-                        cmd.Parameters.AddWithValue("@is_public", grade.IsPublic);
-                        cmd.Parameters.AddWithValue("@grade_newname", grade.Name);
+                        cmd.Parameters.AddWithValue("@grade_total", newItem.PossiblePoints);
+                        cmd.Parameters.AddWithValue("@grade_type", newItem.GradeType);
+                        cmd.Parameters.AddWithValue("@is_public", newItem.IsPublic);
+                        cmd.Parameters.AddWithValue("@grade_newname", newItem.Name);
+                        cmd.Parameters.AddWithValue("@grade_description", newItem.Description);
                         cmd.Parameters.AddWithValue("@grade_oldname", oldgradename);
                         cmd.ExecuteNonQuery();
                     }
-                }
+                
                 conn.Close();
             }
         }
-        //TODO fix from here down
         public void PublishGradeItemByNameAndCRNForAllStudents(int CRN, string name, bool isPublic)
         {
-            StudentDAL studentGetter = new StudentDAL();
-            List<Student> students = studentGetter.GetStudentsByCRN(CRN);
-
-
             MySqlConnection conn = DbConnection.GetConnection();
 
             using (conn)
             {
                 conn.Open();
-                foreach (var t in students)
-                {
+
                     var selectQuery =
-                        "UPDATE grade_items SET is_public=@is_public WHERE student_uid = @studentUID AND grade_name = @grade_name";
+                        "UPDATE grade_defs SET is_public=@is_public WHERE grade_name = @grade_name AND course_CRN = @CRNCheck";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
-                        cmd.Parameters.AddWithValue("@studentUID", t.StudentUID);
+                        cmd.Parameters.AddWithValue("@CRNCheck", CRN);
                         cmd.Parameters.AddWithValue("@is_public", isPublic);
                         cmd.Parameters.AddWithValue("@grade_name", name);
                         cmd.ExecuteNonQuery();
                     }
-                }
-                conn.Close();
-            }
+                
+             }
         }
 
         public bool getPublicStatusByCRNandGradeName(int CRN, string name)
@@ -468,11 +457,11 @@ namespace CourseManagement.DAL
             {
                 conn.Open();
                 var selectQuery =
-                    "SELECT DISTINCT grade_items.is_public From grade_items, grade_belongs_to_courses WHERE grade_belongs_to_courses.courses_CRN = @CRN AND grade_name = @grade_name";
+                    "SELECT grade_defs.is_public From grade_defs WHERE grade_defs.course_CRN = @CRNCheck AND grade_defs.grade_name = @grade_name";
                 var studentGetter = new StudentDAL();
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@CRN", CRN);
+                    cmd.Parameters.AddWithValue("@CRNCheck", CRN);
                     cmd.Parameters.AddWithValue("@grade_name", name);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -507,7 +496,7 @@ namespace CourseManagement.DAL
             {
                 conn.Open();
                 var selectQuery =
-                    "SELECT * FROM grade_items,grade_belongs_to_courses WHERE grade_items.grade_item_id = grade_belongs_to_courses.grade_item_id AND grade_belongs_to_courses.courses_CRN = @CRNCheck AND grade_name = @grade_name";
+                    "SELECT * FROM grade_defs,student_grade_items WHERE grade_defs.course_CRN = @CRNCheck AND grade_name = @grade_name";
                 var studentGetter = new StudentDAL();
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
@@ -516,11 +505,12 @@ namespace CourseManagement.DAL
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         int studentIdOrdinal = reader.GetOrdinal("student_uid");
+                        int gradeDescriptionOrdinal = reader.GetOrdinal("grade_description");
                         int totalPointsOrdinal = reader.GetOrdinal("grade_total_points");
                         int gradeEarnedOrdinal = reader.GetOrdinal("grade_earned_points");
                         int gradeTypeOrdinal = reader.GetOrdinal("grade_type");
                         int gradeFeedbackOrdinal = reader.GetOrdinal("grade_feedback");
-                        int gradeItemIdOrdinal = reader.GetOrdinal("grade_item_id");
+                        int gradeItemIdOrdinal = reader.GetOrdinal("grade_def_id");
                         int isPublicOrdinal = reader.GetOrdinal("is_public");
                         int timeGradedOrdinal = reader.GetOrdinal("time_graded");
 
@@ -529,6 +519,9 @@ namespace CourseManagement.DAL
                             var studentUID = reader[studentIdOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(studentIdOrdinal);
+                            var gradeDescription = reader[gradeDescriptionOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(gradeDescriptionOrdinal);
                             var totalPoints = reader[totalPointsOrdinal] == DBNull.Value
                                 ? default(int)
                                 : reader.GetInt32(totalPointsOrdinal);
@@ -553,7 +546,7 @@ namespace CourseManagement.DAL
                             var currStudent = studentGetter.GetStudentByStudentID(studentUID);
 
                             var currGradedItem = new GradeItem(gradeName, currStudent, gradeEarned, gradeFeedback, totalPoints,
-                                gradeType, gradeItemId, isPublic, timeGraded);
+                                gradeType, gradeDescription, gradeItemId, isPublic, timeGraded);
                             grades.Add(currGradedItem);
                         }
 

@@ -11,7 +11,6 @@ namespace CourseManagement.DAL
     [DataObject(true)]
     public class DepartmentAdminDAL
     {
-       
         public Department GetDepartmentByUserID(string userID)
         {
                 MySqlConnection conn = DbConnection.GetConnection();
@@ -61,7 +60,6 @@ namespace CourseManagement.DAL
         }
 
 
-
         //Add new course
         //INSERT INTO courses (dept_name, course_name, section_num, credit_hours, seats_max, location) VALUES (@dept_name, @course_name, @section_num, @credit_hours, @seats_max, @location)
         //THEN
@@ -77,16 +75,17 @@ namespace CourseManagement.DAL
                     
                     
                     var selectQuery =
-                        "INSERT INTO courses (dept_name, course_name, section_num, credit_hours, seats_max, location) VALUES (@dept_name, @course_name, @section_num, @credit_hours, @seats_max, @location)";
+                        "INSERT INTO courses (dept_name, course_name, course_description, section_num, credit_hours, seats_max, location, semester_name) VALUES (@dept_name, @course_name, @section_num, @credit_hours, @seats_max, @location)";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
                         cmd.Parameters.AddWithValue("@dept_name",departmentName);
                         cmd.Parameters.AddWithValue("@course_name", newCourse.Name);
+                        cmd.Parameters.AddWithValue("@course_description", newCourse.Description);
                         cmd.Parameters.AddWithValue("@section_num", newCourse.SectionNumber);
                         cmd.Parameters.AddWithValue("@credit_hours", newCourse.CreditHours);
                         cmd.Parameters.AddWithValue("@seats_max", maxSeats);
                         cmd.Parameters.AddWithValue("@location", newCourse.Location);
-                        //cmd.Parameters.AddWithValue("@semester_id", newCourse.CourseInfo.);
+                        cmd.Parameters.AddWithValue("@semester_name", newCourse.SemesterID);
                         cmd.ExecuteNonQuery();
                     }
 
@@ -138,7 +137,7 @@ namespace CourseManagement.DAL
         }
         //Edit course
         //UPDATE courses SET (course_name=@course_name, section_num=@section_num, credit_hours=@credit_hours, seats_max=@seats_max, location=@location, semester_id=@semester_id) WHERE CRN = @CRN;
-        public void UpdateCourse(Course course, int maxSeats)
+        public void UpdateCourse(Course course)
         {
             MySqlConnection conn = DbConnection.GetConnection();
 
@@ -147,16 +146,17 @@ namespace CourseManagement.DAL
                 conn.Open();
                     
                     var selectQuery =
-                        "UPDATE courses SET (course_name=@course_name, section_num=@section_num, credit_hours=@credit_hours, seats_max=@seats_max, location=@location) WHERE CRN = @CRN";
+                        "UPDATE courses SET (course_name=@course_name, section_num=@section_num, course_description = @course_description, credit_hours=@credit_hours, seats_max=@seats_max, location=@location, semester_name = @semester_name) WHERE CRN = @CRN";
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@course_name", course.Name);
                     cmd.Parameters.AddWithValue("@section_num", course.SectionNumber);
+                    cmd.Parameters.AddWithValue("@course_description", course.Description);
                     cmd.Parameters.AddWithValue("@credit_hours", course.CreditHours);
-                    cmd.Parameters.AddWithValue("@seats_max", maxSeats);
+                    cmd.Parameters.AddWithValue("@seats_max", course.MaxSeats);
                     cmd.Parameters.AddWithValue("@location", course.Location);
                     cmd.Parameters.AddWithValue("@CRN", course.CRN);
-                    //cmd.Parameters.AddWithValue("@semester_id", newCourse.CourseInfo.);
+                    cmd.Parameters.AddWithValue("@semester_name", course.SemesterID);
                     cmd.ExecuteNonQuery();
                 }
 
