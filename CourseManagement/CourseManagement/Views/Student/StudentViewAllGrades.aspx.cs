@@ -33,7 +33,15 @@ namespace CourseManagement.Views
             double overallGrade = computeOverallGrade(rubric, grades);
             var ctlGrade = this.gvwCourses.Rows[0].FindControl("lblGrade");
             Label gradeLabel = (Label) ctlGrade;
-            gradeLabel.Text = overallGrade.ToString();
+            try
+            {
+                gradeLabel.Text = overallGrade.ToString();
+            }
+            catch (Exception)
+            {
+
+            }
+            
 
         }
 

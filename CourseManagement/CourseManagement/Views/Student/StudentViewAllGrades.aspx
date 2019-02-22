@@ -43,6 +43,11 @@
                         <asp:BoundField DataField="DepartmentName" HeaderText="DepartmentName" ReadOnly="True" SortExpression="DepartmentName" />
                         <asp:BoundField DataField="MaxSeats" HeaderText="MaxSeats" ReadOnly="True" SortExpression="MaxSeats" />
                         <asp:BoundField DataField="SemesterID" HeaderText="SemesterID" ReadOnly="True" SortExpression="SemesterID" />
+                        <asp:TemplateField HeaderText="Overall Grade">
+                            <ItemTemplate>
+                                <asp:Label ID="lblGrade" runat="server" ></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
                 <asp:ObjectDataSource ID="odsCourseDetails" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByCRN" TypeName="CourseManagement.DAL.CourseDAL">
