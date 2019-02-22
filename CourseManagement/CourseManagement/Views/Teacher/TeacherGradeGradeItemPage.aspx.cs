@@ -234,13 +234,12 @@ namespace CourseManagement
         protected void savebtn_OnClick(object sender, EventArgs e)
         {
             this.gradeGradeItem();
-            
-
+            this.showNextStudent();
         }
 
         protected void continuebtn_OnClick(object sender, EventArgs e)
         {
-            showNextStudent();
+            this.showNextStudent();
         }
 
         #endregion
