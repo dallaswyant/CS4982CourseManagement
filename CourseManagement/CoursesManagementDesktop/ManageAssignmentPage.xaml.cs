@@ -12,28 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CourseManagement.App_Code;
-using CourseManagement.DAL;
 
 namespace CoursesManagementDesktop
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ManageAssignmentPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ManageAssignmentPage : Page
     {
-        
-        public MainWindow()
+        public ManageAssignmentPage()
         {
             InitializeComponent();
-            LoginPage home = new LoginPage();
-
-            //This is for Testing purposes
-            ManageAssignmentPage page = new ManageAssignmentPage(); 
-            
-            this.myFrame.NavigationService.Navigate(home);
         }
 
-        
+       
     }
 }
