@@ -27,6 +27,7 @@
         <ComboBox Name="AssignmentCombo"   Grid.Column="3" Margin="9.8,1.2,9.2,4" Grid.Row="2" SelectionChanged="AssignmentCombo_SelectionChanged"/>
         <Label Content="Assignment" Grid.Column="3" Margin="9.8,25,9.2,0.8"/>
         <ComboBox Name="CourseCombo" Margin="9.6,0.2,9.8,5" Grid.Row="2" Grid.Column="1"/>
+        <Button Name="logoutButton" Content="sign out" Grid.Column="4" HorizontalAlignment="Left" Margin="9.8,20,0,0" VerticalAlignment="Top" Width="75" Click="LogoutButton_Click"/>
 
     </Grid>
 </Page>

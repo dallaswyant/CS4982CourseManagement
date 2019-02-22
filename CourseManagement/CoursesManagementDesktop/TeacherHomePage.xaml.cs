@@ -95,5 +95,12 @@ namespace CoursesManagementDesktop
             
             return crn;
         }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoginPage page = new LoginPage();
+            var navigationService = this.NavigationService;
+            navigationService?.Navigate(page);
+        }
     }
 }
