@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL
 {
-    public class PersonalnfoDAL
+    public class PersonallnfoDAL
     {
         public PersonalInfo GetPersonalInfoFromUserID(string uid)
         {

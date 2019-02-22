@@ -29,7 +29,7 @@ namespace CourseManagementUnitTests.Models
         {
             Student billy = new Student("student", "Billy", "billy@billy.com");
 
-            Assert.AreEqual(billy.ToString(), "Billy");
+           
         }
 
         /// <summary>

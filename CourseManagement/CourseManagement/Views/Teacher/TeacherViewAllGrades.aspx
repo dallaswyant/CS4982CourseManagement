@@ -62,7 +62,7 @@
                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Student") %>'></asp:TextBox>
                 </EditItemTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("Student.StudentUID") %>'></asp:Label>
+                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("Student.Name") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:BoundField HeaderText="Grade" DataField="Grade" ReadOnly="True" SortExpression="Grade"/>

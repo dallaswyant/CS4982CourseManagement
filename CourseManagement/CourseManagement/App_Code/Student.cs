@@ -1,4 +1,8 @@
-﻿namespace CourseManagement.App_Code
+﻿
+
+using CourseManagement.DAL;
+
+namespace CourseManagement.App_Code
 {
     public class Student
     {
@@ -28,6 +32,16 @@
         ///   The classification.
         /// </value>
         public string Classification { get; }
+
+        public string Name
+        {
+            get
+            {
+                PersonallnfoDAL infoGetter = new PersonallnfoDAL();
+                return infoGetter.GetPersonalInfoFromUserID(StudentUID).FName + " " + infoGetter.GetPersonalInfoFromUserID(StudentUID).LName;
+                //TODO figure out why cant store this in personalInfo object?
+            }
+        }
 
         #endregion
 

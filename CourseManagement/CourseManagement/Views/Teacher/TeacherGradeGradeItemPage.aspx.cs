@@ -87,7 +87,7 @@ namespace CourseManagement
                     index = counter;
                 }
 
-                PersonalnfoDAL infoGetter = new PersonalnfoDAL();
+                PersonallnfoDAL infoGetter = new PersonallnfoDAL();
                 PersonalInfo personalInfo = infoGetter.GetPersonalInfoFromUserID(student.StudentUID);
                 this.ddlStudentNames.Items.Add(new ListItem(personalInfo.FName + " " + personalInfo.LName, student.StudentUID));
 
