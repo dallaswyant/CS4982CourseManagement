@@ -218,7 +218,7 @@ namespace CourseManagement.DAL
         /// <param name="original_Index">Index of the original.</param>
         /// <param name="original_Crn">The original CRN.</param>
         [DataObjectMethod(DataObjectMethodType.Delete)]
-        public void DeleteCourseRubric(int crn, string assignmentType, int assignmentWeight, string original_AssignmentType, int original_AssignmentWeight, int index, int original_Index, int original_Crn)
+        public bool DeleteCourseRubric(int crn, string assignmentType, int assignmentWeight, string original_AssignmentType, int original_AssignmentWeight, int index, int original_Index, int original_Crn)
         {
            
             RubricItem item =  HttpContext.Current.Session["RubricItemToDelete"] as RubricItem;
@@ -233,14 +233,11 @@ namespace CourseManagement.DAL
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@type_to_check", item.AssignmentType);
-                    cmd.Parameters.AddWithValue("@CRNCheck", crn);
+                    cmd.Parameters.AddWithValue("@CRNCheck", original_Crn);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-
-                        int assignmentTypesOrdinal = reader.GetOrdinal("assignment_types");
-                        int weightPerTypeOrdinal = reader.GetOrdinal("weight_per_type");
-                        int rubricIDOrdinal = reader.GetOrdinal("rubric_id");
-
+                        int totalPointsOrdinal = reader.GetOrdinal("grade_total_points");
+                        int gradeTypeOrdinal = reader.GetOrdinal("grade_type");
                         if (reader.Read())
                         {
                             canDelete = false;
@@ -303,6 +300,8 @@ namespace CourseManagement.DAL
                     conn.Close();
                 }
             }
+
+            return canDelete;
         }
 
 
