@@ -84,7 +84,7 @@ namespace CourseManagement
             var assignmentName = this.tbxAssignmentName.Text;
             var possiblePoints = Convert.ToInt32(this.tbxPossiblePoints.Text);
             var gradeType = this.ddlAssignmentType.SelectedValue;
-            GradeItem item = new GradeItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0, this.cbxIsVisible.Checked, null);
+            GradeItem item = new GradeItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, String.Empty, 0, this.cbxIsVisible.Checked, null);
             this.GradeDAL.InsertNewGradedItemByCRNForAllStudents(item, int.Parse(this.ddlCourses.SelectedValue));
         }
 
@@ -97,11 +97,11 @@ namespace CourseManagement
             if (HttpContext.Current.Session["CurrentGradedItem"] != null && HttpContext.Current.Session["editing"] != null)
             {
                 this.currentGradedItem = HttpContext.Current.Session["CurrentGradedItem"] as GradeItem;
-                item = new GradeItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0, this.cbxIsVisible.Checked, this.currentGradedItem.TimeGraded);
+                item = new GradeItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, String.Empty, 0, this.cbxIsVisible.Checked, this.currentGradedItem.TimeGraded);
             }
             else
             {
-                item = new GradeItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0, this.cbxIsVisible.Checked, null);
+                item = new GradeItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, String.Empty, 0, this.cbxIsVisible.Checked, null);
             }
             
                 
@@ -114,7 +114,7 @@ namespace CourseManagement
             var assignmentName = this.tbxAssignmentName.Text;
             var possiblePoints = Convert.ToInt32(this.tbxPossiblePoints.Text);
             var gradeType = this.ddlAssignmentType.SelectedValue;
-            GradeItem item = new GradeItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, 0, false, null);
+            GradeItem item = new GradeItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, String.Empty, 0, false, null);
             this.GradeDAL.deleteGradedItemByCRNForAllStudents(item, this.currentCourse.CRN);
             HttpContext.Current.Session["CurrentGradedItem"] = null;
             HttpContext.Current.Session["editing"] = null;

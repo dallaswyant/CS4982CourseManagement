@@ -26,7 +26,7 @@ namespace CourseManagement.DAL
             {
                 conn.Open();
                 var selectQuery =
-                    "SELECT `users`.`uid`, `users`.password, `users`.personal_info_id, `roles`.role_name  FROM `users`, `user_has_role`, `roles` WHERE `users`.`uid` = `user_has_role`.user_uid AND `user_has_role`.`roles_role_id` = `roles`.role_id AND users.uid = @username";
+                    "SELECT `users`.`uid`, `users`.password, `roles`.role_name  FROM `users`, `user_has_role`, `roles` WHERE `users`.`uid` = `user_has_role`.user_uid AND `user_has_role`.`roles_role_id` = `roles`.role_id AND users.uid = @username";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
@@ -36,7 +36,6 @@ namespace CourseManagement.DAL
                         int unameOrdinal = reader.GetOrdinal("uid");
                         int pwordOrdinal = reader.GetOrdinal("password");
                         int roleOrdinal = reader.GetOrdinal("role_name");
-                        int personalInfoOrdinal = reader.GetOrdinal("personal_info_id");
 
                         while (reader.Read())
                         {
@@ -47,13 +46,10 @@ namespace CourseManagement.DAL
                                 ? default(string)
                                 : reader.GetString(pwordOrdinal);
                             var decryptedpassword = Encrypter.Decrypt(foundpassword, "raspberryberet");
-                            var personalInfoID = reader[personalInfoOrdinal] == DBNull.Value
-                                ? default(int)
-                                : reader.GetInt32(personalInfoOrdinal);
                             var foundrole = reader[roleOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(roleOrdinal);
-                            var foundUser = new User(foundusername, decryptedpassword, foundrole, personalInfoID);
+                            var foundUser = new User(foundusername, decryptedpassword, foundrole);
                             return foundUser;
                         }
                     }
