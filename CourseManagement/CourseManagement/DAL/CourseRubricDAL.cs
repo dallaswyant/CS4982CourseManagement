@@ -184,7 +184,7 @@ namespace CourseManagement.DAL
                     cmd.Parameters.AddWithValue("@CRN", CRN);
                     cmd.ExecuteNonQuery();
                 }
-
+                /**
                 StudentDAL studentGetter = new StudentDAL();
                 List<Student> students = studentGetter.GetStudentsByCRN(CRN);
                 foreach (var student in students)
@@ -199,7 +199,7 @@ namespace CourseManagement.DAL
                         cmd.Parameters.AddWithValue("@studentUID", student.StudentUID);
                         cmd.ExecuteNonQuery();
                     }
-                }
+                } */
                 conn.Close();
             }
         }
