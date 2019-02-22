@@ -22,22 +22,21 @@ namespace CoursesManagementDesktop.DAL
             using (conn)
             {
                 conn.Open();
-                var selectQuery =
-                    "SELECT  name As \"Student Name\" ,grade_earned_points as \"Points Earned\",grade_total_points as \"Possible Points\",grade_feedback as \"FeedBack\",grade_name as \"Assignment Name\" FROM grade_items,grade_belongs_to_courses,students WHERE grade_items.grade_item_id = grade_belongs_to_courses.grade_item_id And students.uid = grade_items.student_uid   AND grade_belongs_to_courses.courses_CRN = @CRNCheck AND grade_name = @grade_name";
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
-                    cmd.Parameters.AddWithValue("@grade_name", gradeName);
+                //var selectQuery =     "Select Concat(fname," ", lname) as name, student_grade_items.grade_earned_points, grade_defs.grade_total_points,grade_type,student_grade_items.grade_feedback FROM personal_info,student_grade_items,grade_defs,students WHERE personal_info.uid = students.uid AND student_grade_items.student_uid = students.uid AND grade_defs.grade_def_id = student_grade_items.grade_def_id AND grade_defs.course_CRN = @CRNCheck";
+                //using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                //{
+                //    cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
+                //    cmd.Parameters.AddWithValue("@grade_name", gradeName);
 
                     
-                    cmd.ExecuteNonQuery();
+                //    cmd.ExecuteNonQuery();
 
-                    MySqlDataAdapter dataAdapter = new MySqlDataAdapter(cmd);
-                    DataTable dt = new DataTable("Student Grades");
-                    dataAdapter.Fill(dt);
-                    grid.ItemsSource = dt.DefaultView;
-                    conn.Close();
-                }
+                //    MySqlDataAdapter dataAdapter = new MySqlDataAdapter(cmd);
+                //    DataTable dt = new DataTable("Student Grades");
+                //    dataAdapter.Fill(dt);
+                //    grid.ItemsSource = dt.DefaultView;
+                //    conn.Close();
+                //}
             }
         }
     }
