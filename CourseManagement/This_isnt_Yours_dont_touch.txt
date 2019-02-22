@@ -12,3 +12,4 @@ input.addEventListener("keyup", function(event) {
   }
 });
 This is for enter button on dialouges, please dont touch
+Okay I won't touch it.
