@@ -58,6 +58,15 @@ namespace CourseManagement.Views {
         protected global::System.Web.UI.WebControls.Label lblWarning;
         
         /// <summary>
+        /// lblDeleted control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDeleted;
+        
+        /// <summary>
         /// dvwAddGradeItem control.
         /// </summary>
         /// <remarks>

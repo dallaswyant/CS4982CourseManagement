@@ -19,7 +19,7 @@
             <asp:CommandField ShowDeleteButton="True" />
         </Columns>
     </asp:GridView>
-    <asp:ObjectDataSource ID="odsRubricItems" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseRubricByCRN" TypeName="CourseManagement.DAL.CourseRubricDAL" UpdateMethod="UpdateCourseRubric" DeleteMethod="DeleteCourseRubric" InsertMethod="InsertCourseRubric" ConflictDetection="CompareAllValues">
+    <asp:ObjectDataSource ID="odsRubricItems" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseRubricByCRN" TypeName="CourseManagement.DAL.CourseRubricDAL" UpdateMethod="UpdateCourseRubric" DeleteMethod="DeleteCourseRubric" InsertMethod="InsertCourseRubric" ConflictDetection="CompareAllValues" OnDeleted="odsRubricItems_Deleted">
         <DeleteParameters>
             <asp:Parameter Name="CRN" Type="Int32" />
             <asp:Parameter Name="assignmentType" Type="String" />
@@ -51,6 +51,8 @@
         </UpdateParameters>
     </asp:ObjectDataSource>
     <asp:Label runat="server" ID="lblWarning"></asp:Label>
+    <br />
+    <asp:Label ID="lblDeleted" runat="server"></asp:Label>
     <asp:DetailsView ID="dvwAddGradeItem" runat="server" Width="500px" AutoGenerateRows="False" DataSourceID="odsRubricItems" DefaultMode="Insert" CssClass="table" OnItemInserted="dvwAddGradeItem_ItemInserted" OnItemInserting="dvwAddGradeItem_ItemInserting">
         <Fields>
             <asp:TemplateField HeaderText="AssignmentType" SortExpression="AssignmentType">

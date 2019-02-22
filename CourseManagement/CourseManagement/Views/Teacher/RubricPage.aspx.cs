@@ -40,6 +40,13 @@ namespace CourseManagement.Views
                 this.lblWarning.ForeColor = ColorTranslator.FromHtml("#009900"); 
             }
             HttpContext.Current.Session["CRN"] = int.Parse(this.ddlCourse.SelectedValue);
+            if (HttpContext.Current.Session["AttemptedDelete"] != null)
+            {
+                var deletedText = HttpContext.Current.Session["DeletedText"] as string;
+                this.lblDeleted.Text = deletedText;
+                HttpContext.Current.Session["AttemptedDelete"] = null;
+                HttpContext.Current.Session["DeletedText"] = null;
+            }
         }
 
        
@@ -84,6 +91,19 @@ namespace CourseManagement.Views
         protected void dvwAddGradeItem_ItemInserting(object sender, DetailsViewInsertEventArgs e)
         {
             Validate("Insert");
+        }
+
+        protected void odsRubricItems_Deleted(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            HttpContext.Current.Session["AttemptedDelete"] = true;
+            if ((bool)e.ReturnValue)
+            {
+                HttpContext.Current.Session["DeletedText"] = "Rubric item deleted successfully";
+            }
+            else
+            {
+                HttpContext.Current.Session["DeletedText"] = "Rubric item is in use by assignment and cannot be deleted.";
+            }
         }
     }
 }
