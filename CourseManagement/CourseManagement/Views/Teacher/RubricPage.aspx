@@ -68,7 +68,7 @@
                 </EditItemTemplate>
                 <InsertItemTemplate>
                     <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("AssignmentWeight") %>'></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvAssignmentType" runat="server" ControlToValidate="TextBox2" CssClass="error" ErrorMessage="*"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="rfvAssignmentWeight" runat="server" ControlToValidate="TextBox2" CssClass="error" ErrorMessage="*"></asp:RequiredFieldValidator>
                 </InsertItemTemplate>
                 <ItemTemplate>
                     <asp:Label ID="Label2" runat="server" Text='<%# Bind("AssignmentWeight") %>'></asp:Label>
