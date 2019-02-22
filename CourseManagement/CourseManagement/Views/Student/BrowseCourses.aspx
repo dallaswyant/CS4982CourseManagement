@@ -5,7 +5,7 @@
     <br />
 <asp:Label ID="Label3" runat="server" Text="Choose Department:"></asp:Label>
 <br />
-<asp:DropDownList ID="ddlDepartments" AutoPostBack="True" runat="server"  DataTextField="DeptName" DataValueField="DeptName" TabIndex="5" DataSourceID="odsStudentCourses">
+<asp:DropDownList ID="ddlDepartments" AutoPostBack="True" runat="server"  DataTextField="Name" DataValueField="Name" TabIndex="5" DataSourceID="odsDepartments">
     <asp:ListItem>All Departments</asp:ListItem>
     </asp:DropDownList>
 <br />
@@ -28,21 +28,21 @@
                     <asp:BoundField DataField="SemesterID" HeaderText="SemesterID" ReadOnly="True" SortExpression="SemesterID" />
 		        </Columns>
 		    </asp:GridView>
-		    <asp:ObjectDataSource ID="odsStudentCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByDepartmentName" TypeName="CourseManagement.DAL.CourseDAL">
+		    <asp:ObjectDataSource ID="odsStudentCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByStudentID" TypeName="CourseManagement.DAL.CourseDAL">
                 <SelectParameters>
-                    <asp:ControlParameter ControlID="ddlDepartments" Name="departmentCheck" PropertyName="SelectedValue" Type="String" />
+                    <asp:SessionParameter Name="studentUIDCheck" SessionField="UserID" Type="String" />
                 </SelectParameters>
             </asp:ObjectDataSource>
 		    <br />
 		    <asp:Label ID="Label2" runat="server" Text="Department Courses"></asp:Label>
 		    <br />
-		    <asp:GridView ID="AvailableCoursesGrid" runat="server" AutoGenerateColumns="False" Width="482px" OnSelectedIndexChanged="AvailableCourses_SelectedIndexChanged">
+		    <asp:GridView ID="AvailableCoursesGrid" runat="server" AutoGenerateColumns="False" Width="482px" OnSelectedIndexChanged="AvailableCourses_SelectedIndexChanged" DataKeyNames="CRN,Name,Description,Location,LectureNotes,CreditHours,SectionNumber,DepartmentName,MaxSeats,SemesterID" DataSourceID="odsDepartmentCourses">
         <Columns>
-            <asp:BoundField DataField="Name" HeaderText="Name" ReadOnly="True" SortExpression="Name" />
-            <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" ReadOnly="True" />
-            <asp:BoundField DataField="Location" HeaderText="Location" ReadOnly="True" SortExpression="Location" />
-            <asp:BoundField DataField="CreditHours" HeaderText="CreditHours" ReadOnly="True" SortExpression="CreditHours" />
             <asp:BoundField DataField="CRN" HeaderText="CRN" ReadOnly="True" SortExpression="CRN" />
+            <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" ReadOnly="True" />
+            <asp:BoundField DataField="CreditHours" HeaderText="CreditHours" ReadOnly="True" SortExpression="CreditHours" />
+            <asp:BoundField DataField="Location" HeaderText="Location" ReadOnly="True" SortExpression="Location" />
+            <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="True" SortExpression="Description" />
             <asp:BoundField DataField="SectionNumber" HeaderText="SectionNumber" ReadOnly="True" SortExpression="SectionNumber" />
             <asp:BoundField DataField="DepartmentName" HeaderText="DepartmentName" ReadOnly="True" SortExpression="DepartmentName" />
             <asp:BoundField DataField="MaxSeats" HeaderText="MaxSeats" ReadOnly="True" SortExpression="MaxSeats" />

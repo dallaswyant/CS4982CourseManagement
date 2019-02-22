@@ -51,14 +51,16 @@ namespace CourseManagement.Views.Student
 
         protected void AvailableCourses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int thing = (int)this.AvailableCoursesGrid.SelectedValue;
-            HttpContext.Current.Session["chosenCRN"] = thing;
+            int crn = (int)this.AvailableCoursesGrid.SelectedValue;
+            HttpContext.Current.Session["chosenCRN"] = crn;
             CourseDAL courseGetter = new CourseDAL();
-            Course courseToAdd = courseGetter.GetCourseByCRN(thing);
+            Course courseToAdd = courseGetter.GetCourseByCRN(crn);
             TeacherDAL dal = new TeacherDAL();
             //TODO get this teacher somehow
-            //this.lblCourseToAdd.Text = "Course to Add: " + courseToAdd.CRN + " " + courseToAdd.Name + " " +
-            //                               courseToAdd.SectionNumber + " " + courseToAdd.Teacher;
+            Teacher instructor = dal.GetTeacherByCRN(crn);
+            string instructorName = instructor != null ? instructor.Name : "TBA"; 
+            this.lblCourseToAdd.Text = "Course to Add: " + courseToAdd.CRN + " " + courseToAdd.Name + " " +
+                                           courseToAdd.SectionNumber + " Instructor: " + instructorName;
         }
     }
 }

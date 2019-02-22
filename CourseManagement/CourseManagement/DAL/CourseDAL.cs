@@ -20,6 +20,7 @@ namespace CourseManagement.DAL
         /// </summary>
         /// <param name="teacherIDCheck">The teacher id to check.</param>
         /// <returns>A list of courses taught by the teacher</returns>
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Course> GetCoursesByTeacherID(string teacherIDCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
@@ -301,6 +302,8 @@ namespace CourseManagement.DAL
             return null;
         }
 
+
+
         /// <summary>
         /// Gets a list of courses by department name.
         /// </summary>
@@ -317,11 +320,11 @@ namespace CourseManagement.DAL
                 var selectQuery = String.Empty;
                 if (departmentCheck.Equals("All Departments"))
                 {
-                    selectQuery = "SELECT courses.* FROM courses, dept_offers_courses WHERE courses.CRN = dept_offers_courses.courses_CRN";
+                    selectQuery = "SELECT courses.* FROM courses";
                 }
                 else
                 {
-                    selectQuery = "SELECT courses.* FROM courses, dept_offers_courses WHERE courses.CRN = dept_offers_courses.courses_CRN AND dept_offers_courses.dept_name = @name";
+                    selectQuery = "SELECT courses.* FROM courses WHERE courses.dept_name = @name";
                 }
                
 
