@@ -24,7 +24,11 @@
             <asp:Parameter Name="CRN" Type="Int32" />
             <asp:Parameter Name="assignmentType" Type="String" />
             <asp:Parameter Name="assignmentWeight" Type="Int32" />
+            <asp:Parameter Name="original_AssignmentType" Type="String" />
+            <asp:Parameter Name="original_AssignmentWeight" Type="Int32" />
             <asp:Parameter Name="index" Type="Int32" />
+            <asp:Parameter Name="original_Index" Type="Int32" />
+            <asp:Parameter Name="original_Crn" Type="Int32" />
         </DeleteParameters>
         <InsertParameters>
             <asp:Parameter Name="assignmentType" Type="String" />
