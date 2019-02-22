@@ -497,7 +497,7 @@ namespace CourseManagement.DAL
             {
                 conn.Open();
                 var selectQuery =
-                    "SELECT * FROM grade_defs,student_grade_items WHERE grade_defs.course_CRN = @CRNCheck AND grade_name = @grade_name";
+                    "SELECT * FROM grade_defs,student_grade_items WHERE grade_defs.grade_def_id = student_grade_items.grade_def_id AND grade_defs.course_CRN = @CRNCheck AND grade_name = @grade_name";
                 var studentGetter = new StudentDAL();
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
