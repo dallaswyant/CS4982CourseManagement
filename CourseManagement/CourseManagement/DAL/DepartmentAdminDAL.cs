@@ -65,7 +65,7 @@ namespace CourseManagement.DAL
         //THEN
         //INSERT INTO dept_offers_courses(dept_name, courses_CRN) VALUES (@department_name, @CRN)
         [DataObjectMethod(DataObjectMethodType.Insert)]
-        public void InsertNewCourse(Course newCourse, int maxSeats, string departmentName)
+        public void InsertNewCourse(Course newCourse)
         {
             MySqlConnection conn = DbConnection.GetConnection();
 
@@ -78,12 +78,12 @@ namespace CourseManagement.DAL
                         "INSERT INTO courses (dept_name, course_name, course_description, section_num, credit_hours, seats_max, location, semester_name) VALUES (@dept_name, @course_name, @section_num, @credit_hours, @seats_max, @location)";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                     {
-                        cmd.Parameters.AddWithValue("@dept_name",departmentName);
+                        cmd.Parameters.AddWithValue("@dept_name",newCourse.DepartmentName);
                         cmd.Parameters.AddWithValue("@course_name", newCourse.Name);
                         cmd.Parameters.AddWithValue("@course_description", newCourse.Description);
                         cmd.Parameters.AddWithValue("@section_num", newCourse.SectionNumber);
                         cmd.Parameters.AddWithValue("@credit_hours", newCourse.CreditHours);
-                        cmd.Parameters.AddWithValue("@seats_max", maxSeats);
+                        cmd.Parameters.AddWithValue("@seats_max", newCourse.MaxSeats);
                         cmd.Parameters.AddWithValue("@location", newCourse.Location);
                         cmd.Parameters.AddWithValue("@semester_name", newCourse.SemesterID);
                         cmd.ExecuteNonQuery();
@@ -93,7 +93,7 @@ namespace CourseManagement.DAL
                         "INSERT INTO dept_offers_courses(dept_name, courses_CRN) VALUES (@department_name, (SELECT courses.CRN FROM courses WHERE dept_name = @dept_name AND course_name = @course_name AND section_num = @section_num))";
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@department_name", departmentName);
+                        cmd.Parameters.AddWithValue("@department_name", newCourse.DepartmentName);
                         cmd.Parameters.AddWithValue("@course_name", newCourse.Name);
                         cmd.Parameters.AddWithValue("@section_num", newCourse.SectionNumber);
                         cmd.ExecuteNonQuery();
