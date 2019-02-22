@@ -372,6 +372,7 @@ namespace CourseManagement.DAL
                         cmd.Parameters.AddWithValue("@grade_name", newItem.Name);
                         cmd.Parameters.AddWithValue("@grade_feedback", newItem.Feedback);
                         cmd.Parameters.AddWithValue("@is_public", newItem.IsPublic);
+                        cmd.Parameters.AddWithValue("@course_CRN", CRN);
                         cmd.ExecuteNonQuery();
                     }
                 foreach (var t in students)
@@ -496,7 +497,7 @@ namespace CourseManagement.DAL
             {
                 conn.Open();
                 var selectQuery =
-                    "SELECT * FROM grade_defs,student_grade_items WHERE grade_defs.course_CRN = @CRNCheck AND grade_name = @grade_name";
+                    "SELECT * FROM grade_defs,student_grade_items WHERE grade_defs.grade_def_id = student_grade_items.grade_def_id AND grade_defs.course_CRN = @CRNCheck AND grade_name = @grade_name";
                 var studentGetter = new StudentDAL();
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
