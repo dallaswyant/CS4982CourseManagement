@@ -383,5 +383,71 @@ namespace CourseManagement.DAL
                 }
             }
         }
+
+        public List<string> GetPrerequisiteCoursesForGivenCRN(int CRNCheck)
+        {
+            MySqlConnection conn = DbConnection.GetConnection();
+            List<string> preReqs = new List<string>();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery = "select prereq_courses.* from courses, prereq_courses WHERE courses.course_name = prereq_courses.desired_course_name AND courses.CRN = @CRNCheck";
+
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        int RequiredOrdinal = reader.GetOrdinal("required_course_name");
+
+                        while (reader.Read())
+                        {
+                            string requiredCourseName = reader[RequiredOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(RequiredOrdinal);
+                          
+
+                            preReqs.Add(requiredCourseName);
+                            
+
+                        }
+                        return preReqs;
+                    }
+                }
+            }
+        }
+
+        public List<string> GetPrerequisiteCoursesForGivenCourseName(string courseName)
+        {
+            MySqlConnection conn = DbConnection.GetConnection();
+            List<string> preReqs = new List<string>();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery = "select prereq_courses.* from prereq_courses WHERE prereq_courses.desired_course_name = @desired_course";
+
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@desired_course", courseName);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        int RequiredOrdinal = reader.GetOrdinal("required_course_name");
+
+                        while (reader.Read())
+                        {
+                            string requiredCourseName = reader[RequiredOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(RequiredOrdinal);
+
+
+                            preReqs.Add(requiredCourseName);
+
+
+                        }
+                        return preReqs;
+                    }
+                }
+            }
+        }
     }
 }
