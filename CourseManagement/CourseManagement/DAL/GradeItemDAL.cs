@@ -372,6 +372,7 @@ namespace CourseManagement.DAL
                         cmd.Parameters.AddWithValue("@grade_name", newItem.Name);
                         cmd.Parameters.AddWithValue("@grade_feedback", newItem.Feedback);
                         cmd.Parameters.AddWithValue("@is_public", newItem.IsPublic);
+                        cmd.Parameters.AddWithValue("@course_CRN", CRN);
                         cmd.ExecuteNonQuery();
                     }
                 foreach (var t in students)

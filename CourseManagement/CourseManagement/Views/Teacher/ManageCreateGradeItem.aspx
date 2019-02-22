@@ -163,7 +163,7 @@
         <tr>
             <td class="auto-style4">
                 <asp:TextBox ID="tbxDueDate" runat="server" TextMode="DateTime"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="rfvTimeDue" runat="server" ControlToValidate="tbxDueDate" CssClass="error" ErrorMessage="*"></asp:RequiredFieldValidator>
+                
             </td>
         </tr>
         <tr>
