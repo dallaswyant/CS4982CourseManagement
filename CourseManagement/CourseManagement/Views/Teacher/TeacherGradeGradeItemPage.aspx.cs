@@ -86,8 +86,11 @@ namespace CourseManagement
                 {
                     index = counter;
                 }
-                //this.ddlStudentNames.Items.Add(new ListItem(student.name, student.StudentUID));
-                //TODO need different way to get student name
+
+                PersonalnfoDAL infoGetter = new PersonalnfoDAL();
+                PersonalInfo personalInfo = infoGetter.GetPersonalInfoFromUserID(student.StudentUID);
+                this.ddlStudentNames.Items.Add(new ListItem(personalInfo.FName + " " + personalInfo.LName, student.StudentUID));
+
                 counter++;
             }
             this.ddlStudentNames.SelectedIndex = index;
