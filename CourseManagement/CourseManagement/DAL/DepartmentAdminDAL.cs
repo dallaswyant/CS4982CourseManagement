@@ -56,7 +56,7 @@ namespace CourseManagement.DAL
         {
             Department currentDepartment = GetDepartmentByUserID(userID);
             CourseDAL courseDal = new CourseDAL();
-            return courseDal.GetCoursesByDepartmentName(currentDepartment.DeptName);
+            return courseDal.GetCoursesByDepartmentName(currentDepartment.Name);
         }
 
 

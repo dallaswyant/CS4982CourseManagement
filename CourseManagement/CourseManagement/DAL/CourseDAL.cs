@@ -321,13 +321,13 @@ namespace CourseManagement.DAL
                 }
                 else
                 {
-                    selectQuery = "SELECT courses.* FROM courses, dept_offers_courses WHERE courses.CRN = dept_offers_courses.courses_CRN AND dept_offers_courses.dept_name = @deptName";
+                    selectQuery = "SELECT courses.* FROM courses, dept_offers_courses WHERE courses.CRN = dept_offers_courses.courses_CRN AND dept_offers_courses.dept_name = @name";
                 }
                
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@deptName", departmentCheck);
+                    cmd.Parameters.AddWithValue("@name", departmentCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         int CRNOrdinal = reader.GetOrdinal("CRN");

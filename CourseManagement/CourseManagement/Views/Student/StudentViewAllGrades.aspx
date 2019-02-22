@@ -7,6 +7,10 @@
         .auto-style5 {
             height: 26px;
         }
+        .auto-style7 {
+            height: 26px;
+            width: 166px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -15,9 +19,9 @@
             <td class="auto-style3">
                 <asp:DropDownList ID="ddlStudentCourses" runat="server" DataSourceID="odsCourses" DataTextField="Name" DataValueField="CRN" AutoPostBack="True" TabIndex="5">
                 </asp:DropDownList>
-                <asp:ObjectDataSource ID="odsCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseBulletinByStudentID" TypeName="CourseManagement.DAL.CourseDAL">
+                <asp:ObjectDataSource ID="odsCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByStudentID" TypeName="CourseManagement.DAL.CourseDAL">
                     <SelectParameters>
-                        <asp:SessionParameter Name="studentUID" SessionField="UserID" Type="String" />
+                        <asp:SessionParameter Name="studentUIDCheck" SessionField="UserID" Type="String" />
                     </SelectParameters>
                 </asp:ObjectDataSource>
             </td>
@@ -30,22 +34,20 @@
                 <asp:GridView ID="gvwCourses" runat="server" AutoGenerateColumns="False" DataSourceID="odsCourseDetails" CssClass="table" OnDataBound="gvwCourses_DataBound">
                     <Columns>
 
-                        <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
+                        <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" ReadOnly="True" />
                         <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="True" SortExpression="Description" />
                         <asp:BoundField DataField="Location" HeaderText="Location" ReadOnly="True" SortExpression="Location" />
                         <asp:BoundField DataField="CreditHours" HeaderText="CreditHours" ReadOnly="True" SortExpression="CreditHours" />
                         <asp:BoundField DataField="CRN" HeaderText="CRN" ReadOnly="True" SortExpression="CRN" />
                         <asp:BoundField DataField="SectionNumber" HeaderText="SectionNumber" ReadOnly="True" SortExpression="SectionNumber" />
-                        <asp:TemplateField HeaderText="Overall Grade">
-                            <ItemTemplate>
-                                <asp:Label ID="lblGrade" runat="server" ></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
+                        <asp:BoundField DataField="DepartmentName" HeaderText="DepartmentName" ReadOnly="True" SortExpression="DepartmentName" />
+                        <asp:BoundField DataField="MaxSeats" HeaderText="MaxSeats" ReadOnly="True" SortExpression="MaxSeats" />
+                        <asp:BoundField DataField="SemesterID" HeaderText="SemesterID" ReadOnly="True" SortExpression="SemesterID" />
                     </Columns>
                 </asp:GridView>
                 <asp:ObjectDataSource ID="odsCourseDetails" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByCRN" TypeName="CourseManagement.DAL.CourseDAL">
                     <SelectParameters>
-                        <asp:ControlParameter ControlID="ddlStudentCourses" Name="CRN" PropertyName="SelectedValue" Type="Int32" />
+                        <asp:ControlParameter ControlID="ddlStudentCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
                     </SelectParameters>
                 </asp:ObjectDataSource>
             </td>
@@ -59,7 +61,7 @@
                 &nbsp;</td>
         </tr>
         <tr>
-            <td class="auto-style5" colspan="2">
+            <td class="auto-style7" colspan="2">
                 <asp:Label ID="lblDescription" runat="server"></asp:Label>
             </td>
         </tr>
@@ -67,18 +69,20 @@
     <br />
     <asp:GridView ID="gvwGrades" runat="server" OnSelectedIndexChanging="GradesGrid_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsGrades" CssClass="table">
         <Columns>
-            <asp:BoundField DataField="Name" HeaderText="Name" ReadOnly="True" SortExpression="Name" />
-            <asp:BoundField DataField="Grade" HeaderText="Grade" ReadOnly="True" SortExpression="Grade" />
+            <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
+            <asp:BoundField DataField="Grade" HeaderText="Grade" SortExpression="Grade" />
             <asp:BoundField DataField="Feedback" HeaderText="Feedback" SortExpression="Feedback" />
             <asp:BoundField DataField="PossiblePoints" HeaderText="PossiblePoints" ReadOnly="True" SortExpression="PossiblePoints" />
             <asp:BoundField DataField="GradeType" HeaderText="GradeType" ReadOnly="True" SortExpression="GradeType" />
-            <asp:BoundField DataField="GradeId" HeaderText="GradeId" ReadOnly="True" SortExpression="GradeId" />
+            <asp:BoundField DataField="GradeId" HeaderText="GradeId" SortExpression="GradeId" />
+            <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
+            <asp:BoundField DataField="TimeGraded" HeaderText="TimeGraded" SortExpression="TimeGraded" />
         </Columns>
     </asp:GridView>
-<asp:ObjectDataSource ID="odsGrades" runat="server" SelectMethod="GetPublicGradedItemsByStudentId" TypeName="CourseManagement.DAL.GradedItemDAL" OldValuesParameterFormatString="original_{0}">
-    <SelectParameters>
-        <asp:SessionParameter Name="studentUID" SessionField="UserID" Type="String" />
-        <asp:ControlParameter ControlID="ddlStudentCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
-    </SelectParameters>
-</asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="odsGrades" runat="server" SelectMethod="GetPublicGradedItemsByStudentId" TypeName="CourseManagement.DAL.GradeItemDAL">
+        <SelectParameters>
+            <asp:SessionParameter Name="studentUIDCheck" SessionField="UserID" Type="String" />
+            <asp:ControlParameter ControlID="ddlStudentCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
+        </SelectParameters>
+    </asp:ObjectDataSource>
 </asp:Content>

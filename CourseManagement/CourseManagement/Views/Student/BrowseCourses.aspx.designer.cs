@@ -49,6 +49,15 @@ namespace CourseManagement.Views.Student {
         protected global::System.Web.UI.UpdatePanel browseCoursUpdatePanel;
         
         /// <summary>
+        /// odsDepartments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsDepartments;
+        
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
@@ -67,13 +76,13 @@ namespace CourseManagement.Views.Student {
         protected global::System.Web.UI.WebControls.GridView UserCourseGrid;
         
         /// <summary>
-        /// odsUserCourses control.
+        /// odsStudentCourses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource odsUserCourses;
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsStudentCourses;
         
         /// <summary>
         /// Label2 control.
@@ -94,6 +103,15 @@ namespace CourseManagement.Views.Student {
         protected global::System.Web.UI.WebControls.GridView AvailableCoursesGrid;
         
         /// <summary>
+        /// odsDepartmentCourses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsDepartmentCourses;
+        
+        /// <summary>
         /// lblCourseToAdd control.
         /// </summary>
         /// <remarks>
@@ -110,14 +128,5 @@ namespace CourseManagement.Views.Student {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddCourse;
-        
-        /// <summary>
-        /// odsDepartmentCourses control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource odsDepartmentCourses;
     }
 }

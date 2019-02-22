@@ -22,7 +22,7 @@ namespace CourseManagementUnitTests.Models
             Department department = new Department(chair,"Psychology");
 
             Assert.AreEqual(department.Chair, chair);
-            Assert.AreEqual(department.DeptName,"Psychology");
+            Assert.AreEqual(department.Name,"Psychology");
         }
     }
 }

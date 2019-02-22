@@ -16,7 +16,7 @@ namespace CourseManagement.App_Code
         /// <summary>
         /// gets the department name
         /// </summary>
-        public string DeptName { get; }
+        public string Name { get; }
         /// <summary>
         /// gets the teachers of the department
         /// </summary>
@@ -29,11 +29,11 @@ namespace CourseManagement.App_Code
         /// Constructor for department
         /// </summary>
         /// <param name="chair">the chair teacher</param>
-        /// <param name="deptName">the department name</param>
-        public Department(Teacher chair, string deptName)
+        /// <param name="name">the department name</param>
+        public Department(Teacher chair, string name)
         {
             this.Chair = chair;
-            this.DeptName = deptName;
+            this.Name = name;
         }
 
         #endregion

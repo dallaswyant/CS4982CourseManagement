@@ -18,7 +18,7 @@ namespace CourseManagement.Views.Student
                 DepartmentDAL deptGetter = new DepartmentDAL();
                 foreach (var dept in deptGetter.GetAllDepartments())
                 {
-                    this.ddlDepartments.Items.Add(dept.DeptName);
+                    this.ddlDepartments.Items.Add(dept.Name);
                 }
                 this.DataBind();
             }
@@ -55,6 +55,7 @@ namespace CourseManagement.Views.Student
             HttpContext.Current.Session["chosenCRN"] = thing;
             CourseDAL courseGetter = new CourseDAL();
             Course courseToAdd = courseGetter.GetCourseByCRN(thing);
+            TeacherDAL dal = new TeacherDAL();
             //TODO get this teacher somehow
             //this.lblCourseToAdd.Text = "Course to Add: " + courseToAdd.CRN + " " + courseToAdd.Name + " " +
             //                               courseToAdd.SectionNumber + " " + courseToAdd.Teacher;
