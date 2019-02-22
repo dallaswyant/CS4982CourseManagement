@@ -107,6 +107,7 @@
   <ItemGroup>
     <Compile Include="App_Code\CourseRubric.cs" />
     <Compile Include="App_Code\GradeItem.cs" />
+    <Compile Include="App_Code\PersonalInfo.cs" />
     <Compile Include="App_Code\Semester.cs" />
     <Compile Include="DAL\CourseDAL.cs" />
     <Compile Include="DAL\CourseRubricDAL.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="DAL\DepartmentAdminDAL.cs" />
     <Compile Include="DAL\DepartmentDAL.cs" />
     <Compile Include="DAL\GradeItemDAL.cs" />
+    <Compile Include="DAL\PersonalnfoDAL.cs" />
     <Compile Include="DAL\StudentDAL.cs" />
     <Compile Include="DAL\TeacherDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
