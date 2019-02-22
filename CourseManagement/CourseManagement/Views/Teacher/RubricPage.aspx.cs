@@ -72,12 +72,18 @@ namespace CourseManagement.Views
 
         protected void dvwAddGradeItem_ItemInserted(object sender, DetailsViewInsertedEventArgs e)
         {
+            
             Response.Redirect("RubricPage.aspx");
         }
 
         protected void gvwWeights_RowDeleted(object sender, GridViewDeletedEventArgs e)
         {
             Response.Redirect("RubricPage.aspx");
+        }
+
+        protected void dvwAddGradeItem_ItemInserting(object sender, DetailsViewInsertEventArgs e)
+        {
+            Validate("Insert");
         }
     }
 }

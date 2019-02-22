@@ -47,7 +47,7 @@
         </UpdateParameters>
     </asp:ObjectDataSource>
     <asp:Label runat="server" ID="lblWarning"></asp:Label>
-    <asp:DetailsView ID="dvwAddGradeItem" runat="server" Width="500px" AutoGenerateRows="False" DataSourceID="odsRubricItems" DefaultMode="Insert" CssClass="table" OnItemInserted="dvwAddGradeItem_ItemInserted">
+    <asp:DetailsView ID="dvwAddGradeItem" runat="server" Width="500px" AutoGenerateRows="False" DataSourceID="odsRubricItems" DefaultMode="Insert" CssClass="table" OnItemInserted="dvwAddGradeItem_ItemInserted" OnItemInserting="dvwAddGradeItem_ItemInserting">
         <Fields>
             <asp:TemplateField HeaderText="AssignmentType" SortExpression="AssignmentType">
                 <EditItemTemplate>
