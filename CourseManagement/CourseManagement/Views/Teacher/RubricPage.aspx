@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:DropDownList ID="ddlCourse" runat="server" DataSourceID="odsCourses" DataTextField="Name" DataValueField="CRN" OnSelectedIndexChanged="ddlCourse_SelectedIndexChanged">
     </asp:DropDownList>
-    <asp:ObjectDataSource ID="odsCourses" runat="server" SelectMethod="GetCourseBulletinByTeacherID" TypeName="CourseManagement.DAL.CourseDAL" OldValuesParameterFormatString="original_{0}">
+    <asp:ObjectDataSource ID="odsCourses" runat="server" SelectMethod="GetCoursesByTeacherID" TypeName="CourseManagement.DAL.CourseDAL" OldValuesParameterFormatString="original_{0}">
         <SelectParameters>
             <asp:SessionParameter Name="teacherIDCheck" SessionField="UserID" Type="String" />
         </SelectParameters>

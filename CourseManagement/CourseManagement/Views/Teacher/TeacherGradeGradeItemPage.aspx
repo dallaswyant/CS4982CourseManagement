@@ -187,13 +187,12 @@
             <td class="auto-style10">
                 <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Conditional" runat="server">
                     <ContentTemplate>
-                        <asp:TextBox ID="TextBox2" runat="server" Height="16px" Width="45px" OnTextChanged="TextBox2_TextChanged" TabIndex="2"></asp:TextBox>
+                        <asp:TextBox ID="tbxGrade" runat="server" Height="16px" Width="45px" OnTextChanged="TextBox2_TextChanged" TabIndex="2"></asp:TextBox>
                 
                         <asp:Label ID="grade" runat="server" Text="/100" Font-Size="Large"></asp:Label>
                         <br />
-                        <asp:CompareValidator ID="cvdGrade0" runat="server" ControlToValidate="TextBox2" CssClass="error" ErrorMessage="CompareValidator" Operator="GreaterThanEqual" TabIndex="-1" Type="Currency" ValueToCompare="100">Grade must be greater than or equal to 0.</asp:CompareValidator>
+                        <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="tbxGrade" CssClass="error" ErrorMessage="Grade must be between 0 and 100" MaximumValue="100" MinimumValue="0" Type="Integer"></asp:RangeValidator>
                         <br />
-                        <asp:CompareValidator ID="cvdGrade1" runat="server" ControlToValidate="TextBox2" CssClass="error" ErrorMessage="CompareValidator" Operator="LessThanEqual" Type="Integer">Grade must be 100 or less</asp:CompareValidator>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </td>

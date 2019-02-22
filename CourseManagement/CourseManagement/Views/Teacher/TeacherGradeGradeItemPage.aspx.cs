@@ -62,7 +62,7 @@ namespace CourseManagement
                 this.lblCourse.Text = course.Name;
                 this.lblTeacher.Text = teacher.Name;
                 this.lblEmail.Text = teacher.Email;
-                double.TryParse(TextBox2.Text, out this.workingGrade);
+                double.TryParse(tbxGrade.Text, out this.workingGrade);
                 //this.currFeedBack = this.currentGrade.Feedback == null ? "" : this.currentGrade.Feedback;
                 this.workingFeedback = this.tbxDescription.Text;
 
@@ -143,7 +143,7 @@ namespace CourseManagement
             {
                 totalPoints = currGradedItem.PossiblePoints;
                 this.grade.Text = "/" + totalPoints;
-                this.TextBox2.Text = currGradedItem.Grade.ToString();
+                this.tbxGrade.Text = currGradedItem.Grade.ToString();
                 this.tbxDescription.Text = currGradedItem.Feedback;
                 
             }
@@ -151,7 +151,7 @@ namespace CourseManagement
             {
                 totalPoints = 0;
                 this.grade.Text = "";
-                this.TextBox2.Text = "";
+                this.tbxGrade.Text = "";
                 this.tbxDescription.Text = "";
             }
 
@@ -169,7 +169,7 @@ namespace CourseManagement
             var updatedGrade = new GradeItem()
             {
                 Feedback = tbxDescription.Text,
-                Grade = int.Parse(this.TextBox2.Text),
+                Grade = int.Parse(this.tbxGrade.Text),
                 GradeId = this.currentGrade.GradeId,
                 Name = this.currentGrade.Name
             };
@@ -227,7 +227,7 @@ namespace CourseManagement
 
         protected void TextBox2_TextChanged(object sender, EventArgs e)
         {
-            double.TryParse(TextBox2.Text, out this.workingGrade);
+            double.TryParse(tbxGrade.Text, out this.workingGrade);
 
         }
 
