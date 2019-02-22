@@ -57,7 +57,14 @@
         <ContentTemplate>
     <asp:GridView ID="gvwStudents" runat="server" OnSelectedIndexChanging="gvwGrade_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsStudents" AllowPaging="True" CssClass="table">
         <Columns>
-            <asp:BoundField DataField="Student" HeaderText="Student" SortExpression="Student" />
+            <asp:TemplateField HeaderText="Student" SortExpression="Student">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Student") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("Student.StudentUID") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:BoundField HeaderText="Grade" DataField="Grade" ReadOnly="True" SortExpression="Grade"/>
             <asp:BoundField HeaderText="PossiblePoints" DataField="PossiblePoints" ReadOnly="True" SortExpression="PossiblePoints"/>
             <asp:BoundField DataField="GradeType" HeaderText="GradeType" ReadOnly="True" SortExpression="GradeType" />
