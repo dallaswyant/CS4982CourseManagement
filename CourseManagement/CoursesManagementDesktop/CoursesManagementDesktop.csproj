@@ -84,10 +84,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="DAL\DesktopGradedItemDAL.cs" />
     <Compile Include="ManageAssignmentPage.xaml.cs">
       <DependentUpon>ManageAssignmentPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\LoginHandler.cs" />
     <Compile Include="TeacherHomePage.xaml.cs">
       <DependentUpon>TeacherHomePage.xaml</DependentUpon>
     </Compile>
