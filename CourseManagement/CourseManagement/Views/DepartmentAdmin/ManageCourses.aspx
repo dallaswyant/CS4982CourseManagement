@@ -20,14 +20,20 @@
             <asp:BoundField DataField="SemesterID" HeaderText="SemesterID" ReadOnly="True" SortExpression="SemesterID" />
             <asp:CommandField ShowSelectButton="True" />
             <asp:CommandField ShowEditButton="True" />
+            <asp:CommandField ShowDeleteButton="True" />
         </Columns>
     </asp:GridView>
-    <asp:ObjectDataSource ID="odsDeptCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetDepartmentCoursesByUserID" TypeName="CourseManagement.DAL.DepartmentAdminDAL" DataObjectTypeName="CourseManagement.App_Code.Course" InsertMethod="InsertNewCourse" UpdateMethod="UpdateCourse">
+    <asp:ObjectDataSource ID="odsDeptCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetDepartmentCoursesByUserID" TypeName="CourseManagement.DAL.DepartmentAdminDAL" DataObjectTypeName="CourseManagement.App_Code.Course" InsertMethod="InsertNewCourse" UpdateMethod="UpdateCourse" DeleteMethod="DeleteCourseByDepartmentAndCRN">
+        <DeleteParameters>
+            <asp:Parameter Name="departmentName" Type="String" />
+            <asp:Parameter Name="CRN" Type="Int32" />
+        </DeleteParameters>
         <SelectParameters>
             <asp:SessionParameter Name="userID" SessionField="UserID" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
     <br />
+
     <asp:DetailsView ID="dvwDepartmentCourses" runat="server" DefaultMode="Insert" Height="50px" Width="125px" DataSourceID="odsDeptCourses" AutoGenerateRows="False">
         <Fields>
             <asp:BoundField DataField="Name" HeaderText="Name" ReadOnly="True" SortExpression="Name" />
@@ -51,27 +57,27 @@
                 </asp:DropDownList>
             </td>
             <td>
-                <asp:Button ID="btnAddTeachers" runat="server" Text="Assign Teacher" />
+                <asp:Button ID="btnAddTeachers" runat="server" Text="Assign Teacher" OnClick="btnAddTeachers_Click" />
+            &nbsp;<asp:Button ID="Button1" runat="server" OnClick="btnViewTeacherCourses_Click" Text="View Teacher Courses" />
             </td>
         </tr>
         <tr>
             <td class="auto-style7">
-                <asp:DetailsView ID="dvwTeacherCourse" runat="server" Height="50px" Width="125px" AutoGenerateRows="False" DataSourceID="odsTeacherCourse">
+                <asp:DetailsView ID="dvwTeacherCourse" runat="server" Height="62px" Width="233px" AutoGenerateRows="False" DataSourceID="odsTeacherCourse">
                     <Fields>
+                        <asp:BoundField DataField="DepartmentName" HeaderText="DepartmentName" ReadOnly="True" SortExpression="DepartmentName" />
+                        <asp:BoundField DataField="CRN" HeaderText="CRN" ReadOnly="True" SortExpression="CRN" />
                         <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" ReadOnly="True" />
-                        <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="True" SortExpression="Description" />
                         <asp:BoundField DataField="Location" HeaderText="Location" ReadOnly="True" SortExpression="Location" />
                         <asp:BoundField DataField="CreditHours" HeaderText="CreditHours" ReadOnly="True" SortExpression="CreditHours" />
-                        <asp:BoundField DataField="CRN" HeaderText="CRN" ReadOnly="True" SortExpression="CRN" />
-                        <asp:BoundField DataField="SectionNumber" HeaderText="SectionNumber" ReadOnly="True" SortExpression="SectionNumber" />
-                        <asp:BoundField DataField="DepartmentName" HeaderText="DepartmentName" ReadOnly="True" SortExpression="DepartmentName" />
                         <asp:BoundField DataField="MaxSeats" HeaderText="MaxSeats" ReadOnly="True" SortExpression="MaxSeats" />
+                        <asp:BoundField DataField="SectionNumber" HeaderText="SectionNumber" ReadOnly="True" SortExpression="SectionNumber" />
                         <asp:BoundField DataField="SemesterID" HeaderText="SemesterID" ReadOnly="True" SortExpression="SemesterID" />
                     </Fields>
                 </asp:DetailsView>
                 <asp:ObjectDataSource ID="odsTeacherCourse" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByCRN" TypeName="CourseManagement.DAL.CourseDAL">
                     <SelectParameters>
-                        <asp:ControlParameter ControlID="dvwDepartmentCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
+                        <asp:ControlParameter ControlID="gvwDepartmentCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
                     </SelectParameters>
                 </asp:ObjectDataSource>
             </td>

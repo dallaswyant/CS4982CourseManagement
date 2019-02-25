@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using CourseManagement.App_Code;
+using CourseManagement.DAL;
 
 namespace CourseManagement.Views.DepartmentAdmin
 {
@@ -18,6 +20,26 @@ namespace CourseManagement.Views.DepartmentAdmin
         {
             this.dvwTeacherCourse.PageIndex = gvwDepartmentCourses.SelectedIndex;
             dvwTeacherCourse.DataBind();
+
+        }
+
+        protected void btnAddTeachers_Click(object sender, EventArgs e)
+        {
+            DepartmentAdminDAL dal = new DepartmentAdminDAL();
+            var crnRow = this.dvwTeacherCourse.Rows[1];
+            var crnCell = crnRow.Cells[1];
+            var crn = int.Parse(crnCell.Text);
+            string teacherID = this.ddlTeachers.SelectedValue;
+            TeacherDAL tdal = new TeacherDAL();
+            Teacher teacher = tdal.GetTeacherByTeacherID(teacherID);
+            dal.AssignTeacherToCourse(teacher, crn);
+        }
+
+        protected void btnViewTeacherCourses_Click(object sender, EventArgs e)
+        {
+            CourseDAL dal = new CourseDAL();
+            this.gvwTeacherCourses.DataSource = dal.GetCoursesByTeacherID(this.ddlTeachers.SelectedValue);
+
         }
     }
 }

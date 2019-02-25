@@ -109,7 +109,7 @@ namespace CourseManagement.DAL
         //THEN
         //DELETE FROM dept_offers_courses WHERE dept_name = @dept_name AND courses_CRN = @CRN
         [DataObjectMethod(DataObjectMethodType.Delete)]
-        public void DeleteCourseByDepartmentAndCRN(string departmentName, int CRN)
+        public void DeleteCourseByDepartmentAndCRN(Course course)
         {
             MySqlConnection conn = DbConnection.GetConnection();
             using (conn)
@@ -119,7 +119,7 @@ namespace CourseManagement.DAL
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@CRN", CRN);
+                    cmd.Parameters.AddWithValue("@CRN", course.CRN);
                     cmd.ExecuteNonQuery();
                 }
 
@@ -127,8 +127,8 @@ namespace CourseManagement.DAL
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@CRN", CRN);
-                    cmd.Parameters.AddWithValue("@dept_name", departmentName);
+                    cmd.Parameters.AddWithValue("@CRN", course.CRN);
+                    cmd.Parameters.AddWithValue("@dept_name", course.DepartmentName);
                     cmd.ExecuteNonQuery();
                 }
                 conn.Close();
@@ -180,7 +180,7 @@ namespace CourseManagement.DAL
                     "INSERT INTO teacher_teaches_courses (teacher_uid, courses_CRN) VALUES (@teacher_UID, @CRN)";
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
-                    cmd.Parameters.AddWithValue("@teacherUID", teacher.TeacherUID);
+                    cmd.Parameters.AddWithValue("@teacher_UID", teacher.TeacherUID);
                     cmd.Parameters.AddWithValue("@CRN", CRN);
                     cmd.ExecuteNonQuery();
                 }
