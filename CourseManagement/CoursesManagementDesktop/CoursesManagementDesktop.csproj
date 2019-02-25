@@ -85,6 +85,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\TeachHomPageController.cs" />
     <Compile Include="DAL\DesktopGradedItemDAL.cs" />
     <Compile Include="ManageAssignmentPage.xaml.cs">
       <DependentUpon>ManageAssignmentPage.xaml</DependentUpon>
