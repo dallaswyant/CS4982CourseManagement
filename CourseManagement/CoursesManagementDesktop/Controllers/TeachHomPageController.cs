@@ -1,4 +1,6 @@
-﻿using CourseManagement.DAL;
+﻿using System;
+using System.Threading.Tasks;
+using CourseManagement.DAL;
 using CoursesManagementDesktop.DAL;
 
 namespace CoursesManagementDesktop.Controllers
@@ -44,7 +46,14 @@ namespace CoursesManagementDesktop.Controllers
             this.populateAssignmentComboBox();
         }
 
-        private void populateAssignmentComboBox()
+        public void updateAssignmentBox()
+        {
+           this.homePage.AssignmentCombo.Items.Clear();
+           this.populateAssignmentComboBox();
+
+        }
+
+        private  void  populateAssignmentComboBox()
         {
             var crn = this.findCrn(this.homePage.CourseCombo.Text);
             var assignments = this.gradedItemDal.GetUniqueGradedItemsByCRN(crn);
@@ -74,9 +83,14 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void LoadDataGrid()
         {
-            var name = this.homePage.AssignmentCombo.SelectedItem.ToString();
-            var crn = this.findCrn(this.homePage.CourseCombo.Text);
-            this.desktopGradedItemDal.populateDataGrid(crn, name, this.homePage.dataGridGrades);
+         
+                var name = this.homePage.AssignmentCombo.SelectedItem ==null ? "":this.homePage.AssignmentCombo.SelectedItem.ToString();
+                var crn = this.findCrn(this.homePage.CourseCombo.Text);
+                this.desktopGradedItemDal.populateDataGrid(crn, name, this.homePage.dataGridGrades);
+            
+            
+           
+            
         }
 
         private int findCrn(string courseName)

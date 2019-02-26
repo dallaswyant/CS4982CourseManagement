@@ -74,11 +74,27 @@ namespace CoursesManagementDesktop
             navigationService?.Navigate(page);
         }
 
+        
+
+        private async void CourseCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.AssignmentCombo.Items.Clear();
+          
+             this.controller.updateAssignmentBox();
+   
+            this.controller.LoadDataGrid();
+        }
+
         #endregion
 
-        private void CourseCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
+            this.AssignmentCombo.Items.Clear();
+        }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.controller.updateAssignmentBox();
         }
     }
 }
