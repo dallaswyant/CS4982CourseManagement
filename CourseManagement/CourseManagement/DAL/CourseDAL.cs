@@ -29,15 +29,16 @@ namespace CourseManagement.DAL
             {
 
                 conn.Open();
-                
-                var selectQuery = "select courses.* from courses, teacher_teaches_courses WHERE teacher_teaches_courses.courses_CRN = courses.CRN AND teacher_teaches_courses.teacher_uid = @teacherUID";
+
+                var selectQuery =
+                    "select courses.* from courses, teacher_teaches_courses WHERE teacher_teaches_courses.courses_CRN = courses.CRN AND teacher_teaches_courses.teacher_uid = @teacherUID";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@teacherUID", teacherIDCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        
+
                         int CRNOrdinal = reader.GetOrdinal("CRN");
                         int departmentOrdinal = reader.GetOrdinal("dept_name");
                         int courseNameOrdinal = reader.GetOrdinal("course_name");
@@ -76,7 +77,8 @@ namespace CourseManagement.DAL
                                 ? default(string)
                                 : reader.GetString(semesterNameOrdinal);
 
-                            Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription, sectionNumber, creditHours, maxSeats, location, semesterName);
+                            Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
+                                sectionNumber, creditHours, maxSeats, location, semesterName);
                             currentCourse.LectureNotes.Clear();
                             coursesTaught.Add(currentCourse);
 
@@ -146,13 +148,15 @@ namespace CourseManagement.DAL
                                 ? default(string)
                                 : reader.GetString(semesterNameOrdinal);
 
-                            Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription, sectionNumber, creditHours, maxSeats, location, semesterName);
+                            Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
+                                sectionNumber, creditHours, maxSeats, location, semesterName);
                             currentCourse.LectureNotes.Clear();
                             return currentCourse;
 
                         }
                     }
                 }
+
                 conn.Close();
             }
 
@@ -217,12 +221,14 @@ namespace CourseManagement.DAL
                                 ? default(string)
                                 : reader.GetString(semesterNameOrdinal);
 
-                            Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription, sectionNumber, creditHours, maxSeats, location, semesterName);
+                            Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
+                                sectionNumber, creditHours, maxSeats, location, semesterName);
                             currentCourse.LectureNotes.Clear();
                             return currentCourse;
                         }
                     }
                 }
+
                 conn.Close();
             }
 
@@ -242,7 +248,8 @@ namespace CourseManagement.DAL
             using (conn)
             {
                 conn.Open();
-                var selectQuery = "SELECT courses.* FROM courses, students, student_has_courses WHERE students.uid = student_has_courses.student_uid AND student_has_courses.courses_CRN = courses.CRN AND students.uid = @studentUID";
+                var selectQuery =
+                    "SELECT courses.* FROM courses, students, student_has_courses WHERE students.uid = student_has_courses.student_uid AND student_has_courses.courses_CRN = courses.CRN AND students.uid = @studentUID";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
@@ -287,7 +294,8 @@ namespace CourseManagement.DAL
                                 ? default(string)
                                 : reader.GetString(semesterNameOrdinal);
 
-                            Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription, sectionNumber, creditHours, maxSeats, location, semesterName);
+                            Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
+                                sectionNumber, creditHours, maxSeats, location, semesterName);
                             currentCourse.LectureNotes.Clear();
                             coursesTaken.Add(currentCourse);
 
@@ -296,6 +304,7 @@ namespace CourseManagement.DAL
 
                     return coursesTaken;
                 }
+
                 conn.Close();
             }
 
@@ -326,7 +335,7 @@ namespace CourseManagement.DAL
                 {
                     selectQuery = "SELECT courses.* FROM courses WHERE courses.dept_name = @name";
                 }
-               
+
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
@@ -371,7 +380,8 @@ namespace CourseManagement.DAL
                                 ? default(string)
                                 : reader.GetString(semesterNameOrdinal);
 
-                            Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription, sectionNumber, creditHours, maxSeats, location, semesterName);
+                            Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
+                                sectionNumber, creditHours, maxSeats, location, semesterName);
                             currentCourse.LectureNotes.Clear();
                             deptCourses.Add(currentCourse);
 
@@ -384,67 +394,116 @@ namespace CourseManagement.DAL
             }
         }
 
-        public List<string> GetPrerequisiteCoursesForGivenCRN(int CRNCheck)
+        public Dictionary<string, char> GetPrerequisiteCoursesForGivenCRN(int CRNCheck)
         {
             MySqlConnection conn = DbConnection.GetConnection();
-            List<string> preReqs = new List<string>();
+            Dictionary<string, char> preReqs = new Dictionary<string, char>();
             using (conn)
             {
                 conn.Open();
-                var selectQuery = "select prereq_courses.* from courses, prereq_courses WHERE courses.course_name = prereq_courses.desired_course_name AND courses.CRN = @CRNCheck";
+                var selectQuery =
+                    "select prereq_courses.* from courses, prereq_courses WHERE courses.course_name = prereq_courses.desired_course_name AND courses.CRN = @CRNCheck";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        int RequiredOrdinal = reader.GetOrdinal("required_course_name");
+                        int requiredCourseOrdinal = reader.GetOrdinal("required_course_name");
+                        int requiredGradeOrdinal = reader.GetOrdinal("required_grade");
 
                         while (reader.Read())
                         {
-                            string requiredCourseName = reader[RequiredOrdinal] == DBNull.Value
+                            string requiredCourseName = reader[requiredCourseOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(RequiredOrdinal);
-                          
+                                : reader.GetString(requiredCourseOrdinal);
+                            char requiredGrade = reader[requiredGradeOrdinal] == DBNull.Value
+                                ? default(char)
+                                : reader.GetChar(requiredGradeOrdinal);
 
-                            preReqs.Add(requiredCourseName);
-                            
+
+                            preReqs.Add(requiredCourseName, requiredGrade);
+
 
                         }
+
                         return preReqs;
                     }
                 }
             }
         }
 
-        public List<string> GetPrerequisiteCoursesForGivenCourseName(string courseName)
+        public Dictionary<string, char> GetPrerequisiteCoursesForGivenCourseName(string courseName)
         {
             MySqlConnection conn = DbConnection.GetConnection();
-            List<string> preReqs = new List<string>();
+            Dictionary<string, char> preReqs = new Dictionary<string, char>();
             using (conn)
             {
                 conn.Open();
-                var selectQuery = "select prereq_courses.* from prereq_courses WHERE prereq_courses.desired_course_name = @desired_course";
+                var selectQuery =
+                    "select prereq_courses.* from prereq_courses WHERE prereq_courses.desired_course_name = @desired_course";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@desired_course", courseName);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        int RequiredOrdinal = reader.GetOrdinal("required_course_name");
+                        int requiredCourseOrdinal = reader.GetOrdinal("required_course_name");
+                        int requiredGradeOrdinal = reader.GetOrdinal("required_grade");
+
 
                         while (reader.Read())
                         {
-                            string requiredCourseName = reader[RequiredOrdinal] == DBNull.Value
+                            string requiredCourseName = reader[requiredCourseOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(RequiredOrdinal);
+                                : reader.GetString(requiredCourseOrdinal);
+                            char requiredGrade = reader[requiredGradeOrdinal] == DBNull.Value
+                                ? default(char)
+                                : reader.GetChar(requiredGradeOrdinal);
 
 
-                            preReqs.Add(requiredCourseName);
+                            preReqs.Add(requiredCourseName, requiredGrade);
 
 
                         }
+
                         return preReqs;
+                    }
+                }
+            }
+        }
+
+        public List<char> GetGradesEarnedForCompletedCourse(string courseName, string studentUID)
+        {
+            MySqlConnection conn = DbConnection.GetConnection();
+            List<char> grades = new List<char>();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery =
+                    "SELECT student_has_courses.grade_earned FROM student_has_courses, courses WHERE student_has_courses.courses_CRN = courses.CRN AND student_has_courses.student_uid = @studentUID AND student_has_courses.courses_CRN = courses.CRN AND courses.course_name = @course_name";
+
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@studentUID", studentUID);
+                    cmd.Parameters.AddWithValue("@course_name", courseName);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        int gradeEarnedOrdinal = reader.GetOrdinal("grade_earned");
+
+                        while (reader.Read())
+                        {
+                            char earnedGrade = reader[gradeEarnedOrdinal] == DBNull.Value
+                                ? default(char)
+                                : reader.GetChar(gradeEarnedOrdinal);
+
+
+                            grades.Add(earnedGrade);
+
+
+                        }
+
+                        return grades;
                     }
                 }
             }

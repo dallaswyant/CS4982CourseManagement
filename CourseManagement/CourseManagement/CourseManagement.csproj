@@ -116,6 +116,7 @@
     <Compile Include="DAL\DepartmentDAL.cs" />
     <Compile Include="DAL\GradeItemDAL.cs" />
     <Compile Include="DAL\PersonallnfoDAL.cs" />
+    <Compile Include="DAL\SemesterDAL.cs" />
     <Compile Include="DAL\StudentDAL.cs" />
     <Compile Include="DAL\TeacherDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
