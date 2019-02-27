@@ -28,6 +28,8 @@
         <Label Content="Assignment" Grid.Column="3" Margin="9.8,25,9.2,0.8"/>
         <ComboBox Name="CourseCombo" Margin="9.6,0.2,9.8,5" Grid.Row="2" Grid.Column="1" SelectionChanged="CourseCombo_SelectionChanged"/>
         <Button Name="logoutButton" Content="sign out" Grid.Column="4" HorizontalAlignment="Left" Margin="9.8,20,0,0" VerticalAlignment="Top" Width="75" Click="LogoutButton_Click"/>
+        <Button Content="Button" Grid.Column="2" HorizontalAlignment="Left" Margin="175.2,82.2,0,0" Grid.Row="4" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="Button" Grid.Column="2" HorizontalAlignment="Left" Margin="345.2,82.2,0,0" Grid.Row="4" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
 
     </Grid>
 </Page>
