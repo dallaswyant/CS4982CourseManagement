@@ -22,6 +22,15 @@ namespace CourseManagement.Views.DepartmentAdmin {
         protected global::System.Web.UI.WebControls.GridView gvwDepartmentCourses;
         
         /// <summary>
+        /// lblGVWCoursesResults control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGVWCoursesResults;
+        
+        /// <summary>
         /// odsDeptCourses control.
         /// </summary>
         /// <remarks>

@@ -210,10 +210,9 @@
         </tr>
         <tr>
             <td class="auto-style22">
-                <asp:Button ID="Button2" runat="server" Text="Save" TabIndex="6"/>
-            </td>
+                &nbsp;</td>
             <td class="auto-style21">
-                <asp:Button ID="Button3" runat="server" Text="Grade" OnClick="Button3_Click" TabIndex="5"/>
+                <asp:Button ID="Button2" runat="server" Text="Save" TabIndex="6"/>
             </td>
             <td class="auto-style18">
                 <asp:Button ID="Button4" runat="server"  OnClick="Button4_Click"  Text="Next" TabIndex="4" />

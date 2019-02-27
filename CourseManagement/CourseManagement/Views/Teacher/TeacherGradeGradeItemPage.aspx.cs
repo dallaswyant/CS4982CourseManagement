@@ -160,13 +160,6 @@ namespace CourseManagement
 
             this.UpdatePanel2.Update();
         }
-
-        protected void Button3_Click(object sender, EventArgs e)
-        {
-            gradeGradeItem();
-            
-        }
-
         private void gradeGradeItem()
         {
             var updatedGrade = new GradeItem()
