@@ -85,7 +85,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\TeachHomPageController.cs" />
     <Compile Include="DAL\DesktopGradedItemDAL.cs" />
+    <Compile Include="GradePage.xaml.cs">
+      <DependentUpon>GradePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManageAssignmentPage.xaml.cs">
       <DependentUpon>ManageAssignmentPage.xaml</DependentUpon>
     </Compile>
@@ -93,6 +97,10 @@
     <Compile Include="TeacherHomePage.xaml.cs">
       <DependentUpon>TeacherHomePage.xaml</DependentUpon>
     </Compile>
+    <Page Include="GradePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

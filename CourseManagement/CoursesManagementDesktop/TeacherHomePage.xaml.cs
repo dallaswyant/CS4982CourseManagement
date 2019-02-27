@@ -14,93 +14,87 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CourseManagement.App_Code;
 using CourseManagement.DAL;
+using CoursesManagementDesktop.Controllers;
 using CoursesManagementDesktop.DAL;
 using GradeItemDAL = CourseManagement.DAL.GradeItemDAL;
 
 namespace CoursesManagementDesktop
 {
     /// <summary>
-    /// Interaction logic for TeacherHomePAge.xaml
+    ///     Interaction logic for TeacherHomePAge.xaml
     /// </summary>
     public partial class TeacherHomePAge : Page
     {
-        private CourseManagement.DAL.GradeItemDAL gradedItemDal;
-        private DesktopGradedItemDAL desktopGradedItemDal;
-        private CourseDAL courseDAL;
-        private string teacherID;
-        public TeacherHomePAge(string teacherID)
+        #region Data members
+
+        private readonly TeacherHomePageController controller;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     Gets the teacher identifier.
+        /// </summary>
+        /// <value>
+        ///     The teacher identifier.
+        /// </value>
+        public string TeacherId { get; }
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="TeacherHomePAge" /> class.
+        /// </summary>
+        /// <param name="teacherId">The teacher identifier.</param>
+        public TeacherHomePAge(string teacherId)
         {
-            InitializeComponent();
-            this.teacherID = teacherID;
-             gradedItemDal = new GradeItemDAL();
-            desktopGradedItemDal = new DesktopGradedItemDAL();
-            this.courseDAL = new CourseDAL();
-            populateComboBoxes();
-            loadDataGrid();
+            this.InitializeComponent();
+            this.TeacherId = teacherId;
+            this.controller = new TeacherHomePageController(this);
+
+            this.controller.populateComboBoxes();
         }
 
-        private void populateComboBoxes()
-        {
-            //TODO
-            //need to figure out what to replace this with
-            
-            var courses = this.courseDAL.GetCoursesByTeacherID(this.teacherID);  
+        #endregion
 
-            foreach (var name in courses)
-            {
-                this.CourseCombo.Items.Add(name.Name);
-            }
-            
-            this.CourseCombo.SelectedIndex = 0;
-
-            var crn = findCRN(this.CourseCombo.Text);
-            var assignments =  this.gradedItemDal.GetUniqueGradedItemsByCRN(crn); //TODO fix this
-
-            foreach (var name in assignments)
-            {
-                this.AssignmentCombo.Items.Add(name.Value);
-            }
-
-            
-            this.AssignmentCombo.SelectedIndex = 0;
-            
-
-        }
-
-        private void loadDataGrid()
-        {
-            
-            var name = this.AssignmentCombo.SelectedItem.ToString();
-            var crn = findCRN(this.CourseCombo.Text); 
-          this.desktopGradedItemDal.populateDataGrid(crn,name , this.dataGridGrades);
-        }
+        #region Methods
 
         private void AssignmentCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            loadDataGrid();
-        }
-
-        private int findCRN(string courseName)
-        {
-            int crn = -1;
-            
-            var courses = this.courseDAL.GetCoursesByTeacherID(this.teacherID);
-            foreach (var course in courses)
-            {
-                if (course.Name.Equals(this.CourseCombo.Text))
-                {
-                    crn = course.CRN;
-                }
-            }
-            
-            return crn;
+            this.controller.LoadDataGrid();
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            LoginPage page = new LoginPage();
-            var navigationService = this.NavigationService;
+            var page = new LoginPage();
+            var navigationService = NavigationService;
             navigationService?.Navigate(page);
+        }
+
+        
+
+        private async void CourseCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.AssignmentCombo.Items.Clear();
+          
+             this.controller.updateAssignmentBox();
+   
+            this.controller.LoadDataGrid();
+        }
+
+        #endregion
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.AssignmentCombo.Items.Clear();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.controller.updateAssignmentBox();
         }
     }
 }
