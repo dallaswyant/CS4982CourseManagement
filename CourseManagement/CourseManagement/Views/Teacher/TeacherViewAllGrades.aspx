@@ -8,16 +8,16 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <asp:ObjectDataSource ID="odsCourses" runat="server" OldValuesParameterFormatString="original_{0}"  TypeName="CourseManagement.DAL.CourseDAL" SelectMethod="GetCoursesByTeacherID">
-        <SelectParameters>
-            <asp:SessionParameter Name="teacherIDCheck" SessionField="UserID" Type="String" />
-        </SelectParameters>
-    </asp:ObjectDataSource>
+    
+    <asp:ObjectDataSource ID="odsSemesters" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetAllSemesters" TypeName="CourseManagement.DAL.SemesterDAL"></asp:ObjectDataSource>
+    <asp:DropDownList ID="ddlSemesters" runat="server" AutoPostBack="True" DataSourceID="odsSemesters" DataTextField="SemesterID" DataValueField="SemesterID" OnSelectedIndexChanged="ddlSemesters_SelectedIndexChanged">
+    </asp:DropDownList>
+    <br />
     <table class="tableInfo">
         <tr>
             <td class="auto-style7">
 
-    <asp:DropDownList ID="ddlCourses" runat="server" DataSourceID="odsCourses" DataTextField="Name" DataValueField="CRN">
+    <asp:DropDownList ID="ddlCourses" runat="server" DataTextField="Name" DataValueField="CRN" AutoPostBack="True" OnSelectedIndexChanged="ddlCourses_SelectedIndexChanged">
     </asp:DropDownList>
             </td>
             <td class="auto-style7">
@@ -74,6 +74,8 @@
     </asp:GridView>
         </ContentTemplate>
     </asp:UpdatePanel>
+    <br />
+    <asp:Label ID="lblError" runat="server"></asp:Label>
     <asp:ObjectDataSource ID="odsStudents" runat="server" SelectMethod="GetGradedItemsByCRNAndGradeNameForAllStudents" TypeName="CourseManagement.DAL.GradeItemDAL" >
         <SelectParameters>
             <asp:ControlParameter ControlID="ddlCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />

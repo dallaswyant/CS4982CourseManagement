@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using CourseManagement.App_Code;
@@ -7,9 +8,10 @@ using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL
 {
+    [DataObject(true)]
     public class SemesterDAL
     {
-        //SELECT * FROM semesters
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Semester> GetAllSemesters()
         {
             MySqlConnection conn = DbConnection.GetConnection();
@@ -57,7 +59,7 @@ namespace CourseManagement.DAL
             }
         }
 
-        //SELECT * FROM semesters WHERE semesters.semester_name = @semester_name
+        [DataObjectMethod(DataObjectMethodType.Select)]
         public Semester GetSemesterBySemesterName(string semesterName)
         {
             MySqlConnection conn = DbConnection.GetConnection();

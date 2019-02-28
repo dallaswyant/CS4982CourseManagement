@@ -89,6 +89,76 @@ namespace CourseManagement.DAL
                 }
             }
         }
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<Course> GetCoursesByTeacherAndSemester(string teacherIDCheck, string semesterID)
+        {
+            MySqlConnection conn = DbConnection.GetConnection();
+            List<Course> coursesTaught = new List<Course>();
+            using (conn)
+            {
+
+                conn.Open();
+
+                var selectQuery =
+                    "SELECT courses.* FROM teacher_teaches_courses, courses WHERE teacher_teaches_courses.teacher_uid = @teacherUID AND teacher_teaches_courses.courses_CRN = courses.CRN AND courses.semester_name = @semesterID";
+
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@teacherUID", teacherIDCheck);
+                    cmd.Parameters.AddWithValue("@semesterID", semesterID);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+
+                        int CRNOrdinal = reader.GetOrdinal("CRN");
+                        int departmentOrdinal = reader.GetOrdinal("dept_name");
+                        int courseNameOrdinal = reader.GetOrdinal("course_name");
+                        int courseDescriptionOrdinal = reader.GetOrdinal("course_desc");
+                        int sectionNumberOrdinal = reader.GetOrdinal("section_num");
+                        int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
+                        int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
+                        int locationOrdinal = reader.GetOrdinal("location");
+                        int semesterNameOrdinal = reader.GetOrdinal("semester_name");
+
+                        while (reader.Read())
+                        {
+                            int CRN = reader[CRNOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(CRNOrdinal);
+                            string departmentName = reader[departmentOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(departmentOrdinal);
+                            string courseName = reader[courseNameOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(courseNameOrdinal);
+                            string courseDescription = reader[courseDescriptionOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(courseDescriptionOrdinal);
+                            string sectionNumber = reader[sectionNumberOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(sectionNumberOrdinal);
+                            int creditHours = reader[creditHoursOrdinal] == DBNull.Value
+                                ? default(int)
+                                : reader.GetInt32(creditHoursOrdinal);
+                            int maxSeats = reader[maxSeatsOrdinal] == DBNull.Value
+                                ? default(int)
+                                : reader.GetInt32(maxSeatsOrdinal);
+                            string location = reader[locationOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(locationOrdinal);
+                            string semesterName = reader[semesterNameOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(semesterNameOrdinal);
+
+                            Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
+                                sectionNumber, creditHours, maxSeats, location, semesterName);
+                            currentCourse.LectureNotes.Clear();
+                            coursesTaught.Add(currentCourse);
+
+                        }
+
+                        return coursesTaught;
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Gets the information about a course by CRN.

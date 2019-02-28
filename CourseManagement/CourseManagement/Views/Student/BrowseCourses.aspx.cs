@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using CourseManagement.App_Code;
 using CourseManagement.DAL;
+using CourseManagement.Utilities;
 
 namespace CourseManagement.Views.Student
 {
@@ -35,10 +36,20 @@ namespace CourseManagement.Views.Student
                 var current = HttpContext.Current.Session["User"] as User;
                 StudentDAL courseAdder = new StudentDAL();
                 int crn = (int)HttpContext.Current.Session["chosenCRN"];
+                
                 try
                 {
-                    courseAdder.addCourseByCRNAndStudentUID(crn, current.UserId);
-                    Response.Redirect("BrowseCourses.aspx");
+                    CourseSignUpHelper helper = new CourseSignUpHelper();
+                    if (helper.CheckIfStudentCanSignUpForCourse(crn, current.UserId))
+                    {
+                        courseAdder.addCourseByCRNAndStudentUID(crn, current.UserId);
+                        Response.Redirect("BrowseCourses.aspx");
+                    }
+                    else
+                    {
+                        this.lblCourseToAdd.Text = "You can't sign up for this course.";
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -56,7 +67,6 @@ namespace CourseManagement.Views.Student
             CourseDAL courseGetter = new CourseDAL();
             Course courseToAdd = courseGetter.GetCourseByCRN(crn);
             TeacherDAL dal = new TeacherDAL();
-            //TODO get this teacher somehow
             Teacher instructor = dal.GetTeacherByCRN(crn);
             string instructorName = instructor != null ? instructor.Name : "TBA"; 
             this.lblCourseToAdd.Text = "Course to Add: " + courseToAdd.CRN + " " + courseToAdd.Name + " " +
