@@ -7,18 +7,26 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+    <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
+        <ContentTemplate>
     
     <asp:ObjectDataSource ID="odsSemesters" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetAllSemesters" TypeName="CourseManagement.DAL.SemesterDAL"></asp:ObjectDataSource>
     <asp:DropDownList ID="ddlSemesters" runat="server" AutoPostBack="True" DataSourceID="odsSemesters" DataTextField="SemesterID" DataValueField="SemesterID" OnSelectedIndexChanged="ddlSemesters_SelectedIndexChanged">
     </asp:DropDownList>
     <br />
+    
     <table class="tableInfo">
         <tr>
             <td class="auto-style7">
-
-    <asp:DropDownList ID="ddlCourses" runat="server" DataTextField="Name" DataValueField="CRN" AutoPostBack="True" OnSelectedIndexChanged="ddlCourses_SelectedIndexChanged">
+            
+    <asp:DropDownList ID="ddlCourses" runat="server" DataTextField="Name" DataValueField="CRN" AutoPostBack="True" OnSelectedIndexChanged="ddlCourses_SelectedIndexChanged" DataSourceID="odsCourses" EnableViewState="False">
     </asp:DropDownList>
+                <asp:ObjectDataSource ID="odsCourses" runat="server" OldValuesParameterFormatString="original_{0}"  TypeName="CourseManagement.DAL.CourseDAL" SelectMethod="GetCoursesByTeacherAndSemester">
+                    <SelectParameters>
+                        <asp:SessionParameter Name = "teacherIDCheck" SessionField = "UserID" Type = "String" />
+                        <asp:ControlParameter ControlID = "ddlSemesters" Name = "semesterID" PropertyName = "SelectedValue" Type = "String" />
+                    </SelectParameters>
+                </asp:ObjectDataSource >
             </td>
             <td class="auto-style7">
                 <asp:DropDownList ID="ddlAssignments" runat="server" AutoPostBack="True"   OnSelectedIndexChanged="ddlAssignments_SelectedIndexChanged" DataSourceID="odsAssignments" DataTextField="Value" DataValueField="Value" >
@@ -53,9 +61,8 @@
         </tr>
 </table>
     <br />
-    <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
-        <ContentTemplate>
-    <asp:GridView ID="gvwStudents" runat="server" OnSelectedIndexChanging="gvwGrade_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsStudents" AllowPaging="True" CssClass="table">
+    
+    <asp:GridView ID="gvwStudents" runat="server" OnSelectedIndexChanging="gvwGrade_SelectedIndexChanging" AutoGenerateColumns="False" DataSourceID="odsStudents" AllowPaging="True" CssClass="table" EnableViewState="False">
         <Columns>
             <asp:TemplateField HeaderText="Student" SortExpression="Student">
                 <EditItemTemplate>

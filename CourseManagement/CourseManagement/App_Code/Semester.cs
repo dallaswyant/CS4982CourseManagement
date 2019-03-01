@@ -37,6 +37,7 @@ namespace CourseManagement.App_Code
             this.AddDropDeadline = addDropDeadline;
             this.StartDate = startDate;
             this.WithdrawDeadline = withdrawDeadline;
+            this.EndDate = endDate;
         }
     }
 }

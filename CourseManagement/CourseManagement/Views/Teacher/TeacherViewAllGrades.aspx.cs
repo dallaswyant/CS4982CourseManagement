@@ -17,37 +17,20 @@ namespace CourseManagement.Views
             if (!IsPostBack)
             {
                 DataBind();
+                SemesterDAL tester = new SemesterDAL();
+                var stuffSemesters = tester.GetAllSemesters();
+                int count = 0;
+                foreach (Semester sem in stuffSemesters)
+                {
+                    if (sem.StartDate < DateTime.Now & sem.EndDate > DateTime.Now)
+                    {
+                        this.ddlSemesters.SelectedIndex = count;
+                    }
+                    count++;
+                }
             }
-            CourseDAL courseGetter = new CourseDAL();
-            User currentUser = HttpContext.Current.Session["User"] as User;
-            var courses = courseGetter.GetCoursesByTeacherAndSemester(currentUser.UserId, this.ddlSemesters.SelectedValue);
-            if (HttpContext.Current.Session["SelectedCourseIndex"] != null &
-                HttpContext.Current.Session["SelectedSemester"] != null)
-            {
-                this.ddlCourses.Items.Clear();
-                foreach (var course in courses)
-                {
-                    this.ddlCourses.Items.Add(new ListItem(course.Name, course.CRN.ToString()));
-                }
 
-                var oldCourseIndex = (int) HttpContext.Current.Session["SelectedCourseIndex"];
-                var oldSemester = (string) HttpContext.Current.Session["SelectedSemester"];
-                if (oldSemester == this.ddlSemesters.SelectedValue)
-                {
-                    this.ddlCourses.SelectedIndex = oldCourseIndex;
-                }
-
-        }
-            else
-            {
-                this.ddlCourses.Items.Clear();
-                foreach (var course in courses)
-                {
-                    this.ddlCourses.Items.Add(new ListItem(course.Name, course.CRN.ToString()));
-                }
-
-                this.lblError.Text = String.Empty;
-            }
+            
             GradeItemDAL checker = new GradeItemDAL();
             int crn = Int32.Parse(this.ddlCourses.SelectedValue);
             Dictionary<string, string> items = checker.GetUniqueGradedItemsByCRN(crn);
@@ -67,15 +50,7 @@ namespace CourseManagement.Views
             {
                 this.lblError.Text = "There are no assignments for this course. Whoops!";
             }
-            //<asp:ObjectDataSource ID="odsCourses" runat="server" OldValuesParameterFormatString="original_{0}"  TypeName="CourseManagement.DAL.CourseDAL" SelectMethod="GetCoursesByTeacherAndSemester">
-            //< SelectParameters >
-            //    < asp:SessionParameter Name = "teacherIDCheck" SessionField = "UserID" Type = "String" />
-     
-            //    < asp:ControlParameter ControlID = "ddlSemesters" Name = "semesterID" PropertyName = "SelectedValue" Type = "String" />
             
-            //    </ SelectParameters >
-            
-            //    </ asp:ObjectDataSource >
 
 
 
@@ -124,8 +99,6 @@ namespace CourseManagement.Views
 
         protected void ddlCourses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            HttpContext.Current.Session["SelectedCourseIndex"] = this.ddlCourses.SelectedIndex;
-            HttpContext.Current.Session["SelectedSemester"] = this.ddlSemesters.SelectedValue;
             this.UpdatePanel1.Update();
         }
 
