@@ -105,10 +105,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Code\CourseRubric.cs" />
-    <Compile Include="App_Code\GradeItem.cs" />
-    <Compile Include="App_Code\PersonalInfo.cs" />
-    <Compile Include="App_Code\Semester.cs" />
+    <Compile Include="Models\CourseRubric.cs" />
+    <Compile Include="Models\GradeItem.cs" />
+    <Compile Include="Models\PersonalStuff.cs" />
+    <Compile Include="Models\Semester.cs" />
     <Compile Include="DAL\CourseDAL.cs" />
     <Compile Include="DAL\CourseRubricDAL.cs" />
     <Compile Include="DAL\DbConnection.cs" />
@@ -120,7 +120,7 @@
     <Compile Include="DAL\StudentDAL.cs" />
     <Compile Include="DAL\TeacherDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
-    <Compile Include="App_Code\RubricItem.cs" />
+    <Compile Include="Models\RubricItem.cs" />
     <Compile Include="Utilities\CourseSignUpHelper.cs" />
     <Compile Include="Utilities\Encrypter.cs" />
     <Compile Include="Views\DepartmentAdmin\ManageCourses.aspx.cs">
@@ -186,13 +186,13 @@
     <Compile Include="Views\Teacher\TeacherViewAllGrades.aspx.designer.cs">
       <DependentUpon>TeacherViewAllGrades.aspx</DependentUpon>
     </Compile>
-    <Compile Include="App_Code\User.cs" />
-    <Compile Include="App_Code\Course.cs" />
-    <Compile Include="App_Code\CourseCollection.cs" />
-    <Compile Include="App_Code\Teacher.cs" />
-    <Compile Include="App_Code\Department.cs" />
-    <Compile Include="App_Code\DegreeProgram.cs" />
-    <Compile Include="App_Code\Student.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\CourseCollection.cs" />
+    <Compile Include="Models\Teacher.cs" />
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\DegreeProgram.cs" />
+    <Compile Include="Models\Student.cs" />
     <Compile Include="CourseManagement.Master.cs">
       <DependentUpon>CourseManagement.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -220,6 +220,7 @@
     <Content Include="Web.sitemap" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>

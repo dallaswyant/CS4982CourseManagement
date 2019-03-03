@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CourseManagement
+namespace CourseManagement.Views
 {
     public partial class StudentViewGradeItem : System.Web.UI.Page
     {

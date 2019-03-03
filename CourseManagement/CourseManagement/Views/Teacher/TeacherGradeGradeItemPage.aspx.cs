@@ -7,10 +7,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using AjaxControlToolkit;
-using CourseManagement.App_Code;
 using CourseManagement.DAL;
+using CourseManagement.Models;
 
-namespace CourseManagement
+namespace CourseManagement.Models
 {
     public partial class TeacherGradeGradeItemPage : System.Web.UI.Page
     {
@@ -88,7 +88,7 @@ namespace CourseManagement
                 }
 
                 PersonallnfoDAL infoGetter = new PersonallnfoDAL();
-                PersonalInfo personalInfo = infoGetter.GetPersonalInfoFromUserID(student.StudentUID);
+                PersonalStuff personalInfo = infoGetter.GetPersonalInfoFromUserID(student.StudentUID);
                 this.ddlStudentNames.Items.Add(new ListItem(personalInfo.FName + " " + personalInfo.LName, student.StudentUID));
 
                 counter++;

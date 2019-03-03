@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using CourseManagement.App_Code;
 using CourseManagement.DAL;
+using CourseManagement.Models;
+
 
 namespace CourseManagement.Utilities
 {

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CourseManagement.App_Code;
 using CourseManagement.DAL;
+using CourseManagement.Models;
 
 namespace CoursesManagementDesktop.Model
 {

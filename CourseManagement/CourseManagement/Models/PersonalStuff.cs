@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls.WebParts;
 
-namespace CourseManagement.App_Code
+namespace CourseManagement.Models
 {
-    public class PersonalInfo
+    public class PersonalStuff
     {
         /// <summary>
         /// The user ID
@@ -54,7 +54,7 @@ namespace CourseManagement.App_Code
         public string SSN;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PersonalInfo"/> class.
+        /// Initializes a new instance of the <see cref="PersonalStuff"/> class.
         /// </summary>
         /// <param name="uid">The uid.</param>
         /// <param name="fname">The fname.</param>
@@ -67,7 +67,7 @@ namespace CourseManagement.App_Code
         /// <param name="race">The race.</param>
         /// <param name="email">The email.</param>
         /// <param name="ssn">The SSN.</param>
-        public PersonalInfo(string uid, string fname, char minit, string lname, int addrId, string phoneNumber,
+        public PersonalStuff(string uid, string fname, char minit, string lname, int addrId, string phoneNumber,
             string sex, DateTime dob,
             string race, string email, string ssn)
         {

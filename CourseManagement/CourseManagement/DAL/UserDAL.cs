@@ -1,5 +1,5 @@
 ﻿using System;
-using CourseManagement.App_Code;
+using CourseManagement.Models;
 using CourseManagement.Utilities;
 using MySql.Data.MySqlClient;
 

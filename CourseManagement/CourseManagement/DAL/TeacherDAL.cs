@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CourseManagement.App_Code;
+using CourseManagement.Models;
 using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL

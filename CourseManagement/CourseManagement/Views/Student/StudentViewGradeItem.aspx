@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CourseManagement.Master" AutoEventWireup="true" CodeBehind="StudentViewGradeItem.aspx.cs" Inherits="CourseManagement.StudentViewGradeItem" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CourseManagement.Master" AutoEventWireup="true" CodeBehind="StudentViewGradeItem.aspx.cs" Inherits="CourseManagement.Views.StudentViewGradeItem" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../../Styles/StudentViewAllGrades.css" rel="stylesheet" type="text/css"/>
 </asp:Content>

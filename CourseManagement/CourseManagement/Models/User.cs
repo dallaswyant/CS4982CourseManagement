@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CourseManagement.App_Code
+namespace CourseManagement.Models
 {
     [Serializable]
     public class User

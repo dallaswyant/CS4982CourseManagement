@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
-using CourseManagement.App_Code;
+using CourseManagement.Models;
+using CourseManagements;
 using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL
@@ -146,7 +147,7 @@ namespace CourseManagement.DAL
                 conn.Open();
                     
                     var selectQuery =
-                        "UPDATE courses SET (course_name=@course_name, section_num=@section_num, course_description = @course_description, credit_hours=@credit_hours, seats_max=@seats_max, location=@location, semester_name = @semester_name) WHERE CRN = @CRN";
+                        "UPDATE courses SET course_name=@course_name, section_num=@section_num, course_desc = @course_description, credit_hours=@credit_hours, seats_max=@seats_max, location=@location, semester_name = @semester_name, dept_name=@department WHERE CRN = @CRN";
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@course_name", course.Name);
@@ -157,6 +158,7 @@ namespace CourseManagement.DAL
                     cmd.Parameters.AddWithValue("@location", course.Location);
                     cmd.Parameters.AddWithValue("@CRN", course.CRN);
                     cmd.Parameters.AddWithValue("@semester_name", course.SemesterID);
+                    cmd.Parameters.AddWithValue("@department", course.DepartmentName);
                     cmd.ExecuteNonQuery();
                 }
 

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CourseManagement {
+namespace CourseManagement.Views {
     
     
     public partial class StudentViewGradeItem {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using CourseManagement.App_Code;
+using CourseManagement.Models;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CourseManagementUnitTests.Models

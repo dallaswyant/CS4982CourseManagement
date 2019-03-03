@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection.Emit;
-using CourseManagement.App_Code;
+using CourseManagement.Models;
 using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL

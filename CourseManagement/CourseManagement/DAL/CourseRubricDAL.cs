@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
-using CourseManagement.App_Code;
+using CourseManagement.Models;
 using CourseManagement.Views;
 using MySql.Data.MySqlClient;
 

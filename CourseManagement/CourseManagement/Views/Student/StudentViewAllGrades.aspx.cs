@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI.WebControls;
-using CourseManagement.App_Code;
 using CourseManagement.DAL;
+using CourseManagement.Models;
+
 
 namespace CourseManagement.Views
 {

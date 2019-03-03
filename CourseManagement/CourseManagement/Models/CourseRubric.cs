@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 
-namespace CourseManagement.App_Code
+namespace CourseManagement.Models
 {
     /// <summary>
     /// Course rubric class

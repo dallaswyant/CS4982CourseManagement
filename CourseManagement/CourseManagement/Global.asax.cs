@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CourseManagement
+namespace CourseManagement.Models
 {
     public class Global : System.Web.HttpApplication
     {

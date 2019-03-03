@@ -12,11 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CourseManagement.App_Code;
-using CourseManagement.DAL;
+//using CourseManagement.App_Code;
+//using CourseManagement.DAL;
 using CoursesManagementDesktop.Controllers;
 using CoursesManagementDesktop.DAL;
-using GradeItemDAL = CourseManagement.DAL.GradeItemDAL;
+//
 
 namespace CoursesManagementDesktop
 {

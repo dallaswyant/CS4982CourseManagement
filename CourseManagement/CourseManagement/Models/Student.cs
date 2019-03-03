@@ -1,8 +1,9 @@
 ﻿
 
+
 using CourseManagement.DAL;
 
-namespace CourseManagement.App_Code
+namespace CourseManagement.Models
 {
     public class Student
     {
@@ -38,8 +39,9 @@ namespace CourseManagement.App_Code
             get
             {
                 PersonallnfoDAL infoGetter = new PersonallnfoDAL();
-                return infoGetter.GetPersonalInfoFromUserID(StudentUID).FName + " " + infoGetter.GetPersonalInfoFromUserID(StudentUID).LName;
-                //TODO figure out why cant store this in personalInfo object?
+                PersonalStuff info = infoGetter.GetPersonalInfoFromUserID(this.StudentUID);
+                return info.FName + " " + info.LName;
+
             }
         }
 

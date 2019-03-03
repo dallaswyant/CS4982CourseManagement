@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web;
-using CourseManagement.App_Code;
 using CourseManagement.DAL;
+using CourseManagement.Models;
 
-namespace CourseManagement
+namespace CourseManagement.Views
 {
     public partial class ManageCreateGradeItem : System.Web.UI.Page
     {

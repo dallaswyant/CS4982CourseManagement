@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CourseManagement.App_Code
+namespace CourseManagement.Models
 {
     public class GradeItem
     {

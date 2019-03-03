@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CourseManagement.App_Code
+namespace CourseManagement.Models
 {
     /// <summary>
     /// 
@@ -13,52 +13,52 @@ namespace CourseManagement.App_Code
         /// <summary>
         /// gets or sets the Name
         /// </summary>
-        public string Name { get; }        
+        public string Name { get; set; }        
         
         /// <summary>
         /// gets the description
         /// </summary>
-        public string Description { get;  }
+        public string Description { get;  set; }  
 
         /// <summary>
         ///   Location of the Course
         /// </summary>
-        public string Location { get; }
+        public string Location { get; set; }  
 
         /// <summary>
         /// Gets lecture Notes
         /// </summary>
-        public List<string> LectureNotes { get; } //TODO discuss being file paths
+        public List<string> LectureNotes { get; set; }   //TODO discuss being file paths
 
         /// <summary>
         /// gets the credit hours
         /// </summary>
-        public int CreditHours { get; }
+        public int CreditHours { get; set; }  
 
         /// <summary>
         /// gets the crn
         /// </summary>
-        public int CRN { get;}
+        public int CRN { get; set; }  
 
         /// <summary>
         /// gets the section number
         /// </summary>
-        public string SectionNumber { get; }
+        public string SectionNumber { get; set; }  
 
         /// <summary>
         /// Gets the Department
         /// </summary>
-        public string DepartmentName { get; }
+        public string DepartmentName { get; set; }  
  
         /// <summary>
         /// Gets the Max seats
         /// </summary>
-        public int MaxSeats { get; }
+        public int MaxSeats { get; set; }  
 
         /// <summary>
         /// Gets the semester ID
         /// </summary>
-        public string SemesterID { get; }
+        public string SemesterID { get; set; }  
         #endregion
 
         #region Constructors
@@ -86,6 +86,11 @@ namespace CourseManagement.App_Code
             this.Location = location;
             this.SemesterID = semesterID;
             this.LectureNotes = new List<string>();
+        }
+
+        public Course()
+        {
+
         }
         #endregion
 

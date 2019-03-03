@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using CourseManagement.App_Code;
-using CourseManagement.DAL;
 using CoursesManagementDesktop.Model;
 
 namespace CoursesManagementDesktop

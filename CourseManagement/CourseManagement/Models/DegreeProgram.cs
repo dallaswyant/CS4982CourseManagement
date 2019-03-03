@@ -1,4 +1,4 @@
-﻿namespace CourseManagement.App_Code
+﻿namespace CourseManagement.Models
 {
     public class DegreeProgram
     {

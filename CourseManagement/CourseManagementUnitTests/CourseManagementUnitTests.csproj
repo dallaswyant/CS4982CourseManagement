@@ -66,7 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseManagement\CourseManagement.csproj">
-      <Project>{b99497ee-c584-4e61-ac12-f667810f32fa}</Project>
+      <Project>{B99497EE-C584-4E61-AC12-F667810F32FA}</Project>
       <Name>CourseManagement</Name>
     </ProjectReference>
   </ItemGroup>

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Web;
 using System.Web.UI.WebControls;
-using CourseManagement.App_Code;
+using CourseManagement.Models;
 using CourseManagement.DAL;
 
-namespace CourseManagement
+namespace CourseManagement.Models
 {
     public partial class CourseManagement : System.Web.UI.MasterPage
     {

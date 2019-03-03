@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CourseManagement.Master" AutoEventWireup="true" CodeBehind="ManageCreateGradeItem.aspx.cs" Inherits="CourseManagement.ManageCreateGradeItem" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CourseManagement.Master" AutoEventWireup="true" CodeBehind="ManageCreateGradeItem.aspx.cs" Inherits="CourseManagement.Views.ManageCreateGradeItem" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
         .tableInfo { width: 100%; }

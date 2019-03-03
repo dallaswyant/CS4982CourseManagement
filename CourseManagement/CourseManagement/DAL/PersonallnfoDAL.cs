@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using CourseManagement.App_Code;
+using CourseManagement.Models;
 using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL
 {
     public class PersonallnfoDAL
     {
-        public PersonalInfo GetPersonalInfoFromUserID(string uid)
+        public PersonalStuff GetPersonalInfoFromUserID(string uid)
         {
             MySqlConnection conn = DbConnection.GetConnection();
 
@@ -72,7 +72,7 @@ namespace CourseManagement.DAL
                                 ? default(string)
                                 : reader.GetString(emailOrdinal);
 
-                            var foundInfo = new PersonalInfo(foundusername, foundfname, foundminit, foundlname,foundAddrId,foundPhone,foundSex,foundDob,foundRace,foundEmail,foundSSN);
+                            var foundInfo = new PersonalStuff(foundusername, foundfname, foundminit, foundlname,foundAddrId,foundPhone,foundSex,foundDob,foundRace,foundEmail,foundSSN);
                             return foundInfo;
                         }
                     }

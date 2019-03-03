@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
-using CourseManagement.App_Code;
+using CourseManagement.Models;
+using CourseManagements;
 using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL

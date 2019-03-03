@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using CourseManagements;
 
-namespace CourseManagement.App_Code
+namespace CourseManagement.Models
 {
     public class Teacher
     {

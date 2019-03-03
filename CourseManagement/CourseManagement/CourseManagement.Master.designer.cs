@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CourseManagement {
+namespace CourseManagement.Models {
     
     
     public partial class CourseManagement {

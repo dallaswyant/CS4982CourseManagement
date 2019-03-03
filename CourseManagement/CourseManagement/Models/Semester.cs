@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace CourseManagement.App_Code
+namespace CourseManagement.Models
 {
     public class Semester
     {

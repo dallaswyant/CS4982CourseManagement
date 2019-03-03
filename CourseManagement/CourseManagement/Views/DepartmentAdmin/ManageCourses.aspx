@@ -7,7 +7,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:GridView ID="gvwDepartmentCourses" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataSourceID="odsDeptCourses" PageSize="5" OnSelectedIndexChanged="gvwDepartmentCourses_SelectedIndexChanged" DataKeyNames="CRN" >
+    <asp:GridView ID="gvwDepartmentCourses" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataSourceID="odsDeptCourses" PageSize="5" OnSelectedIndexChanged="gvwDepartmentCourses_SelectedIndexChanged" DataKeyNames="CRN,Name,Description,Location,CreditHours,SectionNumber,DepartmentName,MaxSeats,SemesterID" >
         <Columns>
             <asp:TemplateField HeaderText="Name" SortExpression="Name">
                 <EditItemTemplate>
@@ -93,10 +93,13 @@
 
     <asp:Label ID="lblGVWCoursesResults" runat="server" CssClass="error"></asp:Label>
     <br />
-    <asp:ObjectDataSource ID="odsDeptCourses" runat="server" DataObjectTypeName="CourseManagement.App_Code.Course" DeleteMethod="DeleteCourseByDepartmentAndCRN" InsertMethod="InsertNewCourse" OldValuesParameterFormatString="original_{0}" SelectMethod="GetDepartmentCoursesByUserID" TypeName="CourseManagement.DAL.DepartmentAdminDAL" UpdateMethod="UpdateCourse">
+    <asp:ObjectDataSource ID="odsDeptCourses" runat="server" DataObjectTypeName="CourseManagement.Models.Course" DeleteMethod="DeleteCourseByDepartmentAndCRN" InsertMethod="InsertNewCourse" OldValuesParameterFormatString="original_{0}" SelectMethod="GetDepartmentCoursesByUserID" TypeName="CourseManagement.DAL.DepartmentAdminDAL" UpdateMethod="UpdateCourse">
         <SelectParameters>
             <asp:SessionParameter Name="userID" SessionField="UserID" Type="String" />
         </SelectParameters>
+        <UpdateParameters>
+            <asp:Parameter Name="course" Type="Object"/>
+        </UpdateParameters>
     </asp:ObjectDataSource>
     <br />
 
