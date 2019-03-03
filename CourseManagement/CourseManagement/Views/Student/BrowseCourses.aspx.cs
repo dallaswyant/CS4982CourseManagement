@@ -40,7 +40,7 @@ namespace CourseManagement.Views.Student
                 try
                 {
                     SemesterDAL semesterChecker = new SemesterDAL();
-                    if (!semesterChecker.CheckIfAddDropHasPassed(this.ddlSemester.SelectedValue))
+                    if (semesterChecker.CheckIfAddDropHasPassed(this.ddlSemester.SelectedValue))
                     {
                         CourseSignUpHelper helper = new CourseSignUpHelper();
                         if (helper.CheckIfStudentCanSignUpForCourse(crn, current.UserId))
