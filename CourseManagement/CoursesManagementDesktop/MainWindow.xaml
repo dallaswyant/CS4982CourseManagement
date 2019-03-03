@@ -8,9 +8,9 @@
         mc:Ignorable="d"
         WindowState="Maximized"
         
-        Title="MainWindow" Height="750" Width="1100">
+        Title="MainWindow" Height="750" MinWidth="720" Width="1100">
     <Grid Width="auto">
-        
-        <Frame NavigationUIVisibility="Hidden" x:Name="myFrame" Content="Frame"  HorizontalAlignment="Stretch" MinHeight="709" Margin="0,0,-0.4,-0.2" VerticalAlignment="Stretch" MinWidth="1080"/>
+
+        <Frame NavigationUIVisibility="Hidden" x:Name="myFrame" Content="Frame" MinHeight="709" Margin="177.6,0,177.6,-0.2" VerticalAlignment="Stretch" MinWidth="540"/>
     </Grid>
 </Window>

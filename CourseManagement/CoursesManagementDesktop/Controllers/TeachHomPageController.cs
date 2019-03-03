@@ -12,11 +12,15 @@ namespace CoursesManagementDesktop.Controllers
     {
         #region Data members
 
-        private readonly TeacherHomePAge homePage;
+        
         private readonly CourseDAL courseDAL;
         private readonly GradeItemDAL gradedItemDal;
         private readonly DesktopGradedItemDAL desktopGradedItemDal;
         private readonly SemesterDAL semesterDal;
+         
+        public int currentCrn { get; private set; }
+        public int selectedStudent { get;  set; }
+        public TeacherHomePAge homePage { get; }
 
         #endregion
 
@@ -107,10 +111,12 @@ namespace CoursesManagementDesktop.Controllers
                 var name = this.homePage.AssignmentCombo.SelectedItem ==null ? "":this.homePage.AssignmentCombo.SelectedItem.ToString();
                 var crn = this.findCrn(this.homePage.CourseCombo.Text);
                 this.desktopGradedItemDal.populateDataGrid(crn, name, this.homePage.dataGridGrades);
-            
-            
-           
-            
+                this.currentCrn = crn;
+
+
+
+
+
         }
 
         private int findCrn(string courseName)
