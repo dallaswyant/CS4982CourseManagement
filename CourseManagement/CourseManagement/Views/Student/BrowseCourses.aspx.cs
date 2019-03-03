@@ -36,25 +36,44 @@ namespace CourseManagement.Views.Student
                 var current = HttpContext.Current.Session["User"] as User;
                 StudentDAL courseAdder = new StudentDAL();
                 int crn = (int)HttpContext.Current.Session["chosenCRN"];
-                
+
                 try
                 {
-                    CourseSignUpHelper helper = new CourseSignUpHelper();
-                    if (helper.CheckIfStudentCanSignUpForCourse(crn, current.UserId))
+                    SemesterDAL semesterChecker = new SemesterDAL();
+                    if (!semesterChecker.CheckIfAddDropHasPassed(this.ddlSemester.SelectedValue))
                     {
-                        courseAdder.addCourseByCRNAndStudentUID(crn, current.UserId);
-                        Response.Redirect("BrowseCourses.aspx");
+                        CourseSignUpHelper helper = new CourseSignUpHelper();
+                        if (helper.CheckIfStudentCanSignUpForCourse(crn, current.UserId))
+                        {
+                            courseAdder.addCourseByCRNAndStudentUID(crn, current.UserId);
+                            Response.Redirect("BrowseCourses.aspx");
+                        }
+                        else
+                        {
+                            this.lblCourseToAdd.Text =
+                                "You can't sign up for this course due to pre-requisite requirements";
+                        }
                     }
                     else
                     {
-                        this.lblCourseToAdd.Text = "You can't sign up for this course.";
+                        {
+                            this.lblCourseToAdd.Text = "The add drop deadline for this semester has already passed.";
+                        }
                     }
 
                 }
+
                 catch (Exception ex)
                 {
-                    this.lblCourseToAdd.Text = "You are already in this course";
-                    HttpContext.Current.Session["chosenCRN"] = null;
+                    if (ex.Message.Equals("This course is still in progress."))
+                    {
+                        this.lblCourseToAdd.Text = ex.Message;
+                    }
+                    else
+                    {
+                        this.lblCourseToAdd.Text = "You are already in this course";
+                        HttpContext.Current.Session["chosenCRN"] = null;
+                    }
                 }
             }
             
