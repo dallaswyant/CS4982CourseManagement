@@ -72,5 +72,10 @@ namespace CourseManagement.Views.Student
             this.lblCourseToAdd.Text = "Course to Add: " + courseToAdd.CRN + " " + courseToAdd.Name + " " +
                                            courseToAdd.SectionNumber + " Instructor: " + instructorName;
         }
+
+        protected void ddlSemester_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.browseCoursUpdatePanel.Update();
+        }
     }
 }

@@ -11,15 +11,26 @@ namespace CourseManagement.Utilities
             var preReqs = courses.GetPrerequisiteCoursesForGivenCRN(crn);
             Course currentcourse = courses.GetCourseByCRN(crn);
             var grades = courses.GetGradesEarnedForCompletedCourse(currentcourse.Name, studentID);
-            bool canAdd = false;
+            bool[] canAdd = new bool[preReqs.Count];
+            int count = 0;
             foreach (var thing in preReqs)
             {
                 if (this.getGradeValueFromChar(thing.Value) <= this.getGradeValueFromChar(grades[grades.Count]))
                 {
-                    canAdd = true;
+                    canAdd[count] = true;
+                }
+
+                count++;
+            }
+
+            foreach (var thing in canAdd)
+            {
+                if (!thing)
+                {
+                    return false;
                 }
             }
-            return canAdd;
+            return true;
         }
 
         private int getGradeValueFromChar(char value)

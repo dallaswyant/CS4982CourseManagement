@@ -107,6 +107,57 @@ namespace CourseManagement.DAL
             return null;
         }
 
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<Semester> GetCurrentAndFutureSemesters()
+        {
+            MySqlConnection conn = DbConnection.GetConnection();
+            List<Semester> semesters = new List<Semester>();
+            using (conn)
+            {
+                conn.Open();
+                var selectQuery = "SELECT * FROM semesters WHERE semesters.end_date >= @today";
+
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@today", DateTime.Now.ToString("yyyy-MM-dd"));
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        int semesterNameOrdinal = reader.GetOrdinal("semester_name");
+                        int startDateOrdinal = reader.GetOrdinal("start_date");
+                        int endDateOrdinal = reader.GetOrdinal("end_date");
+                        int withdrawDeadlineOrdinal = reader.GetOrdinal("withdraw_deadline");
+                        int addDropDeadlineOrdinal = reader.GetOrdinal("add_drop_deadline");
+
+                        while (reader.Read())
+                        {
+                            var semesterName = reader[semesterNameOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(semesterNameOrdinal);
+                            DateTime startDate = reader[startDateOrdinal] == DBNull.Value
+                                ? default(DateTime)
+                                : reader.GetDateTime(startDateOrdinal);
+                            DateTime endDate = reader[endDateOrdinal] == DBNull.Value
+                                ? default(DateTime)
+                                : reader.GetDateTime(endDateOrdinal);
+                            DateTime withdrawDeadline = reader[withdrawDeadlineOrdinal] == DBNull.Value
+                                ? default(DateTime)
+                                : reader.GetDateTime(withdrawDeadlineOrdinal);
+                            DateTime addDropDeadline = reader[addDropDeadlineOrdinal] == DBNull.Value
+                                ? default(DateTime)
+                                : reader.GetDateTime(addDropDeadlineOrdinal);
+
+                            Semester current = new Semester(semesterName, addDropDeadline, withdrawDeadline, startDate, endDate);
+                            semesters.Add(current);
+                        }
+
+                        return semesters;
+                    }
+                }
+                conn.Close();
+            }
+            return null;
+        }
+
         public bool CheckIfSemesterIsCompleted(string semesterID)
         {
             Semester current = this.GetSemesterBySemesterName(semesterID);

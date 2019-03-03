@@ -31,6 +31,24 @@ namespace CourseManagement.Views.Student {
         protected global::System.Web.UI.WebControls.DropDownList ddlDepartments;
         
         /// <summary>
+        /// ddlSemester control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSemester;
+        
+        /// <summary>
+        /// odsSemesters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsSemesters;
+        
+        /// <summary>
         /// berowseCourseScriptManager control.
         /// </summary>
         /// <remarks>
@@ -47,15 +65,6 @@ namespace CourseManagement.Views.Student {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel browseCoursUpdatePanel;
-        
-        /// <summary>
-        /// odsDepartments control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource odsDepartments;
         
         /// <summary>
         /// Label1 control.
