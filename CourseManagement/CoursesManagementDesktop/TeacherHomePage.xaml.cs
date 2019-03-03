@@ -76,13 +76,9 @@ namespace CoursesManagementDesktop
 
         
 
-        private async void CourseCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private  void CourseCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.AssignmentCombo.Items.Clear();
-          
-             this.controller.updateAssignmentBox();
-   
-            this.controller.LoadDataGrid();
+           
         }
 
         #endregion
@@ -94,7 +90,15 @@ namespace CoursesManagementDesktop
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            this.controller.updateAssignmentBox();
+            //this.controller.updateAssignmentBox();
+        }
+
+        private void SelectGradeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            GradePage page = new GradePage(); 
+            var navigationService = NavigationService;
+            navigationService?.Navigate(page);
+
         }
     }
 }
