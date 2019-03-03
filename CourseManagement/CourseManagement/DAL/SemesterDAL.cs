@@ -161,7 +161,19 @@ namespace CourseManagement.DAL
         public bool CheckIfSemesterIsCompleted(string semesterID)
         {
             Semester current = this.GetSemesterBySemesterName(semesterID);
-            return DateTime.Now < current.EndDate;
+            return DateTime.Now <= current.EndDate;
+        }
+
+        public bool CheckIfAddDropHasPassed(string semesterID)
+        {
+            Semester current = this.GetSemesterBySemesterName(semesterID);
+            return DateTime.Now <= current.AddDropDeadline;
+        }
+
+        public bool CheckIfWithdrawHasPassed(string semesterID)
+        {
+            Semester current = this.GetSemesterBySemesterName(semesterID);
+            return DateTime.Now <= current.WithdrawDeadline;
         }
     }
 }
