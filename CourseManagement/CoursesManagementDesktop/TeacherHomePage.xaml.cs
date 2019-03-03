@@ -56,6 +56,8 @@ namespace CoursesManagementDesktop
             this.controller = new TeacherHomePageController(this);
 
             this.controller.populateComboBoxes();
+
+            
         }
 
         #endregion
@@ -95,10 +97,16 @@ namespace CoursesManagementDesktop
 
         private void SelectGradeBtn_Click(object sender, RoutedEventArgs e)
         {
-            GradePage page = new GradePage(); 
+            if (this.dataGridGrades.SelectedIndex > -1)
+            {
+                this.controller.selectedStudent = dataGridGrades.SelectedIndex;
+            }
+            GradePage page = new GradePage(this.controller); 
             var navigationService = NavigationService;
             navigationService?.Navigate(page);
 
         }
+
+        
     }
 }
