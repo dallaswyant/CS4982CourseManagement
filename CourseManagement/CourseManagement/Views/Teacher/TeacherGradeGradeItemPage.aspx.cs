@@ -184,6 +184,7 @@ namespace CourseManagement.Models
             if (this.currentGrade.Grade != this.workingGrade || !this.currentGrade.Feedback.Equals(this.workingFeedback)  )
             {
                 this.unsavedChangesModal.Show();
+                this.PnlModal.Focus();
             }
             else
             {
@@ -243,6 +244,13 @@ namespace CourseManagement.Models
         protected void tbxDescription_TextChanged(object sender, EventArgs e)
         {
             this.workingFeedback = tbxDescription.Text;
+        }
+
+        protected void SaveGradeBtn_OnClick(object sender, EventArgs e)
+        {
+            this.gradeGradeItem();
+            this.gradedModal.Show();
+            this.PnlModal2.Focus();
         }
     }
 }

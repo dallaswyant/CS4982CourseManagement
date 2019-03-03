@@ -58,24 +58,42 @@
     </style>
    
     <link href="../../Styles/DialogueStyleSheet.css" rel="stylesheet" type="text/css" />
+    
 
     
 
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    
     
     
 
     <ajaxtoolkit:modalpopupextender id="unsavedChangesModal" TargetControlID="btnDummy" PopupControlID="PnlModal" runat="server"   backgroundcssclass="modalBackground">
     </ajaxtoolkit:modalpopupextender>
 	<asp:Button ID="btnDummy" runat="server" Text="Edit" Style="display: none;" />
-    <asp:Panel ID="PnlModal"   runat="server"  CssClass="modalPopup">
+    <asp:Panel ID="PnlModal"   runat="server"  CssClass="modalPopup" DefaultButton="continuebtn">
+        
         <div  style="text-align: center; font-family:'Roboto',sans-serif; padding-top: 5pt;  "  >
         There Are Unsaved Changes<br/>
         </div>
         <asp:Button ID="savebtn" runat="server" Text="Save" CssClass="buttons"  OnClick="savebtn_OnClick"  />
         <asp:Button ID="continuebtn" runat="server" Text="Continue" CssClass="buttons" OnClick="continuebtn_OnClick"  />
     </asp:Panel>
+    
+    <script>
+        
+        var input = document.getElementById("PnlModal");
+
+        input.addEventListener("keyup", function(event) {
+           
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("continuebtn").click();
+            }
+        });
+
+    </script>
 
 	
 	<ajaxtoolkit:modalpopupextender id="gradedModal" TargetControlID="btnDummy2" PopupControlID="PnlModal2" runat="server"   backgroundcssclass="modalBackground">
@@ -88,6 +106,20 @@
 		<asp:Button ID="okayBtn" CssClass="buttons" runat="server" Text="Okay"   />
 		
 	</asp:Panel>
+    
+    <script>
+        
+        var input = document.getElementById("PnlModal2");
+
+        input.addEventListener("keyup", function(event) {
+           
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("okayBtn").click();
+            }
+        });
+
+    </script>
     
     
    
@@ -212,7 +244,7 @@
             <td class="auto-style22">
                 &nbsp;</td>
             <td class="auto-style21">
-                <asp:Button ID="Button2" runat="server" Text="Save" TabIndex="6"/>
+                <asp:Button  ID="SaveGradeBtn" runat="server" Text="Save" TabIndex="6" OnClick="SaveGradeBtn_OnClick"/>
             </td>
             <td class="auto-style18">
                 <asp:Button ID="Button4" runat="server"  OnClick="Button4_Click"  Text="Next" TabIndex="4" />
