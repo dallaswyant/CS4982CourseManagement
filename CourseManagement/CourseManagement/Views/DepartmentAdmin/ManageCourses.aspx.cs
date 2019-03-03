@@ -41,5 +41,28 @@ namespace CourseManagement.Views.DepartmentAdmin
             this.gvwTeacherCourses.DataSource = dal.GetCoursesByTeacherID(this.ddlTeachers.SelectedValue);
 
         }
+
+        protected void gvwDepartmentCourses_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            var rowIndex = e.RowIndex;
+            
+            var updateRow = this.gvwDepartmentCourses.Rows[rowIndex];
+            var crn = int.Parse(((Label)updateRow.FindControl("crn")).Text);
+            var name = ((TextBox)updateRow.FindControl("name")).Text;
+            var description = ((TextBox)updateRow.FindControl("description")).Text;
+            var location = ((TextBox)updateRow.FindControl("location")).Text;
+            var credit = int.Parse(((TextBox)updateRow.FindControl("creditHours")).Text);
+            var section = ((TextBox)updateRow.FindControl("section")).Text;
+            var department = ((TextBox)updateRow.FindControl("department")).Text;
+            var seats = int.Parse(((TextBox)updateRow.FindControl("seats")).Text);
+            var semesterID = ((Label)updateRow.FindControl("semesterID")).Text;
+
+            Course updateCourse = new Course(crn,department,name,description,section,credit,seats,location,semesterID);
+            DepartmentAdminDAL dal = new DepartmentAdminDAL(); 
+            dal.UpdateCourse(updateCourse);
+
+
+
+        }
     }
 }

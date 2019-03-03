@@ -66,7 +66,7 @@ namespace CourseManagement.DAL
         //THEN
         //INSERT INTO dept_offers_courses(dept_name, courses_CRN) VALUES (@department_name, @CRN)
         [DataObjectMethod(DataObjectMethodType.Insert)]
-        public void InsertNewCourse(Course newCourse)
+        public void InsertNewCourse( Course newCourse)
         {
             MySqlConnection conn = DbConnection.GetConnection();
 
@@ -136,6 +136,13 @@ namespace CourseManagement.DAL
             }
 
         }
+
+        public void UpdateNeedsFixingCourse(Course course)
+        {
+
+        }
+
+
         //Edit course
         //UPDATE courses SET (course_name=@course_name, section_num=@section_num, credit_hours=@credit_hours, seats_max=@seats_max, location=@location, semester_id=@semester_id) WHERE CRN = @CRN;
         public void UpdateCourse(Course course)
