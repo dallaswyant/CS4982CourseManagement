@@ -14,7 +14,8 @@
             <ColumnDefinition Width="114*"/>
             <ColumnDefinition Width="430*"/>
             <ColumnDefinition Width="88*"/>
-            <ColumnDefinition Width="89*"/>
+            <ColumnDefinition Width="83*"/>
+            <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="49*"/>
@@ -27,9 +28,10 @@
         <ComboBox Name="AssignmentCombo"   Grid.Column="3" Margin="9.8,1.2,9.2,4" Grid.Row="2" SelectionChanged="AssignmentCombo_SelectionChanged"/>
         <Label Content="Assignment" Grid.Column="3" Margin="9.8,25,9.2,0.8"/>
         <ComboBox Name="CourseCombo" Margin="9.6,0.2,9.8,5" Grid.Row="2" Grid.Column="1" SelectionChanged="CourseCombo_SelectionChanged"/>
-        <Button Name="logoutButton" Content="sign out" Grid.Column="4" HorizontalAlignment="Left" Margin="9.8,20,0,0" VerticalAlignment="Top" Width="75" Click="LogoutButton_Click"/>
-        <Button Content="Button" Grid.Column="2" HorizontalAlignment="Left" Margin="175.2,82.2,0,0" Grid.Row="4" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Name="logoutButton" Content="sign out" Grid.Column="4" HorizontalAlignment="Left" Margin="9.8,20,0,0" VerticalAlignment="Top" Width="75" Click="LogoutButton_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="selectGradeBtn" Content="Grade Student" Grid.Column="4" Margin="9.6,21,9.6,0" Grid.Row="3" VerticalAlignment="Top" Click="SelectGradeBtn_Click"/>
         <Button Content="Button" Grid.Column="2" HorizontalAlignment="Left" Margin="345.2,82.2,0,0" Grid.Row="4" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <ComboBox x:Name="semesterBox" Margin="13.6,0,0,8.8" RenderTransformOrigin="0.706,2.854" Grid.Column="1" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="54"/>
 
     </Grid>
 </Page>

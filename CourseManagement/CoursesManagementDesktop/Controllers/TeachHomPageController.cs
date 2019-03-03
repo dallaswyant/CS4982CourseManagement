@@ -16,6 +16,7 @@ namespace CoursesManagementDesktop.Controllers
         private readonly CourseDAL courseDAL;
         private readonly GradeItemDAL gradedItemDal;
         private readonly DesktopGradedItemDAL desktopGradedItemDal;
+        private readonly SemesterDAL semesterDal;
 
         #endregion
 
@@ -31,6 +32,7 @@ namespace CoursesManagementDesktop.Controllers
             this.courseDAL = new CourseDAL();
             this.gradedItemDal = new GradeItemDAL();
             this.desktopGradedItemDal = new DesktopGradedItemDAL();
+            this.semesterDal = new SemesterDAL();
         }
 
         #endregion
@@ -42,6 +44,7 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void populateComboBoxes()
         {
+            this.populateSemesterComboBox();
             this.populateCourseComboBox();
             this.populateAssignmentComboBox();
         }
@@ -68,7 +71,8 @@ namespace CoursesManagementDesktop.Controllers
 
         private void populateCourseComboBox()
         {
-            var courses = this.courseDAL.GetCoursesByTeacherID(this.homePage.TeacherId);
+            string semester = this.homePage.semesterBox.Text;
+            var courses = this.courseDAL.GetCoursesByTeacherAndSemester(this.homePage.TeacherId,semester);
 
             foreach (var name in courses)
             {
@@ -76,6 +80,22 @@ namespace CoursesManagementDesktop.Controllers
             }
 
             this.homePage.CourseCombo.SelectedIndex = 0;
+        }
+
+        private void populateSemesterComboBox()
+        {
+            int index = 0;
+            var semesters = this.semesterDal.GetAllSemesters();
+            foreach (var semester in semesters)
+            {
+                this.homePage.semesterBox.Items.Add(semester.SemesterID);
+                if (semester.StartDate < DateTime.Now & semester.EndDate > DateTime.Now)
+                {
+                    this.homePage.semesterBox.SelectedIndex = index;
+                }
+
+                index++;
+            }
         }
 
         /// <summary>
@@ -95,9 +115,10 @@ namespace CoursesManagementDesktop.Controllers
 
         private int findCrn(string courseName)
         {
+            string semester = this.homePage.semesterBox.Text;
             var crn = -1;
 
-            var courses = this.courseDAL.GetCoursesByTeacherID(this.homePage.TeacherId);
+            var courses = this.courseDAL.GetCoursesByTeacherAndSemester(this.homePage.TeacherId,semester);
             foreach (var course in courses)
             {
                 if (course.Name.Equals(this.homePage.CourseCombo.Text))
