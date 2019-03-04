@@ -17,9 +17,17 @@ namespace CoursesManagementDesktop.Controllers
         private readonly GradeItemDAL gradedItemDal;
         private readonly DesktopGradedItemDAL desktopGradedItemDal;
         private readonly SemesterDAL semesterDal;
-         
+         /// <summary>
+         /// public property for current crn
+         /// </summary>
         public int currentCrn { get; private set; }
+        /// <summary>
+        /// public property for selected student index
+        /// </summary>
         public int selectedStudent { get;  set; }
+        /// <summary>
+        /// public property for the main teacher page
+        /// </summary>
         public TeacherHomePAge homePage { get; }
 
         #endregion
@@ -32,6 +40,10 @@ namespace CoursesManagementDesktop.Controllers
         /// <param name="page">The page.</param>
         public TeacherHomePageController(TeacherHomePAge page)
         {
+            if (page == null)
+            {
+                throw new ArgumentException("page cannot be null");
+            }
             this.homePage = page;
             this.courseDAL = new CourseDAL();
             this.gradedItemDal = new GradeItemDAL();
@@ -52,7 +64,9 @@ namespace CoursesManagementDesktop.Controllers
             this.populateCourseComboBox();
             this.populateAssignmentComboBox();
         }
-
+        /// <summary>
+        /// updates the assignment combo box to the new assignments
+        /// </summary>
         public void updateAssignmentBox()
         {
            this.homePage.AssignmentCombo.Items.Clear();
@@ -112,10 +126,6 @@ namespace CoursesManagementDesktop.Controllers
                 var crn = this.findCrn(this.homePage.CourseCombo.Text);
                 this.desktopGradedItemDal.populateDataGrid(crn, name, this.homePage.dataGridGrades);
                 this.currentCrn = crn;
-
-
-
-
 
         }
 

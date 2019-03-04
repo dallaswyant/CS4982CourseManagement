@@ -32,7 +32,7 @@
         <Label Content="Username" Margin="59,18.4,0,0" Grid.Column="1" Grid.Row="1" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="199"/>
         <Label Content="Password" Margin="59,75.4,0,0" Grid.Row="1" Grid.Column="1" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128"/>
         <Button Content="Login" Margin="203,142.4,0,0" Click ="Button_Click" Grid.Row="1" Grid.Column="1" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="194"/>
-        <TextBlock x:Name="errorText" Visibility="Collapsed" HorizontalAlignment="Left" Foreground="Red" Margin="1.8,104.4,0,0" Text="Invalid Username or Password" TextWrapping="Wrap"  VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" Height="0" Width="0"/>
+        <TextBlock x:Name="errorText" Visibility="Collapsed" HorizontalAlignment="Left" Foreground="Red" Margin="225.2,121.4,0,0" Text="Invalid Username or Password" TextWrapping="Wrap"  VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" />
 
 
     </Grid>

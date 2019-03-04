@@ -16,6 +16,9 @@ namespace CoursesManagementDesktop
     public partial class LoginPage : Page
     {
         private LoginController controller;
+        /// <summary>
+        /// the login page constructor
+        /// </summary>
         public LoginPage()
         {
             InitializeComponent();
