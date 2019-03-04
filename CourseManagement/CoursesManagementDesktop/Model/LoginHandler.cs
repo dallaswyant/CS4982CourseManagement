@@ -10,12 +10,28 @@ namespace CoursesManagementDesktop.Model
 {
    public class LoginHandler
     {
-        public User user { get; private set; }   
+        /// <summary>
+        /// This is a public property for the user that is currently logged in
+        /// </summary>
+        public User CurrentUser { get; private set; }  
+        
+        /// <summary>
+        /// Checks and handles if the credintials are a valid match
+        /// </summary>
+        /// <param name="username">the username</param>
+        /// <param name="password">the password</param>
+        /// <precondition>
+        /// username != null And username!= empty string
+        /// And password!= null And password != empty string
+        /// </precondition>
+        /// <returns>false is valid credits true other wise</returns>
         public bool IsInvalidCredentials(string username, string password)
         {
+            
+
             UserDAL userDAL = new UserDAL();
-            this.user = userDAL.CheckLogin(username, password);
-            return(this.user == null || string.IsNullOrWhiteSpace(user.UserId + user.Password + user.Role));
+            this.CurrentUser = userDAL.CheckLogin(username, password);
+            return(this.CurrentUser == null || string.IsNullOrWhiteSpace(this.CurrentUser.UserId + this.CurrentUser.Password + this.CurrentUser.Role));
         }
     }
 }

@@ -29,9 +29,19 @@ namespace CoursesManagementDesktop
         private List<Student> students;
         private List<GradeItem> assignments;
         private Dictionary<int, string> studentIds;
-        
+        /// <summary>
+        /// Grade page constructor
+        /// </summary>
+        /// <param name="controller">the programs controller</param>
+        /// <precondition>
+        ///controller != null
+        /// </precondition>
         public GradePage(TeacherHomePageController controller)
         {
+            if (controller == null)
+            {
+                throw new ArgumentException("controller cannot be null");
+            }
             InitializeComponent();
             this.studentDal = new StudentDAL();
             this.gradeItemDal = new GradeItemDAL();
