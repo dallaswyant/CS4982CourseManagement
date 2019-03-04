@@ -15,67 +15,77 @@ namespace CourseManagement.DAL
     public class CourseDAL
     {
 
+
         /// <summary>
-        /// Gets a list of courses by teacher id.
+        /// Gets the courses by teacher id.
         /// </summary>
         /// <param name="teacherIDCheck">The teacher id to check.</param>
-        /// <returns>A list of courses taught by the teacher</returns>
+        /// <returns>
+        /// A list of courses taught by teacherIDCheck
+        /// </returns>
+        /// <preconditions>
+        /// Teacher name cannot be null
+        /// </preconditions>
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Course> GetCoursesByTeacherID(string teacherIDCheck)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
+            if (teacherIDCheck == null)
+            {
+                throw new Exception("Teacher name cannot be null");
+            }
+            MySqlConnection dbConnection = DbConnection.GetConnection();
             List<Course> coursesTaught = new List<Course>();
-            using (conn)
+            using (dbConnection)
             {
 
-                conn.Open();
+                dbConnection.Open();
 
                 var selectQuery =
                     "select courses.* from courses, teacher_teaches_courses WHERE teacher_teaches_courses.courses_CRN = courses.CRN AND teacher_teaches_courses.teacher_uid = @teacherUID";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@teacherUID", teacherIDCheck);
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (MySqlDataReader queryResultReader = cmd.ExecuteReader())
                     {
 
-                        int CRNOrdinal = reader.GetOrdinal("CRN");
-                        int departmentOrdinal = reader.GetOrdinal("dept_name");
-                        int courseNameOrdinal = reader.GetOrdinal("course_name");
-                        int courseDescriptionOrdinal = reader.GetOrdinal("course_desc");
-                        int sectionNumberOrdinal = reader.GetOrdinal("section_num");
-                        int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
-                        int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
-                        int locationOrdinal = reader.GetOrdinal("location");
-                        int semesterNameOrdinal = reader.GetOrdinal("semester_name");
+                        int CRNOrdinal = queryResultReader.GetOrdinal("CRN");
+                        int departmentOrdinal = queryResultReader.GetOrdinal("dept_name");
+                        int courseNameOrdinal = queryResultReader.GetOrdinal("course_name");
+                        int courseDescriptionOrdinal = queryResultReader.GetOrdinal("course_desc");
+                        int sectionNumberOrdinal = queryResultReader.GetOrdinal("section_num");
+                        int creditHoursOrdinal = queryResultReader.GetOrdinal("credit_hours");
+                        int maxSeatsOrdinal = queryResultReader.GetOrdinal("seats_max");
+                        int locationOrdinal = queryResultReader.GetOrdinal("location");
+                        int semesterNameOrdinal = queryResultReader.GetOrdinal("semester_name");
 
-                        while (reader.Read())
+                        while (queryResultReader.Read())
                         {
-                            int CRN = reader[CRNOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(CRNOrdinal);
-                            string departmentName = reader[departmentOrdinal] == DBNull.Value
+                            int CRN = queryResultReader[CRNOrdinal] == DBNull.Value ? default(int) : queryResultReader.GetInt32(CRNOrdinal);
+                            string departmentName = queryResultReader[departmentOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(departmentOrdinal);
-                            string courseName = reader[courseNameOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(departmentOrdinal);
+                            string courseName = queryResultReader[courseNameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(courseNameOrdinal);
-                            string courseDescription = reader[courseDescriptionOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(courseNameOrdinal);
+                            string courseDescription = queryResultReader[courseDescriptionOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(courseDescriptionOrdinal);
-                            string sectionNumber = reader[sectionNumberOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(courseDescriptionOrdinal);
+                            string sectionNumber = queryResultReader[sectionNumberOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(sectionNumberOrdinal);
-                            int creditHours = reader[creditHoursOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(sectionNumberOrdinal);
+                            int creditHours = queryResultReader[creditHoursOrdinal] == DBNull.Value
                                 ? default(int)
-                                : reader.GetInt32(creditHoursOrdinal);
-                            int maxSeats = reader[maxSeatsOrdinal] == DBNull.Value
+                                : queryResultReader.GetInt32(creditHoursOrdinal);
+                            int maxSeats = queryResultReader[maxSeatsOrdinal] == DBNull.Value
                                 ? default(int)
-                                : reader.GetInt32(maxSeatsOrdinal);
-                            string location = reader[locationOrdinal] == DBNull.Value
+                                : queryResultReader.GetInt32(maxSeatsOrdinal);
+                            string location = queryResultReader[locationOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(locationOrdinal);
-                            string semesterName = reader[semesterNameOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(locationOrdinal);
+                            string semesterName = queryResultReader[semesterNameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(semesterNameOrdinal);
+                                : queryResultReader.GetString(semesterNameOrdinal);
 
                             Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
                                 sectionNumber, creditHours, maxSeats, location, semesterName);
@@ -89,63 +99,86 @@ namespace CourseManagement.DAL
                 }
             }
         }
+
+        /// <summary>
+        /// Gets the courses by teacher and semester.
+        /// </summary>
+        /// <param name="teacherIDCheck">The teacher identifier to check.</param>
+        /// <param name="semesterID">The semester identifier.</param>
+        /// <returns>
+        /// A list of courses taught by teacherIDCheck
+        /// during the semester semesterID
+        /// </returns>
+        /// <preconditions>
+        /// Teacher name cannot be null
+        /// AND
+        /// Semester name cannot be null
+        /// </preconditions>
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Course> GetCoursesByTeacherAndSemester(string teacherIDCheck, string semesterID)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
+            if (teacherIDCheck == null)
+            {
+                throw new Exception("Teacher name cannot be null");
+            }
+            if (semesterID == null)
+            {
+                throw new Exception("Semester name cannot be null");
+            }
+            MySqlConnection dbConnection = DbConnection.GetConnection();
             List<Course> coursesTaught = new List<Course>();
-            using (conn)
+            using (dbConnection)
             {
 
-                conn.Open();
+                dbConnection.Open();
 
                 var selectQuery =
                     "SELECT courses.* FROM teacher_teaches_courses, courses WHERE teacher_teaches_courses.teacher_uid = @teacherUID AND teacher_teaches_courses.courses_CRN = courses.CRN AND courses.semester_name = @semesterID";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@teacherUID", teacherIDCheck);
                     cmd.Parameters.AddWithValue("@semesterID", semesterID);
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (MySqlDataReader queryResultReader = cmd.ExecuteReader())
                     {
 
-                        int CRNOrdinal = reader.GetOrdinal("CRN");
-                        int departmentOrdinal = reader.GetOrdinal("dept_name");
-                        int courseNameOrdinal = reader.GetOrdinal("course_name");
-                        int courseDescriptionOrdinal = reader.GetOrdinal("course_desc");
-                        int sectionNumberOrdinal = reader.GetOrdinal("section_num");
-                        int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
-                        int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
-                        int locationOrdinal = reader.GetOrdinal("location");
-                        int semesterNameOrdinal = reader.GetOrdinal("semester_name");
+                        int CRNOrdinal = queryResultReader.GetOrdinal("CRN");
+                        int departmentOrdinal = queryResultReader.GetOrdinal("dept_name");
+                        int courseNameOrdinal = queryResultReader.GetOrdinal("course_name");
+                        int courseDescriptionOrdinal = queryResultReader.GetOrdinal("course_desc");
+                        int sectionNumberOrdinal = queryResultReader.GetOrdinal("section_num");
+                        int creditHoursOrdinal = queryResultReader.GetOrdinal("credit_hours");
+                        int maxSeatsOrdinal = queryResultReader.GetOrdinal("seats_max");
+                        int locationOrdinal = queryResultReader.GetOrdinal("location");
+                        int semesterNameOrdinal = queryResultReader.GetOrdinal("semester_name");
 
-                        while (reader.Read())
+                        while (queryResultReader.Read())
                         {
-                            int CRN = reader[CRNOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(CRNOrdinal);
-                            string departmentName = reader[departmentOrdinal] == DBNull.Value
+                            int CRN = queryResultReader[CRNOrdinal] == DBNull.Value ? default(int) : queryResultReader.GetInt32(CRNOrdinal);
+                            string departmentName = queryResultReader[departmentOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(departmentOrdinal);
-                            string courseName = reader[courseNameOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(departmentOrdinal);
+                            string courseName = queryResultReader[courseNameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(courseNameOrdinal);
-                            string courseDescription = reader[courseDescriptionOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(courseNameOrdinal);
+                            string courseDescription = queryResultReader[courseDescriptionOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(courseDescriptionOrdinal);
-                            string sectionNumber = reader[sectionNumberOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(courseDescriptionOrdinal);
+                            string sectionNumber = queryResultReader[sectionNumberOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(sectionNumberOrdinal);
-                            int creditHours = reader[creditHoursOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(sectionNumberOrdinal);
+                            int creditHours = queryResultReader[creditHoursOrdinal] == DBNull.Value
                                 ? default(int)
-                                : reader.GetInt32(creditHoursOrdinal);
-                            int maxSeats = reader[maxSeatsOrdinal] == DBNull.Value
+                                : queryResultReader.GetInt32(creditHoursOrdinal);
+                            int maxSeats = queryResultReader[maxSeatsOrdinal] == DBNull.Value
                                 ? default(int)
-                                : reader.GetInt32(maxSeatsOrdinal);
-                            string location = reader[locationOrdinal] == DBNull.Value
+                                : queryResultReader.GetInt32(maxSeatsOrdinal);
+                            string location = queryResultReader[locationOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(locationOrdinal);
-                            string semesterName = reader[semesterNameOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(locationOrdinal);
+                            string semesterName = queryResultReader[semesterNameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(semesterNameOrdinal);
+                                : queryResultReader.GetString(semesterNameOrdinal);
 
                             Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
                                 sectionNumber, creditHours, maxSeats, location, semesterName);
@@ -160,136 +193,72 @@ namespace CourseManagement.DAL
             }
         }
 
-        /// <summary>
-        /// Gets the information about a course by CRN.
-        /// </summary>
-        /// <param name="CRN">The CRN.</param>
-        /// <returns>Course information about the course with the selected CRN</returns>
-        [DataObjectMethod(DataObjectMethodType.Select)]
-        public Course GetCoursesByCRN(int CRNCheck)
-        {
-            MySqlConnection conn = DbConnection.GetConnection();
-            using (conn)
-            {
-                GradeItemDAL gradedStuff = new GradeItemDAL();
-                conn.Open();
-                var selectQuery = "SELECT * from courses WHERE courses.CRN = @CRNCheck";
-
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        int CRNOrdinal = reader.GetOrdinal("CRN");
-                        int departmentOrdinal = reader.GetOrdinal("dept_name");
-                        int courseNameOrdinal = reader.GetOrdinal("course_name");
-                        int courseDescriptionOrdinal = reader.GetOrdinal("course_desc");
-                        int sectionNumberOrdinal = reader.GetOrdinal("section_num");
-                        int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
-                        int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
-                        int locationOrdinal = reader.GetOrdinal("location");
-                        int semesterNameOrdinal = reader.GetOrdinal("semester_name");
-
-                        while (reader.Read())
-                        {
-                            int CRN = reader[CRNOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(CRNOrdinal);
-                            string departmentName = reader[departmentOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(departmentOrdinal);
-                            string courseName = reader[courseNameOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(courseNameOrdinal);
-                            string courseDescription = reader[courseDescriptionOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(courseDescriptionOrdinal);
-                            string sectionNumber = reader[sectionNumberOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(sectionNumberOrdinal);
-                            int creditHours = reader[creditHoursOrdinal] == DBNull.Value
-                                ? default(int)
-                                : reader.GetInt32(creditHoursOrdinal);
-                            int maxSeats = reader[maxSeatsOrdinal] == DBNull.Value
-                                ? default(int)
-                                : reader.GetInt32(maxSeatsOrdinal);
-                            string location = reader[locationOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(locationOrdinal);
-                            string semesterName = reader[semesterNameOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(semesterNameOrdinal);
-
-                            Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
-                                sectionNumber, creditHours, maxSeats, location, semesterName);
-                            currentCourse.LectureNotes.Clear();
-                            return currentCourse;
-
-                        }
-                    }
-                }
-
-                conn.Close();
-            }
-
-            return null;
-        }
 
         /// <summary>
-        /// Gets the course by its CRN.
+        /// Gets the course by CRN.
         /// </summary>
-        /// <param name="CRN">The CRN.</param>
-        /// <returns>The course with the selected CRN</returns>
+        /// <param name="CRNCheck">The CRN to check.</param>
+        /// <returns>
+        /// A course object with the selected CRNCheck 
+        /// </returns>
+        /// <preconditions>
+        /// CRNCheck must be greater than or equal to 0
+        /// </preconditions>
         [DataObjectMethod(DataObjectMethodType.Select)]
         public Course GetCourseByCRN(int CRNCheck)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
-            using (conn)
+            if (CRNCheck <= 0)
             {
-                GradeItemDAL gradedStuff = new GradeItemDAL();
-                conn.Open();
+                throw new Exception("CRNCheck must be greater than or equal to 0");
+            }
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            using (dbConnection)
+            {
+                dbConnection.Open();
                 var selectQuery = "SELECT * from courses WHERE courses.CRN = @CRNCheck";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (MySqlDataReader queryResultReader = cmd.ExecuteReader())
                     {
-                        int CRNOrdinal = reader.GetOrdinal("CRN");
-                        int departmentOrdinal = reader.GetOrdinal("dept_name");
-                        int courseNameOrdinal = reader.GetOrdinal("course_name");
-                        int courseDescriptionOrdinal = reader.GetOrdinal("course_desc");
-                        int sectionNumberOrdinal = reader.GetOrdinal("section_num");
-                        int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
-                        int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
-                        int locationOrdinal = reader.GetOrdinal("location");
-                        int semesterNameOrdinal = reader.GetOrdinal("semester_name");
+                        int CRNOrdinal = queryResultReader.GetOrdinal("CRN");
+                        int departmentOrdinal = queryResultReader.GetOrdinal("dept_name");
+                        int courseNameOrdinal = queryResultReader.GetOrdinal("course_name");
+                        int courseDescriptionOrdinal = queryResultReader.GetOrdinal("course_desc");
+                        int sectionNumberOrdinal = queryResultReader.GetOrdinal("section_num");
+                        int creditHoursOrdinal = queryResultReader.GetOrdinal("credit_hours");
+                        int maxSeatsOrdinal = queryResultReader.GetOrdinal("seats_max");
+                        int locationOrdinal = queryResultReader.GetOrdinal("location");
+                        int semesterNameOrdinal = queryResultReader.GetOrdinal("semester_name");
 
-                        while (reader.Read())
+                        while (queryResultReader.Read())
                         {
-                            int CRN = reader[CRNOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(CRNOrdinal);
-                            string departmentName = reader[departmentOrdinal] == DBNull.Value
+                            int CRN = queryResultReader[CRNOrdinal] == DBNull.Value ? default(int) : queryResultReader.GetInt32(CRNOrdinal);
+                            string departmentName = queryResultReader[departmentOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(departmentOrdinal);
-                            string courseName = reader[courseNameOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(departmentOrdinal);
+                            string courseName = queryResultReader[courseNameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(courseNameOrdinal);
-                            string courseDescription = reader[courseDescriptionOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(courseNameOrdinal);
+                            string courseDescription = queryResultReader[courseDescriptionOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(courseDescriptionOrdinal);
-                            string sectionNumber = reader[sectionNumberOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(courseDescriptionOrdinal);
+                            string sectionNumber = queryResultReader[sectionNumberOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(sectionNumberOrdinal);
-                            int creditHours = reader[creditHoursOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(sectionNumberOrdinal);
+                            int creditHours = queryResultReader[creditHoursOrdinal] == DBNull.Value
                                 ? default(int)
-                                : reader.GetInt32(creditHoursOrdinal);
-                            int maxSeats = reader[maxSeatsOrdinal] == DBNull.Value
+                                : queryResultReader.GetInt32(creditHoursOrdinal);
+                            int maxSeats = queryResultReader[maxSeatsOrdinal] == DBNull.Value
                                 ? default(int)
-                                : reader.GetInt32(maxSeatsOrdinal);
-                            string location = reader[locationOrdinal] == DBNull.Value
+                                : queryResultReader.GetInt32(maxSeatsOrdinal);
+                            string location = queryResultReader[locationOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(locationOrdinal);
-                            string semesterName = reader[semesterNameOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(locationOrdinal);
+                            string semesterName = queryResultReader[semesterNameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(semesterNameOrdinal);
+                                : queryResultReader.GetString(semesterNameOrdinal);
 
                             Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
                                 sectionNumber, creditHours, maxSeats, location, semesterName);
@@ -299,70 +268,80 @@ namespace CourseManagement.DAL
                     }
                 }
 
-                conn.Close();
+                dbConnection.Close();
             }
 
             return null;
         }
 
+
         /// <summary>
-        /// Gets a list of courses by student id.
+        /// Gets the courses by student id.
         /// </summary>
-        /// <param name="studentUIDCheck">The student uid to check.</param>
-        /// <returns>A list of courses taken by the selected student</returns>
+        /// <param name="studentUIDCheck">The student uid check.</param>
+        /// <returns>
+        /// A list of courses taken by the selected studentUIDCheck
+        /// </returns>
+        /// <preconditions>
+        /// Student UID cannot be null
+        /// </preconditions>
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Course> GetCoursesByStudentID(string studentUIDCheck)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
-            List<Course> coursesTaken = new List<Course>();
-            using (conn)
+            if (studentUIDCheck == null)
             {
-                conn.Open();
+                throw new Exception("Student UID cannot be null");
+            }
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            List<Course> coursesTaken = new List<Course>();
+            using (dbConnection)
+            {
+                dbConnection.Open();
                 var selectQuery =
                     "SELECT courses.* FROM courses, students, student_has_courses WHERE students.uid = student_has_courses.student_uid AND student_has_courses.courses_CRN = courses.CRN AND students.uid = @studentUID";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@studentUID", studentUIDCheck);
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (MySqlDataReader queryResultReader = cmd.ExecuteReader())
                     {
-                        int CRNOrdinal = reader.GetOrdinal("CRN");
-                        int departmentOrdinal = reader.GetOrdinal("dept_name");
-                        int courseNameOrdinal = reader.GetOrdinal("course_name");
-                        int courseDescriptionOrdinal = reader.GetOrdinal("course_desc");
-                        int sectionNumberOrdinal = reader.GetOrdinal("section_num");
-                        int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
-                        int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
-                        int locationOrdinal = reader.GetOrdinal("location");
-                        int semesterNameOrdinal = reader.GetOrdinal("semester_name");
+                        int CRNOrdinal = queryResultReader.GetOrdinal("CRN");
+                        int departmentOrdinal = queryResultReader.GetOrdinal("dept_name");
+                        int courseNameOrdinal = queryResultReader.GetOrdinal("course_name");
+                        int courseDescriptionOrdinal = queryResultReader.GetOrdinal("course_desc");
+                        int sectionNumberOrdinal = queryResultReader.GetOrdinal("section_num");
+                        int creditHoursOrdinal = queryResultReader.GetOrdinal("credit_hours");
+                        int maxSeatsOrdinal = queryResultReader.GetOrdinal("seats_max");
+                        int locationOrdinal = queryResultReader.GetOrdinal("location");
+                        int semesterNameOrdinal = queryResultReader.GetOrdinal("semester_name");
 
-                        while (reader.Read())
+                        while (queryResultReader.Read())
                         {
-                            int CRN = reader[CRNOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(CRNOrdinal);
-                            string departmentName = reader[departmentOrdinal] == DBNull.Value
+                            int CRN = queryResultReader[CRNOrdinal] == DBNull.Value ? default(int) : queryResultReader.GetInt32(CRNOrdinal);
+                            string departmentName = queryResultReader[departmentOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(departmentOrdinal);
-                            string courseName = reader[courseNameOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(departmentOrdinal);
+                            string courseName = queryResultReader[courseNameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(courseNameOrdinal);
-                            string courseDescription = reader[courseDescriptionOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(courseNameOrdinal);
+                            string courseDescription = queryResultReader[courseDescriptionOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(courseDescriptionOrdinal);
-                            string sectionNumber = reader[sectionNumberOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(courseDescriptionOrdinal);
+                            string sectionNumber = queryResultReader[sectionNumberOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(sectionNumberOrdinal);
-                            int creditHours = reader[creditHoursOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(sectionNumberOrdinal);
+                            int creditHours = queryResultReader[creditHoursOrdinal] == DBNull.Value
                                 ? default(int)
-                                : reader.GetInt32(creditHoursOrdinal);
-                            int maxSeats = reader[maxSeatsOrdinal] == DBNull.Value
+                                : queryResultReader.GetInt32(creditHoursOrdinal);
+                            int maxSeats = queryResultReader[maxSeatsOrdinal] == DBNull.Value
                                 ? default(int)
-                                : reader.GetInt32(maxSeatsOrdinal);
-                            string location = reader[locationOrdinal] == DBNull.Value
+                                : queryResultReader.GetInt32(maxSeatsOrdinal);
+                            string location = queryResultReader[locationOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(locationOrdinal);
-                            string semesterName = reader[semesterNameOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(locationOrdinal);
+                            string semesterName = queryResultReader[semesterNameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(semesterNameOrdinal);
+                                : queryResultReader.GetString(semesterNameOrdinal);
 
                             Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
                                 sectionNumber, creditHours, maxSeats, location, semesterName);
@@ -371,70 +350,88 @@ namespace CourseManagement.DAL
 
                         }
                     }
-
                     return coursesTaken;
                 }
-
-                conn.Close();
             }
 
-            return null;
         }
 
+        /// <summary>
+        /// Gets the courses by student identifier and semester.
+        /// </summary>
+        /// <param name="studentUIDCheck">The student uid check.</param>
+        /// <param name="semesterName">Name of the semester.</param>
+        /// <returns>
+        /// A list of all the courses taken by the selected studentUIDCheck
+        /// during the selected semesterName
+        /// </returns>
+        /// <preconditions>
+        /// Teacher name cannot be null
+        /// AND
+        /// Semester name cannot be null
+        /// </preconditions>
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Course> GetCoursesByStudentIDAndSemester(string studentUIDCheck, string semesterName)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
-            List<Course> coursesTaken = new List<Course>();
-            using (conn)
+            if (studentUIDCheck == null)
             {
-                conn.Open();
+                throw new Exception("Teacher name cannot be null");
+            }
+            if (semesterName == null)
+            {
+                throw new Exception("Semester name cannot be null");
+            }
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            List<Course> coursesTaken = new List<Course>();
+            using (dbConnection)
+            {
+                dbConnection.Open();
                 var selectQuery =
                     "SELECT courses.* FROM courses, students, student_has_courses WHERE students.uid = student_has_courses.student_uid AND student_has_courses.courses_CRN = courses.CRN AND students.uid = @studentUID AND courses.semester_name = @semester_name";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@studentUID", studentUIDCheck);
                     cmd.Parameters.AddWithValue("@semester_name", semesterName);
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (MySqlDataReader queryResultReader = cmd.ExecuteReader())
                     {
-                        int CRNOrdinal = reader.GetOrdinal("CRN");
-                        int departmentOrdinal = reader.GetOrdinal("dept_name");
-                        int courseNameOrdinal = reader.GetOrdinal("course_name");
-                        int courseDescriptionOrdinal = reader.GetOrdinal("course_desc");
-                        int sectionNumberOrdinal = reader.GetOrdinal("section_num");
-                        int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
-                        int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
-                        int locationOrdinal = reader.GetOrdinal("location");
-                        int semesterNameOrdinal = reader.GetOrdinal("semester_name");
+                        int CRNOrdinal = queryResultReader.GetOrdinal("CRN");
+                        int departmentOrdinal = queryResultReader.GetOrdinal("dept_name");
+                        int courseNameOrdinal = queryResultReader.GetOrdinal("course_name");
+                        int courseDescriptionOrdinal = queryResultReader.GetOrdinal("course_desc");
+                        int sectionNumberOrdinal = queryResultReader.GetOrdinal("section_num");
+                        int creditHoursOrdinal = queryResultReader.GetOrdinal("credit_hours");
+                        int maxSeatsOrdinal = queryResultReader.GetOrdinal("seats_max");
+                        int locationOrdinal = queryResultReader.GetOrdinal("location");
+                        int semesterNameOrdinal = queryResultReader.GetOrdinal("semester_name");
 
-                        while (reader.Read())
+                        while (queryResultReader.Read())
                         {
-                            int CRN = reader[CRNOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(CRNOrdinal);
-                            string departmentName = reader[departmentOrdinal] == DBNull.Value
+                            int CRN = queryResultReader[CRNOrdinal] == DBNull.Value ? default(int) : queryResultReader.GetInt32(CRNOrdinal);
+                            string departmentName = queryResultReader[departmentOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(departmentOrdinal);
-                            string courseName = reader[courseNameOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(departmentOrdinal);
+                            string courseName = queryResultReader[courseNameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(courseNameOrdinal);
-                            string courseDescription = reader[courseDescriptionOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(courseNameOrdinal);
+                            string courseDescription = queryResultReader[courseDescriptionOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(courseDescriptionOrdinal);
-                            string sectionNumber = reader[sectionNumberOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(courseDescriptionOrdinal);
+                            string sectionNumber = queryResultReader[sectionNumberOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(sectionNumberOrdinal);
-                            int creditHours = reader[creditHoursOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(sectionNumberOrdinal);
+                            int creditHours = queryResultReader[creditHoursOrdinal] == DBNull.Value
                                 ? default(int)
-                                : reader.GetInt32(creditHoursOrdinal);
-                            int maxSeats = reader[maxSeatsOrdinal] == DBNull.Value
+                                : queryResultReader.GetInt32(creditHoursOrdinal);
+                            int maxSeats = queryResultReader[maxSeatsOrdinal] == DBNull.Value
                                 ? default(int)
-                                : reader.GetInt32(maxSeatsOrdinal);
-                            string location = reader[locationOrdinal] == DBNull.Value
+                                : queryResultReader.GetInt32(maxSeatsOrdinal);
+                            string location = queryResultReader[locationOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(locationOrdinal);
-                            semesterName = reader[semesterNameOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(locationOrdinal);
+                            semesterName = queryResultReader[semesterNameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(semesterNameOrdinal);
+                                : queryResultReader.GetString(semesterNameOrdinal);
 
                             Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
                                 sectionNumber, creditHours, maxSeats, location, semesterName);
@@ -443,30 +440,35 @@ namespace CourseManagement.DAL
 
                         }
                     }
-
                     return coursesTaken;
                 }
-
-                conn.Close();
             }
-
-            return null;
         }
 
 
+
         /// <summary>
-        /// Gets a list of courses by department name.
+        /// Gets the name of the courses by department.
         /// </summary>
-        /// <param name="departmentName">Name of the department to check</param>
-        /// <returns>A list of courses taught by the selected department</returns>
+        /// <param name="departmentCheck">The department name to check.</param>
+        /// <returns>
+        /// A list of all courses offered by the given departmentCheck
+        /// </returns>
+        /// <preconditions>
+        /// Department name cannot be null
+        /// </preconditions>
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Course> GetCoursesByDepartmentName(string departmentCheck)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
-            List<Course> deptCourses = new List<Course>();
-            using (conn)
+            if (departmentCheck == null)
             {
-                conn.Open();
+                throw new Exception("Department name cannot be null");
+            }
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            List<Course> deptCourses = new List<Course>();
+            using (dbConnection)
+            {
+                dbConnection.Open();
                 var selectQuery = String.Empty;
                 if (departmentCheck.Equals("All Departments"))
                 {
@@ -478,48 +480,48 @@ namespace CourseManagement.DAL
                 }
 
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@name", departmentCheck);
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (MySqlDataReader queryResultReader = cmd.ExecuteReader())
                     {
-                        int CRNOrdinal = reader.GetOrdinal("CRN");
-                        int departmentOrdinal = reader.GetOrdinal("dept_name");
-                        int courseNameOrdinal = reader.GetOrdinal("course_name");
-                        int courseDescriptionOrdinal = reader.GetOrdinal("course_desc");
-                        int sectionNumberOrdinal = reader.GetOrdinal("section_num");
-                        int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
-                        int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
-                        int locationOrdinal = reader.GetOrdinal("location");
-                        int semesterNameOrdinal = reader.GetOrdinal("semester_name");
+                        int CRNOrdinal = queryResultReader.GetOrdinal("CRN");
+                        int departmentOrdinal = queryResultReader.GetOrdinal("dept_name");
+                        int courseNameOrdinal = queryResultReader.GetOrdinal("course_name");
+                        int courseDescriptionOrdinal = queryResultReader.GetOrdinal("course_desc");
+                        int sectionNumberOrdinal = queryResultReader.GetOrdinal("section_num");
+                        int creditHoursOrdinal = queryResultReader.GetOrdinal("credit_hours");
+                        int maxSeatsOrdinal = queryResultReader.GetOrdinal("seats_max");
+                        int locationOrdinal = queryResultReader.GetOrdinal("location");
+                        int semesterNameOrdinal = queryResultReader.GetOrdinal("semester_name");
 
-                        while (reader.Read())
+                        while (queryResultReader.Read())
                         {
-                            int CRN = reader[CRNOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(CRNOrdinal);
-                            string departmentName = reader[departmentOrdinal] == DBNull.Value
+                            int CRN = queryResultReader[CRNOrdinal] == DBNull.Value ? default(int) : queryResultReader.GetInt32(CRNOrdinal);
+                            string departmentName = queryResultReader[departmentOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(departmentOrdinal);
-                            string courseName = reader[courseNameOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(departmentOrdinal);
+                            string courseName = queryResultReader[courseNameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(courseNameOrdinal);
-                            string courseDescription = reader[courseDescriptionOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(courseNameOrdinal);
+                            string courseDescription = queryResultReader[courseDescriptionOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(courseDescriptionOrdinal);
-                            string sectionNumber = reader[sectionNumberOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(courseDescriptionOrdinal);
+                            string sectionNumber = queryResultReader[sectionNumberOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(sectionNumberOrdinal);
-                            int creditHours = reader[creditHoursOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(sectionNumberOrdinal);
+                            int creditHours = queryResultReader[creditHoursOrdinal] == DBNull.Value
                                 ? default(int)
-                                : reader.GetInt32(creditHoursOrdinal);
-                            int maxSeats = reader[maxSeatsOrdinal] == DBNull.Value
+                                : queryResultReader.GetInt32(creditHoursOrdinal);
+                            int maxSeats = queryResultReader[maxSeatsOrdinal] == DBNull.Value
                                 ? default(int)
-                                : reader.GetInt32(maxSeatsOrdinal);
-                            string location = reader[locationOrdinal] == DBNull.Value
+                                : queryResultReader.GetInt32(maxSeatsOrdinal);
+                            string location = queryResultReader[locationOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(locationOrdinal);
-                            string semesterName = reader[semesterNameOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(locationOrdinal);
+                            string semesterName = queryResultReader[semesterNameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(semesterNameOrdinal);
+                                : queryResultReader.GetString(semesterNameOrdinal);
 
                             Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
                                 sectionNumber, creditHours, maxSeats, location, semesterName);
@@ -535,14 +537,36 @@ namespace CourseManagement.DAL
             }
         }
 
+        /// <summary>
+        /// Gets the courses by department name and semester.
+        /// </summary>
+        /// <param name="departmentCheck">The department to check.</param>
+        /// <param name="semesterName">Name of the semester.</param>
+        /// <returns>
+        /// A list of all the courses offered by the selected
+        /// departmentCheck during the selected semesterName
+        /// </returns>
+        /// <preconditions>
+        /// Department name cannot be null
+        /// AND
+        /// Semester name cannot be null
+        /// </preconditions>
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Course> GetCoursesByDepartmentNameAndSemester(string departmentCheck, string semesterName)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
-            List<Course> deptCourses = new List<Course>();
-            using (conn)
+            if (departmentCheck == null)
             {
-                conn.Open();
+                throw new Exception("Department name cannot be null");
+            }
+            if (semesterName == null)
+            {
+                throw new Exception("Semester name cannot be null");
+            }
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            List<Course> deptCourses = new List<Course>();
+            using (dbConnection)
+            {
+                dbConnection.Open();
                 var selectQuery = String.Empty;
                 if (departmentCheck.Equals("All Departments"))
                 {
@@ -554,49 +578,49 @@ namespace CourseManagement.DAL
                 }
 
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@name", departmentCheck);
                     cmd.Parameters.AddWithValue("@semester_name", semesterName);
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (MySqlDataReader queryResultReader = cmd.ExecuteReader())
                     {
-                        int CRNOrdinal = reader.GetOrdinal("CRN");
-                        int departmentOrdinal = reader.GetOrdinal("dept_name");
-                        int courseNameOrdinal = reader.GetOrdinal("course_name");
-                        int courseDescriptionOrdinal = reader.GetOrdinal("course_desc");
-                        int sectionNumberOrdinal = reader.GetOrdinal("section_num");
-                        int creditHoursOrdinal = reader.GetOrdinal("credit_hours");
-                        int maxSeatsOrdinal = reader.GetOrdinal("seats_max");
-                        int locationOrdinal = reader.GetOrdinal("location");
-                        int semesterNameOrdinal = reader.GetOrdinal("semester_name");
+                        int CRNOrdinal = queryResultReader.GetOrdinal("CRN");
+                        int departmentOrdinal = queryResultReader.GetOrdinal("dept_name");
+                        int courseNameOrdinal = queryResultReader.GetOrdinal("course_name");
+                        int courseDescriptionOrdinal = queryResultReader.GetOrdinal("course_desc");
+                        int sectionNumberOrdinal = queryResultReader.GetOrdinal("section_num");
+                        int creditHoursOrdinal = queryResultReader.GetOrdinal("credit_hours");
+                        int maxSeatsOrdinal = queryResultReader.GetOrdinal("seats_max");
+                        int locationOrdinal = queryResultReader.GetOrdinal("location");
+                        int semesterNameOrdinal = queryResultReader.GetOrdinal("semester_name");
 
-                        while (reader.Read())
+                        while (queryResultReader.Read())
                         {
-                            int CRN = reader[CRNOrdinal] == DBNull.Value ? default(int) : reader.GetInt32(CRNOrdinal);
-                            string departmentName = reader[departmentOrdinal] == DBNull.Value
+                            int CRN = queryResultReader[CRNOrdinal] == DBNull.Value ? default(int) : queryResultReader.GetInt32(CRNOrdinal);
+                            string departmentName = queryResultReader[departmentOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(departmentOrdinal);
-                            string courseName = reader[courseNameOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(departmentOrdinal);
+                            string courseName = queryResultReader[courseNameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(courseNameOrdinal);
-                            string courseDescription = reader[courseDescriptionOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(courseNameOrdinal);
+                            string courseDescription = queryResultReader[courseDescriptionOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(courseDescriptionOrdinal);
-                            string sectionNumber = reader[sectionNumberOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(courseDescriptionOrdinal);
+                            string sectionNumber = queryResultReader[sectionNumberOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(sectionNumberOrdinal);
-                            int creditHours = reader[creditHoursOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(sectionNumberOrdinal);
+                            int creditHours = queryResultReader[creditHoursOrdinal] == DBNull.Value
                                 ? default(int)
-                                : reader.GetInt32(creditHoursOrdinal);
-                            int maxSeats = reader[maxSeatsOrdinal] == DBNull.Value
+                                : queryResultReader.GetInt32(creditHoursOrdinal);
+                            int maxSeats = queryResultReader[maxSeatsOrdinal] == DBNull.Value
                                 ? default(int)
-                                : reader.GetInt32(maxSeatsOrdinal);
-                            string location = reader[locationOrdinal] == DBNull.Value
+                                : queryResultReader.GetInt32(maxSeatsOrdinal);
+                            string location = queryResultReader[locationOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(locationOrdinal);
-                            semesterName = reader[semesterNameOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(locationOrdinal);
+                            semesterName = queryResultReader[semesterNameOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(semesterNameOrdinal);
+                                : queryResultReader.GetString(semesterNameOrdinal);
 
                             Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
                                 sectionNumber, creditHours, maxSeats, location, semesterName);
@@ -612,108 +636,158 @@ namespace CourseManagement.DAL
             }
         }
 
+        /// <summary>
+        /// Gets the prerequisite courses for given CRN.
+        /// </summary>
+        /// <param name="CRNCheck">The CRN to check.</param>
+        /// <returns>
+        /// A Dictionary representing the prerequisite courses
+        /// for the selected courseName
+        /// </returns>
+        /// <preconditions>
+        /// CRNCheck must be greater than or equal to 0
+        /// </preconditions>
         public Dictionary<string, char> GetPrerequisiteCoursesForGivenCRN(int CRNCheck)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
-            Dictionary<string, char> preReqs = new Dictionary<string, char>();
-            using (conn)
+            if (CRNCheck <= 0)
             {
-                conn.Open();
+                throw new Exception("CRNCheck must be greater than or equal to 0");
+            }
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            Dictionary<string, char> preRequisiteCourses = new Dictionary<string, char>();
+            using (dbConnection)
+            {
+                dbConnection.Open();
                 var selectQuery =
                     "select prereq_courses.* from courses, prereq_courses WHERE courses.course_name = prereq_courses.desired_course_name AND courses.CRN = @CRNCheck";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (MySqlDataReader queryResultReader = cmd.ExecuteReader())
                     {
-                        int requiredCourseOrdinal = reader.GetOrdinal("required_course_name");
-                        int requiredGradeOrdinal = reader.GetOrdinal("required_grade");
+                        int requiredCourseOrdinal = queryResultReader.GetOrdinal("required_course_name");
+                        int requiredGradeOrdinal = queryResultReader.GetOrdinal("required_grade");
 
-                        while (reader.Read())
+                        while (queryResultReader.Read())
                         {
-                            string requiredCourseName = reader[requiredCourseOrdinal] == DBNull.Value
+                            string requiredCourseName = queryResultReader[requiredCourseOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(requiredCourseOrdinal);
-                            char requiredGrade = reader[requiredGradeOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(requiredCourseOrdinal);
+                            char requiredGrade = queryResultReader[requiredGradeOrdinal] == DBNull.Value
                                 ? default(char)
-                                : reader.GetChar(requiredGradeOrdinal);
+                                : queryResultReader.GetChar(requiredGradeOrdinal);
 
 
-                            preReqs.Add(requiredCourseName, requiredGrade);
-
-
+                            preRequisiteCourses.Add(requiredCourseName, requiredGrade);
                         }
 
-                        return preReqs;
+                        return preRequisiteCourses;
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the name of the prerequisite courses for given course.
+        /// </summary>
+        /// <param name="courseName">Name of the course.</param>
+        /// <returns>
+        /// A Dictionary representing the prerequisite courses
+        /// for the selected courseName
+        /// </returns>
+        /// <preconditions>
+        /// Course name cannot be null
+        /// </preconditions>
         public Dictionary<string, char> GetPrerequisiteCoursesForGivenCourseName(string courseName)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
-            Dictionary<string, char> preReqs = new Dictionary<string, char>();
-            using (conn)
+            if (courseName == null)
             {
-                conn.Open();
+                throw new Exception("Course name cannot be null");
+            }
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            Dictionary<string, char> preRequisiteCourses = new Dictionary<string, char>();
+            using (dbConnection)
+            {
+                dbConnection.Open();
                 var selectQuery =
                     "select prereq_courses.* from prereq_courses WHERE prereq_courses.desired_course_name = @desired_course";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@desired_course", courseName);
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (MySqlDataReader queryResultReader = cmd.ExecuteReader())
                     {
-                        int requiredCourseOrdinal = reader.GetOrdinal("required_course_name");
-                        int requiredGradeOrdinal = reader.GetOrdinal("required_grade");
+                        int requiredCourseOrdinal = queryResultReader.GetOrdinal("required_course_name");
+                        int requiredGradeOrdinal = queryResultReader.GetOrdinal("required_grade");
 
 
-                        while (reader.Read())
+                        while (queryResultReader.Read())
                         {
-                            string requiredCourseName = reader[requiredCourseOrdinal] == DBNull.Value
+                            string requiredCourseName = queryResultReader[requiredCourseOrdinal] == DBNull.Value
                                 ? default(string)
-                                : reader.GetString(requiredCourseOrdinal);
-                            char requiredGrade = reader[requiredGradeOrdinal] == DBNull.Value
+                                : queryResultReader.GetString(requiredCourseOrdinal);
+                            char requiredGrade = queryResultReader[requiredGradeOrdinal] == DBNull.Value
                                 ? default(char)
-                                : reader.GetChar(requiredGradeOrdinal);
+                                : queryResultReader.GetChar(requiredGradeOrdinal);
 
 
-                            preReqs.Add(requiredCourseName, requiredGrade);
+                            preRequisiteCourses.Add(requiredCourseName, requiredGrade);
 
 
                         }
 
-                        return preReqs;
+                        return preRequisiteCourses;
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the grades earned for completed course.
+        /// </summary>
+        /// <param name="courseName">Name of the course.</param>
+        /// <param name="studentUID">The student uid.</param>
+        /// <returns>
+        /// A list of the grades earned for the selected
+        /// courseName for the selected studentUID
+        /// </returns>
+        /// <preconditions>
+        /// courseName cannot be null
+        /// AND
+        /// studentUID cannot be null
+        /// </preconditions>
         public List<char> GetGradesEarnedForCompletedCourse(string courseName, string studentUID)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
-            List<char> grades = new List<char>();
-            using (conn)
+            if (courseName == null)
             {
-                conn.Open();
+                throw new Exception("Course name cannot be null");
+            }
+            if (studentUID == null)
+            {
+                throw new Exception("Student UID cannot be null");
+            }
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            List<char> grades = new List<char>();
+            using (dbConnection)
+            {
+                dbConnection.Open();
                 var selectQuery =
                     "SELECT student_has_courses.grade_earned FROM student_has_courses, courses WHERE student_has_courses.courses_CRN = courses.CRN AND student_has_courses.student_uid = @studentUID AND student_has_courses.courses_CRN = courses.CRN AND courses.course_name = @course_name";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@studentUID", studentUID);
                     cmd.Parameters.AddWithValue("@course_name", courseName);
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (MySqlDataReader queryResultReader = cmd.ExecuteReader())
                     {
-                        int gradeEarnedOrdinal = reader.GetOrdinal("grade_earned");
+                        int gradeEarnedOrdinal = queryResultReader.GetOrdinal("grade_earned");
 
-                        while (reader.Read())
+                        while (queryResultReader.Read())
                         {
-                            char earnedGrade = reader[gradeEarnedOrdinal] == DBNull.Value
+                            char earnedGrade = queryResultReader[gradeEarnedOrdinal] == DBNull.Value
                                 ? default(char)
-                                : reader.GetChar(gradeEarnedOrdinal);
+                                : queryResultReader.GetChar(gradeEarnedOrdinal);
 
 
                             grades.Add(earnedGrade);
