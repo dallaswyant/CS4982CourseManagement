@@ -19,13 +19,13 @@ namespace CourseManagement.DAL
         /// <returns>A student with the selected studentUID</returns>
         public Student GetStudentByStudentID(string studentUIDCheck)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
-            using (conn)
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            using (dbConnection)
             {
-                conn.Open();
+                dbConnection.Open();
                 var selectQuery = "SELECT * from students WHERE students.uid = @studentUID";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@studentUID", studentUIDCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -54,7 +54,7 @@ namespace CourseManagement.DAL
                     }
                 }
 
-                conn.Close();
+                dbConnection.Close();
             }
 
             return null;
@@ -67,14 +67,14 @@ namespace CourseManagement.DAL
         /// <returns>A list of students in the selected course</returns>
         public List<Student> GetStudentsByCRN(int CRNCheck)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
+            MySqlConnection dbConnection = DbConnection.GetConnection();
             List<Student> studentsInCurrentClasses = new List<Student>();
-            using (conn)
+            using (dbConnection)
             {
-                conn.Open();
+                dbConnection.Open();
                 var selectQuery = "select students.* from students, student_has_courses WHERE students.uid=student_has_courses.student_uid AND student_has_courses.courses_CRN=@CRNCheck";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -114,21 +114,21 @@ namespace CourseManagement.DAL
         [DataObjectMethod(DataObjectMethodType.Insert)]
         public void addCourseByCRNAndStudentUID(int CRN, string studentUID)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
+            MySqlConnection dbConnection = DbConnection.GetConnection();
 
-            using (conn)
+            using (dbConnection)
             {
-                conn.Open();
+                dbConnection.Open();
                     var selectQuery =
                         "INSERT INTO student_has_courses (student_uid, courses_CRN) VALUES (@studentUID,@CRN)";
-                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                     {
                         cmd.Parameters.AddWithValue("@studentUID", studentUID);
                         cmd.Parameters.AddWithValue("@CRN", CRN);
                         cmd.ExecuteNonQuery();
                     }
                 }
-                conn.Close();
+                dbConnection.Close();
             
 
         }

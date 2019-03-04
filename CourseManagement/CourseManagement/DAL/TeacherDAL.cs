@@ -19,15 +19,15 @@ namespace CourseManagement.DAL
         /// <returns>A teacher with the given teacher UID</returns>
         public Teacher GetTeacherByTeacherID(string teacherUIDCheck)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
+            MySqlConnection dbConnection = DbConnection.GetConnection();
 
-            using (conn)
+            using (dbConnection)
             {
-                conn.Open();
+                dbConnection.Open();
                 var selectQuery =
                     "SELECT teachers.*, dept_employs_teachers.dept_name, CONCAT(fname, \" \", lname) as name FROM teachers, dept_employs_teachers, personal_info WHERE teachers.uid = dept_employs_teachers.teacher_uid AND teachers.uid = @teacherUID AND personal_info.uid = @teacherUID";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@teacherUID", teacherUIDCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -67,7 +67,7 @@ namespace CourseManagement.DAL
                     }
                 }
 
-                conn.Close();
+                dbConnection.Close();
             }
 
             return null;
@@ -81,16 +81,16 @@ namespace CourseManagement.DAL
         /// <returns>A teacher with the given teacher UID</returns>
         public Teacher GetTeacherByCRN(int crn)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
+            MySqlConnection dbConnection = DbConnection.GetConnection();
 
-            using (conn)
+            using (dbConnection)
             {
-                conn.Open();
+                dbConnection.Open();
              
                 var selectQuery =
                     "SELECT teachers.*, CONCAT(fname, \" \", lname) as name FROM teachers, personal_info, teacher_teaches_courses WHERE personal_info.uid = teacher_teaches_courses.teacher_uid AND teacher_teaches_courses.courses_CRN = @CRN";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@CRN", crn);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -130,7 +130,7 @@ namespace CourseManagement.DAL
                     }
                 }
 
-                conn.Close();
+                dbConnection.Close();
             }
 
             return null;

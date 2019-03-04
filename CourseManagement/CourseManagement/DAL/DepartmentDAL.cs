@@ -21,15 +21,15 @@ namespace CourseManagement.DAL
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Department> GetAllDepartments()
         {
-            MySqlConnection conn = DbConnection.GetConnection();
+            MySqlConnection dbConnection = DbConnection.GetConnection();
 
-            using (conn)
+            using (dbConnection)
             {
-                conn.Open();
+                dbConnection.Open();
                 var selectQuery =
                     "select * FROM departments";
                 List<Department> departments = new List<Department>();
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {

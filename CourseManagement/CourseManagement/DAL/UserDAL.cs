@@ -20,15 +20,15 @@ namespace CourseManagement.DAL
         /// <returns>A user with the selected credentials, if one exists</returns>
         public User CheckLogin(string username, string password)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
+            MySqlConnection dbConnection = DbConnection.GetConnection();
 
-            using (conn)
+            using (dbConnection)
             {
-                conn.Open();
+                dbConnection.Open();
                 var selectQuery =
                     "SELECT `users`.`uid`, `users`.password, `roles`.role_name  FROM `users`, `user_has_role`, `roles` WHERE `users`.`uid` = `user_has_role`.user_uid AND `user_has_role`.`roles_role_id` = `roles`.role_id AND users.uid = @username";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@username", username);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -55,7 +55,7 @@ namespace CourseManagement.DAL
                     }
                 }
 
-                conn.Close();
+                dbConnection.Close();
             }
 
             return null;

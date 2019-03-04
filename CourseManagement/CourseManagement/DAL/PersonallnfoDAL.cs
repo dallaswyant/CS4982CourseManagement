@@ -11,15 +11,15 @@ namespace CourseManagement.DAL
     {
         public PersonalStuff GetPersonalInfoFromUserID(string uid)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
+            MySqlConnection dbConnection = DbConnection.GetConnection();
 
-            using (conn)
+            using (dbConnection)
             {
-                conn.Open();
+                dbConnection.Open();
                 var selectQuery =
                     "SELECT * FROM personal_info WHERE uid = @UID";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@UID", uid);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -78,7 +78,7 @@ namespace CourseManagement.DAL
                     }
                 }
 
-                conn.Close();
+                dbConnection.Close();
             }
 
             return null;

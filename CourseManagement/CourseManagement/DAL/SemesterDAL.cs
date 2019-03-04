@@ -14,14 +14,14 @@ namespace CourseManagement.DAL
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Semester> GetAllSemesters()
         {
-            MySqlConnection conn = DbConnection.GetConnection();
+            MySqlConnection dbConnection = DbConnection.GetConnection();
             List<Semester> allSemesters = new List<Semester>();
-            using (conn)
+            using (dbConnection)
             {
-                conn.Open();
+                dbConnection.Open();
                 var selectQuery = "SELECT * FROM semesters ";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -62,13 +62,13 @@ namespace CourseManagement.DAL
         [DataObjectMethod(DataObjectMethodType.Select)]
         public Semester GetSemesterBySemesterName(string semesterName)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
-            using (conn)
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            using (dbConnection)
             {
-                conn.Open();
+                dbConnection.Open();
                 var selectQuery = "SELECT * FROM semesters WHERE semesters.semester_name = @semester_name";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@semester_name", semesterName);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -102,7 +102,7 @@ namespace CourseManagement.DAL
                         }
                     }
                 }
-                conn.Close();
+                dbConnection.Close();
             }
             return null;
         }
@@ -110,14 +110,14 @@ namespace CourseManagement.DAL
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Semester> GetCurrentAndFutureSemesters()
         {
-            MySqlConnection conn = DbConnection.GetConnection();
+            MySqlConnection dbConnection = DbConnection.GetConnection();
             List<Semester> semesters = new List<Semester>();
-            using (conn)
+            using (dbConnection)
             {
-                conn.Open();
+                dbConnection.Open();
                 var selectQuery = "SELECT * FROM semesters WHERE semesters.end_date >= @today";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@today", DateTime.Now.ToString("yyyy-MM-dd"));
                     using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -153,7 +153,7 @@ namespace CourseManagement.DAL
                         return semesters;
                     }
                 }
-                conn.Close();
+                dbConnection.Close();
             }
             return null;
         }
