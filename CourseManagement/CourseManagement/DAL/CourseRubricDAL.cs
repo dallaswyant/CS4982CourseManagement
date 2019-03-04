@@ -16,23 +16,33 @@ namespace CourseManagement.DAL
     [DataObject(true)]
     public class CourseRubricDAL
     {
+
         /// <summary>
         /// Gets the course rubric by CRN.
         /// </summary>
-        /// <param name="CRNCheck">The CRN check.</param>
-        /// <returns>A list of rubric items representing the course rubric for the selected CRN</returns>
+        /// <param name="CRNCheck">The CRN to check.</param>
+        /// <returns>
+        /// A list of RubricItems for the selected CRN
+        /// </returns>
+        /// <preconditions>
+        /// CRNCheck must be greater than or equal to 0
+        /// </preconditions>
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<RubricItem> GetCourseRubricByCRN(int CRNCheck)
         {
-            MySqlConnection conn = DbConnection.GetConnection();
+            if (CRNCheck <= 0)
+            {
+                throw new Exception("CRNCheck must be greater than or equal to 0");
+            }
+            MySqlConnection dbConnection = DbConnection.GetConnection();
             
-            using (conn)
+            using (dbConnection)
             {
 
-                conn.Open();
+                dbConnection.Open();
                 var selectQuery = "SELECT * FROM rubrics WHERE rubrics.CRN = @CRNCheck";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -82,13 +92,31 @@ namespace CourseManagement.DAL
             return null;
         }
 
+
         /// <summary>
-        /// Adds the course rubric to the selected course.
+        /// Adds the course rubric.
         /// </summary>
-        /// <param name="CRN">The CRN for the course.</param>
-        /// <param name="rubricToAdd">The rubric to add to the course.</param>
-        public void AddCourseRubric(int CRN, List<RubricItem> rubricToAdd)
+        /// <param name="CRNCheck">The CRN check.</param>
+        /// <param name="rubricToAdd">The rubric to add.</param>
+        /// <preconditions>
+        /// CRNCheck must be greater than or equal to 0
+        /// AND
+        /// The list of rubric items cannot be null
+        /// </preconditions>
+        /// <postcondition>
+        /// The database now has the rubric selected for the given CRNCheck
+        /// </postcondition>
+        public void AddCourseRubric(int CRNCheck, List<RubricItem> rubricToAdd)
         {
+            if (CRNCheck <= 0)
+            {
+                throw new Exception("CRNCheck must be greater than or equal to 0");
+            }
+
+            if (rubricToAdd == null)
+            {
+                throw new Exception("The list of rubric items cannot be null");
+            }
             string assignment_types = "";
             string weight_per_types = "";
             for (int i = 0; i < rubricToAdd.Count; i++)
@@ -104,22 +132,22 @@ namespace CourseManagement.DAL
                     weight_per_types += rubricToAdd[i].AssignmentWeight + "/";
                 }
             }
-            MySqlConnection conn = DbConnection.GetConnection();
-            using (conn)
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            using (dbConnection)
             {
-                conn.Open();
+                dbConnection.Open();
                 var selectQuery =
                     "INSERT INTO rubrics(assignment_types, weight_per_type,CRN) VALUES (@assignment_types,@weight_per_type,@CRNToAdd)";
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@assignment_types", assignment_types);
                     cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
-                    cmd.Parameters.AddWithValue("@CRN", CRN);
+                    cmd.Parameters.AddWithValue("@CRN", CRNCheck);
 
                     cmd.ExecuteNonQuery();
                 }
 
-                conn.Close();
+                dbConnection.Close();
             }
         }
 
@@ -169,38 +197,23 @@ namespace CourseManagement.DAL
                     weight_per_types += rubric[i].AssignmentWeight;
                 }
             }
-            MySqlConnection conn = DbConnection.GetConnection();
-            using (conn)
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            using (dbConnection)
             {
-                conn.Open();
+                dbConnection.Open();
 
                 
                 var selectQuery =
                     "UPDATE rubrics SET assignment_types=@assignment_types, weight_per_type=@weight_per_type WHERE CRN = @CRN";
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@assignment_types", assignment_types);
                     cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
                     cmd.Parameters.AddWithValue("@CRN", CRN);
                     cmd.ExecuteNonQuery();
                 }
-                /**
-                StudentDAL studentGetter = new StudentDAL();
-                List<Student> students = studentGetter.GetStudentsByCRN(CRN);
-                foreach (var student in students)
-                {
-                    var updateQuery =
-                        "UPDATE grade_items SET grade_type = @newType WHERE grade_item_id = (SELECT grade_items.grade_item_id FROM grade_belongs_to_courses WHERE grade_belongs_to_courses.courses_CRN = @CRN  AND grade_belongs_to_courses.grade_item_id = grade_items.grade_item_id AND grade_items.grade_type = @oldType AND grade_items.student_uid = @studentUID)";
-                    using (MySqlCommand cmd = new MySqlCommand(updateQuery, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@newType", assignmentType);
-                        cmd.Parameters.AddWithValue("@oldType", original_AssignmentType);
-                        cmd.Parameters.AddWithValue("@CRN", CRN);
-                        cmd.Parameters.AddWithValue("@studentUID", student.StudentUID);
-                        cmd.ExecuteNonQuery();
-                    }
-                } */
-                conn.Close();
+
+                dbConnection.Close();
             }
         }
 
@@ -224,13 +237,13 @@ namespace CourseManagement.DAL
             RubricItem item =  HttpContext.Current.Session["RubricItemToDelete"] as RubricItem;
             List<RubricItem> rubric = GetCourseRubricByCRN(item.CRN);
             bool canDelete = false;
-            MySqlConnection conn = DbConnection.GetConnection();
-            using (conn)
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            using (dbConnection)
             {
-                conn.Open();
+                dbConnection.Open();
                 var selectQuery =
                     "SELECT * from grade_defs WHERE grade_defs.grade_type = @type_to_check AND grade_defs.course_CRN = @CRNCheck";
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@type_to_check", item.AssignmentType);
                     cmd.Parameters.AddWithValue("@CRNCheck", original_Crn);
@@ -248,7 +261,7 @@ namespace CourseManagement.DAL
                         }
                     }
 
-                    conn.Close();
+                    dbConnection.Close();
                 }
             }
 
@@ -283,13 +296,13 @@ namespace CourseManagement.DAL
                     }
                 }
 
-                conn = DbConnection.GetConnection();
-                using (conn)
+                dbConnection = DbConnection.GetConnection();
+                using (dbConnection)
                 {
-                    conn.Open();
+                    dbConnection.Open();
                     var selectQuery =
                         "UPDATE rubrics SET assignment_types=@assignment_types, weight_per_type=@weight_per_type WHERE CRN = @CRN";
-                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                     {
                         cmd.Parameters.AddWithValue("@assignment_types", assignment_types);
                         cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
@@ -297,7 +310,7 @@ namespace CourseManagement.DAL
                         cmd.ExecuteNonQuery();
                     }
 
-                    conn.Close();
+                    dbConnection.Close();
                 }
             }
 
@@ -305,14 +318,33 @@ namespace CourseManagement.DAL
         }
 
 
+
+
         /// <summary>
         /// Inserts the course rubric.
         /// </summary>
         /// <param name="assignmentType">Type of the assignment.</param>
         /// <param name="assignmentWeight">The assignment weight.</param>
+        /// <preconditions>
+        /// Assignment type cannot be null
+        /// AND
+        /// Assignment weight must be greater than or equal to zero
+        /// </preconditions>
+        /// <postcondition>
+        /// Inserts a new course rubric item for the given CRN in the session state object
+        /// </postcondition>
         [DataObjectMethod(DataObjectMethodType.Insert)]
         public void InsertCourseRubric(string assignmentType, int assignmentWeight)
         {
+            if (assignmentType == null)
+            {
+                throw new Exception("Assignment type cannot be null");
+            }
+
+            if (assignmentWeight < 0)
+            {
+                throw new Exception("Assignment weight must be greater than or equal to zero");
+            }
             int CRN = (int) HttpContext.Current.Session["CRN"];
 
             
@@ -332,40 +364,51 @@ namespace CourseManagement.DAL
 
             assignment_types += item.AssignmentType;
             weight_per_types += item.AssignmentWeight;
-            MySqlConnection conn = DbConnection.GetConnection();
-            using (conn)
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            using (dbConnection)
             {
-                conn.Open();
-                var selectQuery =
+                dbConnection.Open();
+                var updateQuery =
                     "UPDATE rubrics SET assignment_types=@assignment_types, weight_per_type=@weight_per_type WHERE CRN = @CRN";
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(updateQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@assignment_types", assignment_types);
                     cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
                     cmd.Parameters.AddWithValue("@CRN", CRN);
                     cmd.ExecuteNonQuery();
                 }
-                conn.Close();
+                dbConnection.Close();
             }
         }
+
+
         /// <summary>
         /// Gets the assignment types by CRN.
         /// </summary>
-        /// <param name="CRNCheck">The CRN of the selected course</param>
-        /// <returns> A list of assignment types for the selected course</returns>
+        /// <param name="CRNCheck">The CRN check.</param>
+        /// <returns>
+        /// A list of strings representing the different type of
+        /// assignments for the rubrics for the selected CRNCheck
+        /// </returns>
+        /// <preconditions>
+        /// CRNCheck must be greater than or equal to 0
+        /// </preconditions>
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<string> GetAssignmentTypesByCRN(int CRNCheck)
         {
+            if (CRNCheck <= 0)
+            {
+                throw new Exception("CRNCheck must be greater than or equal to 0");
+            }
+            MySqlConnection dbConnection = DbConnection.GetConnection();
 
-            MySqlConnection conn = DbConnection.GetConnection();
-
-            using (conn)
+            using (dbConnection)
             {
 
-                conn.Open();
+                dbConnection.Open();
                 var selectQuery = "SELECT * FROM rubrics WHERE rubrics.CRN = @CRNCheck";
 
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, conn))
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
