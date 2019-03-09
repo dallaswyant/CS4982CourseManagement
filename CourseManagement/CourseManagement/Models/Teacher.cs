@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CourseManagement.DAL;
 using CourseManagements;
 
 namespace CourseManagement.Models
@@ -14,10 +15,6 @@ namespace CourseManagement.Models
         /// gets the location
         /// </summary>
         public string Location { get; }
-        /// <summary>
-        /// gets the name
-        /// </summary>
-        public string Name { get; }
         /// <summary>
         /// gets the email
         /// </summary>
@@ -38,25 +35,33 @@ namespace CourseManagement.Models
         /// gets the course taught
         /// </summary>
         public List<Course> CoursesTaught { get; }
+        public string Name
+        {
+            get
+            {
+                PersonallnfoDAL infoGetter = new PersonallnfoDAL();
+                PersonalStuff info = infoGetter.GetPersonalInfoFromUserID(this.TeacherUID);
+                return info.FName + " " + info.LName;
+            }
+        }
 
         #endregion
 
         #region Constructors
-       /// <summary>
-       /// constructor for a teacher
-       /// </summary>
-       /// <param name="location">the office location</param>
-       /// <param name="name">the teachers name</param>
-       /// <param name="email">the teachers email</param>
-       /// <param name="isEmailPublic">if the email is public</param>
-       /// <param name="phoneNumber">teachers phone number</param>
-       /// <param name="coursesTaught">the course they teach</param>
-       /// <param name="teacherUID">the teachers user id</param>
-        public Teacher(string location, string name, string email, bool isEmailPublic, string phoneNumber,
+        /// <summary>
+        /// constructor for a teacher
+        /// </summary>
+        /// <param name="location">the office location</param>
+        /// <param name="name">the teachers name</param>
+        /// <param name="email">the teachers email</param>
+        /// <param name="isEmailPublic">if the email is public</param>
+        /// <param name="phoneNumber">teachers phone number</param>
+        /// <param name="coursesTaught">the course they teach</param>
+        /// <param name="teacherUID">the teachers user id</param>
+        public Teacher(string location, string email, bool isEmailPublic, string phoneNumber,
             List<Course> coursesTaught, string teacherUID)
         {
             this.Location = location;
-            this.Name = name;
             this.Email = email;
             this.IsEmailPublic = isEmailPublic;
             this.PhoneNumber = phoneNumber;

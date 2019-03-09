@@ -56,10 +56,13 @@ namespace CourseManagement.Views.DepartmentAdmin
             var department = ((TextBox)updateRow.FindControl("department")).Text;
             var seats = int.Parse(((TextBox)updateRow.FindControl("seats")).Text);
             var semesterID = ((Label)updateRow.FindControl("semesterID")).Text;
-
-            Course updateCourse = new Course(crn,department,name,description,section,credit,seats,location,semesterID);
+            //TODO add course_time_id with a ddl
+            //TODO make semesterID a ddl
+            //TODO make crn a label
+            //TODO make department a label
+            //Course updateCourse = new Course(crn,department,name,description,section,credit,seats,location,semesterID);
             DepartmentAdminDAL dal = new DepartmentAdminDAL(); 
-            dal.UpdateCourse(updateCourse);
+            //dal.UpdateCourse(updateCourse);
 
 
 

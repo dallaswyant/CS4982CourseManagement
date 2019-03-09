@@ -50,7 +50,7 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-                <asp:ObjectDataSource ID="odsCourseDetails" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByCRN" TypeName="CourseManagement.DAL.CourseDAL">
+                <asp:ObjectDataSource ID="odsCourseDetails" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseByCRN" TypeName="CourseManagement.DAL.CourseDAL">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="ddlStudentCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
                     </SelectParameters>
