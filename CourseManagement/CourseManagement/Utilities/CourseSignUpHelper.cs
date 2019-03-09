@@ -78,5 +78,20 @@ namespace CourseManagement.Utilities
 
             return 1;
         }
+
+        public bool IsCourseContributingToDegreeProgram(Course courseCheck, string studentIDCheck)
+        {
+            DegreeProgramDAL degreeChecker = new DegreeProgramDAL();
+            string degreeName = degreeChecker.GetDegreeProgramByStudentID(studentIDCheck);
+            List<string> requiredCourses = degreeChecker.GetCourseNamesByDegreeProgram(degreeName);
+            foreach (var currentCourse in requiredCourses)
+            {
+                if (currentCourse.Equals(courseCheck.Name))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
