@@ -58,7 +58,9 @@ namespace CourseManagement.Models
         /// <summary>
         /// Gets the semester ID
         /// </summary>
-        public string SemesterID { get; set; }  
+        public string SemesterID { get; set; }
+
+        public int CourseTimeID { get; set; }
         #endregion
 
         #region Constructors
@@ -74,7 +76,7 @@ namespace CourseManagement.Models
         /// <param name="departmentName">Course department</param>
         /// <param name="maxSeats">the maximum seats</param>
         /// <param name="semesterID">The semester id</param>
-        public Course(int crn, string departmentName, string name, string description, string sectionNumber, int creditHours, int maxSeats, string location, string semesterID)
+        public Course(int crn, string departmentName, string name, string description, string sectionNumber, int creditHours, int maxSeats, string location, string semesterID, int courseTimeId)
         {
             this.CRN = crn;
             this.DepartmentName = departmentName;
@@ -85,6 +87,7 @@ namespace CourseManagement.Models
             this.MaxSeats = maxSeats;
             this.Location = location;
             this.SemesterID = semesterID;
+            this.CourseTimeID = courseTimeId;
             this.LectureNotes = new List<string>();
         }
 

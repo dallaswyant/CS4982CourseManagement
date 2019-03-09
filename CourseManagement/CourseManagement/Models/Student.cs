@@ -41,7 +41,6 @@ namespace CourseManagement.Models
                 PersonallnfoDAL infoGetter = new PersonallnfoDAL();
                 PersonalStuff info = infoGetter.GetPersonalInfoFromUserID(this.StudentUID);
                 return info.FName + " " + info.LName;
-
             }
         }
 

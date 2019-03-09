@@ -25,7 +25,7 @@ namespace CourseManagement.DAL
             {
                 dbConnection.Open();
                 var selectQuery =
-                    "SELECT teachers.*, dept_employs_teachers.dept_name, CONCAT(fname, \" \", lname) as name FROM teachers, dept_employs_teachers, personal_info WHERE teachers.uid = dept_employs_teachers.teacher_uid AND teachers.uid = @teacherUID AND personal_info.uid = @teacherUID";
+                    "SELECT teachers.*, dept_employs_teachers.dept_name FROM teachers, dept_employs_teachers WHERE teachers.uid = dept_employs_teachers.teacher_uid AND teachers.uid = @teacherUID";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
@@ -34,7 +34,6 @@ namespace CourseManagement.DAL
                     {
                         int teacherUIDOrdinal = reader.GetOrdinal("uid");
                         int officeLocationOrdinal = reader.GetOrdinal("office_location");
-                        int nameOrdinal = reader.GetOrdinal("name");
                         int emailOrdinal = reader.GetOrdinal("email");
                         int publicEmailOrdinal = reader.GetOrdinal("public_email");
                         int phoneOrdinal = reader.GetOrdinal("phone_number");
@@ -44,9 +43,6 @@ namespace CourseManagement.DAL
                             var officeLocation = reader[officeLocationOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(officeLocationOrdinal);
-                            var name = reader[nameOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(nameOrdinal);
                             var email = reader[emailOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(emailOrdinal);
@@ -59,7 +55,7 @@ namespace CourseManagement.DAL
                                 : reader.GetString(teacherUIDOrdinal);
                             CourseDAL courseGetter = new CourseDAL();
                             List<Course> currTeacherCourses = courseGetter.GetCoursesByTeacherID(teacherUID);
-                            Teacher currTeacher = new Teacher(officeLocation, name, email, publicEmail, phone, currTeacherCourses,teacherUID);
+                            Teacher currTeacher = new Teacher(officeLocation, email, publicEmail, phone, currTeacherCourses,teacherUID);
 
                             return currTeacher;
                             
@@ -88,7 +84,7 @@ namespace CourseManagement.DAL
                 dbConnection.Open();
              
                 var selectQuery =
-                    "SELECT teachers.*, CONCAT(fname, \" \", lname) as name FROM teachers, personal_info, teacher_teaches_courses WHERE personal_info.uid = teacher_teaches_courses.teacher_uid AND teacher_teaches_courses.courses_CRN = @CRN";
+                    "SELECT teachers.* FROM teachers, teacher_teaches_courses WHERE teacher_teaches_courses.courses_CRN = @CRN";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
@@ -97,7 +93,6 @@ namespace CourseManagement.DAL
                     {
                         int teacherUIDOrdinal = reader.GetOrdinal("uid");
                         int officeLocationOrdinal = reader.GetOrdinal("office_location");
-                        int nameOrdinal = reader.GetOrdinal("name");
                         int emailOrdinal = reader.GetOrdinal("email");
                         int publicEmailOrdinal = reader.GetOrdinal("public_email");
                         int phoneOrdinal = reader.GetOrdinal("phone_number");
@@ -107,9 +102,6 @@ namespace CourseManagement.DAL
                             var officeLocation = reader[officeLocationOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(officeLocationOrdinal);
-                            var name = reader[nameOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(nameOrdinal);
                             var email = reader[emailOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(emailOrdinal);
@@ -122,7 +114,7 @@ namespace CourseManagement.DAL
                                 : reader.GetString(teacherUIDOrdinal);
                             CourseDAL courseGetter = new CourseDAL();
                             List<Course> currTeacherCourses = courseGetter.GetCoursesByTeacherID(teacherUID);
-                            Teacher currTeacher = new Teacher(officeLocation, name, email, publicEmail, phone, currTeacherCourses,teacherUID);
+                            Teacher currTeacher = new Teacher(officeLocation, email, publicEmail, phone, currTeacherCourses,teacherUID);
 
                             return currTeacher;
                             
@@ -134,6 +126,33 @@ namespace CourseManagement.DAL
             }
 
             return null;
+        }
+
+
+        public void UpdateFinalGradeByCRNAndStudentID(int CRNCheck, string studentID, Char grade)
+        {
+            
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+
+            using (dbConnection)
+            {
+                dbConnection.Open();
+
+                var updateQuery =
+                    "UPDATE student_has_courses SET student_has_courses.grade_earned = @grade WHERE student_has_courses.student_uid = @studentID AND student_has_courses.courses_CRN = @CRNCheck";
+
+                using (MySqlCommand cmd = new MySqlCommand(updateQuery, dbConnection))
+                {
+                    cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
+                    cmd.Parameters.AddWithValue("@studentID", studentID);
+                    cmd.Parameters.AddWithValue("@grade", grade);
+                    cmd.ExecuteNonQuery();
+                }
+                
+
+                dbConnection.Close();
+            }
+
         }
         #endregion
     }

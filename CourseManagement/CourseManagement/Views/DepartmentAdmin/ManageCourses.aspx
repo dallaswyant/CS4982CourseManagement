@@ -142,7 +142,7 @@
                         <asp:BoundField DataField="SemesterID" HeaderText="SemesterID" ReadOnly="True" SortExpression="SemesterID" />
                     </Fields>
                 </asp:DetailsView>
-                <asp:ObjectDataSource ID="odsTeacherCourse" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByCRN" TypeName="CourseManagement.DAL.CourseDAL">
+                <asp:ObjectDataSource ID="odsTeacherCourse" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCourseByCRN" TypeName="CourseManagement.DAL.CourseDAL">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="gvwDepartmentCourses" Name="CRNCheck" PropertyName="SelectedValue" Type="Int32" />
                     </SelectParameters>

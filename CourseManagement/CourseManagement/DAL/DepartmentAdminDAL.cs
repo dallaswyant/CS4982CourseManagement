@@ -118,7 +118,7 @@ namespace CourseManagement.DAL
                     
                     
                     var insertQuery =
-                        "INSERT INTO courses (dept_name, course_name, course_description, section_num, credit_hours, seats_max, location, semester_name) VALUES (@dept_name, @course_name, @section_num, @credit_hours, @seats_max, @location)";
+                        "INSERT INTO courses (dept_name, course_name, course_description, section_num, credit_hours, seats_max, location, semester_name, course_time_id) VALUES (@dept_name, @course_name, @course_description, @section_num, @credit_hours, @seats_max, @location, @semester_name, @course_time_id)";
                     using (MySqlCommand cmd = new MySqlCommand(insertQuery, dbConnection))
                     {
                         cmd.Parameters.AddWithValue("@dept_name",newCourse.DepartmentName);
@@ -129,6 +129,7 @@ namespace CourseManagement.DAL
                         cmd.Parameters.AddWithValue("@seats_max", newCourse.MaxSeats);
                         cmd.Parameters.AddWithValue("@location", newCourse.Location);
                         cmd.Parameters.AddWithValue("@semester_name", newCourse.SemesterID);
+                        cmd.Parameters.AddWithValue("@course_time_id", newCourse.CourseTimeID);
                         cmd.ExecuteNonQuery();
                     }
 
@@ -223,7 +224,7 @@ namespace CourseManagement.DAL
                 dbConnection.Open();
                     
                     var selectQuery =
-                        "UPDATE courses SET course_name=@course_name, section_num=@section_num, course_desc = @course_description, credit_hours=@credit_hours, seats_max=@seats_max, location=@location, semester_name = @semester_name, dept_name=@department WHERE CRN = @CRN";
+                        "UPDATE courses SET course_name=@course_name, section_num=@section_num, course_desc = @course_description, credit_hours=@credit_hours, seats_max=@seats_max, location=@location, semester_name = @semester_name, dept_name=@department, course_time_id = @course_time_id WHERE CRN = @CRN";
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@course_name", course.Name);
@@ -235,6 +236,7 @@ namespace CourseManagement.DAL
                     cmd.Parameters.AddWithValue("@CRN", course.CRN);
                     cmd.Parameters.AddWithValue("@semester_name", course.SemesterID);
                     cmd.Parameters.AddWithValue("@department", course.DepartmentName);
+                    cmd.Parameters.AddWithValue("@course_time_id", course.CourseTimeID);
                     cmd.ExecuteNonQuery();
                 }
 
