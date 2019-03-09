@@ -73,9 +73,31 @@
     <table class="tableInfo">
         <tr>
             <td class="auto-style7" colspan="5">
-    <asp:ObjectDataSource ID="odsCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByTeacherID" TypeName="CourseManagement.DAL.CourseDAL">
+                <asp:ObjectDataSource ID="odsSemesters" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCurrentAndFutureSemesters" TypeName="CourseManagement.DAL.SemesterDAL"></asp:ObjectDataSource>
+            </td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style7" colspan="5">
+                Semester:</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style7" colspan="5">
+                <asp:DropDownList ID="ddlSemesters" runat="server" DataSourceID="odsSemesters" DataTextField="SemesterID" DataValueField="SemesterID">
+                </asp:DropDownList>
+            </td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style7" colspan="5">
+    <asp:ObjectDataSource ID="odsCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByTeacherAndSemester" TypeName="CourseManagement.DAL.CourseDAL">
         <SelectParameters>
             <asp:SessionParameter Name="teacherIDCheck" SessionField="UserID" Type="String" />
+            <asp:ControlParameter ControlID="ddlSemesters" Name="semesterID" PropertyName="SelectedValue" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
             </td>
