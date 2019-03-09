@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CourseManagement.Models;
+using CoursesManagementDesktop.Controllers;
 
 namespace CoursesManagementDesktop
 {
@@ -20,11 +22,24 @@ namespace CoursesManagementDesktop
     /// </summary>
     public partial class ManageAssignmentPage : Page
     {
+        private ManageGradeItemsController gradeItemsController;
+      
         public ManageAssignmentPage()
         {
             InitializeComponent();
+            
+            this.gradeItemsController = new ManageGradeItemsController(this);
+            this.gradeItemsController.populateComboBoxes();
         }
 
-       
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.gradeItemsController.addAssignmnet();
+        }
+
+        private void ViewGrades_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService != null) NavigationService.GoBack();
+        }
     }
 }

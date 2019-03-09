@@ -97,6 +97,7 @@ namespace CoursesManagementDesktop
 
         private void GradeButton_Click(object sender, RoutedEventArgs e)
         {
+            //TODO MAKE NEW WINDOW FOR DIALOG
             var currentGrade = this.assignments[this.assignmentBox.SelectedIndex];
             var studentId = studentIds[this.studentCombo.SelectedIndex];
             var updatedGrade = new GradeItem()
@@ -107,6 +108,8 @@ namespace CoursesManagementDesktop
                 Name = currentGrade.Name
             };
             this.gradeItemDal.gradeGradedItemByCRNAndStudentUID(updatedGrade,this.controller.currentCrn,studentId);
+            
+            showNextStudent();
 
         }
 
@@ -133,7 +136,12 @@ namespace CoursesManagementDesktop
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.studentCombo.SelectedIndex + 1 == this.studentCombo.Items.Count )
+            showNextStudent();
+        }
+
+        private void showNextStudent()
+        {
+            if (this.studentCombo.SelectedIndex + 1 == this.studentCombo.Items.Count)
             {
                 this.studentCombo.SelectedIndex = 0;
             }
@@ -141,7 +149,6 @@ namespace CoursesManagementDesktop
             {
                 this.studentCombo.SelectedIndex += 1;
             }
-
         }
 
         private void ViewGrades_Click(object sender, RoutedEventArgs e)

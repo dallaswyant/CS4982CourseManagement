@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CourseManagement.DAL;
 using CoursesManagementDesktop.DAL;
+using CoursesManagementDesktop.Model;
 
 namespace CoursesManagementDesktop.Controllers
 {
@@ -76,7 +77,7 @@ namespace CoursesManagementDesktop.Controllers
 
         private  void  populateAssignmentComboBox()
         {
-            var crn = this.findCrn(this.homePage.CourseCombo.Text);
+            var crn = CourseManagementTools.findCrn(this.homePage.CourseCombo.Text,this.homePage.semesterBox.Text);
             var assignments = this.gradedItemDal.GetUniqueGradedItemsByCRN(crn);
 
             foreach (var name in assignments)
@@ -90,7 +91,7 @@ namespace CoursesManagementDesktop.Controllers
         private void populateCourseComboBox()
         {
             string semester = this.homePage.semesterBox.Text;
-            var courses = this.courseDAL.GetCoursesByTeacherAndSemester(this.homePage.TeacherId,semester);
+            var courses = this.courseDAL.GetCoursesByTeacherAndSemester(CourseManagementTools.TeacherID,semester);
 
             foreach (var name in courses)
             {
@@ -123,28 +124,13 @@ namespace CoursesManagementDesktop.Controllers
         {
          
                 var name = this.homePage.AssignmentCombo.SelectedItem ==null ? "":this.homePage.AssignmentCombo.SelectedItem.ToString();
-                var crn = this.findCrn(this.homePage.CourseCombo.Text);
+                var crn = CourseManagementTools.findCrn(this.homePage.CourseCombo.Text,this.homePage.semesterBox.Text);
                 this.desktopGradedItemDal.populateDataGrid(crn, name, this.homePage.dataGridGrades);
                 this.currentCrn = crn;
 
         }
 
-        private int findCrn(string courseName)
-        {
-            string semester = this.homePage.semesterBox.Text;
-            var crn = -1;
-
-            var courses = this.courseDAL.GetCoursesByTeacherAndSemester(this.homePage.TeacherId,semester);
-            foreach (var course in courses)
-            {
-                if (course.Name.Equals(this.homePage.CourseCombo.Text))
-                {
-                    crn = course.CRN;
-                }
-            }
-
-            return crn;
-        }
+        
 
         #endregion
     }

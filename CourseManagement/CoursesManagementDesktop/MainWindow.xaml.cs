@@ -27,8 +27,7 @@ namespace CoursesManagementDesktop
             InitializeComponent();
             LoginPage home = new LoginPage();
 
-            //This is for Testing purposes
-            ManageAssignmentPage page = new ManageAssignmentPage(); 
+           
             
             this.myFrame.NavigationService.Navigate(home);
         }

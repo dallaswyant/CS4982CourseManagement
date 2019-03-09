@@ -31,17 +31,7 @@ namespace CoursesManagementDesktop
 
         #endregion
 
-        #region Properties
-
-        /// <summary>
-        ///     Gets the teacher identifier.
-        /// </summary>
-        /// <value>
-        ///     The teacher identifier.
-        /// </value>
-        public string TeacherId { get; }
-
-        #endregion
+      
 
         #region Constructors
 
@@ -49,10 +39,10 @@ namespace CoursesManagementDesktop
         ///     Initializes a new instance of the <see cref="TeacherHomePAge" /> class.
         /// </summary>
         /// <param name="teacherId">The teacher identifier.</param>
-        public TeacherHomePAge(string teacherId)
+        public TeacherHomePAge()
         {
             this.InitializeComponent();
-            this.TeacherId = teacherId;
+          
             this.controller = new TeacherHomePageController(this);
 
             this.controller.populateComboBoxes();
@@ -107,6 +97,9 @@ namespace CoursesManagementDesktop
 
         }
 
-        
+        private void SemesterBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
