@@ -2,11 +2,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    Semesters:<br />
+    <asp:DropDownList ID="ddlSemesters" runat="server" DataSourceID="odsSemesters" DataTextField="SemesterID" DataValueField="SemesterID">
+    </asp:DropDownList>
+    <asp:ObjectDataSource ID="odsSemesters" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCurrentAndFutureSemesters" TypeName="CourseManagement.DAL.SemesterDAL"></asp:ObjectDataSource>
+    <br />
+    Courses:<br />
     <asp:DropDownList ID="ddlCourse" runat="server" DataSourceID="odsCourses" DataTextField="Name" DataValueField="CRN" OnSelectedIndexChanged="ddlCourse_SelectedIndexChanged">
     </asp:DropDownList>
-    <asp:ObjectDataSource ID="odsCourses" runat="server" SelectMethod="GetCoursesByTeacherID" TypeName="CourseManagement.DAL.CourseDAL" OldValuesParameterFormatString="original_{0}">
+    <asp:ObjectDataSource ID="odsCourses" runat="server" SelectMethod="GetCoursesByTeacherAndSemester" TypeName="CourseManagement.DAL.CourseDAL" OldValuesParameterFormatString="original_{0}">
         <SelectParameters>
             <asp:SessionParameter Name="teacherIDCheck" SessionField="UserID" Type="String" />
+            <asp:ControlParameter ControlID="ddlSemesters" Name="semesterID" PropertyName="SelectedValue" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
     <asp:GridView ID="gvwWeights" runat="server" AutoGenerateColumns="False" DataSourceID="odsRubricItems" OnRowDeleting="gvwWeights_RowDeleting" CssClass="table" OnRowDeleted="gvwWeights_RowDeleted" OnRowUpdated="gvwWeights_RowUpdated">
