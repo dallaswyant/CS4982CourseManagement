@@ -52,7 +52,8 @@ namespace CourseManagement.Views.Student
                         else
                         {
                             this.lblCourseToAdd.Text =
-                                "You can't sign up for this course due to pre-requisite requirements";
+                                "You can't sign up for this course due to pre-requisite requirements" + Environment.NewLine;
+                            this.lblCourseToAdd.Text += helper.GetPreReqsAndFormatForDisplay(crn);
                         }
                     }
                     else

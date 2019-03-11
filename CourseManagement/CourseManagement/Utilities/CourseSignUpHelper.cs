@@ -16,37 +16,42 @@ namespace CourseManagement.Utilities
             {
                 return true;
             }
-            List<string> stuffToCheck = new List<string>();
+            List<string> namesToCheck = new List<string>();
+            List<char> gradesToCheck = new List<char>();
             foreach (var curr in preReqs)
             {
-                stuffToCheck.Add(curr.Key);
+                namesToCheck.Add(curr.Key);
+                gradesToCheck.Add(curr.Value);
             }
             Course currentcourse = courses.GetCourseByCRN(crn);
-            var grades = courses.GetGradesEarnedForCompletedCourse(stuffToCheck[0], studentID);
+            int counter = 0;
             bool[] canAdd = new bool[preReqs.Count];
-            int count = 0;
-            if (grades.Count < preReqs.Count)
+            foreach (var courseToCheck in namesToCheck)
             {
-                return false;
-            }
-
-            //if (grades[grades.Count-1] == null)
-            //{
-                //throw new Exception("This course is still in progress.");
-            //}
-            foreach (var thing in preReqs)
-            {
-                if (this.getGradeValueFromChar(thing.Value) <= this.getGradeValueFromChar(grades[grades.Count-1]))
+                var grades = courses.GetGradesEarnedForCompletedCourse(courseToCheck, studentID);
+                if (grades.Count < 1)
                 {
-                    canAdd[count] = true;
+                    return false;
                 }
 
-                count++;
-            }
+                //if (grades[grades.Count-1] == null)
+                //{
+                //throw new Exception("This course is still in progress.");
+                //}
+                foreach (var currentGrade in grades)
+                {
+                    if (this.getGradeValueFromChar(gradesToCheck[counter]) <=
+                        this.getGradeValueFromChar(currentGrade))
+                    {
+                        canAdd[counter] = true;
+                    }
+                }
 
-            foreach (var thing in canAdd)
+                counter++;
+            }
+            foreach (var currentCanAddValue in canAdd)
             {
-                if (!thing)
+                if (!currentCanAddValue)
                 {
                     return false;
                 }
@@ -77,6 +82,20 @@ namespace CourseManagement.Utilities
             }
 
             return 1;
+        }
+
+        public string GetPreReqsAndFormatForDisplay(int crn)
+        {
+            CourseDAL preReqChecker = new CourseDAL();
+            var preReqs = preReqChecker.GetPrerequisiteCoursesForGivenCRN(crn);
+            string output = String.Empty;
+            foreach (var currentPreReq in preReqs)
+            {
+                output += "This course requires completing the course: " + currentPreReq.Key +
+                          " with a grade of at least: " + currentPreReq.Value + Environment.NewLine;
+            }
+
+            return output;
         }
 
         public bool IsCourseContributingToDegreeProgram(Course courseCheck, string studentIDCheck)

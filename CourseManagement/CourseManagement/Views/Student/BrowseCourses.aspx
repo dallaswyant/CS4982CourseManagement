@@ -64,7 +64,7 @@
             </asp:ObjectDataSource>
             <br/>
             <br/>
-		<asp:Label runat="server" ID ="lblCourseToAdd"></asp:Label>
+		<pre><asp:Label runat="server" ID ="lblCourseToAdd"></asp:Label></pre>
 		    <br />
             <asp:Button ID="btnAddCourse" runat="server" OnClick="btnAddCourse_Click" Text="Add Course" TabIndex="6" />
 		</ContentTemplate>
