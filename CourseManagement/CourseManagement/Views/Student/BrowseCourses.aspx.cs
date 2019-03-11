@@ -47,7 +47,7 @@ namespace CourseManagement.Views.Student
                         if (helper.CheckIfStudentCanSignUpForCourse(crn, current.UserId))
                         {
                             courseAdder.addCourseByCRNAndStudentUID(crn, current.UserId);
-                            Response.Redirect("BrowseCourses.aspx");
+                            Response.Redirect("BrowseCourses.aspx",false);
                         }
                         else
                         {
