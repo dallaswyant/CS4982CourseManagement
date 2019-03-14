@@ -54,7 +54,6 @@ namespace CourseManagement.DAL
                         int courseNameOrdinal = queryResultReader.GetOrdinal("course_name");
                         int courseDescriptionOrdinal = queryResultReader.GetOrdinal("course_desc");
                         int sectionNumberOrdinal = queryResultReader.GetOrdinal("section_num");
-                        int creditHoursOrdinal = queryResultReader.GetOrdinal("credit_hours");
                         int maxSeatsOrdinal = queryResultReader.GetOrdinal("seats_max");
                         int locationOrdinal = queryResultReader.GetOrdinal("location");
                         int semesterNameOrdinal = queryResultReader.GetOrdinal("semester_name");
@@ -75,9 +74,6 @@ namespace CourseManagement.DAL
                             string sectionNumber = queryResultReader[sectionNumberOrdinal] == DBNull.Value
                                 ? default(string)
                                 : queryResultReader.GetString(sectionNumberOrdinal);
-                            int creditHours = queryResultReader[creditHoursOrdinal] == DBNull.Value
-                                ? default(int)
-                                : queryResultReader.GetInt32(creditHoursOrdinal);
                             int maxSeats = queryResultReader[maxSeatsOrdinal] == DBNull.Value
                                 ? default(int)
                                 : queryResultReader.GetInt32(maxSeatsOrdinal);
@@ -92,8 +88,7 @@ namespace CourseManagement.DAL
                                 : queryResultReader.GetInt32(courseTimeIDOrdinal);
 
                             Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
-                                sectionNumber, creditHours, maxSeats, location, semesterName, courseTimeID);
-                            currentCourse.LectureNotes.Clear();
+                                sectionNumber, maxSeats, location, semesterName, courseTimeID);
                             coursesTaught.Add(currentCourse);
 
                         }
@@ -151,7 +146,6 @@ namespace CourseManagement.DAL
                         int courseNameOrdinal = queryResultReader.GetOrdinal("course_name");
                         int courseDescriptionOrdinal = queryResultReader.GetOrdinal("course_desc");
                         int sectionNumberOrdinal = queryResultReader.GetOrdinal("section_num");
-                        int creditHoursOrdinal = queryResultReader.GetOrdinal("credit_hours");
                         int maxSeatsOrdinal = queryResultReader.GetOrdinal("seats_max");
                         int locationOrdinal = queryResultReader.GetOrdinal("location");
                         int semesterNameOrdinal = queryResultReader.GetOrdinal("semester_name");
@@ -172,9 +166,6 @@ namespace CourseManagement.DAL
                             string sectionNumber = queryResultReader[sectionNumberOrdinal] == DBNull.Value
                                 ? default(string)
                                 : queryResultReader.GetString(sectionNumberOrdinal);
-                            int creditHours = queryResultReader[creditHoursOrdinal] == DBNull.Value
-                                ? default(int)
-                                : queryResultReader.GetInt32(creditHoursOrdinal);
                             int maxSeats = queryResultReader[maxSeatsOrdinal] == DBNull.Value
                                 ? default(int)
                                 : queryResultReader.GetInt32(maxSeatsOrdinal);
@@ -189,8 +180,7 @@ namespace CourseManagement.DAL
                                 : queryResultReader.GetInt32(courseTimeIDOrdinal);
 
                             Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
-                                sectionNumber, creditHours, maxSeats, location, semesterName, courseTimeID);
-                            currentCourse.LectureNotes.Clear();
+                                sectionNumber, maxSeats, location, semesterName, courseTimeID);
                             coursesTaught.Add(currentCourse);
 
                         }
@@ -235,7 +225,6 @@ namespace CourseManagement.DAL
                         int courseNameOrdinal = queryResultReader.GetOrdinal("course_name");
                         int courseDescriptionOrdinal = queryResultReader.GetOrdinal("course_desc");
                         int sectionNumberOrdinal = queryResultReader.GetOrdinal("section_num");
-                        int creditHoursOrdinal = queryResultReader.GetOrdinal("credit_hours");
                         int maxSeatsOrdinal = queryResultReader.GetOrdinal("seats_max");
                         int locationOrdinal = queryResultReader.GetOrdinal("location");
                         int semesterNameOrdinal = queryResultReader.GetOrdinal("semester_name");
@@ -256,9 +245,6 @@ namespace CourseManagement.DAL
                             string sectionNumber = queryResultReader[sectionNumberOrdinal] == DBNull.Value
                                 ? default(string)
                                 : queryResultReader.GetString(sectionNumberOrdinal);
-                            int creditHours = queryResultReader[creditHoursOrdinal] == DBNull.Value
-                                ? default(int)
-                                : queryResultReader.GetInt32(creditHoursOrdinal);
                             int maxSeats = queryResultReader[maxSeatsOrdinal] == DBNull.Value
                                 ? default(int)
                                 : queryResultReader.GetInt32(maxSeatsOrdinal);
@@ -273,8 +259,7 @@ namespace CourseManagement.DAL
                                 : queryResultReader.GetInt32(courseTimeIDOrdinal);
 
                             Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
-                                sectionNumber, creditHours, maxSeats, location, semesterName, courseTimeID);
-                            currentCourse.LectureNotes.Clear();
+                                sectionNumber, maxSeats, location, semesterName, courseTimeID);
                             return currentCourse;
                         }
                     }
@@ -322,7 +307,6 @@ namespace CourseManagement.DAL
                         int courseNameOrdinal = queryResultReader.GetOrdinal("course_name");
                         int courseDescriptionOrdinal = queryResultReader.GetOrdinal("course_desc");
                         int sectionNumberOrdinal = queryResultReader.GetOrdinal("section_num");
-                        int creditHoursOrdinal = queryResultReader.GetOrdinal("credit_hours");
                         int maxSeatsOrdinal = queryResultReader.GetOrdinal("seats_max");
                         int locationOrdinal = queryResultReader.GetOrdinal("location");
                         int semesterNameOrdinal = queryResultReader.GetOrdinal("semester_name");
@@ -343,9 +327,6 @@ namespace CourseManagement.DAL
                             string sectionNumber = queryResultReader[sectionNumberOrdinal] == DBNull.Value
                                 ? default(string)
                                 : queryResultReader.GetString(sectionNumberOrdinal);
-                            int creditHours = queryResultReader[creditHoursOrdinal] == DBNull.Value
-                                ? default(int)
-                                : queryResultReader.GetInt32(creditHoursOrdinal);
                             int maxSeats = queryResultReader[maxSeatsOrdinal] == DBNull.Value
                                 ? default(int)
                                 : queryResultReader.GetInt32(maxSeatsOrdinal);
@@ -360,8 +341,7 @@ namespace CourseManagement.DAL
                                 : queryResultReader.GetInt32(courseTimeIDOrdinal);
 
                             Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
-                                sectionNumber, creditHours, maxSeats, location, semesterName, courseTimeID);
-                            currentCourse.LectureNotes.Clear();
+                                sectionNumber, maxSeats, location, semesterName, courseTimeID);
                             coursesTaken.Add(currentCourse);
 
                         }
@@ -416,7 +396,6 @@ namespace CourseManagement.DAL
                         int courseNameOrdinal = queryResultReader.GetOrdinal("course_name");
                         int courseDescriptionOrdinal = queryResultReader.GetOrdinal("course_desc");
                         int sectionNumberOrdinal = queryResultReader.GetOrdinal("section_num");
-                        int creditHoursOrdinal = queryResultReader.GetOrdinal("credit_hours");
                         int maxSeatsOrdinal = queryResultReader.GetOrdinal("seats_max");
                         int locationOrdinal = queryResultReader.GetOrdinal("location");
                         int semesterNameOrdinal = queryResultReader.GetOrdinal("semester_name");
@@ -437,9 +416,6 @@ namespace CourseManagement.DAL
                             string sectionNumber = queryResultReader[sectionNumberOrdinal] == DBNull.Value
                                 ? default(string)
                                 : queryResultReader.GetString(sectionNumberOrdinal);
-                            int creditHours = queryResultReader[creditHoursOrdinal] == DBNull.Value
-                                ? default(int)
-                                : queryResultReader.GetInt32(creditHoursOrdinal);
                             int maxSeats = queryResultReader[maxSeatsOrdinal] == DBNull.Value
                                 ? default(int)
                                 : queryResultReader.GetInt32(maxSeatsOrdinal);
@@ -454,8 +430,7 @@ namespace CourseManagement.DAL
                                 : queryResultReader.GetInt32(courseTimeIDOrdinal);
 
                             Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
-                                sectionNumber, creditHours, maxSeats, location, semesterName, courseTimeID);
-                            currentCourse.LectureNotes.Clear();
+                                sectionNumber, maxSeats, location, semesterName, courseTimeID);
                             coursesTaken.Add(currentCourse);
 
                         }
@@ -510,7 +485,6 @@ namespace CourseManagement.DAL
                         int courseNameOrdinal = queryResultReader.GetOrdinal("course_name");
                         int courseDescriptionOrdinal = queryResultReader.GetOrdinal("course_desc");
                         int sectionNumberOrdinal = queryResultReader.GetOrdinal("section_num");
-                        int creditHoursOrdinal = queryResultReader.GetOrdinal("credit_hours");
                         int maxSeatsOrdinal = queryResultReader.GetOrdinal("seats_max");
                         int locationOrdinal = queryResultReader.GetOrdinal("location");
                         int semesterNameOrdinal = queryResultReader.GetOrdinal("semester_name");
@@ -531,9 +505,6 @@ namespace CourseManagement.DAL
                             string sectionNumber = queryResultReader[sectionNumberOrdinal] == DBNull.Value
                                 ? default(string)
                                 : queryResultReader.GetString(sectionNumberOrdinal);
-                            int creditHours = queryResultReader[creditHoursOrdinal] == DBNull.Value
-                                ? default(int)
-                                : queryResultReader.GetInt32(creditHoursOrdinal);
                             int maxSeats = queryResultReader[maxSeatsOrdinal] == DBNull.Value
                                 ? default(int)
                                 : queryResultReader.GetInt32(maxSeatsOrdinal);
@@ -548,8 +519,7 @@ namespace CourseManagement.DAL
                                 : queryResultReader.GetInt32(courseTimeIDOrdinal);
 
                             Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
-                                sectionNumber, creditHours, maxSeats, location, semesterName, courseTimeID);
-                            currentCourse.LectureNotes.Clear();
+                                sectionNumber, maxSeats, location, semesterName, courseTimeID);
                             deptCourses.Add(currentCourse);
 
 
@@ -613,7 +583,6 @@ namespace CourseManagement.DAL
                         int courseNameOrdinal = queryResultReader.GetOrdinal("course_name");
                         int courseDescriptionOrdinal = queryResultReader.GetOrdinal("course_desc");
                         int sectionNumberOrdinal = queryResultReader.GetOrdinal("section_num");
-                        int creditHoursOrdinal = queryResultReader.GetOrdinal("credit_hours");
                         int maxSeatsOrdinal = queryResultReader.GetOrdinal("seats_max");
                         int locationOrdinal = queryResultReader.GetOrdinal("location");
                         int semesterNameOrdinal = queryResultReader.GetOrdinal("semester_name");
@@ -634,9 +603,6 @@ namespace CourseManagement.DAL
                             string sectionNumber = queryResultReader[sectionNumberOrdinal] == DBNull.Value
                                 ? default(string)
                                 : queryResultReader.GetString(sectionNumberOrdinal);
-                            int creditHours = queryResultReader[creditHoursOrdinal] == DBNull.Value
-                                ? default(int)
-                                : queryResultReader.GetInt32(creditHoursOrdinal);
                             int maxSeats = queryResultReader[maxSeatsOrdinal] == DBNull.Value
                                 ? default(int)
                                 : queryResultReader.GetInt32(maxSeatsOrdinal);
@@ -651,8 +617,7 @@ namespace CourseManagement.DAL
                                 : queryResultReader.GetInt32(courseTimeIDOrdinal);
 
                             Course currentCourse = new Course(CRN, departmentName, courseName, courseDescription,
-                                sectionNumber, creditHours, maxSeats, location, semesterName, courseTimeID);
-                            currentCourse.LectureNotes.Clear();
+                                sectionNumber, maxSeats, location, semesterName, courseTimeID);
                             deptCourses.Add(currentCourse);
 
 

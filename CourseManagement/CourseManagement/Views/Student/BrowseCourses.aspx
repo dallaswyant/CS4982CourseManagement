@@ -24,7 +24,6 @@
 		        <Columns>
 		            <asp:BoundField DataField="CRN" HeaderText="CRN" ReadOnly="True" SortExpression="CRN" />
 		            <asp:BoundField DataField="Name" HeaderText="Name" ReadOnly="True" SortExpression="Name" />
-		            <asp:BoundField DataField="CreditHours" HeaderText="CreditHours" ReadOnly="True" SortExpression="CreditHours" />
                     <asp:BoundField DataField="Location" HeaderText="Location" ReadOnly="True" SortExpression="Location" />
                     <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="True" SortExpression="Description" />
                     <asp:BoundField DataField="SectionNumber" HeaderText="SectionNumber" ReadOnly="True" SortExpression="SectionNumber" />
@@ -42,11 +41,10 @@
 		    <br />
 		    <asp:Label ID="Label2" runat="server" Text="Department Courses"></asp:Label>
 		    <br />
-		    <asp:GridView ID="AvailableCoursesGrid" runat="server" AutoGenerateColumns="False" Width="482px" OnSelectedIndexChanged="AvailableCourses_SelectedIndexChanged" DataKeyNames="CRN,Name,Description,Location,LectureNotes,CreditHours,SectionNumber,DepartmentName,MaxSeats,SemesterID" DataSourceID="odsDepartmentCourses">
+		    <asp:GridView ID="AvailableCoursesGrid" runat="server" AutoGenerateColumns="False" Width="482px" OnSelectedIndexChanged="AvailableCourses_SelectedIndexChanged" DataKeyNames="CRN,Name,Description,Location,SectionNumber,DepartmentName,MaxSeats,SemesterID" DataSourceID="odsDepartmentCourses">
         <Columns>
             <asp:BoundField DataField="CRN" HeaderText="CRN" ReadOnly="True" SortExpression="CRN" />
             <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" ReadOnly="True" />
-            <asp:BoundField DataField="CreditHours" HeaderText="CreditHours" ReadOnly="True" SortExpression="CreditHours" />
             <asp:BoundField DataField="Location" HeaderText="Location" ReadOnly="True" SortExpression="Location" />
             <asp:BoundField DataField="Description" HeaderText="Description" ReadOnly="True" SortExpression="Description" />
             <asp:BoundField DataField="SectionNumber" HeaderText="SectionNumber" ReadOnly="True" SortExpression="SectionNumber" />

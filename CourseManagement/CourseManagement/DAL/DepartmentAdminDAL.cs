@@ -118,14 +118,13 @@ namespace CourseManagement.DAL
                     
                     
                     var insertQuery =
-                        "INSERT INTO courses (dept_name, course_name, course_description, section_num, credit_hours, seats_max, location, semester_name, course_time_id) VALUES (@dept_name, @course_name, @course_description, @section_num, @credit_hours, @seats_max, @location, @semester_name, @course_time_id)";
+                        "INSERT INTO courses (dept_name, course_name, course_description, section_num, seats_max, location, semester_name, course_time_id) VALUES (@dept_name, @course_name, @course_description, @section_num, @seats_max, @location, @semester_name, @course_time_id)";
                     using (MySqlCommand cmd = new MySqlCommand(insertQuery, dbConnection))
                     {
                         cmd.Parameters.AddWithValue("@dept_name",newCourse.DepartmentName);
                         cmd.Parameters.AddWithValue("@course_name", newCourse.Name);
                         cmd.Parameters.AddWithValue("@course_description", newCourse.Description);
                         cmd.Parameters.AddWithValue("@section_num", newCourse.SectionNumber);
-                        cmd.Parameters.AddWithValue("@credit_hours", newCourse.CreditHours);
                         cmd.Parameters.AddWithValue("@seats_max", newCourse.MaxSeats);
                         cmd.Parameters.AddWithValue("@location", newCourse.Location);
                         cmd.Parameters.AddWithValue("@semester_name", newCourse.SemesterID);
@@ -224,13 +223,12 @@ namespace CourseManagement.DAL
                 dbConnection.Open();
                     
                     var selectQuery =
-                        "UPDATE courses SET course_name=@course_name, section_num=@section_num, course_desc = @course_description, credit_hours=@credit_hours, seats_max=@seats_max, location=@location, semester_name = @semester_name, dept_name=@department, course_time_id = @course_time_id WHERE CRN = @CRN";
+                        "UPDATE courses SET course_name=@course_name, section_num=@section_num, course_desc = @course_description, seats_max=@seats_max, location=@location, semester_name = @semester_name, dept_name=@department, course_time_id = @course_time_id WHERE CRN = @CRN";
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@course_name", course.Name);
                     cmd.Parameters.AddWithValue("@section_num", course.SectionNumber);
                     cmd.Parameters.AddWithValue("@course_description", course.Description);
-                    cmd.Parameters.AddWithValue("@credit_hours", course.CreditHours);
                     cmd.Parameters.AddWithValue("@seats_max", course.MaxSeats);
                     cmd.Parameters.AddWithValue("@location", course.Location);
                     cmd.Parameters.AddWithValue("@CRN", course.CRN);
@@ -295,13 +293,8 @@ namespace CourseManagement.DAL
         /// User cannot be null
         /// </preconditions>
         [DataObjectMethod(DataObjectMethodType.Select)]
-        public List<Teacher> GetAllTeachersByAdminDepartment(User user)
+        public List<Teacher> GetAllTeachersByAdminDepartment(Department department)
         {
-            if (user == null)
-            {
-                throw new Exception("User cannot be null");
-            }
-            string department = GetAdminDepartment(user);
 
             MySqlConnection dbConnection = DbConnection.GetConnection();
 
@@ -313,7 +306,7 @@ namespace CourseManagement.DAL
                 List<Teacher> teachers = new List<Teacher>();
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
-                    cmd.Parameters.AddWithValue("@dept_name", department);
+                    cmd.Parameters.AddWithValue("@dept_name", department.Name);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         int teacherIDOrdinal = reader.GetOrdinal("teacher_uid");
@@ -329,39 +322,6 @@ namespace CourseManagement.DAL
                             teachers.Add(teacher);
                         }
                         return teachers;
-                    }
-                }
-            }
-        }
-
- 
-        private string GetAdminDepartment(User user)
-        {
-
-
-            MySqlConnection dbConnection = DbConnection.GetConnection();
-            string department = "";
-            using (dbConnection)
-            {
-                dbConnection.Open();
-                var selectQuery =
-                    "select * FROM department_admins WHERE admin_uid=@admin_uid";
-                List<Teacher> teachers = new List<Teacher>();
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
-                {
-                    cmd.Parameters.AddWithValue("@admin_uid", user.UserId);
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        int departmentOrdinal = reader.GetOrdinal("department_name");
-
-                        while (reader.Read())
-                        {
-                            department = reader[departmentOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(departmentOrdinal);
-                        }
-
-                        return department;
                     }
                 }
             }

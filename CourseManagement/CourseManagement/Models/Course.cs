@@ -26,16 +26,6 @@ namespace CourseManagement.Models
         public string Location { get; set; }  
 
         /// <summary>
-        /// Gets lecture Notes
-        /// </summary>
-        public List<string> LectureNotes { get; set; }   //TODO discuss being file paths
-
-        /// <summary>
-        /// gets the credit hours
-        /// </summary>
-        public int CreditHours { get; set; }  
-
-        /// <summary>
         /// gets the crn
         /// </summary>
         public int CRN { get; set; }  
@@ -69,26 +59,22 @@ namespace CourseManagement.Models
         /// <param name="name">Course name</param>
         /// <param name="description">Course description</param>
         /// <param name="location">Course location</param>
-        /// <param name="lectureNotes">Course lecture notes</param>
-        /// <param name="creditHours">Credit hours</param>
         /// <param name="crn">Course crn</param>
         /// <param name="sectionNumber">Section number</param>
         /// <param name="departmentName">Course department</param>
         /// <param name="maxSeats">the maximum seats</param>
         /// <param name="semesterID">The semester id</param>
-        public Course(int crn, string departmentName, string name, string description, string sectionNumber, int creditHours, int maxSeats, string location, string semesterID, int courseTimeId)
+        public Course(int crn, string departmentName, string name, string description, string sectionNumber, int maxSeats, string location, string semesterID, int courseTimeId)
         {
             this.CRN = crn;
             this.DepartmentName = departmentName;
             this.Name = name;
             this.Description = description;
             this.SectionNumber = sectionNumber;
-            this.CreditHours = creditHours;
             this.MaxSeats = maxSeats;
             this.Location = location;
             this.SemesterID = semesterID;
             this.CourseTimeID = courseTimeId;
-            this.LectureNotes = new List<string>();
         }
 
         public Course()
@@ -98,13 +84,5 @@ namespace CourseManagement.Models
         #endregion
 
 
-        /// <summary>
-        /// Adds the note.
-        /// </summary>
-        /// <param name="note">The note.</param>
-        public void AddNote(string note)
-        {
-            this.LectureNotes.Add(note);
-        }
     }
 }

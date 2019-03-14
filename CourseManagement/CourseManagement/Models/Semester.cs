@@ -18,7 +18,7 @@ namespace CourseManagement.Models
         public DateTime AddDropDeadline { get; }
         /// <summary>Gets the withdraw deadline.</summary>
         /// <value>The withdraw deadline.</value>
-        public DateTime WithdrawDeadline { get; }
+        public DateTime FinalGradeDeadline { get; }
         /// <summary>
         /// The start date
         /// </summary>
@@ -31,12 +31,12 @@ namespace CourseManagement.Models
         /// The semester constructor
         /// </summary>
         /// <param name="semesterID"></param>
-        public Semester(string semesterID, DateTime addDropDeadline, DateTime withdrawDeadline, DateTime startDate, DateTime endDate)
+        public Semester(string semesterID, DateTime addDropDeadline, DateTime finalGradeDeadline, DateTime startDate, DateTime endDate)
         {
             this.SemesterID = semesterID;
             this.AddDropDeadline = addDropDeadline;
             this.StartDate = startDate;
-            this.WithdrawDeadline = withdrawDeadline;
+            this.FinalGradeDeadline = finalGradeDeadline;
             this.EndDate = endDate;
         }
     }

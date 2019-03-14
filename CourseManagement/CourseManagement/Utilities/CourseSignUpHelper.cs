@@ -8,7 +8,7 @@ namespace CourseManagement.Utilities
 {
     public class CourseSignUpHelper
     {
-        public bool CheckIfStudentCanSignUpForCourse(int crn, string studentID)
+        public bool CheckIfStudentCanSignUpForCourseBasedOnPreReqs(int crn, string studentID)
         {
             CourseDAL courses = new CourseDAL();
             var preReqs = courses.GetPrerequisiteCoursesForGivenCRN(crn);
@@ -110,6 +110,11 @@ namespace CourseManagement.Utilities
                     return true;
                 }
             }
+            return false;
+        }
+
+        public bool CheckIfCanSignUpForCourseBasedOnTimes(int crn, string studentID)
+        {
             return false;
         }
     }

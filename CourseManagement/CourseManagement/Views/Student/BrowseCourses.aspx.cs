@@ -44,7 +44,7 @@ namespace CourseManagement.Views.Student
                     if (semesterChecker.CheckIfAddDropHasPassed(this.ddlSemester.SelectedValue))
                     {
                         CourseSignUpHelper helper = new CourseSignUpHelper();
-                        if (helper.CheckIfStudentCanSignUpForCourse(crn, current.UserId))
+                        if (helper.CheckIfStudentCanSignUpForCourseBasedOnPreReqs(crn, current.UserId))
                         {
                             courseAdder.addCourseByCRNAndStudentUID(crn, current.UserId);
                             Response.Redirect("BrowseCourses.aspx",false);

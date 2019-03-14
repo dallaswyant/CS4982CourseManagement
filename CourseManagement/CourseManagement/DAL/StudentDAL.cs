@@ -32,7 +32,6 @@ namespace CourseManagement.DAL
                     {
                         int studentUIDOrdinal = reader.GetOrdinal("uid");
                         int emailOrdinal = reader.GetOrdinal("email");
-                        int classificationOrdinal = reader.GetOrdinal("classification");
                         
 
                         while (reader.Read())
@@ -43,12 +42,9 @@ namespace CourseManagement.DAL
                             var email = reader[emailOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(emailOrdinal);
-                            var classification = reader[classificationOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(classificationOrdinal);
 
 
-                            var newStudent = new Student(studentUID, email, classification);
+                            var newStudent = new Student(studentUID, email);
                             return newStudent;
                         }
                     }
@@ -81,7 +77,6 @@ namespace CourseManagement.DAL
                     {
                         int studentUIDOrdinal = reader.GetOrdinal("uid");
                         int emailOrdinal = reader.GetOrdinal("email");
-                        int classificationOrdinal = reader.GetOrdinal("classification");
 
 
                         while (reader.Read())
@@ -92,12 +87,8 @@ namespace CourseManagement.DAL
                             var email = reader[emailOrdinal] == DBNull.Value
                                 ? default(string)
                                 : reader.GetString(emailOrdinal);
-                            var classification = reader[classificationOrdinal] == DBNull.Value
-                                ? default(string)
-                                : reader.GetString(classificationOrdinal);
 
-
-                            var newStudent = new Student(studentUID, email, classification);
+                            var newStudent = new Student(studentUID, email);
                             studentsInCurrentClasses.Add(newStudent);
                         }
 

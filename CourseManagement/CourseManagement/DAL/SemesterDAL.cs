@@ -28,7 +28,7 @@ namespace CourseManagement.DAL
                         int semesterNameOrdinal = reader.GetOrdinal("semester_name");
                         int startDateOrdinal = reader.GetOrdinal("start_date");
                         int endDateOrdinal = reader.GetOrdinal("end_date");
-                        int withdrawDeadlineOrdinal = reader.GetOrdinal("withdraw_deadline");
+                        int finalGradeDeadlineOrdinal = reader.GetOrdinal("final_grade_deadline");
                         int addDropDeadlineOrdinal = reader.GetOrdinal("add_drop_deadline");
 
                         while (reader.Read())
@@ -42,14 +42,14 @@ namespace CourseManagement.DAL
                             DateTime endDate = reader[endDateOrdinal] == DBNull.Value
                                 ? default(DateTime)
                                 : reader.GetDateTime(endDateOrdinal);
-                            DateTime withdrawDeadline = reader[withdrawDeadlineOrdinal] == DBNull.Value
+                            DateTime finalGradeDeadline = reader[finalGradeDeadlineOrdinal] == DBNull.Value
                                 ? default(DateTime)
-                                : reader.GetDateTime(withdrawDeadlineOrdinal);
+                                : reader.GetDateTime(finalGradeDeadlineOrdinal);
                             DateTime addDropDeadline = reader[addDropDeadlineOrdinal] == DBNull.Value
                                 ? default(DateTime)
                                 : reader.GetDateTime(addDropDeadlineOrdinal);
 
-                            Semester current = new Semester(semesterName, addDropDeadline, withdrawDeadline, startDate, endDate);
+                            Semester current = new Semester(semesterName, addDropDeadline, finalGradeDeadline, startDate, endDate);
                             allSemesters.Add(current);
                         }
 
@@ -76,7 +76,7 @@ namespace CourseManagement.DAL
                         int semesterNameOrdinal = reader.GetOrdinal("semester_name");
                         int startDateOrdinal = reader.GetOrdinal("start_date");
                         int endDateOrdinal = reader.GetOrdinal("end_date");
-                        int withdrawDeadlineOrdinal = reader.GetOrdinal("withdraw_deadline");
+                        int finalGradeDeadlineOrdinal = reader.GetOrdinal("final_grade_deadline");
                         int addDropDeadlineOrdinal = reader.GetOrdinal("add_drop_deadline");
 
                         while (reader.Read())
@@ -90,14 +90,14 @@ namespace CourseManagement.DAL
                             DateTime endDate = reader[endDateOrdinal] == DBNull.Value
                                 ? default(DateTime)
                                 : reader.GetDateTime(endDateOrdinal);
-                            DateTime withdrawDeadline = reader[withdrawDeadlineOrdinal] == DBNull.Value
+                            DateTime finalGradeDeadline = reader[finalGradeDeadlineOrdinal] == DBNull.Value
                                 ? default(DateTime)
-                                : reader.GetDateTime(withdrawDeadlineOrdinal);
+                                : reader.GetDateTime(finalGradeDeadlineOrdinal);
                             DateTime addDropDeadline = reader[addDropDeadlineOrdinal] == DBNull.Value
                                 ? default(DateTime)
                                 : reader.GetDateTime(addDropDeadlineOrdinal);
 
-                            Semester current = new Semester(semesterName,addDropDeadline,withdrawDeadline,startDate,endDate);
+                            Semester current = new Semester(semesterName,addDropDeadline,finalGradeDeadline,startDate,endDate);
                             return current;
                         }
                     }
@@ -125,7 +125,7 @@ namespace CourseManagement.DAL
                         int semesterNameOrdinal = reader.GetOrdinal("semester_name");
                         int startDateOrdinal = reader.GetOrdinal("start_date");
                         int endDateOrdinal = reader.GetOrdinal("end_date");
-                        int withdrawDeadlineOrdinal = reader.GetOrdinal("withdraw_deadline");
+                        int finalGradeDeadlineOrdinal = reader.GetOrdinal("final_grade_deadline");
                         int addDropDeadlineOrdinal = reader.GetOrdinal("add_drop_deadline");
 
                         while (reader.Read())
@@ -139,23 +139,21 @@ namespace CourseManagement.DAL
                             DateTime endDate = reader[endDateOrdinal] == DBNull.Value
                                 ? default(DateTime)
                                 : reader.GetDateTime(endDateOrdinal);
-                            DateTime withdrawDeadline = reader[withdrawDeadlineOrdinal] == DBNull.Value
+                            DateTime finalGradeDeadline = reader[finalGradeDeadlineOrdinal] == DBNull.Value
                                 ? default(DateTime)
-                                : reader.GetDateTime(withdrawDeadlineOrdinal);
+                                : reader.GetDateTime(finalGradeDeadlineOrdinal);
                             DateTime addDropDeadline = reader[addDropDeadlineOrdinal] == DBNull.Value
                                 ? default(DateTime)
                                 : reader.GetDateTime(addDropDeadlineOrdinal);
 
-                            Semester current = new Semester(semesterName, addDropDeadline, withdrawDeadline, startDate, endDate);
+                            Semester current = new Semester(semesterName, addDropDeadline, finalGradeDeadline, startDate, endDate);
                             semesters.Add(current);
                         }
 
                         return semesters;
                     }
                 }
-                dbConnection.Close();
             }
-            return null;
         }
 
         public bool CheckIfSemesterIsCompleted(string semesterID)
@@ -173,7 +171,7 @@ namespace CourseManagement.DAL
         public bool CheckIfWithdrawHasPassed(string semesterID)
         {
             Semester current = this.GetSemesterBySemesterName(semesterID);
-            return DateTime.Now <= current.WithdrawDeadline;
+            return DateTime.Now <= current.FinalGradeDeadline;
         }
     }
 }
