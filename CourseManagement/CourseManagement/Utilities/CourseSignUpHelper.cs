@@ -117,5 +117,24 @@ namespace CourseManagement.Utilities
         {
             return false;
         }
+
+        public bool CheckIfCourseContributesToMajor(int crn, string studentID)
+        {
+            DegreeProgramDAL degreeChecker = new DegreeProgramDAL();
+            string degree = degreeChecker.GetDegreeProgramByStudentID(studentID);
+            List<string> degreeCourses = degreeChecker.GetCourseNamesByDegreeProgram(degree);
+            CourseDAL courseChecker = new CourseDAL();
+            Course currentCourse = courseChecker.GetCourseByCRN(crn);
+            bool isContributing = false;
+            foreach (var names in degreeCourses)
+            {
+                if (names.Equals(currentCourse.Name))
+                {
+                    isContributing = true;
+                }
+            }
+
+            return isContributing;
+        }
     }
 }

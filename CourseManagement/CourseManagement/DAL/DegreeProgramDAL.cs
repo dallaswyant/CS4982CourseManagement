@@ -50,7 +50,7 @@ namespace CourseManagement.DAL
         {
             if (degreeProgramName == null)
             {
-                throw new Exception("Teacher name cannot be null");
+                throw new Exception("Degree name cannot be null");
             }
             MySqlConnection dbConnection = DbConnection.GetConnection();
             List<string> coursesRequired = new List<string>();

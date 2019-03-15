@@ -92,6 +92,13 @@ namespace CourseManagement.Views.Student
             string instructorName = instructor != null ? instructor.Name : "TBA"; 
             this.lblCourseToAdd.Text = "Course to Add: " + courseToAdd.CRN + " " + courseToAdd.Name + " " +
                                            courseToAdd.SectionNumber + " Instructor: " + instructorName;
+            CourseSignUpHelper degreeChecker = new CourseSignUpHelper();
+            var current = HttpContext.Current.Session["User"] as User;
+            if (!degreeChecker.CheckIfCourseContributesToMajor(crn, current.UserId))
+            {
+                this.lblCourseToAdd.Text +=
+                    Environment.NewLine + "This course does not contribute to your degree program.";
+            }
         }
 
         protected void ddlSemester_SelectedIndexChanged(object sender, EventArgs e)
