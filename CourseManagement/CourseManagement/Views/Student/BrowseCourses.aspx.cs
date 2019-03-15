@@ -46,8 +46,17 @@ namespace CourseManagement.Views.Student
                         CourseSignUpHelper helper = new CourseSignUpHelper();
                         if (helper.CheckIfStudentCanSignUpForCourseBasedOnPreReqs(crn, current.UserId))
                         {
-                            courseAdder.addCourseByCRNAndStudentUID(crn, current.UserId);
-                            Response.Redirect("BrowseCourses.aspx",false);
+                            if (helper.CheckIfCanSignUpForCourseBasedOnTimes(crn, current.UserId,
+                                this.ddlSemester.SelectedValue))
+                            {
+                                courseAdder.addCourseByCRNAndStudentUID(crn, current.UserId);
+                                Response.Redirect("BrowseCourses.aspx", false);
+                            }
+                            else
+                            {
+                                this.lblCourseToAdd.Text =
+                                    "You can't sign up for this course, it's time conflicts with another course you have already signed up for.";
+                            }
                         }
                         else
                         {

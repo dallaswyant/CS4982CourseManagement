@@ -105,8 +105,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\CourseTimeDAL.cs" />
     <Compile Include="DAL\DegreeProgramDAL.cs" />
     <Compile Include="Models\CourseRubric.cs" />
+    <Compile Include="Models\CourseTime.cs" />
     <Compile Include="Models\GradeItem.cs" />
     <Compile Include="Models\PersonalStuff.cs" />
     <Compile Include="Models\Semester.cs" />

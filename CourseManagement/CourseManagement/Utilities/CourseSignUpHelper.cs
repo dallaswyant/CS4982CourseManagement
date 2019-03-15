@@ -113,9 +113,60 @@ namespace CourseManagement.Utilities
             return false;
         }
 
-        public bool CheckIfCanSignUpForCourseBasedOnTimes(int crn, string studentID)
+        public bool CheckIfCanSignUpForCourseBasedOnTimes(int crn, string studentID, string semesterID)
         {
-            return false;
+            //get all courses that a student is currently signed up for
+            //check if those courses time's directly conflict with the new course's time
+            bool canSignUp = true;
+            CourseDAL courseGetter = new CourseDAL();
+            List<Course> currentCourses = courseGetter.GetCoursesByStudentIDAndSemester(studentID, semesterID);
+            Course desiredCourse = courseGetter.GetCourseByCRN(crn);
+            CourseTimeDAL timeChecker = new CourseTimeDAL();
+            CourseTime desiredTime = timeChecker.GetCourseTimeByCRN(crn);
+            List<Course> potentialConflicts = new List<Course>();
+            bool hasSameDays = false;
+            foreach (var currentCourse in currentCourses)
+            {
+                bool alreadyAdded = false;
+                CourseTime currentTime = timeChecker.GetCourseTimeByCRN(currentCourse.CRN);
+                foreach (var currentDay in currentTime.CourseDays.ToCharArray())
+                {
+                    foreach (var desiredDays in desiredTime.CourseDays.ToCharArray())
+                    {
+                        if (desiredDays == currentDay && !alreadyAdded)
+                        {
+                            hasSameDays = true;
+                            potentialConflicts.Add(currentCourse);
+                            alreadyAdded = true;
+                        }
+                    }
+                }
+            }
+            if (!hasSameDays)
+            {
+                return true;
+            }
+
+            foreach (var currentCourse in potentialConflicts)
+            {
+                CourseTime currentTime = timeChecker.GetCourseTimeByCRN(currentCourse.CRN);
+                foreach (var currentDay in currentTime.CourseDays.ToCharArray())
+                {
+                    foreach (var desiredDays in desiredTime.CourseDays.ToCharArray())
+                    {
+                        if (desiredDays == currentDay)
+                        {
+                            if (currentTime.CourseStart.TimeOfDay >= desiredTime.CourseStart.TimeOfDay && currentTime.CourseEnd.TimeOfDay <= desiredTime.CourseEnd.TimeOfDay)
+                            {
+                                canSignUp = false;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            return canSignUp;
         }
 
         public bool CheckIfCourseContributesToMajor(int crn, string studentID)
