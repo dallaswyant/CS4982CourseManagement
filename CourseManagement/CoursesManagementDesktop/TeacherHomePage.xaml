@@ -35,6 +35,9 @@
         <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="10,20,0,0" TextWrapping="Wrap"  VerticalAlignment="Top">
             <Hyperlink Name="goToManageItems" NavigateUri="ManageAssignmentPage.xaml" >Add Grade Items</Hyperlink>
         </TextBlock>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="131,20,0,0" TextWrapping="Wrap"  VerticalAlignment="Top">
+            <Hyperlink Name="goToRubric" NavigateUri="ManageRubricPage.xaml" >Manage Rubric</Hyperlink>
+        </TextBlock>
 
     </Grid>
 </Page>

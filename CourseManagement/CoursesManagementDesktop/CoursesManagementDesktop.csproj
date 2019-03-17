@@ -86,16 +86,22 @@
     </ApplicationDefinition>
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageGradeItemsController.cs" />
+    <Compile Include="Controllers\RubricController.cs" />
     <Compile Include="Controllers\TeachHomPageController.cs" />
     <Compile Include="DAL\DesktopGradedItemDAL.cs" />
+    <Compile Include="DAL\DesktopRubricDal.cs" />
     <Compile Include="GradePage.xaml.cs">
       <DependentUpon>GradePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageAssignmentPage.xaml.cs">
       <DependentUpon>ManageAssignmentPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ManageRubricPage.xaml.cs">
+      <DependentUpon>ManageRubricPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\LoginHandler.cs" />
     <Compile Include="Model\CourseManagementTools.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="TeacherHomePage.xaml.cs">
       <DependentUpon>TeacherHomePage.xaml</DependentUpon>
     </Compile>
@@ -123,6 +129,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ManageAssignmentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageRubricPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
