@@ -97,7 +97,9 @@ namespace CoursesManagementDesktop
 
         private void GradeButton_Click(object sender, RoutedEventArgs e)
         {
-            //TODO MAKE NEW WINDOW FOR DIALOG
+            confirmationWindow window = new confirmationWindow();
+            window.Owner = Window.GetWindow(this);
+            window.ShowDialog();
             var currentGrade = this.assignments[this.assignmentBox.SelectedIndex];
             var studentId = studentIds[this.studentCombo.SelectedIndex];
             var updatedGrade = new GradeItem()

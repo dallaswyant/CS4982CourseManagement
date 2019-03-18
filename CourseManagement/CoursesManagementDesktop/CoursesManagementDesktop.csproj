@@ -84,6 +84,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConfirmationWindow.xaml.cs">
+      <DependentUpon>ConfirmationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageGradeItemsController.cs" />
     <Compile Include="Controllers\RubricController.cs" />
@@ -105,6 +108,10 @@
     <Compile Include="TeacherHomePage.xaml.cs">
       <DependentUpon>TeacherHomePage.xaml</DependentUpon>
     </Compile>
+    <Page Include="ConfirmationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GradePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

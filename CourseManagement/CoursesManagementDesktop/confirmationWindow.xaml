@@ -1,0 +1,14 @@
+﻿<Window x:Class="CoursesManagementDesktop.confirmationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoursesManagementDesktop"
+        mc:Ignorable="d"
+        Title="confirmationWindow" Height="250" Width="300" WindowStyle="None" WindowStartupLocation="CenterScreen" >
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="72,65,0,0" TextWrapping="Wrap" Text="Changes Saved" VerticalAlignment="Top" FontSize="22"/>
+        <Button x:Name="okayButton" Content="Okay" HorizontalAlignment="Left" Margin="107,146,0,0" VerticalAlignment="Top" Width="75" Click="OkayButton_Click"/>
+
+    </Grid>
+</Window>
