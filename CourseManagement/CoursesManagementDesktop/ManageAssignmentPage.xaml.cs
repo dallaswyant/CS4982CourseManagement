@@ -12,8 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CourseManagement.DAL;
 using CourseManagement.Models;
 using CoursesManagementDesktop.Controllers;
+using CoursesManagementDesktop.Model;
 
 namespace CoursesManagementDesktop
 {
@@ -23,6 +25,7 @@ namespace CoursesManagementDesktop
     public partial class ManageAssignmentPage : Page
     {
         private ManageGradeItemsController gradeItemsController;
+        private GradeItem item;
       
         public ManageAssignmentPage()
         {
@@ -40,6 +43,24 @@ namespace CoursesManagementDesktop
         private void ViewGrades_Click(object sender, RoutedEventArgs e)
         {
             if (NavigationService != null) NavigationService.GoBack();
+        }
+
+        private void AssignmentCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GradeItemDAL dal = new GradeItemDAL();
+            var crn = CourseManagementTools.findCrn(this.courseComboBox.Text, this.semesterComboBox.Text);
+             item = dal.GetGradedItemByCRNAndGradeName(crn, this.AssignmentCombo.Text);
+            if (item != null)
+            {
+                this.assignmentNameBox.Text = item.Name;
+                this.pointsBox.Text = item.PossiblePoints.ToString();
+            }
+            
+        }
+
+        private void AssignmentCombo_LostFocus(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

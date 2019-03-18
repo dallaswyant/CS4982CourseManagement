@@ -32,6 +32,7 @@ namespace CoursesManagementDesktop.Controllers
         {
             this.populateSemesterComboBox();
             this.populateCourseComboBox();
+            this.populateAssignmentComboBox();
             this.populateAssignmentTypeComboBox();
         }
 
@@ -74,6 +75,19 @@ namespace CoursesManagementDesktop.Controllers
             }
 
             this.assignmentPage.assignmentTypeComboBox.SelectedIndex = 0;
+        }
+
+        private  void  populateAssignmentComboBox()
+        {
+            var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.Text,this.assignmentPage.semesterComboBox.Text);
+            var assignments = this.gradeItemDal.GetUniqueGradedItemsByCRN(crn);
+
+            foreach (var name in assignments)
+            {
+                this.assignmentPage.AssignmentCombo.Items.Add(name.Value);
+            }
+
+            
         }
 
         public void addAssignmnet()

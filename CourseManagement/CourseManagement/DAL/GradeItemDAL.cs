@@ -558,6 +558,72 @@ namespace CourseManagement.DAL
         }
 
 
+         /// <summary>
+        /// Gets the graded item by CRN and grade name.
+        /// </summary>
+        /// <param name="CRNCheck">The CRN check.</param>
+        /// <param name="gradeName">Name of the grade.</param>
+        /// <returns>A  graded Item by crn and name of the grade</returns>
+        public  GradeItem GetGradedItemByCRNAndGradeName(int CRNCheck, string gradeName)
+        {
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            GradeItem grade = null;
+            using (dbConnection)
+            {
+                dbConnection.Open();
+                var selectQuery =
+                    "SELECT * FROM grade_defs WHERE  grade_defs.course_CRN = @CRNCheck AND grade_name = @grade_name";
+                
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
+                {
+                    cmd.Parameters.AddWithValue("@CRNCheck", CRNCheck);
+                    cmd.Parameters.AddWithValue("@grade_name", gradeName);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                    
+                        int gradeDescriptionOrdinal = reader.GetOrdinal("grade_description");
+                        int totalPointsOrdinal = reader.GetOrdinal("grade_total_points");
+                       
+                        int gradeTypeOrdinal = reader.GetOrdinal("grade_type");
+                       
+                        int gradeItemIdOrdinal = reader.GetOrdinal("grade_def_id");
+                        int isPublicOrdinal = reader.GetOrdinal("is_public");
+                        
+
+                        while (reader.Read())
+                        {
+                            
+                            var gradeDescription = reader[gradeDescriptionOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(gradeDescriptionOrdinal);
+                            var totalPoints = reader[totalPointsOrdinal] == DBNull.Value
+                                ? default(int)
+                                : reader.GetInt32(totalPointsOrdinal);
+                            
+                            var gradeType = reader[gradeTypeOrdinal] == DBNull.Value
+                                ? default(string)
+                                : reader.GetString(gradeTypeOrdinal);
+                           
+                            var gradeItemId = reader[gradeItemIdOrdinal] == DBNull.Value
+                                ? default(int)
+                                : reader.GetInt32(gradeItemIdOrdinal);
+                            var isPublic = reader[isPublicOrdinal] != DBNull.Value && reader.GetBoolean(isPublicOrdinal);
+                      
+                           
+                            
+
+                            var currGradedItem = new GradeItem(gradeName,null, -1, null, totalPoints,
+                                gradeType, gradeDescription, gradeItemId, isPublic, null);
+                            grade = currGradedItem;
+                        }
+
+                        return grade;
+                    }
+                }
+            }
+        }
+
+
 
         #endregion
 

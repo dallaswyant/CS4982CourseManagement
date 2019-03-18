@@ -31,7 +31,7 @@
         <Label Content="Time Due" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Margin="1.4,177,0,0" Height="26" Width="61"/>
         <t:TimePicker Margin="2.4,203,0,0" Grid.Column="2" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" Grid.ColumnSpan="2"/>
         <TextBox HorizontalAlignment="Left" Margin="35,6.8,0,0" TextWrapping="Wrap" Text="TextBox" Width="431" Height="98" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
-        <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="391,104.8,0,0" Height="19" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Button Name="deleteButton" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="391,104.8,0,0" Height="19" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
         <Button Name="createButton" Content="Create" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="36,104.8,0,0" Height="19" Grid.Row="1" Grid.Column="1" Click="CreateButton_Click"/>
         <ComboBox Name="semesterComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Margin="37,62,0,0" Height="22" Grid.Column="1"/>
         <ComboBox Name="courseComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="37,114,0,0" Height="22" Grid.Column="1"/>
@@ -39,6 +39,11 @@
         <TextBlock HorizontalAlignment="Left" Margin="36,99,0,0" TextWrapping="Wrap" Text="Course" VerticalAlignment="Top" Height="16" Width="37" Grid.Column="1"/>
         <CheckBox Name="visibilityCheckBox" Content="Is Visible For Students" Grid.Column="3" HorizontalAlignment="Left" Margin="6.975,9.8,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <Button x:Name="viewGrades" Content="View Grades" Margin="0,0,36,180.2" Height="19" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Click="ViewGrades_Click"/>
+        <ComboBox Name="AssignmentCombo" SelectedIndex="0"   Grid.Column="1" Margin="37,161,0,0" SelectionChanged="AssignmentCombo_SelectionChanged" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="141" LostFocus="AssignmentCombo_LostFocus">
+            <TextBlock Text="Assignment"></TextBlock>
+        </ComboBox>
+
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="37,145,0,0" TextWrapping="Wrap" Text="Assignment" VerticalAlignment="Top"/>
 
 
     </Grid>
