@@ -120,34 +120,9 @@ namespace CourseManagement.Utilities
             bool canSignUp = true;
             CourseDAL courseGetter = new CourseDAL();
             List<Course> currentCourses = courseGetter.GetCoursesByStudentIDAndSemester(studentID, semesterID);
-            Course desiredCourse = courseGetter.GetCourseByCRN(crn);
             CourseTimeDAL timeChecker = new CourseTimeDAL();
             CourseTime desiredTime = timeChecker.GetCourseTimeByCRN(crn);
-            List<Course> potentialConflicts = new List<Course>();
-            bool hasSameDays = false;
             foreach (var currentCourse in currentCourses)
-            {
-                bool alreadyAdded = false;
-                CourseTime currentTime = timeChecker.GetCourseTimeByCRN(currentCourse.CRN);
-                foreach (var currentDay in currentTime.CourseDays.ToCharArray())
-                {
-                    foreach (var desiredDays in desiredTime.CourseDays.ToCharArray())
-                    {
-                        if (desiredDays == currentDay && !alreadyAdded)
-                        {
-                            hasSameDays = true;
-                            potentialConflicts.Add(currentCourse);
-                            alreadyAdded = true;
-                        }
-                    }
-                }
-            }
-            if (!hasSameDays)
-            {
-                return true;
-            }
-
-            foreach (var currentCourse in potentialConflicts)
             {
                 CourseTime currentTime = timeChecker.GetCourseTimeByCRN(currentCourse.CRN);
                 foreach (var currentDay in currentTime.CourseDays.ToCharArray())
@@ -156,15 +131,16 @@ namespace CourseManagement.Utilities
                     {
                         if (desiredDays == currentDay)
                         {
-                            if (currentTime.CourseStart.TimeOfDay >= desiredTime.CourseStart.TimeOfDay && currentTime.CourseEnd.TimeOfDay <= desiredTime.CourseEnd.TimeOfDay)
+                            if (desiredTime.CourseStart.TimeOfDay > currentTime.CourseStart.TimeOfDay &&
+                                desiredTime.CourseStart.TimeOfDay < currentTime.CourseEnd.TimeOfDay)
                             {
                                 canSignUp = false;
+                                return canSignUp;
                             }
                         }
                     }
                 }
             }
-
 
             return canSignUp;
         }

@@ -55,7 +55,7 @@ namespace CourseManagement.Views.Student
                             else
                             {
                                 this.lblCourseToAdd.Text =
-                                    "You can't sign up for this course, it's time conflicts with another course you have already signed up for.";
+                                    "You can't sign up for this course, its time conflicts with another course you have already signed up for.";
                             }
                         }
                         else
