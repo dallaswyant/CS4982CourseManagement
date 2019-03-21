@@ -4,6 +4,7 @@ using System.Web;
 
 namespace CourseManagement.Models
 {
+    //TODO not in use discuss removal
     /// <summary>
     /// Course rubric class
     /// </summary>

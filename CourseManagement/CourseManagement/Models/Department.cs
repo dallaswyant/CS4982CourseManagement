@@ -11,17 +11,9 @@ namespace CourseManagements
         /// </summary>
         public Teacher Chair { get; }
         /// <summary>
-        /// gets the courses of the department
-        /// </summary>
-        public CourseCollection DeptCourses { get; }
-        /// <summary>
         /// gets the department name
         /// </summary>
         public string Name { get; }
-        /// <summary>
-        /// gets the teachers of the department
-        /// </summary>
-        public List<Teacher> Teachers { get; }
 
         #endregion
 

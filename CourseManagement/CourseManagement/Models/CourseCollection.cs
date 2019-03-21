@@ -2,6 +2,7 @@
 
 namespace CourseManagement.Models
 {
+    //TODO not in use discuss removal
     public class CourseCollection
     {
         #region Properties

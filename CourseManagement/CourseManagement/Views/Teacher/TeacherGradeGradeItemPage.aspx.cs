@@ -88,7 +88,7 @@ namespace CourseManagement.Models
                 }
 
                 PersonallnfoDAL infoGetter = new PersonallnfoDAL();
-                PersonalStuff personalInfo = infoGetter.GetPersonalInfoFromUserID(student.StudentUID);
+                PersonalInformation personalInfo = infoGetter.GetPersonalInfoFromUserID(student.StudentUID);
                 this.ddlStudentNames.Items.Add(new ListItem(personalInfo.FName + " " + personalInfo.LName, student.StudentUID));
 
                 counter++;

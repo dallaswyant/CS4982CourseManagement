@@ -19,7 +19,7 @@ namespace CourseManagementUnitTests.Models
         public void TestDepartmentConstructor()
         {
             List<Course> coursesForBob = new List<Course>();
-            Teacher chair = new Teacher("office", "bob", "bob@bob.com", true, "867-5309", coursesForBob, "teacher");
+            Teacher chair = new Teacher("office", "bob@bob.com", true, "867-5309", coursesForBob, "teacher");
             Department department = new Department(chair,"Psychology");
 
             Assert.AreEqual(department.Chair, chair);

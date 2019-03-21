@@ -6,7 +6,7 @@ using System.Web.UI.WebControls.WebParts;
 
 namespace CourseManagement.Models
 {
-    public class PersonalStuff
+    public class PersonalInformation
     {
         /// <summary>
         /// The user ID
@@ -54,7 +54,7 @@ namespace CourseManagement.Models
         public string SSN;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PersonalStuff"/> class.
+        /// Initializes a new instance of the <see cref="PersonalInformation"/> class.
         /// </summary>
         /// <param name="uid">The uid.</param>
         /// <param name="fname">The fname.</param>
@@ -67,7 +67,7 @@ namespace CourseManagement.Models
         /// <param name="race">The race.</param>
         /// <param name="email">The email.</param>
         /// <param name="ssn">The SSN.</param>
-        public PersonalStuff(string uid, string fname, char minit, string lname, int addrId, string phoneNumber,
+        public PersonalInformation(string uid, string fname, char minit, string lname, int addrId, string phoneNumber,
             string sex, DateTime dob,
             string race, string email, string ssn)
         {

@@ -34,10 +34,6 @@ namespace CourseManagement.Utilities
                     return false;
                 }
 
-                //if (grades[grades.Count-1] == null)
-                //{
-                //throw new Exception("This course is still in progress.");
-                //}
                 foreach (var currentGrade in grades)
                 {
                     if (this.getGradeValueFromChar(gradesToCheck[counter]) <=

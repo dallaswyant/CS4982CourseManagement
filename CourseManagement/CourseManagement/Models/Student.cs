@@ -16,21 +16,13 @@ namespace CourseManagement.Models
         /// gets the email
         /// </summary>
         public string Email { get; }
-        /// <summary>
-        /// gets the active courses
-        /// </summary>
-        public CourseCollection ActiveCourses { get; }
-        /// <summary>
-        /// gets the degree program
-        /// </summary>
-        public DegreeProgram Program { get; }
 
         public string Name
         {
             get
             {
                 PersonallnfoDAL infoGetter = new PersonallnfoDAL();
-                PersonalStuff info = infoGetter.GetPersonalInfoFromUserID(this.StudentUID);
+                PersonalInformation info = infoGetter.GetPersonalInfoFromUserID(this.StudentUID);
                 return info.FName + " " + info.LName;
             }
         }

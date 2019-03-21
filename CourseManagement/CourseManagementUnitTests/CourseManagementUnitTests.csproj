@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="Models\StudentTest.cs" />
     <Compile Include="Models\TeacherTest.cs" />
-    <Compile Include="Models\GradedItemTest.cs" />
+    <Compile Include="Models\GradeItemTest.cs" />
     <Compile Include="Models\DepartmentTest.cs" />
     <Compile Include="Models\DegreeProgramTest.cs" />
     <Compile Include="Models\CourseTest.cs" />

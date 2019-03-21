@@ -16,12 +16,12 @@ namespace CourseManagementUnitTests.Models
         [TestMethod]
         public void TestUserConstructor()
         {
-            /**
+            
             User theUser = new User("user","password","teacher");
             Assert.AreEqual(theUser.UserId,"user");
             Assert.AreEqual(theUser.Password,"password");
             Assert.AreEqual(theUser.Role,"teacher");
-            **/
+            
         }
 
         /// <summary>

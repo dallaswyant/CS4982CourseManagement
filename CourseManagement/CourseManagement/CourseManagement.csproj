@@ -110,7 +110,7 @@
     <Compile Include="Models\CourseRubric.cs" />
     <Compile Include="Models\CourseTime.cs" />
     <Compile Include="Models\GradeItem.cs" />
-    <Compile Include="Models\PersonalStuff.cs" />
+    <Compile Include="Models\PersonalInformation.cs" />
     <Compile Include="Models\Semester.cs" />
     <Compile Include="DAL\CourseDAL.cs" />
     <Compile Include="DAL\CourseRubricDAL.cs" />

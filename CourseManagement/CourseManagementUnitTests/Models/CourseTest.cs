@@ -18,61 +18,27 @@ namespace CourseManagementUnitTests.Models
         [TestMethod]
         public void TestCourseConstructor()
         {
-            /**
-            CourseInfo courseInfo = new CourseInfo("Psychology", "Psychology Building", 4, 1, "Section 1");
-            List<GradedItem> gradesForCourse = new List<GradedItem>();
-            Course course = new Course(gradesForCourse,courseInfo,50);
-            Assert.AreEqual(course.CourseInfo,courseInfo);
-            Assert.AreEqual(course.GradeItems,gradesForCourse);
-            Assert.AreEqual(course.MaxSeats,50);
-            **/
-        }
+            int crn = 1;
+            string department = "Psychology";
+            string name = "Psychology 101";
+            string description = "Learn things";
+            string section = "Section 2";
+            int maxSeats = 50;
+            string location = "Psychology Building";
+            string semester = "SP15";
+            int courseTimeId = 5;
+            Course theCourse = new Course(crn, department, name, description, section, maxSeats,
+                location, semester, courseTimeId);
 
-        /// <summary>
-        /// Tests the course properties.
-        /// </summary>
-        [TestMethod]
-        public void TestCourseProperties()
-        {
-            /**
-            CourseInfo courseInfo = new CourseInfo("Psychology", "Psychology Building", 4, 1, "Section 1");
-            List<GradedItem> gradesForCourse = new List<GradedItem>();
-            Course course = new Course(gradesForCourse, courseInfo, 50);
-            Assert.AreEqual(course.CourseRubric, null);
-            Assert.AreEqual(course.Department, null);
-            Assert.AreEqual(course.DropDeadline, DateTime.MinValue);
-            Assert.AreEqual(course.LectureNotes,null);
-            **/
-        }
-
-        /// <summary>
-        /// Tests the course count remaining seats throws null.
-        /// </summary>
-        [TestMethod]
-        [ExpectedException(typeof(System.NullReferenceException))]
-        public void TestCourseCountRemainingSeatsThrowsNull()
-        {
-            /**
-            CourseInfo courseInfo = new CourseInfo("Psychology", "Psychology Building", 4, 1, "Section 1");
-            List<GradedItem> gradesForCourse = new List<GradedItem>();
-            Course course = new Course(gradesForCourse, courseInfo, 50);
-            course.CountRemainingSeats();
-            **/
-
-        }
-
-        /// <summary>
-        /// Tests the course to string.
-        /// </summary>
-        [TestMethod]
-        public void TestCourseToString()
-        {
-            /**
-            CourseInfo courseInfo = new CourseInfo("Psychology", "Psychology Building", 4, 1, "Section 1");
-            List<GradedItem> gradesForCourse = new List<GradedItem>();
-            Course course = new Course(gradesForCourse, courseInfo, 50);
-            Assert.AreEqual(course.ToString(), courseInfo.Name);
-            **/
+            Assert.AreEqual(theCourse.CRN,crn);
+            Assert.AreEqual(theCourse.DepartmentName,department);
+            Assert.AreEqual(theCourse.Description,description);
+            Assert.AreEqual(theCourse.SectionNumber,section);
+            Assert.AreEqual(theCourse.MaxSeats, maxSeats);
+            Assert.AreEqual(theCourse.Location,location);
+            Assert.AreEqual(theCourse.SemesterID, semester);
+            Assert.AreEqual(theCourse.CourseTimeID, courseTimeId);
+            
         }
     }
 }

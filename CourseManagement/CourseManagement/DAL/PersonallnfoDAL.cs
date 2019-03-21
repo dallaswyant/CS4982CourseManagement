@@ -9,7 +9,7 @@ namespace CourseManagement.DAL
 {
     public class PersonallnfoDAL
     {
-        public PersonalStuff GetPersonalInfoFromUserID(string uid)
+        public PersonalInformation GetPersonalInfoFromUserID(string uid)
         {
             MySqlConnection dbConnection = DbConnection.GetConnection();
 
@@ -72,7 +72,7 @@ namespace CourseManagement.DAL
                                 ? default(string)
                                 : reader.GetString(emailOrdinal);
 
-                            var foundInfo = new PersonalStuff(foundusername, foundfname, foundminit, foundlname,foundAddrId,foundPhone,foundSex,foundDob,foundRace,foundEmail,foundSSN);
+                            var foundInfo = new PersonalInformation(foundusername, foundfname, foundminit, foundlname,foundAddrId,foundPhone,foundSex,foundDob,foundRace,foundEmail,foundSSN);
                             return foundInfo;
                         }
                     }

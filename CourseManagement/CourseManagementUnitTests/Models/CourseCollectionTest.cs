@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CourseManagementUnitTests.Models
 {
+    //TODO not in use discuss removal
     /// <summary>
     /// Class for unit testing the Course Collection class
     /// </summary>

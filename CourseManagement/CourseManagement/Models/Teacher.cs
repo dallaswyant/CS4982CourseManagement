@@ -28,10 +28,6 @@ namespace CourseManagement.Models
         /// </summary>
         public string PhoneNumber { get; }
         /// <summary>
-        /// gets the primary department
-        /// </summary>
-        public Department PrimaryDepartment { get; }
-        /// <summary>
         /// gets the course taught
         /// </summary>
         public List<Course> CoursesTaught { get; }
@@ -40,7 +36,7 @@ namespace CourseManagement.Models
             get
             {
                 PersonallnfoDAL infoGetter = new PersonallnfoDAL();
-                PersonalStuff info = infoGetter.GetPersonalInfoFromUserID(this.TeacherUID);
+                PersonalInformation info = infoGetter.GetPersonalInfoFromUserID(this.TeacherUID);
                 return info.FName + " " + info.LName;
             }
         }
