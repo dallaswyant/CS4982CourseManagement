@@ -57,6 +57,9 @@
     <Compile Include="Models\CourseTest.cs" />
     <Compile Include="Models\CourseCollectionTest.cs" />
     <Compile Include="Models\RubricItemTest.cs" />
+    <Compile Include="Models\CourseTimeTest.cs" />
+    <Compile Include="Models\PersonalInformationTest.cs" />
+    <Compile Include="Models\SemesterTest.cs" />
     <Compile Include="Models\UserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\EncrypterTest.cs" />

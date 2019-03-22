@@ -20,7 +20,6 @@ namespace CourseManagementUnitTests.Models
             List<Course> coursesForBob = new List<Course>();
             Teacher teacher = new Teacher("office","bob@bob.com",true,"867-5309",coursesForBob,"teacher");
             Assert.AreEqual(teacher.Location,"office");
-            Assert.AreEqual(teacher.Name,"bob");
             Assert.AreEqual(teacher.Email,"bob@bob.com");
             Assert.AreEqual(teacher.IsEmailPublic,true);
             Assert.AreEqual(teacher.PhoneNumber,"867-5309");
