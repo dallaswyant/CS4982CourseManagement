@@ -28,7 +28,7 @@ namespace CourseManagement.Views {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.modalpopupextender createdModal;
+        protected global::AjaxControlToolkit.ModalPopupExtender createdModal;
         
         /// <summary>
         /// btnDummy1 control.
@@ -64,7 +64,7 @@ namespace CourseManagement.Views {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.modalpopupextender deleteModal;
+        protected global::AjaxControlToolkit.ModalPopupExtender deleteModal;
         
         /// <summary>
         /// btnDummy2 control.

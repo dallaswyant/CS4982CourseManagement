@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using CourseManagement.DAL;
 using CourseManagement.Utilities;
 
 namespace CourseManagement.Views.Teacher
@@ -12,34 +13,61 @@ namespace CourseManagement.Views.Teacher
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                DataBind();
-            }
-      
+        }
 
+        protected void gvwGrades_DataBound(object sender, EventArgs e)
+        {
+            this.confirmation.Text = "";
+            double pointsEarnedSum = 0;
+            double pointsPossibleSum = 0;
+            foreach (GridViewRow row in this.gvwGrades.Rows)
+            {
+                pointsEarnedSum += Convert.ToDouble(row.Cells[1].Text);
+                pointsPossibleSum += Convert.ToDouble(row.Cells[2].Text);
+            }
+            if (pointsPossibleSum > 0)
+            {
+                this.handleValidStudentGradeState(pointsEarnedSum, pointsPossibleSum);
+            }
+            else
+            {
+                this.handleInvalidGradeState();
+            }
+        }
+
+        private void handleInvalidGradeState()
+        {
+            this.finalLetterGrade.Attributes["placeholder"] = "";
             this.pointsEarned.Text = "";
             this.gradePercentage.Text = "";
         }
 
-        protected void gvwGrades_DataBound(object sender, GridViewRowEventArgs e)
+        private void handleValidStudentGradeState(double pointsEarnedSum, double pointsPossibleSum)
         {
-            double pointsEarnedSum = 0;
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                pointsEarnedSum += Convert.ToDouble(e.Row.Cells[1].Text);
-
-            }
-            double pointsPossibleSum = 0;
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                pointsPossibleSum += Convert.ToDouble(e.Row.Cells[1].Text);
-            }
-
-            pointsEarned.Text = pointsEarnedSum + "/" + pointsPossibleSum;
+            this.pointsEarned.Text = pointsEarnedSum + "/" + pointsPossibleSum;
             double grade = (pointsEarnedSum / pointsPossibleSum);
             this.gradePercentage.Text = grade.ToString("P");
-            this.finalGrade.Attributes["placeholder"] = "Suggested Grade: " + GradeSuggester.GetSuggestedGrade(grade);
+            StudentDAL dal = new StudentDAL();
+            char? letterGrade = dal.GetGradeByCourseAndStudentID(int.Parse(this.ddlCourses.SelectedValue),
+                this.ddlStudents.SelectedValue);
+            if (letterGrade == '\0' || letterGrade == null)
+            {
+                this.finalLetterGrade.Attributes["placeholder"] = "Suggested Grade: " + GradeSuggester.GetSuggestedGrade(grade);
+            }
+            else
+            {
+                this.finalLetterGrade.Attributes["placeholder"] = "Last Saved Grade: " + letterGrade;
+            }
+        }
+
+        protected void Save_Click(object sender, EventArgs e)
+        {
+            TeacherDAL dal = new TeacherDAL();
+            dal.UpdateFinalGradeByCRNAndStudentID(int.Parse(this.ddlCourses.SelectedValue),
+                this.ddlStudents.SelectedValue, this.finalLetterGrade.Text[0]);
+            this.confirmation.Text = "Grade saved.";
+            this.finalLetterGrade.Text = "";
+
         }
     }
 }

@@ -32,7 +32,7 @@ namespace CourseManagement.DAL
                     {
                         int studentUIDOrdinal = reader.GetOrdinal("uid");
                         int emailOrdinal = reader.GetOrdinal("email");
-                        
+
 
                         while (reader.Read())
                         {
@@ -68,7 +68,8 @@ namespace CourseManagement.DAL
             using (dbConnection)
             {
                 dbConnection.Open();
-                var selectQuery = "select students.* from students, student_has_courses WHERE students.uid=student_has_courses.student_uid AND student_has_courses.courses_CRN=@CRNCheck";
+                var selectQuery =
+                    "select students.* from students, student_has_courses WHERE students.uid=student_has_courses.student_uid AND student_has_courses.courses_CRN=@CRNCheck";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
@@ -97,6 +98,7 @@ namespace CourseManagement.DAL
                 }
             }
         }
+
         /// <summary>
         /// Adds the course to the student's courses by CRN and studentUID
         /// </summary>
@@ -110,20 +112,53 @@ namespace CourseManagement.DAL
             using (dbConnection)
             {
                 dbConnection.Open();
-                    var selectQuery =
-                        "INSERT INTO student_has_courses (student_uid, courses_CRN) VALUES (@studentUID,@CRN)";
-                    using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
+                var selectQuery =
+                    "INSERT INTO student_has_courses (student_uid, courses_CRN) VALUES (@studentUID,@CRN)";
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
+                {
+                    cmd.Parameters.AddWithValue("@studentUID", studentUID);
+                    cmd.Parameters.AddWithValue("@CRN", CRN);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            dbConnection.Close();
+        }
+
+
+        public char? GetGradeByCourseAndStudentID(int CRN, string studentUID)
+        {
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            using (dbConnection)
+            {
+                dbConnection.Open();
+                var selectQuery = "select * from student_has_courses WHERE student_uid=@studentID AND courses_CRN=@CRNCheck";
+
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
+                {
+                    cmd.Parameters.AddWithValue("@CRNCheck", CRN);
+                    cmd.Parameters.AddWithValue("@studentID", studentUID);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        cmd.Parameters.AddWithValue("@studentUID", studentUID);
-                        cmd.Parameters.AddWithValue("@CRN", CRN);
-                        cmd.ExecuteNonQuery();
+                        int gradeOrdinal = reader.GetOrdinal("grade_earned");
+
+
+                        while (reader.Read())
+                        {
+                            char grade = reader[gradeOrdinal] == DBNull.Value
+                                ? default(char)
+                                : reader.GetChar(gradeOrdinal);
+
+                            return grade;
+                        }
                     }
                 }
-                dbConnection.Close();
-            
 
+                return null;
+            }
         }
 
         #endregion
+
     }
 }

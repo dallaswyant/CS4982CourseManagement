@@ -177,16 +177,17 @@ namespace CourseManagement.DAL
         public List<Semester> GetTermsInProgress()
         {
             List<Semester> semesters = GetCurrentAndFutureSemesters();
+            List<Semester> semestersInProgress = new List<Semester>();
             DateTime today = DateTime.Now;
             foreach (var semester in semesters)
             {
                 if (semester.StartDate < today && semester.EndDate > today)
                 {
-                    semesters.Add(semester);
+                    semestersInProgress.Add(semester);
                 }
             }
 
-            return semesters;
+            return semestersInProgress;
         }
     }
 }
