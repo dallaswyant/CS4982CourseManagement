@@ -96,6 +96,7 @@
     <Content Include="Views\DepartmentAdmin\ManageCourses.aspx" />
     <Content Include="Views\Homepage.aspx" />
     <Content Include="Views\Student\BrowseCourses.aspx" />
+    <Content Include="Views\Teacher\FinalGradePage.aspx" />
     <Content Include="Views\Teacher\ManageCreateGradeItem.aspx" />
     <Content Include="Views\Teacher\RubricPage.aspx" />
     <Content Include="Views\Student\StudentViewAllGrades.aspx" />
@@ -126,6 +127,7 @@
     <Compile Include="Models\RubricItem.cs" />
     <Compile Include="Utilities\CourseSignUpHelper.cs" />
     <Compile Include="Utilities\Encrypter.cs" />
+    <Compile Include="Utilities\GradeSuggester.cs" />
     <Compile Include="Views\DepartmentAdmin\ManageCourses.aspx.cs">
       <DependentUpon>ManageCourses.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -146,6 +148,13 @@
     </Compile>
     <Compile Include="Views\Student\BrowseCourses.aspx.designer.cs">
       <DependentUpon>BrowseCourses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Teacher\FinalGradePage.aspx.cs">
+      <DependentUpon>FinalGradePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Teacher\FinalGradePage.aspx.designer.cs">
+      <DependentUpon>FinalGradePage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Teacher\ManageCreateGradeItem.aspx.cs">
       <DependentUpon>ManageCreateGradeItem.aspx</DependentUpon>
@@ -229,6 +238,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

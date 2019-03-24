@@ -8,5 +8,7 @@
                  Description="Allow teacher to view all grades" />
     <siteMapNode title="Manage Rubric" url="Views/Teacher/RubricPage.aspx"
                  Description="Allow teacher to view manage rubric" />
+    <siteMapNode title="Final Grades" url="Views/Teacher/FinalGradePage.aspx"
+                 Description="Allow teacher to submit final grade" />
   </siteMapNode>
 </siteMap>

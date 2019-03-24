@@ -173,5 +173,20 @@ namespace CourseManagement.DAL
             Semester current = this.GetSemesterBySemesterName(semesterID);
             return DateTime.Now <= current.FinalGradeDeadline;
         }
+
+        public List<Semester> GetTermsInProgress()
+        {
+            List<Semester> semesters = GetCurrentAndFutureSemesters();
+            DateTime today = DateTime.Now;
+            foreach (var semester in semesters)
+            {
+                if (semester.StartDate < today && semester.EndDate > today)
+                {
+                    semesters.Add(semester);
+                }
+            }
+
+            return semesters;
+        }
     }
 }

@@ -97,7 +97,7 @@ namespace CourseManagement.Views.Student
             CourseDAL courseGetter = new CourseDAL();
             Course courseToAdd = courseGetter.GetCourseByCRN(crn);
             TeacherDAL dal = new TeacherDAL();
-            Teacher instructor = dal.GetTeacherByCRN(crn);
+            Models.Teacher instructor = dal.GetTeacherByCRN(crn);
             string instructorName = instructor != null ? instructor.Name : "TBA"; 
             this.lblCourseToAdd.Text = "Course to Add: " + courseToAdd.CRN + " " + courseToAdd.Name + " " +
                                            courseToAdd.SectionNumber + " Instructor: " + instructorName;

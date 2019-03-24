@@ -31,7 +31,7 @@ namespace CourseManagement.Views.DepartmentAdmin
             var crn = int.Parse(crnCell.Text);
             string teacherID = this.ddlTeachers.SelectedValue;
             TeacherDAL tdal = new TeacherDAL();
-            Teacher teacher = tdal.GetTeacherByTeacherID(teacherID);
+            Models.Teacher teacher = tdal.GetTeacherByTeacherID(teacherID);
             dal.AssignTeacherToCourse(teacher, crn);
         }
 
