@@ -2,9 +2,12 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
   <siteMapNode title="Home" url="Views/Homepage.aspx"  Description="The home page">
     <siteMapNode title="View Grades" url="Views/Student/StudentViewAllGrades.aspx"
-                 Description="Allow student to view all grades" >
-    </siteMapNode>
+                 Description="Allow student to view all grades" />
     <siteMapNode title="Browse Courses" url="Views/Student/BrowseCourses.aspx"
-                 Description="Allow student to view and manage courses" />
+                 Description="Allow student to view and manage courses" />  
+    <siteMapNode title="Review Transcript" url="Views/Student/DegreeProgramPage.aspx"
+               Description="Allow student to view transcript" />
   </siteMapNode>
+
+ 
 </siteMap>
