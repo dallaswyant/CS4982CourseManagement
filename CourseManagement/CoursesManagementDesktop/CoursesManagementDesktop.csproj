@@ -93,7 +93,6 @@
     <Compile Include="Controllers\RubricController.cs" />
     <Compile Include="Controllers\TeachHomPageController.cs" />
     <Compile Include="DAL\DesktopGradedItemDAL.cs" />
-    <Compile Include="DAL\DesktopRubricDal.cs" />
     <Compile Include="GradePage.xaml.cs">
       <DependentUpon>GradePage.xaml</DependentUpon>
     </Compile>
