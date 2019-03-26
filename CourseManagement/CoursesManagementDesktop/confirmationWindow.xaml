@@ -5,11 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoursesManagementDesktop"
         mc:Ignorable="d"
-        Title="confirmationWindow" Height="250" Width="300" WindowStyle="None" WindowStartupLocation="CenterScreen" >
+        Title="confirmationWindow" Height="250" Width="300" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Grid>
-        <TextBlock x:Name="dialogText" HorizontalAlignment="Left" Margin="72,65,0,0" TextWrapping="Wrap" Text="Changes Saved" VerticalAlignment="Top" FontSize="22"/>
-        <Button x:Name="confirmButton" Content="Ok" IsDefault="True" HorizontalAlignment="Left" Margin="112,146,0,0" VerticalAlignment="Top" Width="75" Click="OkayButton_Click"/>
-        <Button x:Name="declineButton" Visibility="Collapsed" IsCancel="True"  Content="Cancel" HorizontalAlignment="Left" Margin="169,146,0,0" VerticalAlignment="Top" Width="75" Click="DeclineButton_Click"/>
+        <TextBlock x:Name="dialogText" HorizontalAlignment="Left" Margin="72,65,0,0" TextWrapping="Wrap"
+                   Text="Changes Saved" VerticalAlignment="Top" FontSize="22" />
+        <Button x:Name="confirmButton" Content="Ok" IsDefault="True" HorizontalAlignment="Left" Margin="112,146,0,0"
+                VerticalAlignment="Top" Width="75" Click="OkayButton_Click" />
+        <Button x:Name="declineButton" Visibility="Collapsed" IsCancel="True" Content="Cancel"
+                HorizontalAlignment="Left" Margin="169,146,0,0" VerticalAlignment="Top" Width="75"
+                Click="DeclineButton_Click" />
 
     </Grid>
 </Window>

@@ -87,6 +87,7 @@
     <Compile Include="ConfirmationWindow.xaml.cs">
       <DependentUpon>ConfirmationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\GradePageController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageGradeItemsController.cs" />
     <Compile Include="Controllers\RubricController.cs" />

@@ -1,36 +1,51 @@
 ﻿<Page x:Class="CoursesManagementDesktop.ManageRubricPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:CoursesManagementDesktop"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ManageRubricPage">
 
     <Grid Background="#E5EAEE">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="207*"/>
-            <ColumnDefinition Width="593*"/>
+            <ColumnDefinition Width="207*" />
+            <ColumnDefinition Width="593*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="49*"/>
-            <RowDefinition Height="176*"/>
+            <RowDefinition Height="49*" />
+            <RowDefinition Height="176*" />
         </Grid.RowDefinitions>
-        <ComboBox x:Name="semesterComboBox" Margin="0,28.4,90.2,0" VerticalAlignment="Top" Grid.Row="1" HorizontalAlignment="Right" Width="56"/>
-        <ComboBox x:Name="courseComboBox" Margin="0,72.4,26.2,0" VerticalAlignment="Top" Grid.Row="1" HorizontalAlignment="Right" Width="120"/>
-        <DataGrid x:Name="rubricDataGrid" ColumnWidth="*" CanUserAddRows="False" ItemsSource="{Binding rubricItems}" Grid.Column="1" HorizontalAlignment="Left" Height="86" Margin="9.8,10.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="368" SelectionChanged="RubricDataGrid_SelectionChanged"/>
-        <TextBlock HorizontalAlignment="Left" Margin="61,10.4,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Semester" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="61,56.4,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Course" VerticalAlignment="Top"/>
-        <TextBox x:Name="assignmentTypeBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="114.8,126.4,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="assignmentWeightBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="114.8,165.4,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="9.8,124.4,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Assignment Type" VerticalAlignment="Top"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="9.8,166.4,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Assignment Weight" VerticalAlignment="Top"/>
-        <Button x:Name="editButton" Content="Edit" Grid.Column="1" HorizontalAlignment="Left" Margin="114.8,204.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="40" Click="EditButton_Click"/>
-        <Button x:Name="insertButton" Content="Insert" Grid.Column="1" HorizontalAlignment="Left" Margin="159.8,204.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="40" Click="InsertButton_Click"/>
-        <TextBlock x:Name="warningText"  Grid.Column="1" HorizontalAlignment="Left" Margin="49.8,101.4,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-        <Button x:Name="deleteButton" Content="Delete" Grid.Column="1" HorizontalAlignment="Left" Margin="204.8,204.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="38" Click="DeleteButton_Click"/>
-        <Button x:Name="viewGrades" Content="View Grades" Margin="0,0,71.2,9.6" Height="19" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Click="ViewGrades_Click"/>
+        <ComboBox x:Name="semesterComboBox" Margin="0,28.4,90.2,0" VerticalAlignment="Top" Grid.Row="1"
+                  HorizontalAlignment="Right" Width="56" />
+        <ComboBox x:Name="courseComboBox" Margin="0,72.4,26.2,0" VerticalAlignment="Top" Grid.Row="1"
+                  HorizontalAlignment="Right" Width="120" />
+        <DataGrid x:Name="rubricDataGrid" ColumnWidth="*" CanUserAddRows="False" ItemsSource="{Binding rubricItems}"
+                  Grid.Column="1" HorizontalAlignment="Left" Height="86" Margin="9.8,10.4,0,0" Grid.Row="1"
+                  VerticalAlignment="Top" Width="368" SelectionChanged="RubricDataGrid_SelectionChanged" />
+        <TextBlock HorizontalAlignment="Left" Margin="61,10.4,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Semester"
+                   VerticalAlignment="Top" />
+        <TextBlock HorizontalAlignment="Left" Margin="61,56.4,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Course"
+                   VerticalAlignment="Top" />
+        <TextBox x:Name="assignmentTypeBox" Grid.Column="1" HorizontalAlignment="Left" Height="23"
+                 Margin="114.8,126.4,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+        <TextBox x:Name="assignmentWeightBox" Grid.Column="1" HorizontalAlignment="Left" Height="23"
+                 Margin="114.8,165.4,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="9.8,124.4,0,0" Grid.Row="1" TextWrapping="Wrap"
+                   Text="Assignment Type" VerticalAlignment="Top" />
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="9.8,166.4,0,0" Grid.Row="1" TextWrapping="Wrap"
+                   Text="Assignment Weight" VerticalAlignment="Top" />
+        <Button x:Name="editButton" Content="Edit" Grid.Column="1" HorizontalAlignment="Left" Margin="114.8,204.4,0,0"
+                Grid.Row="1" VerticalAlignment="Top" Width="40" Click="EditButton_Click" />
+        <Button x:Name="insertButton" Content="Insert" Grid.Column="1" HorizontalAlignment="Left"
+                Margin="159.8,204.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="40" Click="InsertButton_Click" />
+        <TextBlock x:Name="warningText" Grid.Column="1" HorizontalAlignment="Left" Margin="49.8,101.4,0,0" Grid.Row="1"
+                   TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" />
+        <Button x:Name="deleteButton" Content="Delete" Grid.Column="1" HorizontalAlignment="Left"
+                Margin="204.8,204.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="38" Click="DeleteButton_Click" />
+        <Button x:Name="viewGrades" Content="View Grades" Margin="0,0,71.2,9.6" Height="19" VerticalAlignment="Bottom"
+                HorizontalAlignment="Right" Width="75" Click="ViewGrades_Click" />
 
     </Grid>
 </Page>
