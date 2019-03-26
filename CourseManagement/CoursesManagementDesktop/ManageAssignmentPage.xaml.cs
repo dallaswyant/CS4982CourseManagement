@@ -47,7 +47,9 @@ namespace CoursesManagementDesktop
 
         private void ViewGrades_Click(object sender, RoutedEventArgs e)
         {
-            if (NavigationService != null) NavigationService.GoBack();
+            TeacherHomePAge page = new TeacherHomePAge();
+            var navigationService = this.NavigationService;
+            navigationService?.Navigate(page);
         }
 
         private void AssignmentCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
