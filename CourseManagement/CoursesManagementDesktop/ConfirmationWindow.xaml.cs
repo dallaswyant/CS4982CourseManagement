@@ -26,7 +26,13 @@ namespace CoursesManagementDesktop
 
         private void OkayButton_Click(object sender, RoutedEventArgs e)
         {
+            this.DialogResult = true;
             Close();
+        }
+
+        private void DeclineButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
         }
     }
 }

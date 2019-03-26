@@ -77,7 +77,7 @@ namespace CoursesManagementDesktop.Controllers
             this.assignmentPage.assignmentTypeComboBox.SelectedIndex = 0;
         }
 
-        private  void  populateAssignmentComboBox()
+        public  void  populateAssignmentComboBox()
         {
             var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.Text,this.assignmentPage.semesterComboBox.Text);
             var assignments = this.gradeItemDal.GetUniqueGradedItemsByCRN(crn);

@@ -414,15 +414,17 @@ namespace CourseManagement.DAL
                 dbConnection.Open();
                 
                     var selectQuery =
-                        "UPDATE grade_defs SET grade_total_points=@grade_total, grade_type=@grade_type, grade_description = @grade_description grade_name=@grade_newname, is_public=@is_public WHERE grade_name = @grade_oldname AND course_CRN = @CRNCheck";
+                        "UPDATE grade_defs SET grade_total_points=@grade_total, grade_type=@grade_type, grade_description = @grade_description, grade_name=@grade_newname, is_public=@is_public WHERE grade_name = @grade_oldname AND course_CRN = @CRNCheck";
                     using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                     {
+                        cmd.Parameters.AddWithValue("@CRNCheck", CRN);
                         cmd.Parameters.AddWithValue("@grade_total", newItem.PossiblePoints);
                         cmd.Parameters.AddWithValue("@grade_type", newItem.GradeType);
                         cmd.Parameters.AddWithValue("@is_public", newItem.IsPublic);
                         cmd.Parameters.AddWithValue("@grade_newname", newItem.Name);
                         cmd.Parameters.AddWithValue("@grade_description", newItem.Description);
                         cmd.Parameters.AddWithValue("@grade_oldname", oldgradename);
+                        
                         cmd.ExecuteNonQuery();
                     }
                 
