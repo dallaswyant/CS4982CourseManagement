@@ -44,10 +44,8 @@ namespace CoursesManagementDesktop
             this.InitializeComponent();
           
             this.controller = new TeacherHomePageController(this);
-
             this.controller.populateComboBoxes();
 
-            
         }
 
         #endregion
@@ -85,6 +83,7 @@ namespace CoursesManagementDesktop
 
         private void SemesterBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            this.controller.LoadDataGrid();
 
         }
         #endregion

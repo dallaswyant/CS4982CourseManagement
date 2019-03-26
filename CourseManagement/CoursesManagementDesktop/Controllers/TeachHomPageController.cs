@@ -79,7 +79,7 @@ namespace CoursesManagementDesktop.Controllers
 
         private  void  populateAssignmentComboBox()
         {
-            var crn = CourseManagementTools.findCrn(this.homePage.CourseCombo.Text,this.homePage.semesterBox.Text);
+            var crn = CourseManagementTools.findCrn(this.homePage.CourseCombo.Text,this.homePage.semesterBox.SelectedItem as string);
             var assignments = this.gradedItemDal.GetUniqueGradedItemsByCRN(crn);
 
             foreach (var name in assignments)
@@ -126,7 +126,7 @@ namespace CoursesManagementDesktop.Controllers
         {
          
                 var name = this.homePage.AssignmentCombo.SelectedItem ==null ? "":this.homePage.AssignmentCombo.SelectedItem.ToString();
-                var crn = CourseManagementTools.findCrn(this.homePage.CourseCombo.Text,this.homePage.semesterBox.Text);
+                var crn = CourseManagementTools.findCrn(this.homePage.CourseCombo.Text,this.homePage.semesterBox.SelectedItem as string);
                 this.desktopGradedItemDal.populateDataGrid(crn, name, this.homePage.dataGridGrades);
                 this.currentCrn = crn;
 
