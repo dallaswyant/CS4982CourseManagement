@@ -92,7 +92,7 @@ namespace CoursesManagementDesktop
                 this.assignmentBox.Items.Add(assignment.Name);
             }
 
-            this.assignmentBox.SelectedIndex = 0;
+            this.assignmentBox.SelectedIndex = this.controller.selectedAssignment;
         }
 
         private void GradeButton_Click(object sender, RoutedEventArgs e)

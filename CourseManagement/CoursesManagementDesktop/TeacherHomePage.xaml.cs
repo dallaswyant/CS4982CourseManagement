@@ -68,28 +68,14 @@ namespace CoursesManagementDesktop
 
         
 
-        private  void CourseCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-           
-        }
-
-        #endregion
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.AssignmentCombo.Items.Clear();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            //this.controller.updateAssignmentBox();
-        }
+       
 
         private void SelectGradeBtn_Click(object sender, RoutedEventArgs e)
         {
             if (this.dataGridGrades.SelectedIndex > -1)
             {
                 this.controller.selectedStudent = dataGridGrades.SelectedIndex;
+                this.controller.selectedAssignment = this.AssignmentCombo.SelectedIndex;
             }
             GradePage page = new GradePage(this.controller); 
             var navigationService = NavigationService;
@@ -101,7 +87,7 @@ namespace CoursesManagementDesktop
         {
 
         }
-
+        #endregion
         
     }
 }

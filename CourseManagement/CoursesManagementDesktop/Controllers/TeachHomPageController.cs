@@ -26,6 +26,8 @@ namespace CoursesManagementDesktop.Controllers
         /// public property for selected student index
         /// </summary>
         public int selectedStudent { get;  set; }
+
+        public int selectedAssignment { get; set; }
         /// <summary>
         /// public property for the main teacher page
         /// </summary>
