@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using CourseManagement.Models;
 using CoursesManagementDesktop.Annotations;
 using CoursesManagementDesktop.Controllers;
+using CoursesManagementDesktop.Model;
 
 namespace CoursesManagementDesktop
 {
@@ -39,6 +40,13 @@ namespace CoursesManagementDesktop
         ///     The original item.
         /// </value>
         public RubricItem originalItem { get; private set; }
+        /// <summary>
+        /// Gets or sets the CRN.
+        /// </summary>
+        /// <value>
+        /// The CRN.
+        /// </value>
+        public int CRN { get; private set; }
 
         #endregion
 
@@ -104,5 +112,17 @@ namespace CoursesManagementDesktop
         }
 
         #endregion
+
+        private void SemesterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.CRN =  CourseManagementTools.findCrn(this.courseComboBox.SelectedItem as string,
+                this.semesterComboBox.SelectedItem as string);
+        }
+
+        private void CourseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.CRN =  CourseManagementTools.findCrn(this.courseComboBox.SelectedItem as string,
+                this.semesterComboBox.SelectedItem as string);
+        }
     }
 }

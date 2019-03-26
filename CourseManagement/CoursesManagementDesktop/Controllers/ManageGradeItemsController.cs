@@ -17,6 +17,7 @@ namespace CoursesManagementDesktop.Controllers
         private readonly CourseRubricDAL rubricDal;
         private readonly GradeItemDAL gradeItemDal;
         private GradeItem selectedGradeItem;
+        private int CRN;
 
         #endregion
 
@@ -33,6 +34,7 @@ namespace CoursesManagementDesktop.Controllers
             this.courseDal = new CourseDAL();
             this.rubricDal = new CourseRubricDAL();
             this.gradeItemDal = new GradeItemDAL();
+            this.CRN = assignmentPage.CRN;
         }
 
         #endregion
@@ -42,11 +44,11 @@ namespace CoursesManagementDesktop.Controllers
         /// <summary>
         ///     Populates the combo boxes.
         /// </summary>
-        public void populateComboBoxes()
+        public void PopulateComboBoxes()
         {
             this.populateSemesterComboBox();
             this.populateCourseComboBox();
-            this.populateAssignmentComboBox();
+            this.PopulateAssignmentComboBox();
             this.populateAssignmentTypeComboBox();
         }
 
@@ -95,11 +97,10 @@ namespace CoursesManagementDesktop.Controllers
         /// <summary>
         ///     Populates the assignment ComboBox.
         /// </summary>
-        public void populateAssignmentComboBox()
+        public void PopulateAssignmentComboBox()
         {
-            var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.Text,
-                this.assignmentPage.semesterComboBox.Text);
-            var assignments = this.gradeItemDal.GetUniqueGradedItemsByCRN(crn);
+           
+            var assignments = this.gradeItemDal.GetUniqueGradedItemsByCRN(this.CRN);
 
             foreach (var name in assignments)
             {
@@ -114,21 +115,20 @@ namespace CoursesManagementDesktop.Controllers
         {
             this.handleWhenGradeItemDoesNotExists();
             this.assignmentPage.AssignmentCombo.Items.Clear();
-            this.populateAssignmentComboBox();
+            this.PopulateAssignmentComboBox();
             this.assignmentPage.AssignmentCombo.SelectedIndex = 0;
         }
 
         private void handleWhenGradeItemDoesNotExists()
         {
-            var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.Text,
-                this.assignmentPage.semesterComboBox.Text);
+           
             var assignmentName = this.assignmentPage.assignmentNameBox.Text;
             var possiblePoints = Convert.ToInt32(this.assignmentPage.pointsBox.Text);
             var gradeType = this.assignmentPage.assignmentTypeComboBox.Text;
             var isChecked = this.assignmentPage.visibilityCheckBox.IsChecked;
             var item = new GradeItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, string.Empty, 0,
                 isChecked != null && isChecked.Value, null);
-            this.gradeItemDal.InsertNewGradedItemByCRNForAllStudents(item, crn);
+            this.gradeItemDal.InsertNewGradedItemByCRNForAllStudents(item, this.CRN);
         }
 
         /// <summary>
@@ -136,10 +136,9 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void DisplayGradeItemDetails()
         {
-            var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.Text,
-                this.assignmentPage.semesterComboBox.SelectedItem as string);
+           
             this.selectedGradeItem =
-                this.gradeItemDal.GetGradedItemByCRNAndGradeName(crn,
+                this.gradeItemDal.GetGradedItemByCRNAndGradeName(this.CRN,
                     this.assignmentPage.AssignmentCombo.SelectedItem as string);
             if (this.selectedGradeItem != null)
             {
@@ -157,11 +156,10 @@ namespace CoursesManagementDesktop.Controllers
             var value = showConfirmDialog("Delete This Item?");
             if (value != null && value == true)
             {
-                var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.Text,
-                    this.assignmentPage.semesterComboBox.SelectedItem as string);
+                
                 if (this.selectedGradeItem != null)
                 {
-                    this.gradeItemDal.deleteGradedItemByCRNForAllStudents(this.selectedGradeItem, crn);
+                    this.gradeItemDal.deleteGradedItemByCRNForAllStudents(this.selectedGradeItem, this.CRN);
                     this.assignmentPage.AssignmentCombo.Items.Remove(this.selectedGradeItem.Name);
                     this.assignmentPage.AssignmentCombo.SelectedIndex = 0;
                 }
@@ -176,14 +174,13 @@ namespace CoursesManagementDesktop.Controllers
             var value = showConfirmDialog("Edit This Item?");
             if (value != null && value == true)
             {
-                var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.Text,
-                    this.assignmentPage.semesterComboBox.SelectedItem as string);
+               
                 this.selectedGradeItem.Name = this.assignmentPage.assignmentNameBox.Text;
                 this.selectedGradeItem.PossiblePoints = int.Parse(this.assignmentPage.pointsBox.Text);
-                this.gradeItemDal.UpdateGradeItemByCRNAndOldNameForAllStudents(this.selectedGradeItem, crn,
+                this.gradeItemDal.UpdateGradeItemByCRNAndOldNameForAllStudents(this.selectedGradeItem, this.CRN,
                     this.assignmentPage.AssignmentCombo.SelectedItem as string);
                 this.assignmentPage.AssignmentCombo.Items.Clear();
-                this.populateAssignmentComboBox();
+                this.PopulateAssignmentComboBox();
                 this.assignmentPage.AssignmentCombo.SelectedIndex = 0;
             }
         }

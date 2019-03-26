@@ -18,9 +18,9 @@
             <RowDefinition Height="176*" />
         </Grid.RowDefinitions>
         <ComboBox x:Name="semesterComboBox" Margin="0,28.4,90.2,0" VerticalAlignment="Top" Grid.Row="1"
-                  HorizontalAlignment="Right" Width="56" />
+                  HorizontalAlignment="Right" Width="56" SelectionChanged="SemesterComboBox_SelectionChanged" />
         <ComboBox x:Name="courseComboBox" Margin="0,72.4,26.2,0" VerticalAlignment="Top" Grid.Row="1"
-                  HorizontalAlignment="Right" Width="120" />
+                  HorizontalAlignment="Right" Width="120" SelectionChanged="CourseComboBox_SelectionChanged" />
         <DataGrid x:Name="rubricDataGrid" ColumnWidth="*" CanUserAddRows="False" ItemsSource="{Binding rubricItems}"
                   Grid.Column="1" HorizontalAlignment="Left" Height="86" Margin="9.8,10.4,0,0" Grid.Row="1"
                   VerticalAlignment="Top" Width="368" SelectionChanged="RubricDataGrid_SelectionChanged" />

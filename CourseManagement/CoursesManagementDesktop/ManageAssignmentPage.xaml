@@ -41,7 +41,7 @@
         <Button Name="createButton" Content="Create" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"
                 Margin="36,104.8,0,0" Height="19" Grid.Row="1" Grid.Column="1" Click="CreateButton_Click" />
         <ComboBox Name="semesterComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68"
-                  Margin="37,62,0,0" Height="22" Grid.Column="1" />
+                  Margin="37,62,0,0" Height="22" Grid.Column="1" SelectionChanged="SemesterComboBox_SelectionChanged" />
         <ComboBox Name="courseComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120"
                   Margin="37,114,0,0" Height="22" Grid.Column="1" />
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Semester" VerticalAlignment="Top"

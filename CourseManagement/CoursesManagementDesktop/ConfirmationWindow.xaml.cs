@@ -7,8 +7,10 @@ namespace CoursesManagementDesktop
     /// </summary>
     public partial class confirmationWindow : Window
     {
-        #region Constructors
-
+        #region Constructors        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="confirmationWindow"/> class.
+        /// </summary>
         public confirmationWindow()
         {
             this.InitializeComponent();

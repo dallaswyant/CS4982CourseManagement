@@ -104,9 +104,8 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void LoadRubric()
         {
-            var crn = CourseManagementTools.findCrn(this.rubricPage.courseComboBox.Text,
-                this.rubricPage.semesterComboBox.SelectedItem as string);
-            var items = this.rubricDAL.GetCourseRubricByCRN(crn);
+           
+            var items = this.rubricDAL.GetCourseRubricByCRN(this.rubricPage.CRN);
             foreach (var rubricItem in items)
             {
                 this.rubricPage.rubricItems.Add(rubricItem);
@@ -118,14 +117,13 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void EditRubric()
         {
-            var crn = CourseManagementTools.findCrn(this.rubricPage.courseComboBox.Text,
-                this.rubricPage.semesterComboBox.SelectedItem as string);
+           
             var assignmentType = this.rubricPage.assignmentTypeBox.Text;
             var assignmentWeight = int.Parse(this.rubricPage.assignmentWeightBox.Text);
             var index = this.rubricPage.originalItem.Index;
             var orginalCRN = this.rubricPage.originalItem.CRN;
 
-            this.rubricDAL.UpdateCourseRubric(crn, assignmentType, assignmentWeight,
+            this.rubricDAL.UpdateCourseRubric(this.rubricPage.CRN, assignmentType, assignmentWeight,
                 this.rubricPage.originalItem.AssignmentType, this.rubricPage.originalItem.AssignmentWeight, index,
                 index, orginalCRN);
             this.refresh();
@@ -145,9 +143,7 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void SetWarningText()
         {
-            var crn = CourseManagementTools.findCrn(this.rubricPage.courseComboBox.Text,
-                this.rubricPage.semesterComboBox.SelectedItem as string);
-            var items = this.rubricDAL.GetCourseRubricByCRN(crn);
+            var items = this.rubricDAL.GetCourseRubricByCRN(this.rubricPage.CRN);
             var sum = 0;
             foreach (var currRubricItem in items)
             {
@@ -177,10 +173,9 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void InsertRubricItem()
         {
-            var crn = CourseManagementTools.findCrn(this.rubricPage.courseComboBox.Text,
-                this.rubricPage.semesterComboBox.SelectedItem as string);
+           
             var assignmentWeightBox = int.Parse(this.rubricPage.assignmentWeightBox.Text);
-            this.rubricDAL.InsertCourseRubric(this.rubricPage.assignmentTypeBox.Text, assignmentWeightBox, crn);
+            this.rubricDAL.InsertCourseRubric(this.rubricPage.assignmentTypeBox.Text, assignmentWeightBox, this.rubricPage.CRN);
             this.refresh();
             this.SetWarningText();
         }
@@ -190,14 +185,13 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void DeleteRubricItem()
         {
-            var crn = CourseManagementTools.findCrn(this.rubricPage.courseComboBox.Text,
-                this.rubricPage.semesterComboBox.SelectedItem as string);
+            
             var assignmentType = this.rubricPage.assignmentTypeBox.Text;
             var assignmentWeight = int.Parse(this.rubricPage.assignmentWeightBox.Text);
             var index = this.rubricPage.originalItem.Index;
             var orginalCRN = this.rubricPage.originalItem.CRN;
 
-            this.rubricDAL.DeleteCourseRubric(crn, assignmentType, assignmentWeight,
+            this.rubricDAL.DeleteCourseRubric(this.rubricPage.CRN, assignmentType, assignmentWeight,
                 this.rubricPage.originalItem.AssignmentType,
                 this.rubricPage.originalItem.AssignmentWeight, index, index, orginalCRN);
 

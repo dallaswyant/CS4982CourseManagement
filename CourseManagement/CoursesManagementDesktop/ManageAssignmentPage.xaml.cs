@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using CoursesManagementDesktop.Controllers;
+using CoursesManagementDesktop.Model;
 
 namespace CoursesManagementDesktop
 {
@@ -12,6 +13,7 @@ namespace CoursesManagementDesktop
         #region Data members
 
         private readonly ManageGradeItemsController gradeItemsController;
+        public int CRN { get; set; }
 
         #endregion
 
@@ -24,7 +26,7 @@ namespace CoursesManagementDesktop
         {
             this.InitializeComponent();
             this.gradeItemsController = new ManageGradeItemsController(this);
-            this.gradeItemsController.populateComboBoxes();
+            this.gradeItemsController.PopulateComboBoxes();
         }
 
         #endregion
@@ -46,6 +48,8 @@ namespace CoursesManagementDesktop
         private void AssignmentCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.gradeItemsController.DisplayGradeItemDetails();
+            this.CRN =  CourseManagementTools.findCrn(this.courseComboBox.SelectedItem as string,
+                this.semesterComboBox.SelectedItem as string);
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -59,5 +63,11 @@ namespace CoursesManagementDesktop
         }
 
         #endregion
+
+        private void SemesterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+          this.CRN =  CourseManagementTools.findCrn(this.courseComboBox.SelectedItem as string,
+                this.semesterComboBox.SelectedItem as string);
+        }
     }
 }
