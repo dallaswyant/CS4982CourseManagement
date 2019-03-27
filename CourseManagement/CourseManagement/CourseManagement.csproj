@@ -33,6 +33,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,6 +43,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxControlToolkit, Version=18.1.1.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
@@ -96,6 +98,7 @@
     <Content Include="Views\DepartmentAdmin\ManageCourses.aspx" />
     <Content Include="Views\Homepage.aspx" />
     <Content Include="Views\Student\BrowseCourses.aspx" />
+    <Content Include="Views\Student\DegreeProgramPage.aspx" />
     <Content Include="Views\Teacher\FinalGradePage.aspx" />
     <Content Include="Views\Teacher\ManageCreateGradeItem.aspx" />
     <Content Include="Views\Teacher\RubricPage.aspx" />
@@ -109,6 +112,7 @@
   <ItemGroup>
     <Compile Include="DAL\CourseTimeDAL.cs" />
     <Compile Include="DAL\DegreeProgramDAL.cs" />
+    <Compile Include="DAL\TranscriptDAL.cs" />
     <Compile Include="Models\CourseRubric.cs" />
     <Compile Include="Models\CourseTime.cs" />
     <Compile Include="Models\GradeItem.cs" />
@@ -126,6 +130,7 @@
     <Compile Include="DAL\TeacherDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="Models\RubricItem.cs" />
+    <Compile Include="Models\Transcript.cs" />
     <Compile Include="Utilities\CourseSignUpHelper.cs" />
     <Compile Include="Utilities\Encrypter.cs" />
     <Compile Include="Utilities\GradeSuggester.cs" />
@@ -149,6 +154,13 @@
     </Compile>
     <Compile Include="Views\Student\BrowseCourses.aspx.designer.cs">
       <DependentUpon>BrowseCourses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Student\DegreeProgramPage.aspx.cs">
+      <DependentUpon>DegreeProgramPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Student\DegreeProgramPage.aspx.designer.cs">
+      <DependentUpon>DegreeProgramPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Teacher\FinalGradePage.aspx.cs">
       <DependentUpon>FinalGradePage.aspx</DependentUpon>

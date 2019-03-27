@@ -85,6 +85,46 @@ namespace CourseManagement.DAL
             }
         }
 
+
+        public CourseCollection GetCoursesByDegreeProgram(string degreeProgramName)
+        {
+            if (degreeProgramName == null)
+            {
+                throw new Exception("Degree name cannot be null");
+            }
+            MySqlConnection dbConnection = DbConnection.GetConnection();
+            CourseCollection coursesRequired = new CourseCollection();
+            using (dbConnection)
+            {
+
+                dbConnection.Open();
+
+                var selectQuery =
+                    "SELECT * FROM degree_requires_courses, degree_programs, courses WHERE degree_programs.degree_id = degree_requires_courses.degree_id AND degree_programs.name = @degree_program_name AND degree_programs.name = courses.course_name";
+
+                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
+                {
+                    cmd.Parameters.AddWithValue("@degree_program_name", degreeProgramName);
+                    using (MySqlDataReader queryResultReader = cmd.ExecuteReader())
+                    {
+                        int CRNOrdinal = queryResultReader.GetOrdinal("CRN");
+
+                        while (queryResultReader.Read())
+                        {
+                            int crn = queryResultReader[CRNOrdinal] == DBNull.Value ? default(int) : queryResultReader.GetInt32(CRNOrdinal);
+                            CourseDAL courseDal = new CourseDAL();
+                            Course courseRequired = courseDal.GetCourseByCRN(crn);
+                            coursesRequired.Add(courseRequired);
+                        }
+
+                        return coursesRequired;
+                    }
+                }
+            }
+        }
+
+
+
         public string GetDegreeProgramByStudentID(string studentIDCheck)
         {
             MySqlConnection dbConnection = DbConnection.GetConnection();

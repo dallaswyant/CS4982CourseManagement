@@ -7,7 +7,7 @@
         /// <summary>
         /// gets the name
         /// </summary>
-        public string name { get; }
+        public string Name { get; }
         /// <summary>
         /// gets the required courses
         /// </summary>
@@ -23,7 +23,7 @@
         /// <param name="requiredCourses"> courses required</param>
         public DegreeProgram(string name, CourseCollection requiredCourses)
         {
-            this.name = name;
+            this.Name = name;
             this.RequiredCourses = requiredCourses;
         }
 

@@ -87,12 +87,12 @@
     <Compile Include="ConfirmationWindow.xaml.cs">
       <DependentUpon>ConfirmationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\GradePageController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageGradeItemsController.cs" />
     <Compile Include="Controllers\RubricController.cs" />
     <Compile Include="Controllers\TeachHomPageController.cs" />
     <Compile Include="DAL\DesktopGradedItemDAL.cs" />
-    <Compile Include="DAL\DesktopRubricDal.cs" />
     <Compile Include="GradePage.xaml.cs">
       <DependentUpon>GradePage.xaml</DependentUpon>
     </Compile>
