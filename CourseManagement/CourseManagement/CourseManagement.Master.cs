@@ -100,10 +100,9 @@ namespace CourseManagement.Models
 
         private void handleStudentLogin(User currentUser)
         {
-            //TODO get student name here
             StudentDAL studentDAL = new StudentDAL();
             Student student = studentDAL.GetStudentByStudentID(currentUser.UserId);
-            this.lblUsername.Text = "Welcome, " + student.StudentUID + " (" + currentUser.Role + ") ";
+            this.lblUsername.Text = "Welcome, " + student.Name + " (" + currentUser.Role + ") ";
             this.smdsSite.SiteMapProvider = "Student";
             this.menuMain.Visible = true;
         }
@@ -184,7 +183,7 @@ namespace CourseManagement.Models
             this.lblUsername.Text = user.UserId;
             if (user.Role.Equals("teachers"))
             {
-                HttpContext.Current.Response.Redirect("Teacher/TeacherViewAllGrades.aspx");
+                HttpContext.Current.Response.Redirect("Teacher/TeacherSummaryView.aspx");
             }
             else if(user.Role.Equals("students"))
             {
