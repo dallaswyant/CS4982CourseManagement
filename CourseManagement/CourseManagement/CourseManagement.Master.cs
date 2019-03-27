@@ -27,6 +27,11 @@ namespace CourseManagement.Models
                 HttpContext.Current.Session["editing"] = null;
             }
 
+            if (!currentPage.Equals("BrowseCourses"))
+            {
+                HttpContext.Current.Session["justAdded"] = null;
+            }
+
             this.handleSiteNavigationDisplay(currentUser);
             HttpContext.Current.Session["previousPage"] = this.ContentPlaceHolder1.Page.GetType().BaseType.Name;
         }
