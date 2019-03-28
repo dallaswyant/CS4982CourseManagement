@@ -91,6 +91,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageGradeItemsController.cs" />
     <Compile Include="Controllers\RubricController.cs" />
+    <Compile Include="Controllers\SummaryViewController.cs" />
     <Compile Include="Controllers\TeachHomPageController.cs" />
     <Compile Include="DAL\DesktopGradedItemDAL.cs" />
     <Compile Include="GradePage.xaml.cs">
@@ -107,6 +108,9 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="TeacherHomePage.xaml.cs">
       <DependentUpon>TeacherHomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TeacherSummaryViewPage.xaml.cs">
+      <DependentUpon>TeacherSummaryViewPage.xaml</DependentUpon>
     </Compile>
     <Page Include="ConfirmationWindow.xaml">
       <SubType>Designer</SubType>
@@ -144,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TeacherHomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TeacherSummaryViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

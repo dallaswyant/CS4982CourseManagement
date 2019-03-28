@@ -47,6 +47,16 @@
             <Hyperlink Name="goToRubric" NavigateUri="ManageRubricPage.xaml">Manage Rubric</Hyperlink>
         </TextBlock>
 
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="329,20,0,0" TextWrapping="Wrap"
+                   VerticalAlignment="Top" Height="16" Width="72">
+            <Hyperlink Name="goToGrades" NavigateUri="TeacherHomePage.xaml">View Grades</Hyperlink>
+        </TextBlock>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="219.2,20,0,0" TextWrapping="Wrap"
+                   VerticalAlignment="Top" Height="16" Width="95">
+            <Hyperlink Name="goToSummary" NavigateUri="TeacherSummaryViewPage.xaml">Course Summary</Hyperlink>
+        </TextBlock>
+
+
 
     </Grid>
 </Page>

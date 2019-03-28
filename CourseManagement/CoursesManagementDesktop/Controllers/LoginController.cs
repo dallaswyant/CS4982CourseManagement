@@ -53,7 +53,8 @@ namespace CoursesManagementDesktop
             else
             {
                 CourseManagementTools.TeacherID = this.handler.CurrentUser.UserId;
-                var page = new TeacherHomePAge();
+               // var page = new TeacherHomePAge();
+                var page = new TeacherSummaryViewPage();
                 var navigationService = this.page.NavigationService;
                 navigationService?.Navigate(page);
             }
