@@ -83,8 +83,8 @@ namespace CoursesManagementDesktop.Controllers
 
         private void populateAssignmentTypeComboBox()
         {
-            var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.Text,
-                this.assignmentPage.semesterComboBox.Text);
+            var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.SelectedItem as string,
+                this.assignmentPage.semesterComboBox.SelectedItem as string);
             var rubricItems = this.rubricDal.GetCourseRubricByCRN(crn);
             foreach (var item in rubricItems)
             {
@@ -99,8 +99,9 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void PopulateAssignmentComboBox()
         {
-           
-            var assignments = this.gradeItemDal.GetUniqueGradedItemsByCRN(this.CRN);
+            var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.SelectedItem as string,
+                this.assignmentPage.semesterComboBox.SelectedItem as string);
+            var assignments = this.gradeItemDal.GetUniqueGradedItemsByCRN(crn);
 
             foreach (var name in assignments)
             {
