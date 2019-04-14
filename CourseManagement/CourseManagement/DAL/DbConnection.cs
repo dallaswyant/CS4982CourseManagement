@@ -1,5 +1,4 @@
 ﻿using MySql.Data.MySqlClient;
-
 namespace CourseManagement.DAL
 {
     /// <summary>
@@ -13,12 +12,12 @@ namespace CourseManagement.DAL
         /// Gets the connection.
         /// </summary>
         /// <returns> the connection for the database</returns>
-        public static MySqlConnection GetConnection()
+        public static MySql.Data.MySqlClient.MySqlConnection GetConnection()
         {
             var connectionString = "server=160.10.25.16; port=3306; uid=cs4982s19d;" +
                          "pwd=H0KQ5qCgSXKDNdp5; database=cs4982s19d;";
 
-            MySqlConnection dbConnection = new MySqlConnection(connectionString);
+            MySql.Data.MySqlClient.MySqlConnection dbConnection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
             return dbConnection;
         }
 

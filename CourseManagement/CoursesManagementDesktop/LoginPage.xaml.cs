@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using CoursesManagementDesktop.DAL;
 
 namespace CoursesManagementDesktop
 {
@@ -34,8 +36,8 @@ namespace CoursesManagementDesktop
             this.controller.handleLogin();
         }
 
+
         #endregion
 
-        
     }
 }
