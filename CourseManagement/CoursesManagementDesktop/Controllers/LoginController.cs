@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using CoursesManagementDesktop.DAL;
 using CoursesManagementDesktop.Model;
 
 namespace CoursesManagementDesktop
@@ -56,8 +55,6 @@ namespace CoursesManagementDesktop
                 CourseManagementTools.TeacherID = this.handler.CurrentUser.UserId;
                // var page = new TeacherHomePAge();
                 var page = new TeacherSummaryViewPage();
-                OfflineDBBuilder dbBuilder = new OfflineDBBuilder();
-                dbBuilder.CopyAllDBDataToLocal();
                 var navigationService = this.page.NavigationService;
                 navigationService?.Navigate(page);
             }
