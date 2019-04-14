@@ -54,10 +54,14 @@ namespace CoursesManagementDesktop
             else
             {
                 CourseManagementTools.TeacherID = this.handler.CurrentUser.UserId;
+<<<<<<< HEAD
                // var page = new TeacherHomePAge();
                 var page = new TeacherSummaryViewPage();
                 OfflineDBBuilder dbBuilder = new OfflineDBBuilder();
                 dbBuilder.CopyAllDBDataToLocal();
+=======
+                var page = new TeacherHomePAge();
+>>>>>>> parent of fe8870b... Added summary grade page and functionality for it
                 var navigationService = this.page.NavigationService;
                 navigationService?.Navigate(page);
             }
