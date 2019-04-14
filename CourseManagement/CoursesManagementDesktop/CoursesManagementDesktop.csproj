@@ -122,8 +122,15 @@
     <Compile Include="Controllers\RubricController.cs" />
     <Compile Include="Controllers\SummaryViewController.cs" />
     <Compile Include="Controllers\TeachHomPageController.cs" />
+    <Compile Include="DAL\LocalCourseDAL.cs" />
+    <Compile Include="DAL\LocalCourseRubricDAL.cs" />
     <Compile Include="DAL\DesktopGradedItemDAL.cs" />
+    <Compile Include="DAL\LocalDbConnection.cs" />
+    <Compile Include="DAL\LocalGradeItemDAL.cs" />
     <Compile Include="DAL\OfflineDBBuilder.cs" />
+    <Compile Include="DAL\LocalSemesterDAL.cs" />
+    <Compile Include="DAL\LocalStudentDAL.cs" />
+    <Compile Include="DAL\LocalUserDAL.cs" />
     <Compile Include="GradePage.xaml.cs">
       <DependentUpon>GradePage.xaml</DependentUpon>
     </Compile>
