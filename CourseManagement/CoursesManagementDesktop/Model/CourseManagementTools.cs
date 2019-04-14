@@ -26,7 +26,7 @@ namespace CoursesManagementDesktop.Model
         {
             var courseDal = new CourseDAL();
             var crn = -1;
-            //TODO handle here
+
             var courses = courseDal.GetCoursesByTeacherAndSemester(TeacherID, semester);
             foreach (var course in courses)
             {

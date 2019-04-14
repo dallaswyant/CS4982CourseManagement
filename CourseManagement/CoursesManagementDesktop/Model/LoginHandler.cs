@@ -28,7 +28,6 @@ namespace CoursesManagementDesktop.Model
         /// <returns>false is valid credits true other wise</returns>
         public bool IsInvalidCredentials(string username, string password)
         {
-            //TODO handle here
             var userDAL = new UserDAL();
             this.CurrentUser = userDAL.CheckLogin(username, password);
             return this.CurrentUser == null ||

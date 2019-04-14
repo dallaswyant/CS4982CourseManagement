@@ -52,7 +52,6 @@ namespace CoursesManagementDesktop.Controllers
         public void PopulateStudentCombo()
         {
             var index = 0;
-            //TODO handle this getting students offline
             this.students = this.studentDal.GetStudentsByCRN(this.gradePage.CRN);
 
             foreach (var student in this.students)
@@ -78,7 +77,6 @@ namespace CoursesManagementDesktop.Controllers
         public void PopulateAssignmentBox()
         {
             var studentId = this.studentIds[this.gradePage.studentCombo.SelectedIndex];
-            //TODO handle this getting student grade items offline
             this.assignments =
                 this.gradeItemDal.GetGradedItemsByStudentId(studentId, this.gradePage.homePageController.currentCrn);
             foreach (var assignment in this.assignments)
@@ -104,7 +102,6 @@ namespace CoursesManagementDesktop.Controllers
                 GradeId = currentGrade.GradeId,
                 Name = currentGrade.Name
             };
-            //TODO handle here
             this.gradeItemDal.gradeGradedItemByCRNAndStudentUID(updatedGrade,
                 this.gradePage.homePageController.currentCrn, studentId);
 
