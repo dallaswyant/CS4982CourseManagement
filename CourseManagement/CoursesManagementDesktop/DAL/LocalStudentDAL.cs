@@ -99,7 +99,66 @@ namespace CourseManagementDesktop.DAL
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Adds the course to the student's courses by CRN and studentUID
+        /// </summary>
+        /// <param name="CRN">The CRN.</param>
+        /// <param name="studentUID">The student uid.</param>
+        [DataObjectMethod(DataObjectMethodType.Insert)]
+        public void addCourseByCRNAndStudentUID(int CRN, string studentUID)
+        {
+            SQLiteConnection dbConnection = LocalDbConnection.GetConnection();
+
+            using (dbConnection)
+            {
+                dbConnection.Open();
+                var selectQuery =
+                    "INSERT INTO student_has_courses (student_uid, courses_CRN) VALUES (@studentUID,@CRN)";
+                using (SQLiteCommand cmd = new SQLiteCommand(selectQuery, dbConnection))
+                {
+                    cmd.Parameters.AddWithValue("@studentUID", studentUID);
+                    cmd.Parameters.AddWithValue("@CRN", CRN);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            dbConnection.Close();
+        }
+
+
+        public char? GetGradeByCourseAndStudentID(int CRN, string studentUID)
+        {
+            SQLiteConnection dbConnection = LocalDbConnection.GetConnection();
+            using (dbConnection)
+            {
+                dbConnection.Open();
+                var selectQuery = "select * from student_has_courses WHERE student_uid=@studentID AND courses_CRN=@CRNCheck";
+
+                using (SQLiteCommand cmd = new SQLiteCommand(selectQuery, dbConnection))
+                {
+                    cmd.Parameters.AddWithValue("@CRNCheck", CRN);
+                    cmd.Parameters.AddWithValue("@studentID", studentUID);
+                    using (SQLiteDataReader reader = cmd.ExecuteReader())
+                    {
+                        int gradeOrdinal = reader.GetOrdinal("grade_earned");
+
+
+                        while (reader.Read())
+                        {
+                            char grade = reader[gradeOrdinal] == DBNull.Value
+                                ? default(char)
+                                : reader.GetChar(gradeOrdinal);
+
+                            return grade;
+                        }
+                    }
+                }
+
+                return null;
+            }
+        }
+
         #endregion
 
     }

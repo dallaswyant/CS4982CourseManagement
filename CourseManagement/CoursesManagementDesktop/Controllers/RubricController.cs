@@ -175,7 +175,7 @@ namespace CoursesManagementDesktop.Controllers
         {
            
             var assignmentWeightBox = int.Parse(this.rubricPage.assignmentWeightBox.Text);
-            this.rubricDAL.AddCourseRubric(this.rubricPage.assignmentTypeBox.Text, assignmentWeightBox, this.rubricPage.CRN);
+            this.rubricDAL.InsertCourseRubric(this.rubricPage.assignmentTypeBox.Text, assignmentWeightBox, this.rubricPage.CRN);
             this.refresh();
             this.SetWarningText();
         }
