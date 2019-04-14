@@ -55,6 +55,7 @@ namespace CoursesManagementDesktop.Controllers
         private void populateSemesterComboBox()
         {
             var index = 0;
+            // TODO handle here
             var semesters = this.semesterDal.GetAllSemesters();
             foreach (var semester in semesters)
             {
@@ -70,6 +71,7 @@ namespace CoursesManagementDesktop.Controllers
 
         private void populateCourseComboBox()
         {
+            //TODO handle here
             var semester = this.assignmentPage.semesterComboBox.Text;
             var courses = this.courseDal.GetCoursesByTeacherAndSemester(CourseManagementTools.TeacherID, semester);
 
@@ -85,6 +87,7 @@ namespace CoursesManagementDesktop.Controllers
         {
             var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.Text,
                 this.assignmentPage.semesterComboBox.Text);
+            //TODO handle here
             var rubricItems = this.rubricDal.GetCourseRubricByCRN(crn);
             foreach (var item in rubricItems)
             {
@@ -99,7 +102,7 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void PopulateAssignmentComboBox()
         {
-           
+           //TODO handle here
             var assignments = this.gradeItemDal.GetUniqueGradedItemsByCRN(this.CRN);
 
             foreach (var name in assignments)
@@ -128,6 +131,7 @@ namespace CoursesManagementDesktop.Controllers
             var isChecked = this.assignmentPage.visibilityCheckBox.IsChecked;
             var item = new GradeItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, string.Empty, 0,
                 isChecked != null && isChecked.Value, null);
+            //TODO handle here
             this.gradeItemDal.InsertNewGradedItemByCRNForAllStudents(item, this.CRN);
         }
 
@@ -136,7 +140,7 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void DisplayGradeItemDetails()
         {
-           
+           //TODO handle here
             this.selectedGradeItem =
                 this.gradeItemDal.GetGradedItemByCRNAndGradeName(this.CRN,
                     this.assignmentPage.AssignmentCombo.SelectedItem as string);
@@ -159,6 +163,7 @@ namespace CoursesManagementDesktop.Controllers
                 
                 if (this.selectedGradeItem != null)
                 {
+                    //TODO handle here
                     this.gradeItemDal.deleteGradedItemByCRNForAllStudents(this.selectedGradeItem, this.CRN);
                     this.assignmentPage.AssignmentCombo.Items.Remove(this.selectedGradeItem.Name);
                     this.assignmentPage.AssignmentCombo.SelectedIndex = 0;
@@ -177,6 +182,7 @@ namespace CoursesManagementDesktop.Controllers
                
                 this.selectedGradeItem.Name = this.assignmentPage.assignmentNameBox.Text;
                 this.selectedGradeItem.PossiblePoints = int.Parse(this.assignmentPage.pointsBox.Text);
+                //TODO handle here
                 this.gradeItemDal.UpdateGradeItemByCRNAndOldNameForAllStudents(this.selectedGradeItem, this.CRN,
                     this.assignmentPage.AssignmentCombo.SelectedItem as string);
                 this.assignmentPage.AssignmentCombo.Items.Clear();
