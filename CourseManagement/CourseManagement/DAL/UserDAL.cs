@@ -20,13 +20,15 @@ namespace CourseManagement.DAL
         /// <returns>A user with the selected credentials, if one exists</returns>
         public User CheckLogin(string username, string password)
         {
+            var selectQuery =
+                "SELECT `users`.`uid`, `users`.password, `roles`.role_name  FROM `users`, `user_has_role`, `roles` WHERE `users`.`uid` = `user_has_role`.user_uid AND `user_has_role`.`roles_role_id` = `roles`.role_id AND users.uid = @username";
             MySqlConnection dbConnection = DbConnection.GetConnection();
 
             using (dbConnection)
             {
                 dbConnection.Open();
-                var selectQuery =
-                    "SELECT `users`.`uid`, `users`.password, `roles`.role_name  FROM `users`, `user_has_role`, `roles` WHERE `users`.`uid` = `user_has_role`.user_uid AND `user_has_role`.`roles_role_id` = `roles`.role_id AND users.uid = @username";
+                //var selectQuery =
+                    //"SELECT `users`.`uid`, `users`.password, `roles`.role_name  FROM `users`, `user_has_role`, `roles` WHERE `users`.`uid` = `user_has_role`.user_uid AND `user_has_role`.`roles_role_id` = `roles`.role_id AND users.uid = @username";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {

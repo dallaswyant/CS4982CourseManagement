@@ -122,6 +122,7 @@
     <Compile Include="Controllers\RubricController.cs" />
     <Compile Include="Controllers\SummaryViewController.cs" />
     <Compile Include="Controllers\TeachHomPageController.cs" />
+    <Compile Include="DAL\DbManager.cs" />
     <Compile Include="DAL\LocalCourseDAL.cs" />
     <Compile Include="DAL\LocalCourseRubricDAL.cs" />
     <Compile Include="DAL\DesktopGradedItemDAL.cs" />

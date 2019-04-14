@@ -94,64 +94,6 @@ namespace CourseManagement.DAL
 
 
         /// <summary>
-        /// Adds the course rubric.
-        /// </summary>
-        /// <param name="CRNCheck">The CRN check.</param>
-        /// <param name="rubricToAdd">The rubric to add.</param>
-        /// <preconditions>
-        /// CRNCheck must be greater than or equal to 0
-        /// AND
-        /// The list of rubric items cannot be null
-        /// </preconditions>
-        /// <postcondition>
-        /// The database now has the rubric selected for the given CRNCheck
-        /// </postcondition>
-        public void AddCourseRubric(int CRNCheck, List<RubricItem> rubricToAdd)
-        {
-            if (CRNCheck <= 0)
-            {
-                throw new Exception("CRNCheck must be greater than or equal to 0");
-            }
-
-            if (rubricToAdd == null)
-            {
-                throw new Exception("The list of rubric items cannot be null");
-            }
-            string assignment_types = "";
-            string weight_per_types = "";
-            for (int i = 0; i < rubricToAdd.Count; i++)
-            {
-                if (i == rubricToAdd.Count - 1)
-                {
-                    assignment_types += rubricToAdd[i].AssignmentType;
-                    weight_per_types += rubricToAdd[i].AssignmentWeight;
-                }
-                else
-                {
-                    assignment_types += rubricToAdd[i].AssignmentType + "/";
-                    weight_per_types += rubricToAdd[i].AssignmentWeight + "/";
-                }
-            }
-            MySqlConnection dbConnection = DbConnection.GetConnection();
-            using (dbConnection)
-            {
-                dbConnection.Open();
-                var selectQuery =
-                    "INSERT INTO rubrics(assignment_types, weight_per_type,CRN) VALUES (@assignment_types,@weight_per_type,@CRNToAdd)";
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
-                {
-                    cmd.Parameters.AddWithValue("@assignment_types", assignment_types);
-                    cmd.Parameters.AddWithValue("@weight_per_type", weight_per_types);
-                    cmd.Parameters.AddWithValue("@CRN", CRNCheck);
-
-                    cmd.ExecuteNonQuery();
-                }
-
-                dbConnection.Close();
-            }
-        }
-
-        /// <summary>
         /// Updates the course rubric.
         /// </summary>
         /// <param name="crn">The CRN.</param>
@@ -383,7 +325,7 @@ namespace CourseManagement.DAL
             }
         }
 
-        public void InsertCourseRubric(string assignmentType, int assignmentWeight,int crn)
+        public void AddCourseRubric(string assignmentType, int assignmentWeight,int crn)
         {
             if (assignmentType == null)
             {
