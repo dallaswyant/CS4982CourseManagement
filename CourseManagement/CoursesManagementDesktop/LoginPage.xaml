@@ -21,10 +21,10 @@
         </Grid.RowDefinitions>
 
 
-        <Grid Background="Black" HorizontalAlignment="Stretch" Height="159" VerticalAlignment="Top"
+        <Grid Background="#FF898989" HorizontalAlignment="Stretch" Height="159" VerticalAlignment="Top"
               RenderTransformOrigin="0.509,0.037" Grid.ColumnSpan="3" Margin="0,0,-0.4,0">
 
-            <TextBlock Foreground="#E5EAEE" Text="CourseHub" TextWrapping="Wrap" VerticalAlignment="Center"
+            <TextBlock Foreground="DarkSlateGray" Text="CourseHub" TextWrapping="Wrap" VerticalAlignment="Center"
                        FontSize="50" Height="82" FontFamily="Rockwell Extra Bold" HorizontalAlignment="Center"
                        Width="369" Margin="380,41,341,36" />
         </Grid>

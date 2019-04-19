@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using CourseManagement.Models;
+using CourseManagement.Utilities;
 using MySql.Data.MySqlClient;
 
 namespace CourseManagement.DAL
@@ -431,6 +433,8 @@ namespace CourseManagement.DAL
                 dbConnection.Close();
             }
         }
+
+        
         public void PublishGradeItemByNameAndCRNForAllStudents(int CRN, string name, bool isPublic)
         {
             MySqlConnection dbConnection = DbConnection.GetConnection();

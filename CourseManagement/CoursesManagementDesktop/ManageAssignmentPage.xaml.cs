@@ -50,6 +50,7 @@ namespace CoursesManagementDesktop
             this.gradeItemsController.DisplayGradeItemDetails();
             this.CRN =  CourseManagementTools.findCrn(this.courseComboBox.SelectedItem as string,
                 this.semesterComboBox.SelectedItem as string);
+           
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -68,6 +69,16 @@ namespace CoursesManagementDesktop
         {
           this.CRN =  CourseManagementTools.findCrn(this.courseComboBox.SelectedItem as string,
                 this.semesterComboBox.SelectedItem as string);
+        }
+
+        private void VisibilityCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            this.gradeItemsController.updateVisibility();
+        }
+
+        private void VisibilityCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.gradeItemsController.updateVisibility();
         }
     }
 }

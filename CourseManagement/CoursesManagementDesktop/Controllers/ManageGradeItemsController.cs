@@ -137,15 +137,17 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void DisplayGradeItemDetails()
         {
-           
+            var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.SelectedItem as string,
+                this.assignmentPage.semesterComboBox.SelectedItem as string);
             this.selectedGradeItem =
-                this.gradeItemDal.GetGradedItemByCRNAndGradeName(this.CRN,
+                this.gradeItemDal.GetGradedItemByCRNAndGradeName(crn,
                     this.assignmentPage.AssignmentCombo.SelectedItem as string);
             if (this.selectedGradeItem != null)
             {
                 this.assignmentPage.assignmentNameBox.Text = this.selectedGradeItem.Name;
                 this.assignmentPage.pointsBox.Text =
                     this.selectedGradeItem.PossiblePoints.ToString(CultureInfo.CurrentCulture);
+                this.assignmentPage.visibilityCheckBox.IsChecked = this.selectedGradeItem.IsPublic;
             }
         }
 
@@ -175,15 +177,29 @@ namespace CoursesManagementDesktop.Controllers
             var value = showConfirmDialog("Edit This Item?");
             if (value != null && value == true)
             {
-               
+                var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.SelectedItem as string,
+                    this.assignmentPage.semesterComboBox.SelectedItem as string);
                 this.selectedGradeItem.Name = this.assignmentPage.assignmentNameBox.Text;
                 this.selectedGradeItem.PossiblePoints = int.Parse(this.assignmentPage.pointsBox.Text);
-                this.gradeItemDal.UpdateGradeItemByCRNAndOldNameForAllStudents(this.selectedGradeItem, this.CRN,
+                var isChecked = this.assignmentPage.visibilityCheckBox.IsChecked;
+                if (isChecked != null)
+                    this.selectedGradeItem.IsPublic = (bool) isChecked;
+                this.gradeItemDal.UpdateGradeItemByCRNAndOldNameForAllStudents(this.selectedGradeItem, crn,
                     this.assignmentPage.AssignmentCombo.SelectedItem as string);
                 this.assignmentPage.AssignmentCombo.Items.Clear();
                 this.PopulateAssignmentComboBox();
                 this.assignmentPage.AssignmentCombo.SelectedIndex = 0;
             }
+        }
+
+        public void updateVisibility()
+        {
+            var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.SelectedItem as string,
+                this.assignmentPage.semesterComboBox.SelectedItem as string);
+            var assignmentName = this.assignmentPage.AssignmentCombo.SelectedItem as string;
+            var isChecked = this.assignmentPage.visibilityCheckBox.IsChecked;
+            bool isPublic = isChecked != null && (bool) isChecked;
+            this.gradeItemDal.PublishGradeItemByNameAndCRNForAllStudents(crn,assignmentName,isPublic);
         }
 
         private static bool? showConfirmDialog(string dialogText)

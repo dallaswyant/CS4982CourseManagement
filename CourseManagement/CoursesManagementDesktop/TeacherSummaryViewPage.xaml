@@ -20,7 +20,7 @@
             <RowDefinition Height="26*" />
             <RowDefinition Height="366*" />
         </Grid.RowDefinitions>
-        <DataGrid x:Name="dataGridGrades"  HorizontalAlignment="Stretch" ColumnWidth="*"
+        <DataGrid x:Name="dataGridGrades" IsReadOnly="True"  HorizontalAlignment="Stretch" ColumnWidth="*"
                   CanUserAddRows="False" AutoGenerateColumns="True" Margin="92,21.8,9.2,193.6" Grid.Row="3" Grid.ColumnSpan="2" >
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell">
