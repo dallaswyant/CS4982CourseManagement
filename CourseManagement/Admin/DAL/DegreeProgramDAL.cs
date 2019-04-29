@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using CourseManagement.Models;
+using Admin.Models;
 using MySql.Data.MySqlClient;
 
-namespace CourseManagement.DAL
+namespace Admin.DAL
 {
     public class DegreeProgramDAL
     {
@@ -50,7 +50,7 @@ namespace CourseManagement.DAL
         {
             if (degreeProgramName == null)
             {
-                throw new Exception("Degree name cannot be null");
+                throw new Exception("Teacher name cannot be null");
             }
             MySqlConnection dbConnection = DbConnection.GetConnection();
             List<string> coursesRequired = new List<string>();
@@ -84,52 +84,6 @@ namespace CourseManagement.DAL
                 }
             }
         }
-
-
-        public List<String> GetApplicableCoursesByDegreeProgram(string degreeProgramName)
-        {
-            if (degreeProgramName == null)
-            {
-                return null;
-            }
-            MySqlConnection dbConnection = DbConnection.GetConnection();
-            List<String> coursesRequired = new List<String>();
-            using (dbConnection)
-            {
-
-                dbConnection.Open();
-
-                var selectQuery =
-                    "SELECT Distinct degree_requires_courses.*, courses.course_name " +
-                    "FROM degree_requires_courses, degree_programs, courses " +
-                    "WHERE degree_programs.degree_id = degree_requires_courses.degree_id " +
-                    "AND degree_programs.name = @degree_program_name " +
-                    "AND degree_requires_courses.course_name = courses.course_name " +
-                    "AND courses.dept_name = @degree_program_name";
-
-                using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
-                {
-                    cmd.Parameters.AddWithValue("@degree_program_name", degreeProgramName);
-                    using (MySqlDataReader queryResultReader = cmd.ExecuteReader())
-                    {
-                        int courseOrdinal = queryResultReader.GetOrdinal("course_name");
-
-                        while (queryResultReader.Read())
-                        {
-                            string degreeName = queryResultReader[courseOrdinal] == DBNull.Value
-                                ? default(string)
-                                : queryResultReader.GetString(courseOrdinal);
-
-                            coursesRequired.Add(degreeName);
-                        }
-
-                        return coursesRequired;
-                    }
-                }
-            }
-        }
-
-
 
         public string GetDegreeProgramByStudentID(string studentIDCheck)
         {

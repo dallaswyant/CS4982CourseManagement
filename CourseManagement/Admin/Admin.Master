@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="CourseManagement.master.cs" Inherits="CourseManagement.Models.CourseManagement" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.Master.cs" Inherits="CourseManagementAdministration.Models.CourseManagement" %>
 
 <!DOCTYPE html>
 
@@ -36,9 +36,9 @@
         <form id="form1" runat="server">
             <section class="sitemap">
                 
-                <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" SiteMapProvider="Student" />
+                <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" SiteMapProvider="Admin" />
                     
-                <asp:SiteMapDataSource ID="smdsSite" runat="server" ShowStartingNode="False" />
+                <asp:SiteMapDataSource ID="smdsSite" runat="server" ShowStartingNode="False" SiteMapProvider="Admin" />
          
             </section>
             <section class="body">

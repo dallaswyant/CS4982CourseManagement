@@ -1,0 +1,45 @@
+﻿header {
+    color:darkslategray;
+}
+.body {
+    margin: auto;
+    width: 50%;
+}
+body {
+    background: #E5EAEE;
+}
+.menu {
+    background: black;
+}
+h1 {
+    font: 29px/30px "AR Bonnie", AR Bonnie, serif;
+}
+
+.table {
+    width: 500px;
+}
+
+.sitemap {
+    float: left;
+    height: 25em;
+    display: flex;
+    align-items: center;
+    justify-content: center 
+
+}
+.StaticMenuStyle {
+    color: white;
+}
+.StaticMenuItemStyle {
+    color: white;
+}
+
+.textShadow a.static.highlighted {
+
+    color: aqua;
+}
+
+
+.error {
+    color: red;
+}

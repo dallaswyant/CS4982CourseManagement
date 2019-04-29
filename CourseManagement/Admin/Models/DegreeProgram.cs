@@ -1,13 +1,12 @@
-﻿namespace CourseManagement.Models
+﻿namespace Admin.Models
 {
-    //TODO not in use discuss removal
     public class DegreeProgram
     {
         #region Properties
         /// <summary>
         /// gets the name
         /// </summary>
-        public string Name { get; }
+        public string name { get; }
         /// <summary>
         /// gets the required courses
         /// </summary>
@@ -23,9 +22,8 @@
         /// <param name="requiredCourses"> courses required</param>
         public DegreeProgram(string name, CourseCollection requiredCourses)
         {
-            this.Name = name;
+            this.name = name;
             this.RequiredCourses = requiredCourses;
-            //remove duplicates
         }
 
         #endregion

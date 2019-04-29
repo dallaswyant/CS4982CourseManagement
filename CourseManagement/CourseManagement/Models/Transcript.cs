@@ -21,7 +21,9 @@ namespace CourseManagement.Models
             this.CourseReports = new List<StudentCourseReport>();
            
             requiredCourses.AddRange(coursesTaken.Where(courseTaken =>
-                requiredCourses.All(coursesRequired => coursesRequired.CRN != courseTaken.CRN)));
+                requiredCourses.All(coursesRequired => coursesRequired.Name != courseTaken.Name)));
+
+
             this.Courses = new List<Course>(requiredCourses);
         }
 
@@ -31,17 +33,15 @@ namespace CourseManagement.Models
             public DegreeProgram DegreeProgram { get; private set; }
             public String DegreeProgramName => this.DegreeProgram.Name;
             private char? grade;
-            public bool IsRequired => this.DegreeProgram.RequiredCourses.Courses.Exists(course => course.CRN == this.CRN);
+            public bool IsRequired => this.DegreeProgram.RequiredCourses.Courses.Exists(course => course.Name == this.Name);
             public String CourseStatus { get; private set; }
             public Student Student { get; }
             public StudentCourseReport(Course course, DegreeProgram program, Student student, char? grade, CourseTime time) 
                 : base(course.CRN, course.DepartmentName,course.Name,course.Description,course.SectionNumber,course.MaxSeats, 
                     course.Location,course.SemesterID,course.CourseTimeID)
             {
-
                 this.DegreeProgram = program;
                 this.Student = student;
-
                 this.grade = grade;
                 if (time.CourseStart < DateTime.Now && DateTime.Now < time.CourseEnd)
                 {
@@ -62,10 +62,7 @@ namespace CourseManagement.Models
                 {
                     this.setStatus(Status.Completed);
                 }
-
-
             }
-
 
             private void setStatus(Status status)
             {
@@ -83,7 +80,6 @@ namespace CourseManagement.Models
                     case Status.Default:
                         this.CourseStatus = "";
                         break;
-
                 }
             }
         }

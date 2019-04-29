@@ -8,12 +8,12 @@ namespace CourseManagement.DAL
 {
     public class TranscriptDAL
     {
-
+        /**
         public List<Transcript.StudentCourseReport> GetDegreeReport(string studentIDCheck)
         {
             DegreeProgramDAL programDAL = new DegreeProgramDAL();
             String degreeProgram = programDAL.GetDegreeProgramByStudentID(studentIDCheck);
-            CourseCollection requiredCourses = programDAL.GetCoursesByDegreeProgram(degreeProgram);
+            List<String> requiredCourses = programDAL.GetApplicableCoursesByDegreeProgram(degreeProgram);
             DegreeProgram program = new DegreeProgram(degreeProgram, requiredCourses);
             StudentDAL studentDal = new StudentDAL();
             Student student = studentDal.GetStudentByStudentID(studentIDCheck);
@@ -29,7 +29,9 @@ namespace CourseManagement.DAL
                 Transcript.StudentCourseReport courseReport = new Transcript.StudentCourseReport(course,program,student,grade,time);
                 transcript.CourseReports.Add(courseReport);
             }
+
             return transcript.CourseReports;
         }
+    */
     }
 }
