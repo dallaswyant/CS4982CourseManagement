@@ -30,21 +30,6 @@
                     <asp:BoundField DataField="DepartmentName" HeaderText="DepartmentName" ReadOnly="True" SortExpression="DepartmentName" />
                     <asp:BoundField DataField="MaxSeats" HeaderText="MaxSeats" ReadOnly="True" SortExpression="MaxSeats" />
                     <asp:BoundField DataField="SemesterID" HeaderText="SemesterID" ReadOnly="True" SortExpression="SemesterID" />
-		            <asp:TemplateField HeaderText="Course Days">
-		                <ItemTemplate>
-		                <asp:Label ID="Label1" runat="server" Text='<%# Bind("CourseTime.CourseDays") %>'></asp:Label>
-		                </ItemTemplate>
-		            </asp:TemplateField>
-		            <asp:TemplateField HeaderText ="Course Start">
-		                <ItemTemplate>
-		                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("CourseTime.CourseStart.TimeOfDay") %>'></asp:Label>
-		                </ItemTemplate>
-		            </asp:TemplateField>
-		            <asp:TemplateField HeaderText ="Course End">
-		                <ItemTemplate>
-		                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("CourseTime.CourseEnd.TimeOfDay") %>'></asp:Label>
-		                </ItemTemplate>
-		            </asp:TemplateField>
 		        </Columns>
 		    </asp:GridView>
 		    <asp:ObjectDataSource ID="odsStudentCourses" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetCoursesByStudentIDAndSemester" TypeName="CourseManagement.DAL.CourseDAL">
@@ -66,21 +51,6 @@
             <asp:BoundField DataField="DepartmentName" HeaderText="DepartmentName" ReadOnly="True" SortExpression="DepartmentName" />
             <asp:BoundField DataField="MaxSeats" HeaderText="MaxSeats" ReadOnly="True" SortExpression="MaxSeats" />
             <asp:BoundField DataField="SemesterID" HeaderText="SemesterID" ReadOnly="True" SortExpression="SemesterID" />
-            <asp:TemplateField HeaderText="Course Days">
-                <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("CourseTime.CourseDays") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText ="Course Start">
-                <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("CourseTime.CourseStart.TimeOfDay") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText ="Course End">
-                <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("CourseTime.CourseEnd.TimeOfDay") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
             <asp:CommandField ShowSelectButton="True" />
         </Columns>
         </asp:GridView>

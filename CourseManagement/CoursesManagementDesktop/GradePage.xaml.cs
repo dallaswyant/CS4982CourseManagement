@@ -1,92 +1,163 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using CourseManagement.DAL;
+using CourseManagement.Models;
 using CoursesManagementDesktop.Controllers;
 
 namespace CoursesManagementDesktop
 {
     /// <summary>
-    ///     Interaction logic for GradePage.xaml
+    /// Interaction logic for GradePage.xaml
     /// </summary>
     public partial class GradePage : Page
     {
-        #region Data members
-
-        private readonly GradePageController gradePageController;
-
-        #endregion
-
-        #region Properties
-
-        public TeacherHomePageController homePageController { get; }
-
-        public int CRN { get; }
-
-        #endregion
-
-        #region Constructors
-
+        private TeacherHomePageController controller;
+        private readonly StudentDAL studentDal;
+        private readonly GradeItemDAL gradeItemDal;
+        private List<Student> students;
+        private List<GradeItem> assignments;
+        private Dictionary<int, string> studentIds;
         /// <summary>
-        ///     Grade page constructor
+        /// Grade page constructor
         /// </summary>
-        /// <param name="homePageController">the programs homePageController</param>
+        /// <param name="controller">the programs controller</param>
         /// <precondition>
-        ///     homePageController != null
+        ///controller != null
         /// </precondition>
-        public GradePage(TeacherHomePageController homePageController)
+        public GradePage(TeacherHomePageController controller)
         {
-            if (homePageController == null)
+            if (controller == null)
             {
-                throw new ArgumentException("homePageController cannot be null");
+                throw new ArgumentException("controller cannot be null");
             }
-
-            this.InitializeComponent();
-            this.gradePageController = new GradePageController(this);
-            this.homePageController = homePageController;
-            this.CRN = this.homePageController.currentCrn;
-            this.gradePageController.PopulateStudentCombo();
-            this.gradePageController.SetGradeInfo();
+            InitializeComponent();
+            this.studentDal = new StudentDAL();
+            this.gradeItemDal = new GradeItemDAL();
+            this.studentIds = new Dictionary<int, string>();
+            this.controller = controller;
+            populateStudentCombo();
+            setGradeInfo();
         }
 
-        #endregion
+        private void setGradeInfo()
+        {
+            var assignment = this.assignments[this.assignmentBox.SelectedIndex];
+            this.earnedPointsBox.Text = assignment.Grade.ToString();
+            this.feedBackBox.Text = assignment.Feedback;
+            this.possiblePoints.Text = "/" + assignment.PossiblePoints;
+        }
 
-        #region Methods
+
+        private void populateStudentCombo()
+        {
+            var index = 0; 
+            this.students = this.studentDal.GetStudentsByCRN(this.controller.currentCrn);
+
+            foreach (var student in students)
+            {
+                this.studentCombo.Items.Add(student.Name);
+                studentIds.Add(index,student.StudentUID);
+                index++;
+            }
+
+            if (this.controller.selectedStudent > -1)
+            {
+                this.studentCombo.SelectedIndex = this.controller.selectedStudent;
+            }
+            else
+            {
+
+                this.studentCombo.SelectedIndex = 0;
+            }
+        }
+
+        private void populateAssignmentBox()
+        {
+            var studentId = studentIds[this.studentCombo.SelectedIndex];
+            this.assignments = this.gradeItemDal.GetGradedItemsByStudentId(studentId ,this.controller.currentCrn);
+            foreach (var assignment in assignments)
+            {
+                this.assignmentBox.Items.Add(assignment.Name);
+            }
+
+            this.assignmentBox.SelectedIndex = 0;
+        }
 
         private void GradeButton_Click(object sender, RoutedEventArgs e)
         {
-            this.gradePageController.GradeCurrentItem();
+            confirmationWindow window = new confirmationWindow();
+            window.Owner = Window.GetWindow(this);
+            window.ShowDialog();
+            var currentGrade = this.assignments[this.assignmentBox.SelectedIndex];
+            var studentId = studentIds[this.studentCombo.SelectedIndex];
+            var updatedGrade = new GradeItem()
+            {
+                Feedback = this.feedBackBox.Text,
+                Grade = int.Parse(this.earnedPointsBox.Text),
+                GradeId = currentGrade.GradeId,
+                Name = currentGrade.Name
+            };
+            this.gradeItemDal.gradeGradedItemByCRNAndStudentUID(updatedGrade,this.controller.currentCrn,studentId);
+            
+            showNextStudent();
+
         }
 
         private void updateGradeInfo()
         {
-            this.assignmentBox.SelectionChanged -= this.AssignmentBox_SelectionChanged;
+            this.assignmentBox.SelectionChanged -= AssignmentBox_SelectionChanged;
             this.assignmentBox.Items.Clear();
-            this.assignmentBox.SelectionChanged += this.AssignmentBox_SelectionChanged;
-            this.gradePageController.PopulateAssignmentBox();
-            this.gradePageController.SetGradeInfo();
+            this.assignmentBox.SelectionChanged += AssignmentBox_SelectionChanged;
+            populateAssignmentBox();
+            setGradeInfo();
         }
+
+        
 
         private void StudentCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.updateGradeInfo();
+            updateGradeInfo();
         }
 
         private void AssignmentBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.gradePageController.SetGradeInfo();
+            setGradeInfo();
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            this.gradePageController.ShowNextStudent();
+            showNextStudent();
+        }
+
+        private void showNextStudent()
+        {
+            if (this.studentCombo.SelectedIndex + 1 == this.studentCombo.Items.Count)
+            {
+                this.studentCombo.SelectedIndex = 0;
+            }
+            else
+            {
+                this.studentCombo.SelectedIndex += 1;
+            }
         }
 
         private void ViewGrades_Click(object sender, RoutedEventArgs e)
         {
-            this.homePageController.LoadDataGrid();
+            this.controller.LoadDataGrid();
             NavigationService.GoBack();
+            
         }
-
-        #endregion
     }
 }

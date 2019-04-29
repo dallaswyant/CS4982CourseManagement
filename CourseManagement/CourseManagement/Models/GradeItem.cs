@@ -25,7 +25,7 @@ namespace CourseManagement.Models
         /// <summary>
         /// gets the possible points
         /// </summary>
-        public double PossiblePoints { get; set; }
+        public double PossiblePoints { get;  }
         /// <summary>
         /// gets the gradetype
         /// </summary>

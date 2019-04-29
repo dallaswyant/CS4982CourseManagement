@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using CourseManagement.DAL;
 using CoursesManagementDesktop.DAL;
 using CoursesManagementDesktop.Model;
@@ -12,29 +13,21 @@ namespace CoursesManagementDesktop.Controllers
     {
         #region Data members
 
+        
         private readonly CourseDAL courseDAL;
         private readonly GradeItemDAL gradedItemDal;
         private readonly DesktopGradedItemDAL desktopGradedItemDal;
         private readonly SemesterDAL semesterDal;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///     public property for current crn
-        /// </summary>
+         /// <summary>
+         /// public property for current crn
+         /// </summary>
         public int currentCrn { get; private set; }
-
         /// <summary>
-        ///     public property for selected student index
+        /// public property for selected student index
         /// </summary>
-        public int selectedStudent { get; set; }
-
-        public int selectedAssignment { get; set; }
-
+        public int selectedStudent { get;  set; }
         /// <summary>
-        ///     public property for the main teacher page
+        /// public property for the main teacher page
         /// </summary>
         public TeacherHomePAge homePage { get; }
 
@@ -52,7 +45,6 @@ namespace CoursesManagementDesktop.Controllers
             {
                 throw new ArgumentException("page cannot be null");
             }
-
             this.homePage = page;
             this.courseDAL = new CourseDAL();
             this.gradedItemDal = new GradeItemDAL();
@@ -73,20 +65,19 @@ namespace CoursesManagementDesktop.Controllers
             this.populateCourseComboBox();
             this.populateAssignmentComboBox();
         }
-
         /// <summary>
-        ///     updates the assignment combo box to the new assignments
+        /// updates the assignment combo box to the new assignments
         /// </summary>
         public void updateAssignmentBox()
         {
-            this.homePage.AssignmentCombo.Items.Clear();
-            this.populateAssignmentComboBox();
+           this.homePage.AssignmentCombo.Items.Clear();
+           this.populateAssignmentComboBox();
+
         }
 
-        private void populateAssignmentComboBox()
+        private  void  populateAssignmentComboBox()
         {
-            var crn = CourseManagementTools.findCrn(this.homePage.CourseCombo.Text,
-                this.homePage.semesterBox.SelectedItem as string);
+            var crn = CourseManagementTools.findCrn(this.homePage.CourseCombo.Text,this.homePage.semesterBox.Text);
             var assignments = this.gradedItemDal.GetUniqueGradedItemsByCRN(crn);
 
             foreach (var name in assignments)
@@ -99,8 +90,8 @@ namespace CoursesManagementDesktop.Controllers
 
         private void populateCourseComboBox()
         {
-            var semester = this.homePage.semesterBox.Text;
-            var courses = this.courseDAL.GetCoursesByTeacherAndSemester(CourseManagementTools.TeacherID, semester);
+            string semester = this.homePage.semesterBox.Text;
+            var courses = this.courseDAL.GetCoursesByTeacherAndSemester(CourseManagementTools.TeacherID,semester);
 
             foreach (var name in courses)
             {
@@ -112,12 +103,12 @@ namespace CoursesManagementDesktop.Controllers
 
         private void populateSemesterComboBox()
         {
-            var index = 0;
+            int index = 0;
             var semesters = this.semesterDal.GetAllSemesters();
             foreach (var semester in semesters)
             {
                 this.homePage.semesterBox.Items.Add(semester.SemesterID);
-                if ((semester.StartDate < DateTime.Now) & (semester.EndDate > DateTime.Now))
+                if (semester.StartDate < DateTime.Now & semester.EndDate > DateTime.Now)
                 {
                     this.homePage.semesterBox.SelectedIndex = index;
                 }
@@ -131,14 +122,15 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void LoadDataGrid()
         {
-            var name = this.homePage.AssignmentCombo.SelectedItem == null
-                ? ""
-                : this.homePage.AssignmentCombo.SelectedItem.ToString();
-            var crn = CourseManagementTools.findCrn(this.homePage.CourseCombo.Text,
-                this.homePage.semesterBox.SelectedItem as string);
-            this.desktopGradedItemDal.populateDataGrid(crn, name, this.homePage.dataGridGrades);
-            this.currentCrn = crn;
+         
+                var name = this.homePage.AssignmentCombo.SelectedItem ==null ? "":this.homePage.AssignmentCombo.SelectedItem.ToString();
+                var crn = CourseManagementTools.findCrn(this.homePage.CourseCombo.Text,this.homePage.semesterBox.Text);
+                this.desktopGradedItemDal.populateDataGrid(crn, name, this.homePage.dataGridGrades);
+                this.currentCrn = crn;
+
         }
+
+        
 
         #endregion
     }

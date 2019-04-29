@@ -1,9 +1,21 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
-using CoursesManagementDesktop.Controllers;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 //using CourseManagement.App_Code;
 //using CourseManagement.DAL;
-
+using CoursesManagementDesktop.Controllers;
+using CoursesManagementDesktop.DAL;
 //
 
 namespace CoursesManagementDesktop
@@ -19,6 +31,8 @@ namespace CoursesManagementDesktop
 
         #endregion
 
+      
+
         #region Constructors
 
         /// <summary>
@@ -28,9 +42,12 @@ namespace CoursesManagementDesktop
         public TeacherHomePAge()
         {
             this.InitializeComponent();
-
+          
             this.controller = new TeacherHomePageController(this);
+
             this.controller.populateComboBoxes();
+
+            
         }
 
         #endregion
@@ -49,24 +66,42 @@ namespace CoursesManagementDesktop
             navigationService?.Navigate(page);
         }
 
+        
+
+        private  void CourseCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
+        }
+
+        #endregion
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.AssignmentCombo.Items.Clear();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            //this.controller.updateAssignmentBox();
+        }
+
         private void SelectGradeBtn_Click(object sender, RoutedEventArgs e)
         {
             if (this.dataGridGrades.SelectedIndex > -1)
             {
-                this.controller.selectedStudent = this.dataGridGrades.SelectedIndex;
-                this.controller.selectedAssignment = this.AssignmentCombo.SelectedIndex;
+                this.controller.selectedStudent = dataGridGrades.SelectedIndex;
             }
-
-            var page = new GradePage(this.controller);
+            GradePage page = new GradePage(this.controller); 
             var navigationService = NavigationService;
             navigationService?.Navigate(page);
+
         }
 
         private void SemesterBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.controller.LoadDataGrid();
+
         }
 
-        #endregion
+        
     }
 }
