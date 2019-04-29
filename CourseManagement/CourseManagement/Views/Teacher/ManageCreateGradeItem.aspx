@@ -197,7 +197,7 @@
             <td class="auto-style7" colspan="5">&nbsp;</td>
             <td>
                 Is Visible For Students:
-                <asp:CheckBox ID="cbxIsVisible" runat="server" />
+                <asp:CheckBox ID="cbxIsVisible" runat="server" OnCheckedChanged="cbxIsVisible_CheckedChanged" />
             </td>
         </tr>
         <tr>

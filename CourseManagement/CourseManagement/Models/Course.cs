@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CourseManagement.DAL;
 
 namespace CourseManagement.Models
 {
@@ -51,6 +52,17 @@ namespace CourseManagement.Models
         public string SemesterID { get; set; }
 
         public int CourseTimeID { get; set; }
+
+
+        public CourseTime CourseTime
+        {
+            get
+            {
+                CourseTimeDAL courseTimeGetter = new CourseTimeDAL();
+                CourseTime courseTime = courseTimeGetter.GetCourseTimeByCRN(this.CRN);
+                return courseTime;
+            }
+        }
         #endregion
 
         #region Constructors

@@ -7,10 +7,11 @@
         Background="DarkSlateGray"
         mc:Ignorable="d"
         WindowState="Maximized"
-        
+
         Title="MainWindow" Height="750" MinWidth="720" Width="1100">
     <Grid Width="auto">
 
-        <Frame NavigationUIVisibility="Hidden" x:Name="myFrame" Content="Frame" MinHeight="709" Margin="177.6,0,177.6,-0.2" VerticalAlignment="Stretch" MinWidth="540"/>
+        <Frame NavigationUIVisibility="Hidden" x:Name="myFrame" Content="Frame" MinHeight="709"
+               Margin="177.6,0,177.6,-0.2" VerticalAlignment="Stretch" MinWidth="540" />
     </Grid>
 </Window>

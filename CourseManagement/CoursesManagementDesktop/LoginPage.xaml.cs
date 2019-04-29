@@ -1,35 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-
-
 
 namespace CoursesManagementDesktop
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    ///     Interaction logic for LoginPage.xaml
     /// </summary>
     public partial class LoginPage : Page
     {
-        private LoginController controller;
+        #region Data members
+
+        private readonly LoginController controller;
+
+        #endregion
+
+        #region Constructors
+
         /// <summary>
-        /// the login page constructor
+        ///     the login page constructor
         /// </summary>
         public LoginPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.controller = new LoginController(this);
-
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        #endregion
+
+        #region Methods
+
+        private void LoginButton_OnClick(object sender, RoutedEventArgs e)
         {
-            controller.handleLogin();
+            this.controller.handleLogin();
         }
+
+        #endregion
 
         
     }

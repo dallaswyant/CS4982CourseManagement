@@ -1,38 +1,48 @@
 ﻿<Page x:Class="CoursesManagementDesktop.LoginPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:CoursesManagementDesktop"
       mc:Ignorable="d"
       VerticalAlignment="Stretch"
       HorizontalAlignment="Stretch"
       Title="LoginPage" MinHeight="561.386" MinWidth="1089.604">
 
-    <Grid  Background="#E5EAEE" Margin="0,0,0,0" VerticalAlignment="Stretch" MinWidth="540">
+    <Grid Background="#E5EAEE" Margin="0,0,0,0" VerticalAlignment="Stretch" MinWidth="540">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="317*"/>
-            <ColumnDefinition Width="550*"/>
-            <ColumnDefinition Width="223*"/>
+            <ColumnDefinition Width="317*" />
+            <ColumnDefinition Width="550*" />
+            <ColumnDefinition Width="223*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="85*"/>
-            <RowDefinition Height="196*"/>
+            <RowDefinition Height="85*" />
+            <RowDefinition Height="196*" />
         </Grid.RowDefinitions>
 
 
-        <Grid Background="Black" HorizontalAlignment="Stretch" Height="159" VerticalAlignment="Top" RenderTransformOrigin="0.509,0.037" Grid.ColumnSpan="3" Margin="0,0,-0.4,0">
+        <Grid Background="#FF898989" HorizontalAlignment="Stretch" Height="159" VerticalAlignment="Top"
+              RenderTransformOrigin="0.509,0.037" Grid.ColumnSpan="3" Margin="0,0,-0.4,0">
 
-            <TextBlock Foreground="#E5EAEE"  Text="CourseHub" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="50" Height="82" FontFamily="Rockwell Extra Bold" HorizontalAlignment="Center" Width="369" Margin="380,41,341,36" />
+            <TextBlock Foreground="DarkSlateGray" Text="CourseHub" TextWrapping="Wrap" VerticalAlignment="Center"
+                       FontSize="50" Height="82" FontFamily="Rockwell Extra Bold" HorizontalAlignment="Center"
+                       Width="369" Margin="380,41,341,36" />
         </Grid>
 
 
-        <TextBox x:Name="usernameBox" Margin="203,18.4,0,0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="194"/>
-        <PasswordBox x:Name="passwordBox" Margin="203,85.4,0,0" Grid.Row="1" Grid.Column="1" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="194"/>
-        <Label Content="Username" Margin="59,18.4,0,0" Grid.Column="1" Grid.Row="1" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="199"/>
-        <Label Content="Password" Margin="59,75.4,0,0" Grid.Row="1" Grid.Column="1" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128"/>
-        <Button Content="Login" Margin="203,142.4,0,0" Click ="Button_Click" Grid.Row="1" Grid.Column="1" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="194"/>
-        <TextBlock x:Name="errorText" Visibility="Collapsed" HorizontalAlignment="Left" Foreground="Red" Margin="225.2,121.4,0,0" Text="Invalid Username or Password" TextWrapping="Wrap"  VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" />
+        <TextBox x:Name="usernameBox" Margin="203,18.4,0,0" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1"
+                 Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="194" />
+        <PasswordBox x:Name="passwordBox" Margin="203,85.4,0,0" Grid.Row="1" Grid.Column="1" Height="19"
+                     VerticalAlignment="Top" HorizontalAlignment="Left" Width="194" />
+        <Label Content="Username" Margin="59,18.4,0,0" Grid.Column="1" Grid.Row="1" Height="26" VerticalAlignment="Top"
+               HorizontalAlignment="Left" Width="199" />
+        <Label Content="Password" Margin="59,75.4,0,0" Grid.Row="1" Grid.Column="1" Height="24" VerticalAlignment="Top"
+               HorizontalAlignment="Left" Width="128" />
+        <Button x:Name="loginButton" Content="Login" Margin="203,142.4,0,0" Click="LoginButton_OnClick" Grid.Row="1" Grid.Column="1" Height="20"
+                VerticalAlignment="Top" HorizontalAlignment="Left" Width="194" />
+        <TextBlock x:Name="errorText" Visibility="Collapsed" HorizontalAlignment="Left" Foreground="Red"
+                   Margin="225.2,121.4,0,0" Text="Invalid Username or Password" TextWrapping="Wrap"
+                   VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" />
 
 
     </Grid>
