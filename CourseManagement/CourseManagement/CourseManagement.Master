@@ -49,16 +49,16 @@
                             <td align="right" class="auto-style6">
                                 <asp:Label ID="lblUsernameTXT" runat="server" Text="Username:"></asp:Label>
                                 <asp:TextBox ID="tbxUsername" runat="server" TabIndex="1"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="tbxUsername" ErrorMessage="*" CssClass="error" ValidationGroup="master"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="tbxUsername" ErrorMessage="*" CssClass="error"></asp:RequiredFieldValidator>
                                 <br />
                                 <asp:Label ID="lblPasswordTXT" runat="server" Text="Password:"></asp:Label>
                                 <asp:TextBox ID="tbxPassword" runat="server" TextMode="Password" TabIndex="2"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="tbxPassword" CssClass="error" ValidationGroup="master">*</asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="tbxPassword" CssClass="error">*</asp:RequiredFieldValidator>
                                 <asp:Label ID="lblUsername" runat="server"></asp:Label>
                                 <br />
                             </td>
                             <td align="right">
-                                <asp:Button ID="btnLogin" runat="server" OnClick="login_OnClick" Text="Login" TabIndex="3" Height="32px" Width="70px" ValidationGroup="master" />
+                                <asp:Button ID="btnLogin" runat="server" OnClick="login_OnClick" Text="Login" TabIndex="3" Height="32px" Width="70px" />
                                 <asp:Button ID="btnLogout" runat="server" OnClick="logout_OnClick" Text="Logout" />
                             </td>
                         </tr>

@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
-  <siteMapNode title="Home" url="Views/Homepage.aspx"  Description="The home page">
-    <siteMapNode title="Manage Courses" url="Views/DepartmentAdmin/ManageCourses.aspx" description="This page allows the administrator to manage courses." />
-    <siteMapNode title="Create Students" url="Views/DepartmentAdmin/CreateStudents.aspx" description="This page allows the administrator to create students." />
-    <siteMapNode title="Create Teachers" url="Views/DepartmentAdmin/CreateTeachers.aspx" description="This page allows the administrator to create teachers." />
-    <siteMapNode title="Create Semesters" url="Views/DepartmentAdmin/CreateSemesters.aspx" description="This page allows the administrator to create semesters." />
-  </siteMapNode>
-</siteMap>

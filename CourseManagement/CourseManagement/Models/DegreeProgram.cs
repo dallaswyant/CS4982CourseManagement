@@ -25,7 +25,6 @@
         {
             this.Name = name;
             this.RequiredCourses = requiredCourses;
-            //remove duplicates
         }
 
         #endregion

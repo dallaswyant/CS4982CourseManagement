@@ -86,41 +86,35 @@ namespace CourseManagement.DAL
         }
 
 
-        public List<String> GetApplicableCoursesByDegreeProgram(string degreeProgramName)
+        public CourseCollection GetCoursesByDegreeProgram(string degreeProgramName)
         {
             if (degreeProgramName == null)
             {
-                return null;
+                throw new Exception("Degree name cannot be null");
             }
             MySqlConnection dbConnection = DbConnection.GetConnection();
-            List<String> coursesRequired = new List<String>();
+            CourseCollection coursesRequired = new CourseCollection();
             using (dbConnection)
             {
 
                 dbConnection.Open();
 
                 var selectQuery =
-                    "SELECT Distinct degree_requires_courses.*, courses.course_name " +
-                    "FROM degree_requires_courses, degree_programs, courses " +
-                    "WHERE degree_programs.degree_id = degree_requires_courses.degree_id " +
-                    "AND degree_programs.name = @degree_program_name " +
-                    "AND degree_requires_courses.course_name = courses.course_name " +
-                    "AND courses.dept_name = @degree_program_name";
+                    "SELECT * FROM degree_requires_courses, degree_programs, courses WHERE degree_programs.degree_id = degree_requires_courses.degree_id AND degree_programs.name = @degree_program_name AND degree_programs.name = courses.course_name";
 
                 using (MySqlCommand cmd = new MySqlCommand(selectQuery, dbConnection))
                 {
                     cmd.Parameters.AddWithValue("@degree_program_name", degreeProgramName);
                     using (MySqlDataReader queryResultReader = cmd.ExecuteReader())
                     {
-                        int courseOrdinal = queryResultReader.GetOrdinal("course_name");
+                        int CRNOrdinal = queryResultReader.GetOrdinal("CRN");
 
                         while (queryResultReader.Read())
                         {
-                            string degreeName = queryResultReader[courseOrdinal] == DBNull.Value
-                                ? default(string)
-                                : queryResultReader.GetString(courseOrdinal);
-
-                            coursesRequired.Add(degreeName);
+                            int crn = queryResultReader[CRNOrdinal] == DBNull.Value ? default(int) : queryResultReader.GetInt32(CRNOrdinal);
+                            CourseDAL courseDal = new CourseDAL();
+                            Course courseRequired = courseDal.GetCourseByCRN(crn);
+                            coursesRequired.Add(courseRequired);
                         }
 
                         return coursesRequired;
