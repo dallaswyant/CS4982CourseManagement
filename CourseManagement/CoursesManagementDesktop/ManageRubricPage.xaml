@@ -45,7 +45,7 @@
         <Button x:Name="insertButton" Content="Insert" Grid.Column="3" HorizontalAlignment="Left"
                 Margin="17,204.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="40" Click="InsertButton_Click" Height="19" />
         <TextBlock x:Name="warningText" Grid.Column="2" HorizontalAlignment="Left" Margin="3.8,101.4,0,0" Grid.Row="1"
-                   TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="16" Width="49" />
+                   TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="16" Width="350" Grid.ColumnSpan="3" />
         <Button x:Name="deleteButton" Content="Delete" Grid.Column="3" HorizontalAlignment="Left"
                 Margin="62,204.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="38" Click="DeleteButton_Click" Height="19" />
         <Button x:Name="viewGrades" Content="View Grades" Margin="0,0,117.2,9.6" Height="19" VerticalAlignment="Bottom"

@@ -122,14 +122,15 @@ namespace CoursesManagementDesktop.Controllers
 
         private void handleWhenGradeItemDoesNotExists()
         {
-           
+            var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.SelectedItem as string,
+                this.assignmentPage.semesterComboBox.SelectedItem as string);
             var assignmentName = this.assignmentPage.assignmentNameBox.Text;
             var possiblePoints = Convert.ToInt32(this.assignmentPage.pointsBox.Text);
             var gradeType = this.assignmentPage.assignmentTypeComboBox.Text;
             var isChecked = this.assignmentPage.visibilityCheckBox.IsChecked;
             var item = new GradeItem(assignmentName, null, 0, string.Empty, possiblePoints, gradeType, string.Empty, 0,
                 isChecked != null && isChecked.Value, null);
-            this.gradeItemDal.InsertNewGradedItemByCRNForAllStudents(item, this.CRN);
+            this.gradeItemDal.InsertNewGradedItemByCRNForAllStudents(item, crn);
         }
 
         /// <summary>
@@ -156,13 +157,15 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void HandleDeletion()
         {
+            var crn = CourseManagementTools.findCrn(this.assignmentPage.courseComboBox.SelectedItem as string,
+                this.assignmentPage.semesterComboBox.SelectedItem as string);
             var value = showConfirmDialog("Delete This Item?");
             if (value != null && value == true)
             {
                 
                 if (this.selectedGradeItem != null)
                 {
-                    this.gradeItemDal.deleteGradedItemByCRNForAllStudents(this.selectedGradeItem, this.CRN);
+                    this.gradeItemDal.deleteGradedItemByCRNForAllStudents(this.selectedGradeItem, crn);
                     this.assignmentPage.AssignmentCombo.Items.Remove(this.selectedGradeItem.Name);
                     this.assignmentPage.AssignmentCombo.SelectedIndex = 0;
                 }

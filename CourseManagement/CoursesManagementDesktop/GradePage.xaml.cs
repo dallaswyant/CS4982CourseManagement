@@ -22,6 +22,8 @@ namespace CoursesManagementDesktop
 
         public int CRN { get; }
 
+        public bool changesMade { get;  set; }
+
         #endregion
 
         #region Constructors
@@ -46,6 +48,7 @@ namespace CoursesManagementDesktop
             this.CRN = this.homePageController.currentCrn;
             this.gradePageController.PopulateStudentCombo();
             this.gradePageController.SetGradeInfo();
+            this.changesMade = false;
         }
 
         #endregion
@@ -69,11 +72,13 @@ namespace CoursesManagementDesktop
         private void StudentCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.updateGradeInfo();
+            this.changesMade = false;
         }
 
         private void AssignmentBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.gradePageController.SetGradeInfo();
+            this.changesMade = false;
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
@@ -88,5 +93,15 @@ namespace CoursesManagementDesktop
         }
 
         #endregion
+
+        private void earnedPointsBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.changesMade = true;
+        }
+
+        private void feedBackBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.changesMade = true;
+        }
     }
 }

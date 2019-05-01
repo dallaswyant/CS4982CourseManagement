@@ -30,9 +30,9 @@
         <ComboBox x:Name="assignmentBox" VerticalAlignment="Bottom" Margin="37.4,0,0,4.2" Grid.Column="2" Height="22"
                   HorizontalAlignment="Left" Width="120" SelectionChanged="AssignmentBox_SelectionChanged" Grid.Row="1" />
         <TextBox x:Name="earnedPointsBox" HorizontalAlignment="Left" Height="23" Margin="10,11.8,0,0"
-                 TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="40" Grid.Column="3" Grid.Row="2" />
+                 TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="40" Grid.Column="3" Grid.Row="2" TextChanged="earnedPointsBox_TextChanged" />
         <TextBox x:Name="feedBackBox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBox" Width="310"
-                 Margin="18,70.8,0,0" Grid.Column="1" Grid.Row="2" Height="143" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                 Margin="18,70.8,0,0" Grid.Column="1" Grid.Row="2" Height="143" VerticalAlignment="Top" Grid.ColumnSpan="2" TextChanged="feedBackBox_TextChanged" />
         <Button x:Name="nextButton" Content="Show next student" HorizontalAlignment="Left" Width="102"
                 Margin="55.4,215.8,0,0" Grid.Column="2" Grid.Row="2" Height="19" VerticalAlignment="Top"
                 Click="NextButton_Click" />

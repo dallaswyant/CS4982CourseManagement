@@ -120,10 +120,10 @@ namespace CourseManagement.DAL
             {
                 throw new Exception("Teacher name cannot be null");
             }
-            if (semesterID == null)
-            {
-                throw new Exception("Semester name cannot be null");
-            }
+            //if (semesterID == null)
+            //{
+            //    throw new Exception("Semester name cannot be null");
+            //}
             MySqlConnection dbConnection = DbConnection.GetConnection();
             List<Course> coursesTaught = new List<Course>();
             using (dbConnection)

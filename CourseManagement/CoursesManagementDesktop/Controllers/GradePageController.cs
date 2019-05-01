@@ -92,11 +92,19 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void GradeCurrentItem()
         {
+            this.gradeStudent();
+            
+            this.ShowNextStudent();
+        }
+
+        private void gradeStudent()
+        {
             var window = new confirmationWindow();
             window.ShowDialog();
             var currentGrade = this.assignments[this.gradePage.assignmentBox.SelectedIndex];
             var studentId = this.studentIds[this.gradePage.studentCombo.SelectedIndex];
-            var updatedGrade = new GradeItem {
+            var updatedGrade = new GradeItem
+            {
                 Feedback = this.gradePage.feedBackBox.Text,
                 Grade = int.Parse(this.gradePage.earnedPointsBox.Text),
                 GradeId = currentGrade.GradeId,
@@ -104,8 +112,8 @@ namespace CoursesManagementDesktop.Controllers
             };
             this.gradeItemDal.gradeGradedItemByCRNAndStudentUID(updatedGrade,
                 this.gradePage.homePageController.currentCrn, studentId);
+            
 
-            this.ShowNextStudent();
         }
 
         /// <summary>
@@ -113,6 +121,12 @@ namespace CoursesManagementDesktop.Controllers
         /// </summary>
         public void ShowNextStudent()
         {
+            if (this.gradePage.changesMade)
+            {
+                
+               this.gradeStudent();
+
+            }
             if (this.gradePage.studentCombo.SelectedIndex + 1 == this.gradePage.studentCombo.Items.Count)
             {
                 this.gradePage.studentCombo.SelectedIndex = 0;
