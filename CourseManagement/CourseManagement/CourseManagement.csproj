@@ -105,7 +105,6 @@
     <Content Include="Views\Student\StudentViewAllGrades.aspx" />
     <Content Include="Views\Student\StudentViewGradeItem.aspx" />
     <Content Include="Views\Teacher\TeacherGradeGradeItemPage.aspx" />
-    <Content Include="Views\Teacher\TeacherSummaryView.aspx" />
     <Content Include="Views\Teacher\TeacherViewAllGrades.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -203,13 +202,6 @@
     </Compile>
     <Compile Include="Views\Teacher\TeacherGradeGradeItemPage.aspx.designer.cs">
       <DependentUpon>TeacherGradeGradeItemPage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Teacher\TeacherSummaryView.aspx.cs">
-      <DependentUpon>TeacherSummaryView.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Teacher\TeacherSummaryView.aspx.designer.cs">
-      <DependentUpon>TeacherSummaryView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Teacher\TeacherViewAllGrades.aspx.cs">
       <DependentUpon>TeacherViewAllGrades.aspx</DependentUpon>

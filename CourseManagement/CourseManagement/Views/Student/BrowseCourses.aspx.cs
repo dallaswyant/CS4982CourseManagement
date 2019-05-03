@@ -24,15 +24,6 @@ namespace CourseManagement.Views.Student
                 }
                 this.DataBind();
             }
-
-            if (HttpContext.Current.Session["currentSemester"] != null &&
-                HttpContext.Current.Session["currentDepartment"] != null && 
-                HttpContext.Current.Session["justAdded"] != null)
-            {
-                this.ddlSemester.SelectedIndex = (int) HttpContext.Current.Session["currentSemester"];
-                this.ddlDepartments.SelectedIndex = (int) HttpContext.Current.Session["currentDepartment"];
-                HttpContext.Current.Session["justAdded"] = null;
-            }
         }
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e) { 
@@ -59,9 +50,6 @@ namespace CourseManagement.Views.Student
                                 this.ddlSemester.SelectedValue))
                             {
                                 courseAdder.addCourseByCRNAndStudentUID(crn, current.UserId);
-                                HttpContext.Current.Session["currentSemester"] = this.ddlSemester.SelectedIndex;
-                                HttpContext.Current.Session["currentDepartment"] = this.ddlDepartments.SelectedIndex;
-                                HttpContext.Current.Session["justAdded"] = true;
                                 Response.Redirect("BrowseCourses.aspx", false);
                             }
                             else
